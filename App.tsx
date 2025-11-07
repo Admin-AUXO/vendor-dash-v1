@@ -14,13 +14,62 @@ import {
   ChevronDown
 } from 'lucide-react';
 
-// Lazy load components for code splitting
-const Overview = lazy(() => import('./components/Overview').then(module => ({ default: module.Overview })));
-const WorkOrders = lazy(() => import('./components/WorkOrders').then(module => ({ default: module.WorkOrders })));
-const Invoice = lazy(() => import('./components/Invoice').then(module => ({ default: module.Invoice })));
-const Payments = lazy(() => import('./components/Payments').then(module => ({ default: module.Payments })));
-const Marketplace = lazy(() => import('./components/Marketplace').then(module => ({ default: module.Marketplace })));
-const HelpDesk = lazy(() => import('./components/HelpDesk').then(module => ({ default: module.HelpDesk })));
+// TODO: Create new screen components following guidelines in docs/
+// Screens will be created in components/ following the new architecture
+const Overview = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Overview</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
+const WorkOrders = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Work Orders</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
+const Invoice = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Invoice</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
+const Payments = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Payments</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
+const Marketplace = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Marketplace</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
+const HelpDesk = lazy(() => Promise.resolve({ 
+  default: () => (
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-gray-900">Help Desk</h1>
+      <p className="text-gray-600">Screen component will be created following the new guidelines.</p>
+      <p className="text-sm text-gray-500">See docs/COMPONENT_GUIDELINES.md and docs/SCREEN_LAYOUTS.md</p>
+    </div>
+  )
+}));
 
 type MenuItem = {
   id: string;
