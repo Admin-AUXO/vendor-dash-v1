@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', sans-serif;
+  --font-size-base: 16px;
+  
+  /* Colors */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f7;
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --ring: #b0b0b0;
+  --radius: 0.625rem;
+  
+  /* Yellow color palette based on #f7d604 */
+  --yellow-50: #fefbe8;
+  --yellow-100: #fef7c3;
+  --yellow-200: #fef08a;
+  --yellow-400: #f7d604;
+  --yellow-500: #d4bb03;
+  --yellow-600: #b39902;
+  --yellow-700: #8a7602;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: var(--font-size-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.011em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #1a1a1a;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  button {
+    font-family: var(--font-family);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  small, .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .text-xs {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+/* Utility classes for yellow colors */
+@layer utilities {
+  .bg-yellow-primary {
+    background-color: var(--yellow-400);
+  }
+  
+  .bg-yellow-primary-hover:hover {
+    background-color: var(--yellow-500);
+  }
+  
+  .bg-yellow-light {
+    background-color: var(--yellow-50);
+  }
+  
+  .bg-yellow-lighter {
+    background-color: var(--yellow-100);
+  }
+  
+  .text-yellow-primary {
+    color: var(--yellow-600);
+  }
+  
+  .border-yellow-primary {
+    border-color: var(--yellow-400);
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .font-display {
+    font-family: var(--font-family);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
