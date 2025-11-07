@@ -66,9 +66,9 @@ export function Overview() {
   ];
 
   const urgentWorkOrders = [
-    { id: 'WO-2341', property: 'Sunset Apartments #201', issue: 'Plumbing Emergency', priority: 'Urgent', time: '2 hours ago', category: 'Plumbing' },
-    { id: 'WO-2338', property: 'Oak Street Complex #15', issue: 'HVAC Not Working', priority: 'High', time: '4 hours ago', category: 'HVAC' },
-    { id: 'WO-2335', property: 'Riverside Tower #802', issue: 'Electrical Outlet Repair', priority: 'Medium', time: '6 hours ago', category: 'Electrical' }
+    { id: 'WO-2341', property: 'Sunset Apartments #201', issue: 'Plumbing Emergency', priority: 'Urgent', time: '2 hours ago', category: 'Plumbing', estimatedCost: '$850', client: 'Green Property', contact: 'John Doe', phone: '(555) 123-4567' },
+    { id: 'WO-2338', property: 'Oak Street Complex #15', issue: 'HVAC Not Working', priority: 'High', time: '4 hours ago', category: 'HVAC', estimatedCost: '$1,250', client: 'Metro Realty', contact: 'Jane Smith', phone: '(555) 234-5678' },
+    { id: 'WO-2335', property: 'Riverside Tower #802', issue: 'Electrical Outlet Repair', priority: 'Medium', time: '6 hours ago', category: 'Electrical', estimatedCost: '$680', client: 'Summit Rentals', contact: 'Mike Johnson', phone: '(555) 345-6789' }
   ];
 
   const upcomingJobs = [
@@ -86,31 +86,31 @@ export function Overview() {
   ];
 
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
+    <div className="p-4 bg-gray-50 min-h-full">
       {/* Welcome Message */}
-      <div className="mb-8">
-        <p className="text-gray-600 mb-2">Welcome back! Here's what's happening with your service operations today.</p>
+      <div className="mb-6">
+        <p className="text-gray-600 text-sm">Welcome back! Here's what's happening with your service operations today.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} trend={stat.trend as 'up' | 'down' | 'neutral'} />
         ))}
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         {/* Weekly Revenue */}
         <Card className="lg:col-span-2 border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
+          <CardHeader className="pb-3 border-b border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-gray-900 text-lg font-bold mb-1">Weekly Revenue</CardTitle>
-                <p className="text-gray-500 text-sm">This week's performance</p>
+                <CardTitle className="text-gray-900 text-base font-semibold mb-1 leading-tight">Weekly Revenue</CardTitle>
+                <p className="text-gray-500 text-xs leading-normal">This week's performance</p>
               </div>
               <Badge 
                 variant="outline" 
-                className="px-3 py-1"
+                className="px-2 py-0.5 text-xs"
                 style={{ 
                   backgroundColor: 'var(--yellow-50)',
                   color: 'var(--yellow-700)',
@@ -122,8 +122,8 @@ export function Overview() {
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <ResponsiveContainer width="100%" height={240}>
+          <CardContent className="pt-4">
+            <ResponsiveContainer width="100%" height={200}>
               <BarChart data={weeklyRevenue}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="day" tick={{ fill: '#6B7280', fontSize: 12 }} />
@@ -140,14 +140,14 @@ export function Overview() {
 
         {/* Service Distribution */}
         <Card className="border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
+          <CardHeader className="pb-3 border-b border-gray-100">
             <div>
-              <CardTitle className="text-gray-900 text-lg font-bold mb-1">Service Distribution</CardTitle>
-              <p className="text-gray-500 text-sm">By category</p>
+              <CardTitle className="text-gray-900 text-base font-semibold mb-1 leading-tight">Service Distribution</CardTitle>
+              <p className="text-gray-500 text-xs leading-normal">By category</p>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <ResponsiveContainer width="100%" height={240}>
+          <CardContent className="pt-4">
+            <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
                   data={serviceDistribution}
@@ -168,12 +168,12 @@ export function Overview() {
                 />
               </PieChart>
             </ResponsiveContainer>
-            <div className="grid grid-cols-2 gap-3 mt-6">
+            <div className="grid grid-cols-2 gap-2 mt-4">
               {serviceDistribution.map((item, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-4 h-4 rounded-full shadow-sm" style={{ backgroundColor: item.color }}></div>
+                <div key={index} className="flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }}></div>
                   <div className="flex-1">
-                    <p className="text-gray-900 font-medium text-sm">{item.name}</p>
+                    <p className="text-gray-900 font-medium text-xs">{item.name}</p>
                     <p className="text-gray-500 text-xs">{item.value}%</p>
                   </div>
                 </div>
@@ -185,17 +185,17 @@ export function Overview() {
 
       {/* Urgent Work Orders Alert */}
       <Card 
-        className="shadow-md mb-8 bg-white"
+        className="shadow-md mb-6 bg-white"
         style={{ borderLeft: '4px solid var(--yellow-400)' }}
       >
         <CardHeader 
-          className="pb-4 border-b"
+          className="pb-3 border-b"
           style={{ 
             background: 'linear-gradient(to right, var(--yellow-50), rgba(254, 247, 195, 0.5))',
             borderBottomColor: 'var(--yellow-200)'
           }}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <div 
               className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
               style={{ backgroundColor: 'var(--yellow-400)' }}
@@ -203,17 +203,17 @@ export function Overview() {
               <AlertCircle className="w-5 h-5 text-black" />
             </div>
             <div>
-              <CardTitle className="text-gray-900 font-bold">Urgent Work Orders</CardTitle>
-              <p className="text-gray-600 text-sm">Immediate attention required</p>
+              <CardTitle className="text-gray-900 font-semibold text-base leading-tight">Urgent Work Orders</CardTitle>
+              <p className="text-gray-600 text-xs">Immediate attention required</p>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="pt-6">
-          <div className="space-y-4">
+        <CardContent className="pt-4">
+          <div className="space-y-3">
             {urgentWorkOrders.map((order) => (
               <div 
                 key={order.id} 
-                className="flex items-center justify-between p-5 bg-white border-2 border-gray-100 rounded-xl hover:shadow-lg transition-all"
+                className="flex items-center justify-between p-3.5 bg-white border-2 border-gray-100 rounded-xl hover:shadow-lg transition-all"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--yellow-200)';
                 }}
@@ -221,40 +221,44 @@ export function Overview() {
                   e.currentTarget.style.borderColor = '';
                 }}
               >
-                <div className="flex items-center gap-4 flex-1">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
                   <div 
-                    className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm"
+                    className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0 mt-0.5"
                     style={{ backgroundColor: 'var(--yellow-50)' }}
                   >
                     <Wrench 
-                      className="w-7 h-7" 
+                      className="w-5 h-5" 
                       style={{ color: 'var(--yellow-600)' }} 
                     />
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-gray-900 font-semibold">{order.id}</span>
-                      <Badge variant={order.priority === 'Urgent' ? 'destructive' : 'default'} className="text-xs font-medium">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                      <span className="text-gray-900 font-semibold text-sm leading-tight">{order.id}</span>
+                      <Badge variant={order.priority === 'Urgent' ? 'destructive' : 'default'} className="text-xs font-medium px-1.5 py-0.5 leading-none">
                         {order.priority}
                       </Badge>
-                      <Badge variant="outline" className="text-xs">{order.category}</Badge>
+                      <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{order.category}</Badge>
                     </div>
-                    <p className="text-gray-900 font-medium mb-2">{order.issue}</p>
-                    <div className="flex items-center gap-3 text-gray-500 text-sm">
+                    <p className="text-gray-900 font-medium mb-1.5 text-sm leading-relaxed">{order.issue}</p>
+                    <div className="flex items-center gap-2 text-gray-600 text-xs flex-wrap leading-relaxed">
                       <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
+                        <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                         <span>{order.property}</span>
                       </div>
-                      <span>•</span>
+                      <span className="text-gray-400">•</span>
                       <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="w-3.5 h-3.5 flex-shrink-0" />
                         <span>{order.time}</span>
                       </div>
+                      <span className="text-gray-400">•</span>
+                      <span className="font-medium text-gray-700">{order.estimatedCost}</span>
+                      <span className="text-gray-400">•</span>
+                      <span>{order.client}</span>
                     </div>
                   </div>
                 </div>
                 <button 
-                  className="px-6 py-3 text-black rounded-xl transition-colors font-medium shadow-sm hover:shadow-md"
+                  className="px-4 py-2 text-black rounded-lg transition-colors font-medium text-sm shadow-sm hover:shadow-md flex-shrink-0 self-start mt-0.5"
                   style={{ backgroundColor: 'var(--yellow-400)' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
@@ -272,17 +276,17 @@ export function Overview() {
       </Card>
 
       {/* Work Order Trends & Top Clients */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         {/* Work Order Trends */}
         <Card className="border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
+          <CardHeader className="pb-3 border-b border-gray-100">
             <div>
-              <CardTitle className="text-gray-900 text-lg font-bold mb-1">Work Order Trends</CardTitle>
-              <p className="text-gray-500 text-sm">6 months overview</p>
+              <CardTitle className="text-gray-900 text-base font-semibold mb-1 leading-tight">Work Order Trends</CardTitle>
+              <p className="text-gray-500 text-xs leading-normal">6 months overview</p>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <ResponsiveContainer width="100%" height={280}>
+          <CardContent className="pt-4">
+            <ResponsiveContainer width="100%" height={220}>
               <LineChart data={workOrderTrend}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="month" tick={{ fill: '#6B7280', fontSize: 12 }} />
@@ -300,44 +304,44 @@ export function Overview() {
 
         {/* Top Clients Performance */}
         <Card className="border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
+          <CardHeader className="pb-3 border-b border-gray-100">
             <div>
-              <CardTitle className="text-gray-900 text-lg font-bold mb-1">Top Clients Performance</CardTitle>
-              <p className="text-gray-500 text-sm">Completion rates</p>
+              <CardTitle className="text-gray-900 text-base font-semibold mb-1 leading-tight">Top Clients Performance</CardTitle>
+              <p className="text-gray-500 text-xs leading-normal">Completion rates</p>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <div className="space-y-5">
+          <CardContent className="pt-4">
+            <div className="space-y-3">
               {topClients.map((client, index) => (
-                <div key={index} className="space-y-3 p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                <div key={index} className="space-y-2.5 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
                       <div 
-                        className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0"
                         style={{ backgroundColor: 'var(--yellow-100)' }}
                       >
                         <span 
-                          className="font-bold"
+                          className="font-semibold text-sm leading-none"
                           style={{ color: 'var(--yellow-700)' }}
                         >
                           #{index + 1}
                         </span>
                       </div>
-                      <div>
-                        <p className="text-gray-900 font-semibold">{client.name}</p>
-                        <p className="text-gray-500 text-sm">{client.orders} work orders</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-gray-900 font-semibold text-sm truncate leading-tight mb-0.5">{client.name}</p>
+                        <p className="text-gray-500 text-xs leading-normal">{client.orders} work orders</p>
                       </div>
                     </div>
                     <span 
-                      className="font-bold text-lg"
+                      className="font-semibold text-base flex-shrink-0 leading-tight"
                       style={{ color: 'var(--yellow-600)' }}
                     >
                       {client.completion}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                  <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
                     <div 
-                      className="h-3 rounded-full transition-all shadow-sm"
+                      className="h-2 rounded-full transition-all shadow-sm"
                       style={{ 
                         width: `${client.completion}%`,
                         background: 'linear-gradient(to right, var(--yellow-400), var(--yellow-500))'
@@ -352,12 +356,12 @@ export function Overview() {
       </div>
 
       {/* Upcoming Jobs & Calendar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Upcoming Scheduled Jobs */}
         <Card className="lg:col-span-2 border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
+          <CardHeader className="pb-3 border-b border-gray-100">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <div 
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: 'var(--yellow-50)' }}
@@ -368,12 +372,12 @@ export function Overview() {
                   />
                 </div>
                 <div>
-                  <CardTitle className="text-gray-900 text-lg font-bold">Upcoming Scheduled Jobs</CardTitle>
-                  <p className="text-gray-500 text-sm">Next appointments</p>
+                  <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Upcoming Scheduled Jobs</CardTitle>
+                  <p className="text-gray-500 text-xs leading-normal mt-0.5">Next appointments</p>
                 </div>
               </div>
               <button 
-                className="font-medium text-sm transition-colors"
+                className="font-medium text-xs transition-colors"
                 style={{ color: 'var(--yellow-600)' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = 'var(--yellow-700)';
@@ -386,31 +390,29 @@ export function Overview() {
               </button>
             </div>
           </CardHeader>
-          <CardContent className="pt-6">
-            <div className="space-y-4">
+          <CardContent className="pt-4">
+            <div className="space-y-2.5">
               {upcomingJobs.map((job, index) => (
-                <div key={index} className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all border border-gray-100">
+                <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl hover:shadow-md transition-all border border-gray-100">
                   <div 
-                    className="flex flex-col items-center justify-center bg-white rounded-xl p-4 min-w-[80px] border-2 shadow-sm"
+                    className="flex flex-col items-center justify-center bg-white rounded-xl p-2.5 min-w-[70px] border-2 shadow-sm flex-shrink-0"
                     style={{ borderColor: 'var(--yellow-200)' }}
                   >
-                    <span className="text-gray-900 font-bold text-sm">{job.date}</span>
+                    <span className="text-gray-900 font-semibold text-xs leading-tight">{job.date}</span>
                     <span 
-                      className="font-semibold"
+                      className="font-semibold text-xs"
                       style={{ color: 'var(--yellow-600)' }}
                     >
                       {job.time}
                     </span>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-gray-900 font-semibold mb-2">{job.service}</p>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                      <MapPin className="w-4 h-4" />
-                      <span>{job.property}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-gray-900 font-semibold mb-1 text-sm">{job.service}</p>
+                    <div className="flex items-center gap-2 text-gray-500 text-xs">
+                      <MapPin className="w-3 h-3 flex-shrink-0" />
+                      <span className="truncate">{job.property}</span>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-gray-600 font-medium">{job.client}</p>
+                    <p className="text-gray-600 font-medium text-xs mt-0.5">{job.client}</p>
                   </div>
                 </div>
               ))}
@@ -420,13 +422,13 @@ export function Overview() {
 
         {/* Quick Actions */}
         <Card className="border-0 shadow-md hover:shadow-lg transition-shadow bg-white">
-          <CardHeader className="pb-4 border-b border-gray-100">
-            <CardTitle className="text-gray-900 text-lg font-bold">Quick Actions</CardTitle>
+          <CardHeader className="pb-3 border-b border-gray-100">
+            <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Quick Actions</CardTitle>
           </CardHeader>
-          <CardContent className="pt-6">
-            <div className="space-y-3">
+          <CardContent className="pt-4">
+            <div className="space-y-2">
               <button 
-                className="w-full px-4 py-3.5 text-black rounded-xl transition-all flex items-center gap-3 font-medium shadow-sm hover:shadow-md"
+                className="w-full px-3 py-2.5 text-black rounded-xl transition-all flex items-center gap-2 font-medium text-sm shadow-sm hover:shadow-md"
                 style={{ backgroundColor: 'var(--yellow-400)' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
@@ -435,19 +437,19 @@ export function Overview() {
                   e.currentTarget.style.backgroundColor = 'var(--yellow-400)';
                 }}
               >
-                <ClipboardList className="w-5 h-5" />
+                <ClipboardList className="w-4 h-4" />
                 <span>View All Work Orders</span>
               </button>
-              <button className="w-full px-4 py-3.5 bg-black text-white rounded-xl hover:bg-gray-900 transition-all flex items-center gap-3 font-medium shadow-sm hover:shadow-md">
-                <FileText className="w-5 h-5" />
+              <button className="w-full px-3 py-2.5 bg-black text-white rounded-xl hover:bg-gray-900 transition-all flex items-center gap-2 font-medium text-sm shadow-sm hover:shadow-md">
+                <FileText className="w-4 h-4" />
                 <span>Create Invoice</span>
               </button>
-              <button className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 text-gray-900 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-3 font-medium">
-                <CheckCircle2 className="w-5 h-5" />
+              <button className="w-full px-3 py-2.5 bg-white border-2 border-gray-200 text-gray-900 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-2 font-medium text-sm">
+                <CheckCircle2 className="w-4 h-4" />
                 <span>Complete Job</span>
               </button>
-              <button className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 text-gray-900 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-3 font-medium">
-                <Briefcase className="w-5 h-5" />
+              <button className="w-full px-3 py-2.5 bg-white border-2 border-gray-200 text-gray-900 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center gap-2 font-medium text-sm">
+                <Briefcase className="w-4 h-4" />
                 <span>Browse Jobs</span>
               </button>
             </div>

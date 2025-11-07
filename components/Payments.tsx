@@ -140,7 +140,7 @@ export function Payments() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 bg-gray-50 min-h-screen">
       <PageHeader 
         description="Track your earnings and payment history."
         actions={
@@ -151,40 +151,40 @@ export function Payments() {
         }
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
       </div>
 
       {/* Remittance Section */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-3">
             <SectionTitle title="Remittance" icon={FileText} />
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {remittances.map((remittance) => (
-                <div key={remittance.id} className="p-4 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <div key={remittance.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <FileText className="w-5 h-5 text-blue-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900">{remittance.id}</h3>
-                          <Badge className="text-xs bg-gray-100 text-gray-700">{remittance.invoice}</Badge>
+                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{remittance.id}</h3>
+                          <Badge className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 leading-none">{remittance.invoice}</Badge>
                           <span 
-                            className={`px-2 py-1 rounded-lg text-xs ${getStatusColor(remittance.status)}`}
+                            className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getStatusColor(remittance.status)}`}
                             style={getStatusStyle(remittance.status)}
                           >
                             {remittance.status}
                           </span>
                         </div>
-                        <p className="text-gray-900 font-medium mb-1.5">{remittance.client}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
+                        <p className="text-gray-900 font-medium mb-1.5 text-sm leading-relaxed">{remittance.client}</p>
+                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
                           <span>Method: {remittance.method}</span>
                           <span>•</span>
                           <span>Submitted: {remittance.submitted}</span>
@@ -203,19 +203,19 @@ export function Payments() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
+                    <div className="flex items-center gap-2.5 flex-shrink-0 self-start mt-0.5">
                       <div className="text-right">
-                        <h3 className="text-lg font-bold text-gray-900">${remittance.amount.toFixed(2)}</h3>
+                        <h3 className="text-base font-semibold text-gray-900 leading-tight">${remittance.amount.toFixed(2)}</h3>
                         {remittance.status === 'Pending' && (
-                          <p className="text-xs" style={{ color: 'var(--yellow-600)' }}>Awaiting processing</p>
+                          <p className="text-xs leading-normal mt-0.5" style={{ color: 'var(--yellow-600)' }}>Awaiting processing</p>
                         )}
                       </div>
-                      <div className="flex gap-2">
-                        <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors" title="View">
+                      <div className="flex gap-1.5">
+                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="View">
                           <FileText className="w-4 h-4 text-gray-600" />
                         </button>
                         {remittance.reference && (
-                          <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
+                          <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
                             <Download className="w-4 h-4 text-gray-600" />
                           </button>
                         )}
@@ -230,15 +230,15 @@ export function Payments() {
       </div>
 
       {/* Charts - Moved to Bottom, All in Same Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Revenue Trend */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-bold text-gray-900">Revenue Trend</CardTitle>
+              <CardTitle className="text-base font-semibold text-gray-900 leading-tight">Revenue Trend</CardTitle>
               <Badge 
                 variant="outline" 
-                className="border-0"
+                className="border-0 text-xs px-2 py-0.5"
                 style={{ 
                   backgroundColor: 'var(--yellow-50)',
                   color: 'var(--yellow-700)'
@@ -250,7 +250,7 @@ export function Payments() {
             </div>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={200}>
               <LineChart data={monthlyRevenue}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="month" tick={{ fill: '#9CA3AF', fontSize: 12 }} />
@@ -268,11 +268,11 @@ export function Payments() {
 
         {/* Weekly Payments */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-bold text-gray-900">Weekly Payments</CardTitle>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base font-semibold text-gray-900 leading-tight">Weekly Payments</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={200}>
               <BarChart data={weeklyPayments}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 12 }} />
@@ -289,11 +289,11 @@ export function Payments() {
 
         {/* Payment Methods */}
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg font-bold text-gray-900">Payment Methods</CardTitle>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base font-semibold text-gray-900 leading-tight">Payment Methods</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={150}>
               <PieChart>
                 <Pie
                   data={paymentMethods}
@@ -311,15 +311,15 @@ export function Payments() {
                 <Tooltip formatter={(value) => [`${value}%`, '']} />
               </PieChart>
             </ResponsiveContainer>
-            <div className="space-y-2 mt-4">
+            <div className="space-y-1.5 mt-3">
               {paymentMethods.map((method, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: method.color }}></div>
-                    <span className="text-gray-600 text-sm">{method.method}</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: method.color }}></div>
+                    <span className="text-gray-600 text-xs">{method.method}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-900 text-sm font-medium">{method.count}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-gray-900 text-xs font-medium">{method.count}</span>
                     <span className="text-gray-500 text-xs">({method.percentage}%)</span>
                   </div>
                 </div>

@@ -143,7 +143,7 @@ export function HelpDesk() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 bg-gray-50 min-h-screen">
       <PageHeader 
         description="Get support and manage customer communications."
         actions={
@@ -151,20 +151,20 @@ export function HelpDesk() {
         }
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
       </div>
 
       {/* Ticket Activity & Quick Contact */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
         <Card className="lg:col-span-2 border-0 shadow-sm">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-gray-900">Weekly Ticket Activity</CardTitle>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Weekly Ticket Activity</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
+            <ResponsiveContainer width="100%" height={200}>
               <BarChart data={weeklyTickets}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="day" tick={{ fill: '#9CA3AF', fontSize: 12 }} />
@@ -189,47 +189,47 @@ export function HelpDesk() {
           </CardContent>
         </Card>
 
-        <div className="space-y-5">
+        <div className="space-y-4">
           <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-gray-900">Quick Contact</CardTitle>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Quick Contact</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
+            <CardContent className="space-y-2.5">
+              <div className="flex items-start gap-2.5 p-3 bg-yellow-50 rounded-xl">
+                <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Phone className="w-5 h-5 text-yellow-600" />
                 </div>
-                <div className="flex-1">
-                  <p className="text-gray-900">Phone Support</p>
-                  <p className="text-gray-600">(800) 123-4567</p>
-                  <p className="text-gray-500">Mon-Fri, 8AM-6PM</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-gray-900 text-sm font-medium leading-tight">Phone Support</p>
+                  <p className="text-gray-600 text-xs leading-normal mt-0.5">(800) 123-4567</p>
+                  <p className="text-gray-500 text-xs leading-normal mt-0.5">Mon-Fri, 8AM-6PM</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+              <div className="flex items-start gap-2.5 p-3 bg-gray-50 rounded-xl">
+                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Mail className="w-5 h-5 text-gray-600" />
                 </div>
-                <div className="flex-1">
-                  <p className="text-gray-900">Email Support</p>
-                  <p className="text-gray-600">support@vendor.com</p>
-                  <p className="text-gray-500">24 hrs response</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-gray-900 text-sm font-medium leading-tight">Email Support</p>
+                  <p className="text-gray-600 text-xs leading-normal mt-0.5">support@vendor.com</p>
+                  <p className="text-gray-500 text-xs leading-normal mt-0.5">24 hrs response</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-0 shadow-sm">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-gray-900">System Status</CardTitle>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-gray-900 text-base font-semibold leading-tight">System Status</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {['Platform', 'Payments', 'API'].map((service) => (
-                  <div key={service} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-                    <span className="text-gray-700">{service}</span>
-                    <div className="flex items-center gap-2">
+                  <div key={service} className="flex items-center justify-between p-2.5 bg-yellow-50 rounded-lg">
+                    <span className="text-gray-700 text-sm">{service}</span>
+                    <div className="flex items-center gap-1.5">
                       <div className="w-2 h-2 bg-yellow-600 rounded-full"></div>
-                      <span className="text-yellow-700">Operational</span>
+                      <span className="text-yellow-700 text-xs">Operational</span>
                     </div>
                   </div>
                 ))}
@@ -241,12 +241,12 @@ export function HelpDesk() {
 
       {/* Submit Ticket Form */}
       <Card className="border-0 shadow-sm mb-6">
-        <CardHeader className="pb-4">
-          <CardTitle className="text-gray-900">Submit New Support Ticket</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Submit New Support Ticket</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2 space-y-3">
               <div>
                 <label className="text-gray-700 mb-2 block">Subject</label>
                 <Input placeholder="Brief description of your issue" className="border-gray-300" />
@@ -312,9 +312,9 @@ export function HelpDesk() {
 
       {/* Support Tickets */}
       <Card className="border-0 shadow-sm mb-6">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-gray-900">My Support Tickets</CardTitle>
+            <CardTitle className="text-gray-900 text-base font-semibold leading-tight">My Support Tickets</CardTitle>
             <select className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 text-sm">
               <option>All Tickets</option>
               <option>Open</option>
@@ -324,35 +324,35 @@ export function HelpDesk() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {tickets.map((ticket) => (
-              <div key={ticket.id} className="p-5 border border-gray-100 rounded-xl hover:shadow-md transition-all">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-gray-900">{ticket.id}</h3>
-                      <span className={`px-3 py-1 rounded-lg text-xs ${getPriorityColor(ticket.priority)}`}>
+              <div key={ticket.id} className="p-3.5 border border-gray-100 rounded-xl hover:shadow-md transition-all">
+                <div className="flex items-start justify-between mb-2.5 gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                      <h3 className="text-gray-900 text-sm font-semibold leading-tight">{ticket.id}</h3>
+                      <span className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getPriorityColor(ticket.priority)}`}>
                         {ticket.priority}
                       </span>
-                      <span className={`px-3 py-1 rounded-lg text-xs ${getStatusColor(ticket.status)}`}>
+                      <span className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getStatusColor(ticket.status)}`}>
                         {ticket.status}
                       </span>
-                      <Badge variant="outline" className="text-xs">{ticket.category}</Badge>
+                      <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{ticket.category}</Badge>
                     </div>
-                    <p className="text-gray-900 mb-2">{ticket.subject}</p>
-                    <p className="text-gray-600">Client: {ticket.client}</p>
+                    <p className="text-gray-900 mb-1 text-sm font-medium leading-relaxed">{ticket.subject}</p>
+                    <p className="text-gray-600 text-xs leading-normal">Client: {ticket.client}</p>
                   </div>
-                  <button className="px-5 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors">
+                  <button className="px-3 py-1.5 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition-colors text-xs font-medium flex-shrink-0 self-start mt-0.5 leading-none">
                     View Ticket
                   </button>
                 </div>
-                <div className="flex items-center gap-6 text-gray-500 pt-3 border-t border-gray-100">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
+                <div className="flex items-center gap-4 text-gray-500 pt-2.5 border-t border-gray-100 text-xs leading-relaxed">
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>Created: {ticket.created}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="w-4 h-4" />
+                  <div className="flex items-center gap-1.5">
+                    <MessageSquare className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>{ticket.messages} messages</span>
                   </div>
                 </div>
@@ -364,26 +364,26 @@ export function HelpDesk() {
 
       {/* Knowledge Base */}
       <Card className="border-0 shadow-sm">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-yellow-500" />
-            <CardTitle className="text-gray-900">Knowledge Base</CardTitle>
+            <BookOpen className="w-4 h-4 text-yellow-500" />
+            <CardTitle className="text-gray-900 text-base font-semibold leading-tight">Knowledge Base</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {knowledgeBase.map((section, index) => (
-              <div key={index} className="p-5 bg-gray-50 rounded-xl">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center">
+              <div key={index} className="p-3.5 bg-gray-50 rounded-xl">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
                     {section.icon}
                   </div>
-                  <h3 className="text-gray-900">{section.category}</h3>
+                  <h3 className="text-gray-900 text-sm font-semibold leading-tight">{section.category}</h3>
                 </div>
-                <ul className="space-y-2">
+                <ul className="space-y-1.5">
                   {section.articles.map((article, idx) => (
                     <li key={idx}>
-                      <button className="text-gray-600 hover:text-yellow-600 transition-colors text-left">
+                      <button className="text-gray-600 hover:text-yellow-600 transition-colors text-left text-xs leading-relaxed">
                         • {article}
                       </button>
                     </li>

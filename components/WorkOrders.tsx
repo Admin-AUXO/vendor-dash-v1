@@ -261,7 +261,7 @@ export function WorkOrders() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 bg-gray-50 min-h-screen">
       {/* Header */}
       <PageHeader 
         description="Manage and track all property maintenance work orders."
@@ -274,16 +274,16 @@ export function WorkOrders() {
       />
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
       </div>
 
       {/* Inbox Section - Sliding Tabs */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-3">
             <SectionTitle title="Inbox" icon={Inbox} />
           </CardHeader>
           <CardContent>
@@ -301,73 +301,76 @@ export function WorkOrders() {
             />
 
             {/* Single Column List */}
-            <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
+            <div className="space-y-2.5 max-h-[600px] overflow-y-auto pr-2">
               {currentOrders.map((order) => (
-                <div key={order.id} className="p-4 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
+                <div key={order.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Wrench className="w-5 h-5 text-purple-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900">{order.id}</h3>
+                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
                           <Badge 
-                            className={`text-xs border ${getPriorityColor(order.priority)}`}
+                            className={`text-xs border px-1.5 py-0.5 leading-none ${getPriorityColor(order.priority)}`}
                             style={getPriorityStyle(order.priority)}
                           >
                             {order.priority}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">{order.category}</Badge>
+                          <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{order.category}</Badge>
                         </div>
-                        <h4 className="text-gray-900 font-medium mb-2">{order.issue}</h4>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
-                          <div className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5" />
+                        <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
+                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.property}</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <User className="w-3.5 h-3.5" />
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <User className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.client}</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <DollarSign className="w-3.5 h-3.5" />
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.estimatedCost}</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5" />
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.created}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 self-start mt-0.5">
                       {inboxTab === 'awaiting' && (
                         <button
                           onClick={() => handleMoveToMyOrders(order.id)}
-                          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2 text-sm"
+                          className="px-3 py-1.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
                         >
                           Move to My Orders
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       )}
                       {inboxTab === 'my-orders' && (
                         <button
                           onClick={() => handleMoveToRejected(order.id)}
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2 text-sm"
+                          className="px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
                         >
                           Move to Rejected
-                          <X className="w-4 h-4" />
+                          <X className="w-3.5 h-3.5" />
                         </button>
                       )}
                       {inboxTab === 'rejected' && (
-                        <div className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-center text-sm">
+                        <div className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-center text-xs leading-normal">
                           Rejected
                         </div>
                       )}
                     </div>
                   </div>
-              </div>
+                </div>
               ))}
               </div>
 
@@ -415,66 +418,74 @@ export function WorkOrders() {
       </div>
 
       {/* Work in Progress Section */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Card className="border-0 shadow-lg">
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-3">
             <SectionTitle title="Work in Progress" icon={Clock} />
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {workInProgress.map((order) => {
                 const isExpanded = expandedCards.has(order.id);
                 const isEditing = editingCard === order.id;
 
                 return (
                   <div key={order.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all">
-                    <div className="p-4">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-start gap-3 flex-1">
-                          <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <div className="p-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3 flex-1 min-w-0">
+                          <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <Wrench className="w-5 h-5 text-blue-600" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                              <h3 className="text-base font-semibold text-gray-900">{order.id}</h3>
+                            <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                              <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
                               <Badge 
-                                className={`border ${getPriorityColor(order.priority)}`}
+                                className={`border text-xs px-1.5 py-0.5 leading-none ${getPriorityColor(order.priority)}`}
                                 style={getPriorityStyle(order.priority)}
                               >
                                 {order.priority}
                               </Badge>
-                              <Badge className="bg-blue-100 text-blue-700">In Progress</Badge>
+                              <Badge className="bg-blue-100 text-blue-700 text-xs px-1.5 py-0.5 leading-none">In Progress</Badge>
                             </div>
-                            <h4 className="text-gray-900 font-medium mb-2">{order.issue}</h4>
-                            <div className="flex items-center gap-4 text-sm text-gray-600 mb-2 flex-wrap">
-                              <div className="flex items-center gap-1.5">
-                                <MapPin className="w-3.5 h-3.5" />
+                            <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
+                            <div className="flex items-center gap-2.5 text-xs text-gray-600 mb-2 flex-wrap leading-relaxed">
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                                 <span>{order.property}</span>
                               </div>
-                              <div className="flex items-center gap-1.5">
-                                <User className="w-3.5 h-3.5" />
+                              <span className="text-gray-400">•</span>
+                              <div className="flex items-center gap-1">
+                                <User className="w-3.5 h-3.5 flex-shrink-0" />
                                 <span>{order.client}</span>
                               </div>
-                              <div className="flex items-center gap-1.5">
-                                <DollarSign className="w-3.5 h-3.5" />
+                              <span className="text-gray-400">•</span>
+                              <div className="flex items-center gap-1">
+                                <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
                                 <span>{order.estimatedCost}</span>
                               </div>
                               {order.assignedTo && (
-                                <div className="flex items-center gap-1.5">
-                                  <User className="w-3.5 h-3.5" />
-                                  <span>Assigned: {order.assignedTo}</span>
-                                </div>
+                                <>
+                                  <span className="text-gray-400">•</span>
+                                  <div className="flex items-center gap-1">
+                                    <User className="w-3.5 h-3.5 flex-shrink-0" />
+                                    <span>Assigned: {order.assignedTo}</span>
+                                  </div>
+                                </>
                               )}
                               {order.dueDate && (
-                                <div className="flex items-center gap-1.5">
-                                  <Calendar className="w-3.5 h-3.5" />
-                                  <span>Due: {order.dueDate}</span>
-                                </div>
+                                <>
+                                  <span className="text-gray-400">•</span>
+                                  <div className="flex items-center gap-1">
+                                    <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
+                                    <span>Due: {order.dueDate}</span>
+                                  </div>
+                                </>
                               )}
                             </div>
                             {order.completion !== undefined && (
-                              <div className="mt-2">
-                                <div className="flex items-center justify-between mb-1">
+                              <div className="mt-1.5">
+                                <div className="flex items-center justify-between mb-0.5">
                                   <span className="text-xs text-gray-600">Progress</span>
                                   <span className="text-xs font-medium text-gray-900">{order.completion}%</span>
                                 </div>
@@ -490,32 +501,32 @@ export function WorkOrders() {
                         </div>
                         <button
                           onClick={() => toggleExpand(order.id)}
-                          className="p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+                          className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0 self-start mt-0.5"
                         >
                           {isExpanded ? (
-                            <ChevronUp className="w-5 h-5 text-gray-600" />
+                            <ChevronUp className="w-4 h-4 text-gray-600" />
                           ) : (
-                            <ChevronDown className="w-5 h-5 text-gray-600" />
+                            <ChevronDown className="w-4 h-4 text-gray-600" />
                           )}
                         </button>
                       </div>
 
                       {isExpanded && (
-                        <div className="mt-3 pt-3 border-t border-gray-200">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                        <div className="mt-2.5 pt-2.5 border-t border-gray-200">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-2.5">
                             <div>
                               <label className="block text-xs font-medium text-gray-700 mb-1">
                                 Description
                               </label>
                               {isEditing ? (
                                 <textarea
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
                                   value={editFormData.description || ''}
                                   onChange={(e) => handleEditChange('description', e.target.value)}
                                   rows={3}
                                 />
                               ) : (
-                                <p className="text-sm text-gray-600">{order.description || 'No description'}</p>
+                                <p className="text-xs text-gray-600">{order.description || 'No description'}</p>
                               )}
                             </div>
                             <div>
@@ -525,12 +536,12 @@ export function WorkOrders() {
                               {isEditing ? (
                                 <input
                                   type="text"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
                                   value={editFormData.assignedTo || ''}
                                   onChange={(e) => handleEditChange('assignedTo', e.target.value)}
                                 />
                               ) : (
-                                <p className="text-sm text-gray-600">{order.assignedTo || 'Not assigned'}</p>
+                                <p className="text-xs text-gray-600">{order.assignedTo || 'Not assigned'}</p>
                               )}
                             </div>
                             <div>
@@ -540,12 +551,12 @@ export function WorkOrders() {
                               {isEditing ? (
                                 <input
                                   type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
                                   value={editFormData.dueDate || ''}
                                   onChange={(e) => handleEditChange('dueDate', e.target.value)}
                                 />
                               ) : (
-                                <p className="text-sm text-gray-600">{order.dueDate || 'No due date'}</p>
+                                <p className="text-xs text-gray-600">{order.dueDate || 'No due date'}</p>
                               )}
                             </div>
                             <div>
@@ -557,12 +568,12 @@ export function WorkOrders() {
                                   type="number"
                                   min="0"
                                   max="100"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
                                   value={editFormData.completion || 0}
                                   onChange={(e) => handleEditChange('completion', parseInt(e.target.value) || 0)}
                                 />
                               ) : (
-                                <p className="text-sm text-gray-600">{order.completion || 0}%</p>
+                                <p className="text-xs text-gray-600">{order.completion || 0}%</p>
                               )}
                             </div>
                           </div>
@@ -571,9 +582,9 @@ export function WorkOrders() {
                               <>
                                 <button
                                   onClick={() => handleUpdate(order.id)}
-                                  className="px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm"
+                                  className="px-2.5 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1.5 text-xs"
                                 >
-                                  <Save className="w-3.5 h-3.5" />
+                                  <Save className="w-3 h-3" />
                                   Save Changes
                                 </button>
                                 <button
@@ -581,7 +592,7 @@ export function WorkOrders() {
                                     setEditingCard(null);
                                     setEditFormData({});
                                   }}
-                                  className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+                                  className="px-2.5 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-xs"
                                 >
                                   Cancel
                                 </button>
@@ -589,9 +600,9 @@ export function WorkOrders() {
                             ) : (
                               <button
                                 onClick={() => handleEditStart(order)}
-                                className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 text-sm"
+                                className="px-2.5 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1.5 text-xs"
                               >
-                                <Edit2 className="w-3.5 h-3.5" />
+                                <Edit2 className="w-3 h-3" />
                                 Edit Details
                               </button>
                             )}
@@ -608,39 +619,47 @@ export function WorkOrders() {
       </div>
 
       {/* Validation Section - Single Column */}
-      <div className="mb-8">
+      <div className="mb-6">
         <Card className="border-0 shadow-lg">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-3">
             <SectionTitle title="Validation" icon={FileCheck} />
         </CardHeader>
         <CardContent>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {validationOrders.map((order) => (
-                <div key={order.id} className="p-4 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                <div key={order.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <CheckCircle2 className="w-5 h-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <h3 className="text-sm font-semibold text-gray-900">{order.id}</h3>
-                          <Badge className="bg-green-100 text-green-700 text-xs">
+                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
+                          <Badge className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 leading-none">
                             Finalized
                           </Badge>
+                          <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{order.category}</Badge>
                         </div>
-                        <h4 className="text-gray-900 font-medium mb-2">{order.issue}</h4>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
-                          <div className="flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5" />
+                        <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
+                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
+                          <div className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.property}</span>
                         </div>
-                          <div className="flex items-center gap-1.5">
-                            <DollarSign className="w-3.5 h-3.5" />
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <User className="w-3.5 h-3.5 flex-shrink-0" />
+                            <span>{order.client}</span>
+                          </div>
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
                           <span>{order.estimatedCost}</span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5" />
+                          <span className="text-gray-400">•</span>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                             <span>{order.created}</span>
                           </div>
                         </div>
