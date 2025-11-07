@@ -9,7 +9,7 @@ const __dirname = dirname(__filename)
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/loki/' : '/',
+  base: '/loki/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './'),
