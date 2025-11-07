@@ -94,7 +94,7 @@ export function Overview() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} trend={stat.trend} />
+          <StatCard key={index} {...stat} trend={stat.trend as 'up' | 'down' | 'neutral'} />
         ))}
       </div>
 

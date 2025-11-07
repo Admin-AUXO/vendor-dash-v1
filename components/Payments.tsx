@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { DollarSign, TrendingUp, Calendar, CreditCard, CheckCircle2, Clock, ArrowUpRight, Settings, Download, FileText } from 'lucide-react';
+import { DollarSign, TrendingUp, Calendar, Clock, ArrowUpRight, Settings, Download, FileText } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { StatCard, PageHeader, SectionTitle, ActionButton } from './shared';
