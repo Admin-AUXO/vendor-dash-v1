@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { FileText, DollarSign, Clock, CheckCircle2, Send, Download, Eye, Filter, Plus } from 'lucide-react';
-import { Badge } from './ui/badge';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { StatCard, PageHeader, SectionTitle, ActionButton } from './shared';
+import { StatCard, PageHeader, SectionTitle, ActionButton, ListItem } from './shared';
+import type { ListItemData } from './shared';
 
 export function Invoice() {
   const stats = [
@@ -220,55 +220,54 @@ export function Invoice() {
             <SectionTitle title="Pre-submission" icon={FileText} />
           </CardHeader>
           <CardContent>
-            <div className="space-y-2.5">
-              {preSubmissionInvoices.map((invoice) => (
-                <div key={invoice.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <FileText className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{invoice.id}</h3>
-                          <Badge className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 leading-none">{invoice.workOrder}</Badge>
-                          <span className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getStatusColor(invoice.status)}`}>
-                            {invoice.status}
-                          </span>
-                        </div>
-                        <p className="text-gray-900 font-medium mb-1.5 text-sm leading-relaxed">{invoice.service}</p>
-                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
-                          <span>{invoice.client}</span>
-                          <span>•</span>
-                          <span>{invoice.property}</span>
-                          <span>•</span>
-                          <span>Created: {invoice.created}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2.5 flex-shrink-0 self-start mt-0.5">
-                      <h3 className="text-base font-semibold text-gray-900 leading-tight">${invoice.amount.toFixed(2)}</h3>
-                      <div className="flex gap-1.5">
-                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Edit">
-                          <Eye className="w-4 h-4 text-gray-600" />
-                        </button>
-                        <button 
-                          className="px-3 py-1.5 text-black rounded-lg transition-colors text-xs font-medium leading-none"
-                          style={{ backgroundColor: 'var(--yellow-400)' }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--yellow-400)';
-                          }}
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </div>
+            <div className="space-y-2">
+              {preSubmissionInvoices.map((invoice) => {
+                const listData: ListItemData = {
+                  id: invoice.id,
+                  title: invoice.service,
+                  badges: [
+                    { label: invoice.workOrder, variant: 'outline', className: 'bg-gray-100 text-gray-700' },
+                    { label: invoice.status, className: getStatusColor(invoice.status) }
+                  ],
+                  metadata: [
+                    { value: invoice.client },
+                    { value: invoice.property },
+                    { value: `Created: ${invoice.created}` }
+                  ],
+                  amount: invoice.amount,
+                  actionButtons: (
+                    <>
+                      <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Edit">
+                        <Eye className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button 
+                        className="px-3 py-1.5 text-black rounded-lg transition-colors text-xs font-medium leading-none"
+                        style={{ backgroundColor: 'var(--yellow-400)' }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--yellow-400)';
+                        }}
+                      >
+                        Submit
+                      </button>
+                    </>
+                  )
+                };
+
+                return (
+                  <div key={invoice.id} className="border border-gray-200 rounded-xl hover:shadow-md transition-all overflow-hidden">
+                    <ListItem
+                      data={listData}
+                      icon={FileText}
+                      iconBgColor="bg-gray-50"
+                      iconColor="text-gray-600"
+                      compact
+                    />
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -281,54 +280,51 @@ export function Invoice() {
             <SectionTitle title="Post-submission" icon={FileText} />
           </CardHeader>
           <CardContent>
-            <div className="space-y-2.5">
-              {postSubmissionInvoices.map((invoice) => (
-                <div key={invoice.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <FileText className="w-5 h-5 text-blue-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{invoice.id}</h3>
-                          <Badge className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 leading-none">{invoice.workOrder}</Badge>
-                          <span className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getStatusColor(invoice.status)}`}>
-                            {invoice.status}
-                          </span>
-                        </div>
-                        <p className="text-gray-900 font-medium mb-1.5 text-sm leading-relaxed">{invoice.service}</p>
-                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
-                          <span>{invoice.client}</span>
-                          <span className="text-gray-400">•</span>
-                          <span>{invoice.property}</span>
-                          <span className="text-gray-400">•</span>
-                          <span>Sent: {invoice.sent}</span>
-                          <span className="text-gray-400">•</span>
-                          <span>Due: {invoice.dueDate}</span>
-                          {invoice.paidDate && (
-                            <>
-                              <span className="text-gray-400">•</span>
-                              <span className="text-green-600">Paid: {invoice.paidDate}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2.5 flex-shrink-0 self-start mt-0.5">
-                      <h3 className="text-base font-semibold text-gray-900 leading-tight">${invoice.amount.toFixed(2)}</h3>
-                      <div className="flex gap-1.5">
-                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="View">
-                          <Eye className="w-4 h-4 text-gray-600" />
-                        </button>
-                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
-                          <Download className="w-4 h-4 text-gray-600" />
-                        </button>
-                      </div>
-                    </div>
+            <div className="space-y-2">
+              {postSubmissionInvoices.map((invoice) => {
+                const metadata = [
+                  { value: invoice.client },
+                  { value: invoice.property },
+                  { value: `Sent: ${invoice.sent}` },
+                  { value: `Due: ${invoice.dueDate}`, highlight: true }
+                ];
+                if (invoice.paidDate) {
+                  metadata.push({ value: `Paid: ${invoice.paidDate}`, highlight: true });
+                }
+
+                const listData: ListItemData = {
+                  id: invoice.id,
+                  title: invoice.service,
+                  badges: [
+                    { label: invoice.workOrder, variant: 'outline', className: 'bg-gray-100 text-gray-700' },
+                    { label: invoice.status, className: getStatusColor(invoice.status) }
+                  ],
+                  metadata,
+                  amount: invoice.amount,
+                  actionButtons: (
+                    <>
+                      <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="View">
+                        <Eye className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
+                        <Download className="w-4 h-4 text-gray-600" />
+                      </button>
+                    </>
+                  )
+                };
+
+                return (
+                  <div key={invoice.id} className="border border-gray-200 rounded-xl hover:shadow-md transition-all overflow-hidden">
+                    <ListItem
+                      data={listData}
+                      icon={FileText}
+                      iconBgColor="bg-blue-50"
+                      iconColor="text-blue-600"
+                      compact
+                    />
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -347,70 +343,66 @@ export function Invoice() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2.5">
-              {invoices.map((invoice) => (
-                <div key={invoice.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-lg bg-gray-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <FileText className="w-5 h-5 text-gray-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{invoice.id}</h3>
-                          <Badge className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 leading-none">{invoice.workOrder}</Badge>
-                          <span className={`px-1.5 py-0.5 rounded-lg text-xs leading-none ${getStatusColor(invoice.status)}`}>
-                            {invoice.status}
-                          </span>
-                        </div>
-                        <p className="text-gray-900 font-medium mb-1.5 text-sm leading-relaxed">{invoice.service}</p>
-                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
-                          <span>{invoice.client}</span>
-                          <span className="text-gray-400">•</span>
-                          <span>{invoice.property}</span>
-                          <span className="text-gray-400">•</span>
-                          <span>Due: {invoice.dueDate}</span>
-                          {invoice.paidDate && (
-                            <>
-                              <span className="text-gray-400">•</span>
-                              <span className="text-green-600">Paid: {invoice.paidDate}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2.5 flex-shrink-0 self-start mt-0.5">
-                      <div className="text-right">
-                        <h3 className="text-base font-semibold text-gray-900 leading-tight">${invoice.amount.toFixed(2)}</h3>
-                        <p className="text-xs text-gray-500 leading-normal mt-0.5">Issued: {invoice.issueDate}</p>
-                      </div>
-                      <div className="flex gap-1.5">
-                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="View">
-                          <Eye className="w-4 h-4 text-gray-600" />
+            <div className="space-y-2">
+              {invoices.map((invoice) => {
+                const metadata = [
+                  { value: invoice.client },
+                  { value: invoice.property },
+                  { value: `Due: ${invoice.dueDate}`, highlight: true }
+                ];
+                if (invoice.paidDate) {
+                  metadata.push({ value: `Paid: ${invoice.paidDate}`, highlight: true });
+                }
+
+                const listData: ListItemData = {
+                  id: invoice.id,
+                  title: invoice.service,
+                  badges: [
+                    { label: invoice.workOrder, variant: 'outline', className: 'bg-gray-100 text-gray-700' },
+                    { label: invoice.status, className: getStatusColor(invoice.status) }
+                  ],
+                  metadata,
+                  amount: invoice.amount,
+                  amountLabel: `Issued: ${invoice.issueDate}`,
+                  actionButtons: (
+                    <>
+                      <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="View">
+                        <Eye className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
+                        <Download className="w-4 h-4 text-gray-600" />
+                      </button>
+                      {invoice.status !== 'Paid' && (
+                        <button 
+                          className="px-3 py-1.5 text-black rounded-lg transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
+                          style={{ backgroundColor: 'var(--yellow-400)' }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--yellow-400)';
+                          }}
+                        >
+                          <Send className="w-3.5 h-3.5" />
+                          Send
                         </button>
-                        <button className="p-1.5 hover:bg-gray-50 rounded-lg transition-colors" title="Download">
-                          <Download className="w-4 h-4 text-gray-600" />
-                        </button>
-                        {invoice.status !== 'Paid' && (
-                          <button 
-                            className="px-3 py-1.5 text-black rounded-lg transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
-                            style={{ backgroundColor: 'var(--yellow-400)' }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'var(--yellow-500)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'var(--yellow-400)';
-                            }}
-                          >
-                            <Send className="w-3.5 h-3.5" />
-                            Send
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                      )}
+                    </>
+                  )
+                };
+
+                return (
+                  <div key={invoice.id} className="border border-gray-200 rounded-xl hover:shadow-md transition-all overflow-hidden">
+                    <ListItem
+                      data={listData}
+                      icon={FileText}
+                      iconBgColor="bg-gray-50"
+                      iconColor="text-gray-600"
+                      compact
+                    />
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>

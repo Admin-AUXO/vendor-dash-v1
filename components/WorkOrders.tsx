@@ -6,9 +6,6 @@ import {
   CheckCircle2, 
   Calendar, 
   Wrench, 
-  MapPin, 
-  User, 
-  DollarSign, 
   Filter, 
   Download,
   Inbox,
@@ -22,7 +19,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Badge } from './ui/badge';
-import { StatCard, PageHeader, SectionTitle, ActionButton, SlidingTabs } from './shared';
+import { StatCard, PageHeader, SectionTitle, ActionButton, SlidingTabs, WorkOrderListItem } from './shared';
+import type { WorkOrderListItemData } from './shared';
 
 type WorkOrderStatus = 'awaiting' | 'my-orders' | 'rejected' | 'in-progress' | 'validation';
 
@@ -301,78 +299,52 @@ export function WorkOrders() {
             />
 
             {/* Single Column List */}
-            <div className="space-y-2.5 max-h-[600px] overflow-y-auto pr-2">
-              {currentOrders.map((order) => (
-                <div key={order.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Wrench className="w-5 h-5 text-purple-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
-                          <Badge 
-                            className={`text-xs border px-1.5 py-0.5 leading-none ${getPriorityColor(order.priority)}`}
-                            style={getPriorityStyle(order.priority)}
-                          >
-                            {order.priority}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{order.category}</Badge>
-                        </div>
-                        <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
-                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.property}</span>
-                          </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <User className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.client}</span>
-                          </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.estimatedCost}</span>
-                          </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.created}</span>
-                          </div>
-                        </div>
-                      </div>
+            <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
+              {currentOrders.map((order) => {
+                let actionButton = null;
+                if (inboxTab === 'awaiting') {
+                  actionButton = (
+                    <button
+                      onClick={() => handleMoveToMyOrders(order.id)}
+                      className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-1.5 text-sm font-medium shadow-sm"
+                    >
+                      Move to My Orders
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  );
+                } else if (inboxTab === 'my-orders') {
+                  actionButton = (
+                    <button
+                      onClick={() => handleMoveToRejected(order.id)}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1.5 text-sm font-medium shadow-sm"
+                    >
+                      Move to Rejected
+                      <X className="w-4 h-4" />
+                    </button>
+                  );
+                } else if (inboxTab === 'rejected') {
+                  actionButton = (
+                    <div className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg text-center text-sm font-medium">
+                      Rejected
                     </div>
-                    <div className="flex-shrink-0 self-start mt-0.5">
-                      {inboxTab === 'awaiting' && (
-                        <button
-                          onClick={() => handleMoveToMyOrders(order.id)}
-                          className="px-3 py-1.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
-                        >
-                          Move to My Orders
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                      {inboxTab === 'my-orders' && (
-                        <button
-                          onClick={() => handleMoveToRejected(order.id)}
-                          className="px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1.5 text-xs font-medium leading-none"
-                        >
-                          Move to Rejected
-                          <X className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                      {inboxTab === 'rejected' && (
-                        <div className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-center text-xs leading-normal">
-                          Rejected
-                        </div>
-                      )}
-                    </div>
+                  );
+                }
+
+                return (
+                  <div key={order.id} className="border border-gray-200 rounded-xl hover:shadow-md transition-all overflow-hidden">
+                    <WorkOrderListItem
+                      order={order as WorkOrderListItemData}
+                      icon={Wrench}
+                      iconBgColor="bg-purple-50"
+                      iconColor="text-purple-600"
+                      actionButton={actionButton}
+                      getPriorityColor={getPriorityColor}
+                      getPriorityStyle={getPriorityStyle}
+                    />
                   </div>
-                </div>
-              ))}
-              </div>
+                );
+              })}
+            </div>
 
             {/* Pagination */}
             {totalPages > 1 && (
@@ -424,143 +396,90 @@ export function WorkOrders() {
             <SectionTitle title="Work in Progress" icon={Clock} />
           </CardHeader>
           <CardContent>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {workInProgress.map((order) => {
                 const isExpanded = expandedCards.has(order.id);
                 const isEditing = editingCard === order.id;
 
                 return (
-                  <div key={order.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all">
-                    <div className="p-3.5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-start gap-3 flex-1 min-w-0">
-                          <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Wrench className="w-5 h-5 text-blue-600" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                              <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
-                              <Badge 
-                                className={`border text-xs px-1.5 py-0.5 leading-none ${getPriorityColor(order.priority)}`}
-                                style={getPriorityStyle(order.priority)}
-                              >
-                                {order.priority}
-                              </Badge>
-                              <Badge className="bg-blue-100 text-blue-700 text-xs px-1.5 py-0.5 leading-none">In Progress</Badge>
-                            </div>
-                            <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
-                            <div className="flex items-center gap-2.5 text-xs text-gray-600 mb-2 flex-wrap leading-relaxed">
-                              <div className="flex items-center gap-1">
-                                <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                                <span>{order.property}</span>
-                              </div>
-                              <span className="text-gray-400">•</span>
-                              <div className="flex items-center gap-1">
-                                <User className="w-3.5 h-3.5 flex-shrink-0" />
-                                <span>{order.client}</span>
-                              </div>
-                              <span className="text-gray-400">•</span>
-                              <div className="flex items-center gap-1">
-                                <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
-                                <span>{order.estimatedCost}</span>
-                              </div>
-                              {order.assignedTo && (
-                                <>
-                                  <span className="text-gray-400">•</span>
-                                  <div className="flex items-center gap-1">
-                                    <User className="w-3.5 h-3.5 flex-shrink-0" />
-                                    <span>Assigned: {order.assignedTo}</span>
-                                  </div>
-                                </>
-                              )}
-                              {order.dueDate && (
-                                <>
-                                  <span className="text-gray-400">•</span>
-                                  <div className="flex items-center gap-1">
-                                    <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-                                    <span>Due: {order.dueDate}</span>
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                            {order.completion !== undefined && (
-                              <div className="mt-1.5">
-                                <div className="flex items-center justify-between mb-0.5">
-                                  <span className="text-xs text-gray-600">Progress</span>
-                                  <span className="text-xs font-medium text-gray-900">{order.completion}%</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                  <div 
-                                    className="bg-blue-600 h-1.5 rounded-full transition-all"
-                                    style={{ width: `${order.completion}%` }}
-                                  ></div>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                  <div key={order.id} className="overflow-hidden rounded-xl hover:shadow-md transition-all border border-gray-200">
+                    <WorkOrderListItem
+                      order={order as WorkOrderListItemData}
+                      icon={Wrench}
+                      iconBgColor="bg-blue-50"
+                      iconColor="text-blue-600"
+                      statusBadge={
+                        <Badge className="bg-blue-100 text-blue-700 text-xs px-2 py-1 leading-none font-medium">
+                          In Progress
+                        </Badge>
+                      }
+                      actionButton={
                         <button
                           onClick={() => toggleExpand(order.id)}
-                          className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0 self-start mt-0.5"
+                          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                         >
                           {isExpanded ? (
-                            <ChevronUp className="w-4 h-4 text-gray-600" />
+                            <ChevronUp className="w-5 h-5 text-gray-600" />
                           ) : (
-                            <ChevronDown className="w-4 h-4 text-gray-600" />
+                            <ChevronDown className="w-5 h-5 text-gray-600" />
                           )}
                         </button>
-                      </div>
+                      }
+                      getPriorityColor={getPriorityColor}
+                      getPriorityStyle={getPriorityStyle}
+                    />
 
-                      {isExpanded && (
-                        <div className="mt-2.5 pt-2.5 border-t border-gray-200">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 mb-2.5">
+                    {isExpanded && (
+                      <div className="px-4 pb-4 border-t border-gray-200 bg-gray-50">
+                        <div className="pt-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
-                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Description
                               </label>
                               {isEditing ? (
                                 <textarea
-                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                   value={editFormData.description || ''}
                                   onChange={(e) => handleEditChange('description', e.target.value)}
-                                  rows={3}
+                                  rows={4}
                                 />
                               ) : (
-                                <p className="text-xs text-gray-600">{order.description || 'No description'}</p>
+                                <p className="text-sm text-gray-700 leading-relaxed">{order.description || 'No description'}</p>
                               )}
                             </div>
                             <div>
-                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Assigned To
                               </label>
                               {isEditing ? (
                                 <input
                                   type="text"
-                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                   value={editFormData.assignedTo || ''}
                                   onChange={(e) => handleEditChange('assignedTo', e.target.value)}
                                 />
                               ) : (
-                                <p className="text-xs text-gray-600">{order.assignedTo || 'Not assigned'}</p>
+                                <p className="text-sm text-gray-700">{order.assignedTo || 'Not assigned'}</p>
                               )}
                             </div>
                             <div>
-                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Due Date
                               </label>
                               {isEditing ? (
                                 <input
                                   type="date"
-                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                   value={editFormData.dueDate || ''}
                                   onChange={(e) => handleEditChange('dueDate', e.target.value)}
                                 />
                               ) : (
-                                <p className="text-xs text-gray-600">{order.dueDate || 'No due date'}</p>
+                                <p className="text-sm text-gray-700">{order.dueDate || 'No due date'}</p>
                               )}
                             </div>
                             <div>
-                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Completion
                               </label>
                               {isEditing ? (
@@ -568,12 +487,12 @@ export function WorkOrders() {
                                   type="number"
                                   min="0"
                                   max="100"
-                                  className="w-full px-2.5 py-1.5 border border-gray-300 rounded-lg text-xs"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                   value={editFormData.completion || 0}
                                   onChange={(e) => handleEditChange('completion', parseInt(e.target.value) || 0)}
                                 />
                               ) : (
-                                <p className="text-xs text-gray-600">{order.completion || 0}%</p>
+                                <p className="text-sm text-gray-700">{order.completion || 0}%</p>
                               )}
                             </div>
                           </div>
@@ -582,9 +501,9 @@ export function WorkOrders() {
                               <>
                                 <button
                                   onClick={() => handleUpdate(order.id)}
-                                  className="px-2.5 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1.5 text-xs"
+                                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-medium"
                                 >
-                                  <Save className="w-3 h-3" />
+                                  <Save className="w-4 h-4" />
                                   Save Changes
                                 </button>
                                 <button
@@ -592,7 +511,7 @@ export function WorkOrders() {
                                     setEditingCard(null);
                                     setEditFormData({});
                                   }}
-                                  className="px-2.5 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-xs"
+                                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
                                 >
                                   Cancel
                                 </button>
@@ -600,16 +519,16 @@ export function WorkOrders() {
                             ) : (
                               <button
                                 onClick={() => handleEditStart(order)}
-                                className="px-2.5 py-1.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-1.5 text-xs"
+                                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 text-sm font-medium"
                               >
-                                <Edit2 className="w-3 h-3" />
+                                <Edit2 className="w-4 h-4" />
                                 Edit Details
                               </button>
                             )}
                           </div>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -621,56 +540,31 @@ export function WorkOrders() {
       {/* Validation Section - Single Column */}
       <div className="mb-6">
         <Card className="border-0 shadow-lg">
-        <CardHeader className="pb-3">
+          <CardHeader className="pb-3">
             <SectionTitle title="Validation" icon={FileCheck} />
-        </CardHeader>
-        <CardContent>
-            <div className="space-y-2.5">
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
               {validationOrders.map((order) => (
-                <div key={order.id} className="p-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                          <h3 className="text-sm font-semibold text-gray-900 leading-tight">{order.id}</h3>
-                          <Badge className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 leading-none">
-                            Finalized
-                          </Badge>
-                          <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{order.category}</Badge>
-                        </div>
-                        <h4 className="text-gray-900 font-medium mb-2 text-sm leading-relaxed">{order.issue}</h4>
-                        <div className="flex items-center gap-2.5 text-xs text-gray-600 flex-wrap leading-relaxed">
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.property}</span>
-                        </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <User className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.client}</span>
-                          </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
-                          <span>{order.estimatedCost}</span>
-                          </div>
-                          <span className="text-gray-400">•</span>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{order.created}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                <div key={order.id} className="border border-gray-200 rounded-xl hover:shadow-md transition-all overflow-hidden">
+                  <WorkOrderListItem
+                    order={order as WorkOrderListItemData}
+                    icon={CheckCircle2}
+                    iconBgColor="bg-green-50"
+                    iconColor="text-green-600"
+                    statusBadge={
+                      <Badge className="bg-green-100 text-green-700 text-xs px-2 py-1 leading-none font-medium">
+                        Finalized
+                      </Badge>
+                    }
+                    getPriorityColor={getPriorityColor}
+                    getPriorityStyle={getPriorityStyle}
+                  />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

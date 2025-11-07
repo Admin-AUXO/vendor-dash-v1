@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Briefcase, MapPin, DollarSign, Clock, Star, TrendingUp, Users, Filter, Wrench } from 'lucide-react';
+import { Briefcase, MapPin, Clock, Star, TrendingUp, Users, Filter, Wrench } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { StatCard, PageHeader, ActionButton } from './shared';
@@ -172,7 +172,7 @@ export function Marketplace() {
             <CardTitle className="text-gray-900 text-base font-semibold leading-tight">My Active Bids</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {myBids.map((bid) => (
                 <div key={bid.jobId} className="space-y-1.5">
                   <div className="flex items-start justify-between">
@@ -222,11 +222,11 @@ export function Marketplace() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {availableJobs.map((job) => (
-              <div key={job.id} className="p-3.5 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-all">
-                <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-yellow-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div key={job.id} className="p-3 bg-white border border-gray-100 rounded-xl hover:shadow-md transition-all">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <div className="w-10 h-10 rounded-lg bg-yellow-50 flex items-center justify-center flex-shrink-0">
                     <Wrench className="w-5 h-5 text-yellow-600" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -238,7 +238,7 @@ export function Marketplace() {
                       <Badge variant="outline" className="text-xs px-1.5 py-0.5 leading-none">{job.category}</Badge>
                     </div>
                     <p className="text-gray-600 mb-2 text-xs leading-relaxed">{job.description}</p>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
                       <div className="flex items-start gap-1.5 text-gray-500">
                         <Users className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
                         <div className="min-w-0">
@@ -258,7 +258,6 @@ export function Marketplace() {
                         </div>
                       </div>
                       <div className="flex items-start gap-1.5 text-gray-500">
-                        <DollarSign className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
                         <div className="min-w-0">
                           <p className="text-xs text-gray-500 leading-normal">Budget</p>
                           <p className="text-gray-900 text-xs font-medium leading-tight mt-0.5">{job.budget}</p>
@@ -274,7 +273,7 @@ export function Marketplace() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between pt-2.5 border-t border-gray-100">
+                <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                   <p className="text-gray-500 text-xs">{job.proposals} proposals submitted</p>
                   <div className="flex gap-1.5">
                     <button className="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium">
