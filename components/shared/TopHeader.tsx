@@ -106,11 +106,11 @@ export function TopHeader({
                     )}
                   </Avatar>
                   <div className="hidden lg:block text-left min-w-[140px]">
-                    <p className="text-sm font-medium text-gray-900 leading-tight">
+                    <p className="text-base font-bold text-black m-0 leading-tight">
                       {user.name}
                     </p>
                     {user.role && (
-                      <p className="text-xs text-gray-500 leading-tight mt-0.5">{user.role}</p>
+                      <p className="text-xs text-gray-500 m-0 leading-tight mt-0.5">{user.role}</p>
                     )}
                   </div>
                   <ChevronDown className="w-4 h-4 text-gray-400 hidden lg:block" />

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, Button } from './ui';
 import { 
   StatCard, 
   FilterSystem,
-  FilterSidebar,
+  FilterPanelSlideIn,
   DataTable,
   StatusBadge,
   ExportButton,
@@ -14,20 +14,40 @@ import {
   DollarSign, 
   CreditCard,
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  Building2,
+  Wallet,
+  ArrowRight,
+  Filter,
+  FileText
 } from 'lucide-react';
 import { payments, invoices, type Payment, type Invoice } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import currency from 'currency.js';
+import { DateRange } from 'react-day-picker';
+import { useNavigation } from './shared/NavigationContext';
 
 
 export function Payments() {
+  const { navigate } = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     paymentMethod: [],
   });
+  const [paymentDateRange, setPaymentDateRange] = useState<DateRange | undefined>();
+  const [amountRange, setAmountRange] = useState<{ min: number | null; max: number | null }>({ min: null, max: null });
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+
+  // Get min and max amounts for range filter
+  const amountStats = useMemo(() => {
+    const amounts = payments.map(p => p.amount);
+    return {
+      min: Math.min(...amounts),
+      max: Math.max(...amounts),
+    };
+  }, []);
 
   // Filter data
   const filteredData = useMemo(() => {
@@ -53,8 +73,28 @@ export function Payments() {
       data = data.filter((p: Payment) => filters.paymentMethod.includes(p.paymentMethod));
     }
 
+    // Apply date range filter
+    if (paymentDateRange?.from) {
+      data = data.filter((p: Payment) => {
+        const paymentDate = new Date(p.paymentDate);
+        const from = paymentDateRange.from!;
+        const to = paymentDateRange.to || paymentDateRange.from!;
+        return paymentDate >= from && paymentDate <= to;
+      });
+    }
+
+    // Apply amount range filter
+    if (amountRange.min !== null || amountRange.max !== null) {
+      data = data.filter((p: Payment) => {
+        const amount = p.amount;
+        const min = amountRange.min ?? -Infinity;
+        const max = amountRange.max ?? Infinity;
+        return amount >= min && amount <= max;
+      });
+    }
+
     return data;
-  }, [searchQuery, filters]);
+  }, [searchQuery, filters, paymentDateRange, amountRange]);
 
   // Calculate financial summary
   const financialSummary = useMemo(() => {
@@ -89,10 +129,30 @@ export function Payments() {
         const bOverdue = b.status === 'overdue' ? 1 : 0;
         if (aOverdue !== bOverdue) return bOverdue - aOverdue;
         return new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime();
-      })
-      .slice(0, 5);
+      });
   }, []);
 
+  const displayedOutstandingBalances = outstandingBalances.slice(0, 5);
+  const hasMoreOutstanding = outstandingBalances.length > 5;
+
+
+  // Payment method icon mapping
+  const getPaymentMethodIcon = (method: string) => {
+    switch (method) {
+      case 'credit-card':
+        return CreditCard;
+      case 'check':
+        return FileText;
+      case 'ach':
+        return Building2;
+      case 'wire':
+        return Building2;
+      case 'cash':
+        return Wallet;
+      default:
+        return CreditCard;
+    }
+  };
 
   // Define columns
   const columns: ColumnDef<Payment>[] = useMemo(() => [
@@ -100,14 +160,14 @@ export function Payments() {
       accessorKey: 'paymentId',
       header: 'Payment ID',
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">{row.original.paymentId}</span>
+        <span className="font-semibold text-sm font-mono">{row.original.paymentId}</span>
       ),
     },
     {
       accessorKey: 'invoiceNumber',
       header: 'Invoice #',
       cell: ({ row }) => (
-        <span className="text-sm text-gray-900">{row.original.invoiceNumber}</span>
+        <span className="text-sm text-gray-900 font-mono">{row.original.invoiceNumber}</span>
       ),
     },
     {
@@ -138,9 +198,24 @@ export function Payments() {
     {
       accessorKey: 'paymentMethod',
       header: 'Method',
+      cell: ({ row }) => {
+        const Icon = getPaymentMethodIcon(row.original.paymentMethod);
+        return (
+          <div className="flex items-center gap-2">
+            <Icon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-900 capitalize">
+              {row.original.paymentMethod.replace('-', ' ')}
+            </span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'referenceNumber',
+      header: 'Reference #',
       cell: ({ row }) => (
-        <span className="text-sm text-gray-900 capitalize">
-          {row.original.paymentMethod.replace('-', ' ')}
+        <span className="text-sm text-gray-900 font-mono">
+          {row.original.referenceNumber || '—'}
         </span>
       ),
     },
@@ -204,94 +279,125 @@ export function Payments() {
     },
   ];
 
-  return (
-    <div className="p-4 space-y-4 bg-gray-50 min-h-screen">
-      <div className="flex items-center justify-end mb-2">
-        <div className="flex items-center gap-2">
-          <ExportButton
-            data={filteredData}
-            filename="payments"
-          />
-        </div>
-      </div>
+  // Count active filters for badge
+  const activeFilterCount = useMemo(() => {
+    let count = Object.values(filters).reduce((acc, value) => {
+      if (Array.isArray(value)) {
+        return acc + value.length;
+      }
+      return acc + (value ? 1 : 0);
+    }, 0);
+    
+    if (paymentDateRange?.from) count += 1;
+    if (amountRange?.min !== null || amountRange?.max !== null) count += 1;
+    
+    return count;
+  }, [filters, paymentDateRange, amountRange]);
 
+  return (
+    <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Financial Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Received"
           value={currency(financialSummary.totalReceived).format()}
-          change="All time"
           icon={DollarSign}
         />
         <StatCard
           title="Pending Payments"
           value={currency(financialSummary.pendingPayments).format()}
-          change="Awaiting processing"
           icon={CreditCard}
         />
         <StatCard
           title="Outstanding Invoices"
           value={currency(financialSummary.outstandingInvoices).format()}
-          change="Unpaid invoices"
           icon={AlertCircle}
         />
         <StatCard
           title="This Month"
           value={currency(financialSummary.thisMonth).format()}
-          change="Current month revenue"
+          change="Current month"
           trend="up"
           icon={TrendingUp}
         />
       </div>
 
 
-      {/* Outstanding Balances */}
-      {outstandingBalances.length > 0 && (
+      {/* Outstanding Balances - Table Format */}
+      {displayedOutstandingBalances.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertCircle className="w-5 h-5" style={{ color: 'var(--warning)' }} />
-              Outstanding Balances
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {outstandingBalances.map((inv: Invoice) => (
-                <div
-                  key={inv.id}
-                  className="flex items-center justify-between p-3 border rounded-lg"
-                  style={inv.status === 'overdue' ? {
-                    borderColor: 'var(--status-error-light)',
-                    backgroundColor: 'var(--status-error-light)'
-                  } : {}}
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <AlertCircle className="w-5 h-5" style={{ color: 'var(--warning)' }} />
+                Outstanding Balances
+              </CardTitle>
+              {hasMoreOutstanding && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('invoice')}
+                  className="text-sm"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-sm">{inv.invoiceNumber}</span>
-                      <StatusBadge 
-                        status={
-                          inv.status === 'paid' ? 'success' :
-                          inv.status === 'overdue' ? 'error' :
-                          inv.status === 'approved' ? 'success' :
-                          inv.status === 'sent' || inv.status === 'viewed' ? 'info' :
-                          'pending'
-                        }
-                        label={inv.status.charAt(0).toUpperCase() + inv.status.slice(1)}
-                      />
-                    </div>
-                    <p className="text-sm text-gray-600">{inv.clientName}</p>
-                    <p className="text-xs text-gray-500">
-                      Due: {format(new Date(inv.dueDate), 'MMM dd, yyyy')}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-lg">{currency(inv.total).format()}</p>
-                    <Button variant="ghost" size="sm" className="mt-1">
-                      Send Reminder
-                    </Button>
-                  </div>
-                </div>
-              ))}
+                  View All
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent className="p-2">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2 px-2 font-medium text-gray-700">Invoice #</th>
+                    <th className="text-left py-2 px-2 font-medium text-gray-700">Client</th>
+                    <th className="text-left py-2 px-2 font-medium text-gray-700">Due Date</th>
+                    <th className="text-left py-2 px-2 font-medium text-gray-700">Status</th>
+                    <th className="text-right py-2 px-2 font-medium text-gray-700">Amount</th>
+                    <th className="text-right py-2 px-2 font-medium text-gray-700">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {displayedOutstandingBalances.map((inv: Invoice) => (
+                    <tr
+                      key={inv.id}
+                      className="border-b hover:bg-gray-50"
+                      style={inv.status === 'overdue' ? {
+                        backgroundColor: 'var(--status-error-light)'
+                      } : {}}
+                    >
+                      <td className="py-2 px-2">
+                        <span className="font-semibold font-mono">{inv.invoiceNumber}</span>
+                      </td>
+                      <td className="py-2 px-2 text-gray-900">{inv.clientName}</td>
+                      <td className="py-2 px-2 text-gray-600">
+                        {format(new Date(inv.dueDate), 'MMM dd, yyyy')}
+                      </td>
+                      <td className="py-2 px-2">
+                        <StatusBadge 
+                          status={
+                            inv.status === 'paid' ? 'success' :
+                            inv.status === 'overdue' ? 'error' :
+                            inv.status === 'approved' ? 'success' :
+                            inv.status === 'sent' || inv.status === 'viewed' ? 'info' :
+                            'pending'
+                          }
+                          label={inv.status.charAt(0).toUpperCase() + inv.status.slice(1)}
+                        />
+                      </td>
+                      <td className="py-2 px-2 text-right font-semibold text-gray-900">
+                        {currency(inv.total).format()}
+                      </td>
+                      <td className="py-2 px-2 text-right">
+                        <Button variant="ghost" size="sm" className="h-8">
+                          Send Reminder
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>
@@ -311,21 +417,8 @@ export function Payments() {
         />
       </div>
 
-      {/* Desktop Layout with Sidebar */}
-      <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4">
-        <div className="lg:col-span-1">
-          <FilterSidebar
-            filters={filterConfig}
-            filterValues={filters}
-            onFilterChange={setFilters}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            resultCount={filteredData.length}
-            totalCount={payments.length}
-          />
-        </div>
-        
-        <div className="lg:col-span-3 space-y-4">
+      {/* Desktop Layout */}
+      <div className="hidden lg:block space-y-4 lg:space-y-6">
           <div className="space-y-3">
             <FilterSystem
               filters={filterConfig}
@@ -343,7 +436,29 @@ export function Payments() {
 
           <Card>
             <CardHeader>
+            <div className="flex items-center justify-between">
               <CardTitle>Payment History ({filteredData.length})</CardTitle>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsFilterPanelOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  Filters
+                  {activeFilterCount > 0 && (
+                    <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </Button>
+                <ExportButton
+                  data={filteredData}
+                  filename="payments"
+                />
+              </div>
+            </div>
             </CardHeader>
             <CardContent>
               {filteredData.length > 0 ? (
@@ -358,11 +473,11 @@ export function Payments() {
                 <EmptyState
                   title="No payments found"
                   description="Try adjusting your search or filters"
+                  variant="no-results"
                 />
               )}
             </CardContent>
           </Card>
-        </div>
       </div>
 
       {/* Mobile Data Table */}
@@ -389,6 +504,25 @@ export function Payments() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Slide-in Filter Panel */}
+      <FilterPanelSlideIn
+        filters={filterConfig}
+        filterValues={filters}
+        onFilterChange={setFilters}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        resultCount={filteredData.length}
+        totalCount={payments.length}
+        searchPlaceholder="Search payments by ID, invoice number, client name..."
+        isOpen={isFilterPanelOpen}
+        onClose={() => setIsFilterPanelOpen(false)}
+        paymentDateRange={paymentDateRange}
+        onPaymentDateRangeChange={setPaymentDateRange}
+        amountRange={amountRange}
+        onAmountRangeChange={setAmountRange}
+        amountStats={amountStats}
+      />
     </div>
   );
 }

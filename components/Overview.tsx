@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui';
+import { Card, CardContent, CardHeader, CardTitle, Button } from './ui';
 import { 
   StatCard, 
   Timeline,
   WorkOrderCard,
+  useNavigation,
 } from './shared';
 import { 
   ClipboardList, 
@@ -11,7 +12,8 @@ import {
   FileText, 
   TrendingUp,
   AlertTriangle,
-  Clock
+  Clock,
+  ArrowRight
 } from 'lucide-react';
 import { 
   metrics, 
@@ -33,14 +35,16 @@ const getCSSVariable = (variable: string, fallback: string): string => {
 };
 
 export function Overview() {
+  const { navigate } = useNavigation();
+  
   // Get primary color from CSS variables
   const primaryColor = useMemo(() => getCSSVariable('--primary', '#f7d604'), []);
 
-  // Get urgent work orders
+  // Get urgent work orders - increase from 5 to 7 cards
   const urgentWorkOrders = useMemo(() => {
     return workOrders
       .filter((wo: WorkOrder) => wo.priority === 'urgent' || wo.priority === 'high')
-      .slice(0, 5);
+      .slice(0, 7);
   }, []);
 
   // Format activities for timeline
@@ -80,10 +84,10 @@ export function Overview() {
   }, []);
 
   return (
-    <div className="p-4 space-y-4 bg-gray-50 min-h-screen">
+    <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
 
       {/* KPI Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <StatCard
           title="Active Work Orders"
           value={metrics.activeWorkOrders}
@@ -127,7 +131,7 @@ export function Overview() {
             </div>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={240}>
               <LineChart data={revenueChartData.data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis 
@@ -142,7 +146,8 @@ export function Overview() {
                 />
                 <Tooltip 
                   formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  cursor={{ stroke: primaryColor, strokeWidth: 2, strokeDasharray: '5 5' }}
                 />
                 <ReferenceLine 
                   y={revenueChartData.avg} 
@@ -156,7 +161,7 @@ export function Overview() {
                   stroke={primaryColor}
                   strokeWidth={2.5}
                   dot={{ fill: primaryColor, r: 4 }}
-                  activeDot={{ r: 6 }}
+                  activeDot={{ r: 7, fill: primaryColor, stroke: '#fff', strokeWidth: 2 }}
                   name="Revenue"
                 />
               </LineChart>
@@ -170,7 +175,7 @@ export function Overview() {
             <CardTitle className="text-lg">Service Distribution</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={240}>
               <BarChart data={serviceChartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
@@ -187,7 +192,8 @@ export function Overview() {
                 />
                 <Tooltip 
                   formatter={(value: number) => [value, 'Count']}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
                 />
                 <Bar 
                   dataKey="value" 
@@ -205,22 +211,33 @@ export function Overview() {
         {/* Urgent Work Orders */}
         <Card>
           <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-lg">
               <AlertTriangle className="w-4 h-4" style={{ color: 'var(--warning)' }} />
               Urgent Work Orders
             </CardTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('work-orders')}
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                <span>View All</span>
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="pt-3">
             {urgentWorkOrders.length > 0 ? (
-              <div className="space-y-3">
-                {urgentWorkOrders.map((wo: WorkOrder) => (
-                  <WorkOrderCard
-                    key={wo.id}
-                    workOrder={wo}
-                    onClick={() => console.log('Navigate to work order:', wo.id)}
-                  />
-                ))}
-              </div>
+                <div className="space-y-3">
+                  {urgentWorkOrders.map((wo: WorkOrder) => (
+                    <WorkOrderCard
+                      key={wo.id}
+                      workOrder={wo}
+                      onClick={() => console.log('Navigate to work order:', wo.id)}
+                    />
+                  ))}
+                </div>
             ) : (
               <p className="text-sm text-gray-500 text-center py-8">No urgent work orders</p>
             )}

@@ -27,11 +27,13 @@ export function StatusBadge({ status, label, className, size = 'md' }: StatusBad
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border font-medium',
+        'inline-flex items-center justify-center rounded-full border font-medium min-w-[60px]',
         statusStyles[status],
         sizeStyles[size],
         className
       )}
+      role="status"
+      aria-label={`Status: ${label}`}
     >
       {label}
     </span>

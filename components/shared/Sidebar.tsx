@@ -67,9 +67,9 @@ export function Sidebar({
               </div>
             )}
             <div>
-              <h1 className="text-black font-bold text-base">{logo.text}</h1>
+              <h1 className="text-black font-bold text-base m-0 leading-tight">{logo.text}</h1>
               {logo.subtitle && (
-                <p className="text-gray-500 text-xs">{logo.subtitle}</p>
+                <p className="text-gray-500 text-xs m-0 leading-tight mt-0.5">{logo.subtitle}</p>
               )}
             </div>
           </div>

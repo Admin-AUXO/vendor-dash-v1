@@ -1,15 +1,16 @@
 import { useState, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Tabs, TabsContent, TabsList, TabsTrigger } from './ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, Tabs, TabsContent, TabsList, TabsTrigger, Badge } from './ui';
 import { 
   StatCard, 
   FilterSystem,
-  FilterSidebar,
+  FilterPanelSlideIn,
   SearchBar,
   DataTable,
   StatusBadge,
   PriorityBadge,
   EmptyState,
   Accordion,
+  TruncatedText,
   type FilterGroup,
 } from './shared';
 import { 
@@ -18,7 +19,8 @@ import {
   CheckCircle, 
   AlertCircle,
   Plus,
-  MessageSquare
+  MessageSquare,
+  Filter
 } from 'lucide-react';
 import { supportTickets, type SupportTicket } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
@@ -27,11 +29,13 @@ import { format } from 'date-fns';
 export function HelpDesk() {
   const [activeTab, setActiveTab] = useState('tickets');
   const [searchQuery, setSearchQuery] = useState('');
+  const [kbSearchQuery, setKbSearchQuery] = useState('');
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     priority: [],
     category: [],
   });
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
 
   // Filter tickets
   const filteredTickets = useMemo(() => {
@@ -62,6 +66,31 @@ export function HelpDesk() {
     return data;
   }, [searchQuery, filters]);
 
+  // Format response time from decimal hours to "2h 30m" format
+  const formatResponseTime = (hours: number) => {
+    const h = Math.floor(hours);
+    const m = Math.round((hours - h) * 60);
+    if (h === 0) {
+      return `${m}m`;
+    }
+    if (m === 0) {
+      return `${h}h`;
+    }
+    return `${h}h ${m}m`;
+  };
+
+  // Get agent initials or avatar
+  const getAgentDisplay = (agentName: string | undefined) => {
+    if (!agentName) {
+      return { initials: 'UA', name: 'Unassigned' };
+    }
+    const parts = agentName.split(' ');
+    const initials = parts.length > 1 
+      ? `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
+      : parts[0].substring(0, 2).toUpperCase();
+    return { initials, name: agentName };
+  };
+
   // Calculate support stats
   const supportStats = useMemo(() => {
     const open = supportTickets.filter((t: SupportTicket) => t.status === 'open').length;
@@ -71,6 +100,16 @@ export function HelpDesk() {
 
     return { open, inProgress, resolved, avgResponseTime };
   }, []);
+
+  // Calculate response time for a ticket (mock calculation)
+  const getTicketResponseTime = (ticket: SupportTicket) => {
+    // This would be calculated from actual response data
+    // For now, return a mock value based on ticket priority
+    const baseTime = ticket.priority === 'urgent' ? 0.5 : 
+                     ticket.priority === 'high' ? 1.5 : 
+                     ticket.priority === 'medium' ? 2.5 : 4.0;
+    return baseTime + Math.random() * 1.5; // Add some variation
+  };
 
   // Knowledge base articles (mock data)
   const knowledgeBaseArticles = [
@@ -112,14 +151,18 @@ export function HelpDesk() {
       accessorKey: 'ticketId',
       header: 'Ticket ID',
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">{row.original.ticketId}</span>
+        <span className="font-semibold text-sm font-mono">{row.original.ticketId}</span>
       ),
     },
     {
       accessorKey: 'subject',
       header: 'Subject',
       cell: ({ row }) => (
-        <span className="text-sm font-medium text-gray-900">{row.original.subject}</span>
+        <TruncatedText 
+          text={row.original.subject} 
+          maxLength={50}
+          className="text-sm font-medium text-gray-900"
+        />
       ),
     },
     {
@@ -164,11 +207,38 @@ export function HelpDesk() {
     {
       accessorKey: 'assignedAgent',
       header: 'Assigned To',
+      cell: ({ row }) => {
+        const agent = getAgentDisplay(row.original.assignedAgent);
+        return (
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-xs font-semibold text-primary">{agent.initials}</span>
+            </div>
+            <span className="text-sm text-gray-900">{agent.name}</span>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'updatedDate',
+      header: 'Last Updated',
       cell: ({ row }) => (
         <span className="text-sm text-gray-900">
-          {row.original.assignedAgent || 'Unassigned'}
+          {format(new Date(row.original.updatedDate), 'MMM dd, yyyy')}
         </span>
       ),
+    },
+    {
+      accessorKey: 'responseTime',
+      header: 'Response Time',
+      cell: ({ row }) => {
+        const responseTime = getTicketResponseTime(row.original);
+        return (
+          <span className="text-sm text-gray-900">
+            {formatResponseTime(responseTime)}
+          </span>
+        );
+      },
     },
     {
       id: 'actions',
@@ -226,20 +296,32 @@ export function HelpDesk() {
     },
   ];
 
-  // Group articles by category
+  // Filter and group articles by category
   const articlesByCategory = useMemo(() => {
+    let filtered = knowledgeBaseArticles;
+    
+    // Apply search filter
+    if (kbSearchQuery) {
+      const query = kbSearchQuery.toLowerCase();
+      filtered = filtered.filter(article =>
+        article.title.toLowerCase().includes(query) ||
+        article.content.toLowerCase().includes(query) ||
+        article.category.toLowerCase().includes(query)
+      );
+    }
+    
     const grouped: Record<string, typeof knowledgeBaseArticles> = {};
-    knowledgeBaseArticles.forEach(article => {
+    filtered.forEach(article => {
       if (!grouped[article.category]) {
         grouped[article.category] = [];
       }
       grouped[article.category].push(article);
     });
     return grouped;
-  }, []);
+  }, [kbSearchQuery]);
 
   return (
-    <div className="p-4 space-y-4 bg-gray-50 min-h-screen">
+    <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       <div className="flex items-center justify-end mb-2">
         <Button>
           <Plus className="w-4 h-4 mr-2" />
@@ -266,7 +348,7 @@ export function HelpDesk() {
         />
         <StatCard
           title="Avg Response Time"
-          value={`${supportStats.avgResponseTime}h`}
+          value={formatResponseTime(supportStats.avgResponseTime)}
           icon={Headphones}
         />
       </div>
@@ -276,7 +358,10 @@ export function HelpDesk() {
         <TabsList>
           <TabsTrigger value="tickets">Support Tickets</TabsTrigger>
           <TabsTrigger value="knowledge-base">Knowledge Base</TabsTrigger>
-          <TabsTrigger value="live-chat" disabled>Live Chat</TabsTrigger>
+          <TabsTrigger value="live-chat" disabled>
+            Live Chat
+            <Badge className="ml-2" variant="secondary">Coming Soon</Badge>
+          </TabsTrigger>
         </TabsList>
 
         {/* Support Tickets Tab */}
@@ -295,21 +380,8 @@ export function HelpDesk() {
             />
           </div>
 
-          {/* Desktop Layout with Sidebar */}
-          <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4">
-            <div className="lg:col-span-1">
-              <FilterSidebar
-                filters={filterConfig}
-                filterValues={filters}
-                onFilterChange={setFilters}
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                resultCount={filteredTickets.length}
-                totalCount={supportTickets.length}
-              />
-            </div>
-            
-            <div className="lg:col-span-3 space-y-4">
+          {/* Desktop Layout */}
+          <div className="hidden lg:block space-y-4 lg:space-y-6">
               <div className="space-y-3">
                 <FilterSystem
                   filters={filterConfig}
@@ -327,7 +399,25 @@ export function HelpDesk() {
 
               <Card>
                 <CardHeader>
+                <div className="flex items-center justify-between">
                   <CardTitle>Support Tickets ({filteredTickets.length})</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsFilterPanelOpen(true)}
+                      className="flex items-center gap-2"
+                    >
+                      <Filter className="w-4 h-4" />
+                      Filters
+                      {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) && (
+                        <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                          {Object.values(filters).reduce((count, v) => count + (Array.isArray(v) ? v.length : v ? 1 : 0), 0)}
+                        </span>
+                      )}
+                    </Button>
+                  </div>
+                </div>
                 </CardHeader>
                 <CardContent>
                   {filteredTickets.length > 0 ? (
@@ -342,11 +432,11 @@ export function HelpDesk() {
                     <EmptyState
                       title="No tickets found"
                       description="Try adjusting your search or filters"
+                      variant="no-results"
                     />
                   )}
                 </CardContent>
               </Card>
-            </div>
           </div>
 
           {/* Mobile Data Table */}
@@ -373,55 +463,169 @@ export function HelpDesk() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Slide-in Filter Panel */}
+          <FilterPanelSlideIn
+            filters={filterConfig}
+            filterValues={filters}
+            onFilterChange={setFilters}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            resultCount={filteredTickets.length}
+            totalCount={supportTickets.length}
+            searchPlaceholder="Search tickets by ID, subject, description..."
+            isOpen={isFilterPanelOpen}
+            onClose={() => setIsFilterPanelOpen(false)}
+          />
         </TabsContent>
 
         {/* Knowledge Base Tab */}
         <TabsContent value="knowledge-base" className="space-y-4">
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <SearchBar
-                placeholder="Search knowledge base articles..."
-                onSearch={setSearchQuery}
-              />
+          <div className="hidden lg:grid lg:grid-cols-5 lg:gap-4">
+            {/* Category Sidebar */}
+            <div className="lg:col-span-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm font-semibold">Categories</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <button
+                    onClick={() => setKbSearchQuery('')}
+                    className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
+                  >
+                    All Articles
+                  </button>
+                  {Object.keys(articlesByCategory).map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setKbSearchQuery(category)}
+                      className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 transition-colors"
+                    >
+                      {category} ({articlesByCategory[category].length})
+                    </button>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Main Content */}
+            <div className="lg:col-span-4 space-y-4">
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <SearchBar
+                    placeholder="Search knowledge base articles..."
+                    onSearch={setKbSearchQuery}
+                    value={kbSearchQuery}
+                    onChange={setKbSearchQuery}
+                  />
+                </div>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Knowledge Base</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {Object.keys(articlesByCategory).length > 0 ? (
+                    <div className="space-y-4">
+                      {Object.entries(articlesByCategory).map(([category, articles]) => (
+                        <Accordion
+                          key={category}
+                          type="single"
+                          items={[
+                            {
+                              id: category,
+                              title: `${category} (${articles.length})`,
+                              content: (
+                                <div className="space-y-3 pt-2">
+                                  {articles.map((article) => (
+                                    <div
+                                      key={article.id}
+                                      className="p-3 border border-border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                                    >
+                                      <h4 className="font-semibold text-sm text-gray-900 mb-1">
+                                        {article.title}
+                                      </h4>
+                                      <p className="text-sm text-gray-600">{article.content}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              ),
+                            },
+                          ]}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <EmptyState
+                      title="No articles found"
+                      description="Try adjusting your search"
+                      variant="no-results"
+                    />
+                  )}
+                </CardContent>
+              </Card>
             </div>
           </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Knowledge Base</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {Object.entries(articlesByCategory).map(([category, articles]) => (
-                  <Accordion
-                    key={category}
-                    type="single"
-                    items={[
-                      {
-                        id: category,
-                        title: category,
-                        content: (
-                          <div className="space-y-3 pt-2">
-                            {articles.map((article) => (
-                              <div
-                                key={article.id}
-                                className="p-3 border border-border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                              >
-                                <h4 className="font-semibold text-sm text-gray-900 mb-1">
-                                  {article.title}
-                                </h4>
-                                <p className="text-sm text-gray-600">{article.content}</p>
-                              </div>
-                            ))}
-                          </div>
-                        ),
-                      },
-                    ]}
-                  />
-                ))}
+          
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-4">
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <SearchBar
+                  placeholder="Search knowledge base articles..."
+                  onSearch={setKbSearchQuery}
+                  value={kbSearchQuery}
+                  onChange={setKbSearchQuery}
+                />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Knowledge Base</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {Object.keys(articlesByCategory).length > 0 ? (
+                  <div className="space-y-4">
+                    {Object.entries(articlesByCategory).map(([category, articles]) => (
+                      <Accordion
+                        key={category}
+                        type="single"
+                        items={[
+                          {
+                            id: category,
+                            title: `${category} (${articles.length})`,
+                            content: (
+                              <div className="space-y-3 pt-2">
+                                {articles.map((article) => (
+                                  <div
+                                    key={article.id}
+                                    className="p-3 border border-border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                                  >
+                                    <h4 className="font-semibold text-sm text-gray-900 mb-1">
+                                      {article.title}
+                                    </h4>
+                                    <p className="text-sm text-gray-600">{article.content}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            ),
+                          },
+                        ]}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState
+                    title="No articles found"
+                    description="Try adjusting your search"
+                    variant="no-results"
+                  />
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         {/* Live Chat Tab */}

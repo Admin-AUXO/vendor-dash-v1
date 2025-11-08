@@ -3,12 +3,13 @@ import { Card, CardContent, CardHeader, CardTitle, Button } from './ui';
 import { 
   StatCard, 
   FilterSystem,
-  FilterSidebar,
+  FilterPanelSlideIn,
   DataTable,
   StatusBadge,
   PriorityBadge,
   ExportButton,
   EmptyState,
+  TruncatedText,
   type FilterGroup,
 } from './shared';
 import { 
@@ -16,7 +17,8 @@ import {
   Clock, 
   CheckCircle, 
   AlertCircle,
-  Plus
+  Plus,
+  Filter
 } from 'lucide-react';
 import { workOrders, type WorkOrder } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
@@ -30,6 +32,7 @@ export function WorkOrders() {
     priority: [],
     serviceCategory: [],
   });
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
 
   // Filter data
   const filteredData = useMemo(() => {
@@ -80,7 +83,7 @@ export function WorkOrders() {
       accessorKey: 'workOrderId',
       header: 'Work Order ID',
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">{row.original.workOrderId}</span>
+        <span className="font-semibold text-sm font-mono">{row.original.workOrderId}</span>
       ),
     },
     {
@@ -88,7 +91,11 @@ export function WorkOrders() {
       header: 'Property Address',
       cell: ({ row }) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">{row.original.propertyAddress}</p>
+          <TruncatedText 
+            text={row.original.propertyAddress} 
+            maxLength={40}
+            className="text-sm font-medium text-gray-900"
+          />
           <p className="text-xs text-gray-500">{row.original.serviceCategory}</p>
         </div>
       ),
@@ -198,20 +205,7 @@ export function WorkOrders() {
   ];
 
   return (
-    <div className="p-4 space-y-4 bg-gray-50 min-h-screen">
-      <div className="flex items-center justify-end mb-2">
-        <div className="flex items-center gap-2">
-          <ExportButton
-            data={filteredData}
-            filename="work-orders"
-          />
-          <Button>
-            <Plus className="w-4 h-4 mr-2" />
-            Create Work Order
-          </Button>
-        </div>
-      </div>
-
+    <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Summary Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
@@ -250,21 +244,8 @@ export function WorkOrders() {
         />
       </div>
 
-      {/* Desktop Layout with Sidebar */}
-      <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4">
-        <div className="lg:col-span-1">
-          <FilterSidebar
-            filters={filterConfig}
-            filterValues={filters}
-            onFilterChange={setFilters}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            resultCount={filteredData.length}
-            totalCount={workOrders.length}
-          />
-        </div>
-        
-        <div className="lg:col-span-3 space-y-4">
+      {/* Desktop Layout */}
+      <div className="hidden lg:block space-y-4 lg:space-y-6">
           {/* Search Bar and Filter Bar for Desktop */}
           <div className="space-y-3">
             <FilterSystem
@@ -284,7 +265,33 @@ export function WorkOrders() {
           {/* Data Table */}
           <Card>
             <CardHeader>
+            <div className="flex items-center justify-between">
               <CardTitle>Work Orders ({filteredData.length})</CardTitle>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsFilterPanelOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  Filters
+                  {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) && (
+                    <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                      {Object.values(filters).reduce((count, v) => count + (Array.isArray(v) ? v.length : v ? 1 : 0), 0)}
+                    </span>
+                  )}
+                </Button>
+                <Button size="sm">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Work Order
+                </Button>
+                <ExportButton
+                  data={filteredData}
+                  filename="work-orders"
+                />
+              </div>
+            </div>
             </CardHeader>
             <CardContent>
               {filteredData.length > 0 ? (
@@ -297,13 +304,20 @@ export function WorkOrders() {
                 />
               ) : (
                 <EmptyState
-                  title="No work orders found"
-                  description="Try adjusting your search or filters"
+                  title={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "No work orders found" : "No work orders yet"}
+                  description={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "Try adjusting your search or filters" : "Get started by creating your first work order"}
+                  variant={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "no-results" : "empty"}
+                  action={!searchQuery && !Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? {
+                    label: "Create First Work Order",
+                    onClick: () => {
+                      // Handle create work order action
+                      console.log("Create work order clicked");
+                    }
+                  } : undefined}
                 />
               )}
             </CardContent>
           </Card>
-        </div>
       </div>
 
       {/* Mobile Data Table */}
@@ -323,13 +337,35 @@ export function WorkOrders() {
               />
             ) : (
               <EmptyState
-                title="No work orders found"
-                description="Try adjusting your search or filters"
+                title={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "No work orders found" : "No work orders yet"}
+                description={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "Try adjusting your search or filters" : "Get started by creating your first work order"}
+                variant={searchQuery || Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? "no-results" : "empty"}
+                action={!searchQuery && !Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) ? {
+                  label: "Create First Work Order",
+                  onClick: () => {
+                    // Handle create work order action
+                    console.log("Create work order clicked");
+                  }
+                } : undefined}
               />
             )}
           </CardContent>
         </Card>
       </div>
+
+      {/* Slide-in Filter Panel */}
+      <FilterPanelSlideIn
+        filters={filterConfig}
+        filterValues={filters}
+        onFilterChange={setFilters}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        resultCount={filteredData.length}
+        totalCount={workOrders.length}
+        searchPlaceholder="Search work orders by ID, address, client name..."
+        isOpen={isFilterPanelOpen}
+        onClose={() => setIsFilterPanelOpen(false)}
+      />
     </div>
   );
 }

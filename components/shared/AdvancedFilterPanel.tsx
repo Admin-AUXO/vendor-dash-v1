@@ -32,6 +32,7 @@ export interface AdvancedFilterPanelProps {
   totalCount?: number;
   className?: string;
   variant?: 'sidebar' | 'drawer';
+  hideHeader?: boolean;
 }
 
 export function AdvancedFilterPanel({
@@ -44,6 +45,7 @@ export function AdvancedFilterPanel({
   totalCount,
   className,
   variant = 'sidebar',
+  hideHeader = false,
 }: AdvancedFilterPanelProps) {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   const [filterSearchQueries, setFilterSearchQueries] = useState<Record<string, string>>({});
@@ -112,61 +114,63 @@ export function AdvancedFilterPanel({
   return (
     <div className={cn('flex flex-col h-full bg-white', className)}>
       {/* Header */}
-      <div className="p-4 border-b border-border space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Filter className="w-5 h-5 text-gray-600" />
-            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-          </div>
-          {hasActiveFilters && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearAllFilters}
-              className="h-7 text-xs"
-            >
-              Clear all
-            </Button>
-          )}
-        </div>
-
-        {/* Main Search Bar */}
-        {onSearchChange && (
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 pr-10 h-9"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => onSearchChange('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+      {!hideHeader && (
+        <div className="p-4 border-b border-border space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+            </div>
+            {hasActiveFilters && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearAllFilters}
+                className="h-7 text-xs"
               >
-                <X className="w-4 h-4" />
-              </button>
+                Clear all
+              </Button>
             )}
           </div>
-        )}
 
-        {/* Result Count */}
-        {resultCount !== undefined && totalCount !== undefined && (
-          <div className="text-sm text-gray-600">
-            <span className="font-medium">{resultCount}</span>
-            {' '}of{' '}
-            <span className="font-medium">{totalCount}</span>
-            {' '}results
-          </div>
-        )}
-      </div>
+          {/* Main Search Bar */}
+          {onSearchChange && (
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="pl-10 pr-10 h-9"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => onSearchChange('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Result Count */}
+          {resultCount !== undefined && totalCount !== undefined && (
+            <div className="text-sm text-gray-600">
+              <span className="font-medium">{resultCount}</span>
+              {' '}of{' '}
+              <span className="font-medium">{totalCount}</span>
+              {' '}results
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Filter Groups */}
-      <ScrollArea className={cn("flex-1", variant === 'drawer' ? "h-[calc(85vh-200px)]" : "max-h-[calc(100vh-300px)]")}>
-        <div className="p-4 space-y-4">
+      <ScrollArea className={cn("flex-1", variant === 'drawer' ? "h-[calc(85vh-200px)]" : hideHeader ? "max-h-none" : "max-h-[calc(100vh-300px)]")}>
+        <div className={cn("space-y-4", hideHeader ? "" : "p-4")}>
           {filters.map((filter) => {
             const isExpanded = expandedGroups.has(filter.id);
             const activeCount = getActiveFilterCount(filter.id);

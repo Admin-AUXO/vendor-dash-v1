@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, ChevronLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/sheet';
 import { AdvancedFilterPanel, type FilterGroup } from './AdvancedFilterPanel';
@@ -167,19 +167,78 @@ export function FilterSidebar({
   totalCount,
   className,
 }: Omit<FilterSystemProps, 'showSearchBar' | 'showFilterBar' | 'searchPlaceholder'>) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Count active filters
+  const activeFilterCount = useMemo(() => {
+    return Object.values(filterValues).reduce((count, value) => {
+      if (Array.isArray(value)) {
+        return count + value.length;
+      }
+      return count + (value ? 1 : 0);
+    }, 0);
+  }, [filterValues]);
+
   return (
-    <div className={cn('sticky top-4', className)}>
-      <AdvancedFilterPanel
-        filters={filters}
-        filterValues={filterValues}
-        onFilterChange={onFilterChange}
-        searchQuery={searchQuery}
-        onSearchChange={onSearchChange}
-        resultCount={resultCount}
-        totalCount={totalCount}
-        variant="sidebar"
-        className="border border-border rounded-lg shadow-sm"
-      />
+    <div className={cn('sticky top-4 transition-all duration-200', className)}>
+      <div className="border border-border rounded-lg shadow-sm bg-white overflow-hidden">
+        {!isCollapsed ? (
+          <>
+            <div className="flex items-center justify-between p-3 border-b border-border bg-gray-50">
+              <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2" id="filters-heading">
+                <Filter className="w-4 h-4" aria-hidden="true" />
+                Filters
+                {activeFilterCount > 0 && (
+                  <span className="ml-1 text-xs text-gray-500">({activeFilterCount})</span>
+                )}
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsCollapsed(true)}
+                className="h-8 w-8 p-0"
+                aria-label="Collapse filters sidebar"
+                aria-expanded="true"
+                aria-controls="filter-panel"
+              >
+                <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+              </Button>
+            </div>
+            <div id="filter-panel" role="region" aria-labelledby="filters-heading">
+              <AdvancedFilterPanel
+                filters={filters}
+                filterValues={filterValues}
+                onFilterChange={onFilterChange}
+                searchQuery={searchQuery}
+                onSearchChange={onSearchChange}
+                resultCount={resultCount}
+                totalCount={totalCount}
+                variant="sidebar"
+                className="border-0 shadow-none"
+              />
+            </div>
+          </>
+        ) : (
+          <div className="p-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsCollapsed(false)}
+              className="w-full justify-center h-10"
+              aria-label={`Expand filters sidebar${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ''}`}
+              aria-expanded="false"
+              aria-controls="filter-panel"
+            >
+              <Filter className="w-4 h-4" aria-hidden="true" />
+              {activeFilterCount > 0 && (
+                <span className="ml-2 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

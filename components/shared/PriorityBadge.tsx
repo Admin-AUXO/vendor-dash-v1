@@ -33,11 +33,13 @@ export function PriorityBadge({ priority, label, className, size = 'md' }: Prior
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border font-medium',
+        'inline-flex items-center justify-center rounded-full border font-medium min-w-[60px]',
         priorityStyles[priority],
         sizeStyles[size],
         className
       )}
+      role="status"
+      aria-label={`Priority: ${label || priorityLabels[priority]}`}
     >
       {label || priorityLabels[priority]}
     </span>

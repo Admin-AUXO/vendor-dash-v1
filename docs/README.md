@@ -1,28 +1,11 @@
 # Documentation
 
-Essential documentation for the Vendor Dashboard implementation.
-
-## 📋 Core Documents
-
-### [Wireframe Guide](./WIREFRAME_GUIDE.md)
-Quick reference with concise specifications for all 6 screens including purpose, key elements, data sources, and reusable components.
-
-### [Vendor Dashboard Wireframe Guide](./VENDOR_DASHBOARD_WIREFRAME_GUIDE.md) 📚 **DETAILED REFERENCE**
-Comprehensive detailed guide with complete specifications for all 6 screens including purpose, contents, use cases, reusable elements, data models, design principles, and implementation notes.
-
-### [Implementation Guide](./IMPLEMENTATION_GUIDE.md)
-Quick reference for component structure, data usage, theme system, and available components.
+Essential documentation for the Vendor Dashboard Wireframe.
 
 ## 📚 Additional Resources
 
 - **Data Documentation**: `data/README.md` - Data structure and usage
 - **Main README**: `README.md` - Project overview
-
-## 🎯 Quick Start
-
-1. Review [Wireframe Guide](./WIREFRAME_GUIDE.md) for screen specifications
-2. Use [Implementation Guide](./IMPLEMENTATION_GUIDE.md) as quick reference
-3. Check [Vendor Dashboard Wireframe Guide](./VENDOR_DASHBOARD_WIREFRAME_GUIDE.md) for detailed information
 
 ## 📦 Available Components
 
@@ -77,7 +60,3 @@ Import from `@/data`:
 - **Work Order Cards**: Dedicated component for work order display
 - **Optimized Charts**: Bar charts instead of pie charts, enhanced line charts with averages
 - **Clean Layout**: Page titles in header only, optimized spacing
-
----
-
-**Last Updated**: Implementation complete - all screens functional and optimized.

@@ -16,6 +16,7 @@ interface DateRangePickerProps {
   className?: string;
   placeholder?: string;
   disabled?: boolean;
+  value?: DateRange | undefined;
 }
 
 export function DateRangePicker({
@@ -23,12 +24,19 @@ export function DateRangePicker({
   className,
   placeholder = 'Pick a date range',
   disabled = false,
+  value: controlledValue,
 }: DateRangePickerProps) {
-  const [date, setDate] = useState<DateRange | undefined>();
+  const [internalDate, setInternalDate] = useState<DateRange | undefined>();
   const [isOpen, setIsOpen] = useState(false);
+  
+  // Use controlled value if provided, otherwise use internal state
+  const date = controlledValue !== undefined ? controlledValue : internalDate;
+  const isControlled = controlledValue !== undefined;
 
   const handleDateChange = (range: DateRange | undefined) => {
-    setDate(range);
+    if (!isControlled) {
+      setInternalDate(range);
+    }
     onDateRangeChange(range);
     if (range?.from && range?.to) {
       setIsOpen(false);
@@ -36,7 +44,9 @@ export function DateRangePicker({
   };
 
   const handleClear = () => {
-    setDate(undefined);
+    if (!isControlled) {
+      setInternalDate(undefined);
+    }
     onDateRangeChange(undefined);
   };
 

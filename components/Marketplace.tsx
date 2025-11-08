@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle, Button, Tabs, TabsContent, Ta
 import { 
   StatCard, 
   FilterSystem,
-  FilterSidebar,
+  FilterPanelSlideIn,
   DataTable,
   StatusBadge,
   EmptyState,
+  TruncatedText,
   type FilterGroup,
 } from './shared';
 import { 
@@ -14,7 +15,8 @@ import {
   FileCheck, 
   TrendingUp, 
   Target,
-  Plus
+  Users,
+  Filter
 } from 'lucide-react';
 import { marketplaceProjects, bids, type MarketplaceProject, type Bid } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
@@ -27,7 +29,10 @@ export function Marketplace() {
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     serviceCategory: [],
+    endingSoon: '',
   });
+  const [budgetRange, setBudgetRange] = useState<{ min: number | null; max: number | null }>({ min: null, max: null });
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
 
   // Filter projects
   const filteredProjects = useMemo(() => {
@@ -52,9 +57,25 @@ export function Marketplace() {
     if (filters.serviceCategory && Array.isArray(filters.serviceCategory) && filters.serviceCategory.length > 0) {
       data = data.filter((proj: MarketplaceProject) => filters.serviceCategory.includes(proj.serviceCategory));
     }
+    if (filters.endingSoon && filters.endingSoon === 'true') {
+      const now = new Date();
+      const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+      data = data.filter((proj: MarketplaceProject) => {
+        const deadline = new Date(proj.deadline);
+        return deadline <= threeDaysFromNow && deadline >= now && proj.status === 'open';
+      });
+    }
+    if (budgetRange.min !== null || budgetRange.max !== null) {
+      data = data.filter((proj: MarketplaceProject) => {
+        const avgBudget = (proj.budgetMin + proj.budgetMax) / 2;
+        const min = budgetRange.min ?? -Infinity;
+        const max = budgetRange.max ?? Infinity;
+        return avgBudget >= min && avgBudget <= max;
+      });
+    }
 
     return data;
-  }, [searchQuery, filters]);
+  }, [searchQuery, filters, budgetRange]);
 
   // Filter bids
   const filteredBids = useMemo(() => {
@@ -74,13 +95,21 @@ export function Marketplace() {
     return { availableProjects, myBids, wonBids, winRate, totalProjectValue };
   }, []);
 
+  // Format currency with k notation
+  const formatCurrencyK = (amount: number) => {
+    if (amount >= 1000) {
+      return `$${(amount / 1000).toFixed(1)}k`;
+    }
+    return currency(amount).format();
+  };
+
   // Project columns
   const projectColumns: ColumnDef<MarketplaceProject>[] = useMemo(() => [
     {
       accessorKey: 'projectId',
       header: 'Project ID',
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">{row.original.projectId}</span>
+        <span className="font-semibold text-sm font-mono">{row.original.projectId}</span>
       ),
     },
     {
@@ -88,8 +117,17 @@ export function Marketplace() {
       header: 'Property Address',
       cell: ({ row }) => (
         <div>
-          <p className="text-sm font-medium text-gray-900">{row.original.propertyAddress}</p>
-          <p className="text-xs text-gray-500 capitalize">{row.original.serviceCategory}</p>
+          <TruncatedText 
+            text={row.original.propertyAddress} 
+            maxLength={40}
+            className="text-sm font-medium text-gray-900"
+          />
+          <TruncatedText 
+            text={row.original.projectDescription} 
+            maxLength={60}
+            className="text-xs text-gray-500 mt-1"
+          />
+          <p className="text-xs text-gray-500 capitalize mt-1">{row.original.serviceCategory}</p>
         </div>
       ),
     },
@@ -98,7 +136,7 @@ export function Marketplace() {
       header: 'Budget Range',
       cell: ({ row }) => (
         <span className="text-sm text-gray-900">
-          {currency(row.original.budgetMin).format()} - {currency(row.original.budgetMax).format()}
+          {formatCurrencyK(row.original.budgetMin)} - {formatCurrencyK(row.original.budgetMax)}
         </span>
       ),
     },
@@ -123,10 +161,11 @@ export function Marketplace() {
       header: 'Status',
       cell: ({ row }) => {
         const status = row.original.status;
+        // Standardize status terminology to match work orders
         const statusMap: Record<string, { type: 'success' | 'warning' | 'error' | 'info' | 'pending', label: string }> = {
           'open': { type: 'info', label: 'Open' },
-          'in-review': { type: 'pending', label: 'In Review' },
-          'awarded': { type: 'success', label: 'Awarded' },
+          'in-review': { type: 'pending', label: 'In Progress' },
+          'awarded': { type: 'success', label: 'Completed' },
           'closed': { type: 'warning', label: 'Closed' },
           'cancelled': { type: 'error', label: 'Cancelled' },
         };
@@ -152,21 +191,49 @@ export function Marketplace() {
     },
   ], []);
 
+  // Get project details for bids
+  const getProjectDetails = (projectId: string) => {
+    return marketplaceProjects.find((p: MarketplaceProject) => p.projectId === projectId);
+  };
+
+  // Calculate competitor count (number of bids - 1 for own bid)
+  const getCompetitorCount = (projectId: string) => {
+    const project = getProjectDetails(projectId);
+    return project ? Math.max(0, project.numberOfBids - 1) : 0;
+  };
+
   // Bid columns
   const bidColumns: ColumnDef<Bid>[] = useMemo(() => [
     {
       accessorKey: 'bidId',
       header: 'Bid ID',
       cell: ({ row }) => (
-        <span className="font-semibold text-sm">{row.original.bidId}</span>
+        <span className="font-semibold text-sm font-mono">{row.original.bidId}</span>
       ),
     },
     {
       accessorKey: 'projectId',
-      header: 'Project ID',
-      cell: ({ row }) => (
-        <span className="text-sm text-gray-900">{row.original.projectId}</span>
-      ),
+      header: 'Project',
+      cell: ({ row }) => {
+        const project = getProjectDetails(row.original.projectId);
+        return (
+          <div>
+            <span className="text-sm text-gray-900 font-mono">{row.original.projectId}</span>
+            {project && (
+              <>
+                <TruncatedText 
+                  text={project.propertyAddress} 
+                  maxLength={40}
+                  className="text-xs text-gray-500 mt-1"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Deadline: {format(new Date(project.deadline), 'MMM dd, yyyy')}
+                </p>
+              </>
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'proposedCost',
@@ -183,6 +250,19 @@ export function Marketplace() {
       cell: ({ row }) => (
         <span className="text-sm text-gray-900">{row.original.estimatedTimeline}</span>
       ),
+    },
+    {
+      accessorKey: 'competitors',
+      header: 'Competitors',
+      cell: ({ row }) => {
+        const count = getCompetitorCount(row.original.projectId);
+        return (
+          <div className="flex items-center gap-1">
+            <Users className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-900">{count}</span>
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'submittedDate',
@@ -236,8 +316,8 @@ export function Marketplace() {
       searchable: false,
       options: [
         { value: 'open', label: 'Open' },
-        { value: 'in-review', label: 'In Review' },
-        { value: 'awarded', label: 'Awarded' },
+        { value: 'in-review', label: 'In Progress' },
+        { value: 'awarded', label: 'Completed' },
         { value: 'closed', label: 'Closed' },
         { value: 'cancelled', label: 'Cancelled' },
       ],
@@ -258,16 +338,42 @@ export function Marketplace() {
         { value: 'general', label: 'General' },
       ],
     },
+    {
+      id: 'endingSoon',
+      label: 'Ending Soon',
+      type: 'checkbox',
+      searchable: false,
+      options: [
+        { value: 'true', label: 'Ending in 3 days' },
+      ],
+    },
   ];
 
+  // Get budget range stats for display
+  const budgetStats = useMemo(() => {
+    const budgets = marketplaceProjects.map((p: MarketplaceProject) => (p.budgetMin + p.budgetMax) / 2);
+    return {
+      min: Math.min(...budgets),
+      max: Math.max(...budgets),
+    };
+  }, []);
+
+  // Count active filters for badge
+  const activeFilterCount = useMemo(() => {
+    let count = Object.values(filters).reduce((acc, value) => {
+      if (Array.isArray(value)) {
+        return acc + value.length;
+      }
+      return acc + (value ? 1 : 0);
+    }, 0);
+    
+    if (budgetRange.min !== null || budgetRange.max !== null) count += 1;
+    
+    return count;
+  }, [filters, budgetRange]);
+
   return (
-    <div className="p-4 space-y-4 bg-gray-50 min-h-screen">
-      <div className="flex items-center justify-end mb-2">
-        <Button>
-          <Plus className="w-4 h-4 mr-2" />
-          My Bids
-        </Button>
-      </div>
+    <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
 
       {/* Marketplace Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -298,8 +404,12 @@ export function Marketplace() {
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
-          <TabsTrigger value="projects">Available Projects</TabsTrigger>
-          <TabsTrigger value="bids">My Bids</TabsTrigger>
+          <TabsTrigger value="projects">
+            Available Projects ({marketplaceStats.availableProjects})
+          </TabsTrigger>
+          <TabsTrigger value="bids">
+            My Bids ({marketplaceStats.myBids})
+          </TabsTrigger>
         </TabsList>
 
         {/* Available Projects Tab */}
@@ -318,10 +428,10 @@ export function Marketplace() {
             />
           </div>
 
-          {/* Desktop Layout with Sidebar */}
-          <div className="hidden lg:grid lg:grid-cols-4 lg:gap-4">
-            <div className="lg:col-span-1">
-              <FilterSidebar
+          {/* Desktop Layout */}
+          <div className="hidden lg:block space-y-4 lg:space-y-6">
+            <div className="space-y-3">
+              <FilterSystem
                 filters={filterConfig}
                 filterValues={filters}
                 onFilterChange={setFilters}
@@ -329,47 +439,52 @@ export function Marketplace() {
                 onSearchChange={setSearchQuery}
                 resultCount={filteredProjects.length}
                 totalCount={marketplaceProjects.length}
+                searchPlaceholder="Search projects by ID, address, service category..."
+                showSearchBar={true}
+                showFilterBar={true}
               />
             </div>
-            
-            <div className="lg:col-span-3 space-y-4">
-              <div className="space-y-3">
-                <FilterSystem
-                  filters={filterConfig}
-                  filterValues={filters}
-                  onFilterChange={setFilters}
-                  searchQuery={searchQuery}
-                  onSearchChange={setSearchQuery}
-                  resultCount={filteredProjects.length}
-                  totalCount={marketplaceProjects.length}
-                  searchPlaceholder="Search projects by ID, address, service category..."
-                  showSearchBar={true}
-                  showFilterBar={true}
-                />
-              </div>
 
-              <Card>
-                <CardHeader>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
                   <CardTitle>Available Projects ({filteredProjects.length})</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {filteredProjects.length > 0 ? (
-                    <DataTable
-                      data={filteredProjects}
-                      columns={projectColumns}
-                      pagination
-                      pageSize={10}
-                      searchable={false}
-                    />
-                  ) : (
-                    <EmptyState
-                      title="No projects found"
-                      description="Try adjusting your search or filters"
-                    />
-                  )}
-                </CardContent>
-              </Card>
-            </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsFilterPanelOpen(true)}
+                      className="flex items-center gap-2"
+                    >
+                      <Filter className="w-4 h-4" />
+                      Filters
+                      {activeFilterCount > 0 && (
+                        <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                          {activeFilterCount}
+                        </span>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {filteredProjects.length > 0 ? (
+                  <DataTable
+                    data={filteredProjects}
+                    columns={projectColumns}
+                    pagination
+                    pageSize={10}
+                    searchable={false}
+                  />
+                ) : (
+                  <EmptyState
+                    title="No projects found"
+                    description="Try adjusting your search or filters"
+                    variant="no-results"
+                  />
+                )}
+              </CardContent>
+            </Card>
           </div>
 
           {/* Mobile Data Table */}
@@ -417,12 +532,36 @@ export function Marketplace() {
                 <EmptyState
                   title="No bids found"
                   description="You haven't submitted any bids yet"
+                  variant="empty"
+                  action={{
+                    label: "Browse Available Projects",
+                    onClick: () => console.log("Navigate to projects")
+                  }}
                 />
               )}
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Slide-in Filter Panel */}
+      {activeTab === 'projects' && (
+        <FilterPanelSlideIn
+          filters={filterConfig}
+          filterValues={filters}
+          onFilterChange={setFilters}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          resultCount={filteredProjects.length}
+          totalCount={marketplaceProjects.length}
+          searchPlaceholder="Search projects by ID, address, service category..."
+          isOpen={isFilterPanelOpen}
+          onClose={() => setIsFilterPanelOpen(false)}
+          budgetRange={budgetRange}
+          onBudgetRangeChange={setBudgetRange}
+          budgetStats={budgetStats}
+        />
+      )}
     </div>
   );
 }

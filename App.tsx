@@ -7,7 +7,7 @@ import {
   Briefcase,
   Headphones,
 } from 'lucide-react';
-import { DashboardLayout, LoadingSpinner } from '@/components/shared';
+import { DashboardLayout, LoadingSpinner, NavigationProvider } from '@/components/shared';
 import { vendor } from '@/data';
 
 // Lazy load screen components
@@ -70,31 +70,33 @@ export default function App() {
   const pageTitle = activeMenuItem?.label || 'Dashboard';
 
   return (
-    <DashboardLayout
-      navItems={menuItems}
-      activeScreen={activeScreen}
-      onScreenChange={setActiveScreen}
-      logo={{
-        text: 'PropertyVendor',
-        subtitle: 'Pro Dashboard',
-      }}
-      user={{
-        name: vendor.companyName,
-        role: 'Premium Contractor',
-        initials: vendor.companyName.split(' ').map(n => n[0]).join('').slice(0, 2),
-        onViewProfile: () => console.log('View profile'),
-      }}
-      header={{
-        title: pageTitle,
-        notifications: {
-          count: 3,
-          onClick: () => console.log('Open notifications'),
-        },
-      }}
-    >
-      <Suspense fallback={<LoadingSpinner fullScreen text="Loading..." />}>
-        <ScreenComponent />
-      </Suspense>
-    </DashboardLayout>
+    <NavigationProvider onNavigate={setActiveScreen}>
+      <DashboardLayout
+        navItems={menuItems}
+        activeScreen={activeScreen}
+        onScreenChange={setActiveScreen}
+        logo={{
+          text: 'PropertyVendor',
+          subtitle: 'Pro Dashboard',
+        }}
+        user={{
+          name: vendor.companyName,
+          role: 'Premium Contractor',
+          initials: vendor.companyName.split(' ').map(n => n[0]).join('').slice(0, 2),
+          onViewProfile: () => console.log('View profile'),
+        }}
+        header={{
+          title: pageTitle,
+          notifications: {
+            count: 3,
+            onClick: () => console.log('Open notifications'),
+          },
+        }}
+      >
+        <Suspense fallback={<LoadingSpinner fullScreen text="Loading..." />}>
+          <ScreenComponent />
+        </Suspense>
+      </DashboardLayout>
+    </NavigationProvider>
   );
 }

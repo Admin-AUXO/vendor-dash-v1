@@ -118,14 +118,19 @@ export default {
         status: {
           success: 'var(--status-success)',
           'success-light': 'var(--status-success-light)',
+          'success-foreground': 'var(--status-success-foreground)',
           warning: 'var(--status-warning)',
           'warning-light': 'var(--status-warning-light)',
+          'warning-foreground': 'var(--status-warning-foreground)',
           error: 'var(--status-error)',
           'error-light': 'var(--status-error-light)',
+          'error-foreground': 'var(--status-error-foreground)',
           info: 'var(--status-info)',
           'info-light': 'var(--status-info-light)',
+          'info-foreground': 'var(--status-info-foreground)',
           pending: 'var(--status-pending)',
           'pending-light': 'var(--status-pending-light)',
+          'pending-foreground': 'var(--status-pending-foreground)',
         },
         // Priority Colors
         priority: {

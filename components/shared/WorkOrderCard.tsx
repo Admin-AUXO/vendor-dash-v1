@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import { MapPin, Calendar, Wrench } from 'lucide-react';
 import { PriorityBadge } from './PriorityBadge';
 import { StatusBadge } from './StatusBadge';
+import { TruncatedText } from './TruncatedText';
 import { cn } from '../ui/utils';
 import type { WorkOrder } from '../../data/types';
 
@@ -59,9 +60,11 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
       {/* Address Row */}
       <div className="flex items-start gap-2 mb-3">
         <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-        <p className="text-sm text-gray-700 line-clamp-2 flex-1">
-          {workOrder.propertyAddress}
-        </p>
+        <TruncatedText 
+          text={workOrder.propertyAddress}
+          maxLength={60}
+          className="text-sm text-gray-700 flex-1"
+        />
       </div>
 
       {/* Service Description Row */}
