@@ -234,7 +234,7 @@ export function DataTable<TData>({
                       <th
                         key={header.id}
                         className={cn(
-                          'px-4 py-3 text-xs font-semibold text-gray-700 uppercase tracking-wider bg-muted',
+                          'px-4 py-3 text-xs font-display font-semibold text-gray-700 uppercase tracking-wider bg-muted',
                           textAlignClass,
                           canSort && 'cursor-pointer select-none hover:bg-gray-100'
                         )}

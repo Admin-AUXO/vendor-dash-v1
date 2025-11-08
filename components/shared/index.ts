@@ -4,6 +4,7 @@ export type { StatusType } from './StatusBadge';
 export { ColumnVisibilityToggle } from './ColumnVisibilityToggle';
 export { PriorityBadge } from './PriorityBadge';
 export type { PriorityLevel } from './PriorityBadge';
+export { CategoryBadge } from './CategoryBadge';
 export { SearchBar } from './SearchBar';
 export { FilterPanel } from './FilterPanel';
 export { FilterBar } from './FilterBar';

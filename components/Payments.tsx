@@ -521,7 +521,7 @@ export function Payments() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Monitor payment transactions, track revenue, and manage financial records for your business.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Monitor payment transactions, track revenue, and manage financial records for your business.</p>
       </div>
 
       {/* Financial Summary Cards */}
@@ -557,22 +557,22 @@ export function Payments() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Chart 1: Payment Methods Distribution (Pie Chart - Donut) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Payment Methods</CardTitle>
+            <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Payment Methods</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center">
               <div className="flex-1">
-                <ResponsiveContainer width="100%" height={280}>
+                <ResponsiveContainer width="100%" height={260}>
                   <PieChart>
                     <Pie
                       data={paymentMethodsData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={70}
-                      outerRadius={110}
-                      paddingAngle={3}
+                      innerRadius={65}
+                      outerRadius={100}
+                      paddingAngle={2}
                       dataKey="value"
                       label={false}
                     >
@@ -585,7 +585,7 @@ export function Payments() {
                         `${value} payments (${currency(props.payload.amount).format()})`,
                         name
                       ]}
-                      contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                      contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                       labelFormatter={(label) => `Method: ${label}`}
                     />
                   </PieChart>
@@ -614,48 +614,54 @@ export function Payments() {
         </Card>
 
         {/* Chart 2: Payment Status Over Time (ComposedChart) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Payment Status (7 Days)</CardTitle>
-              <div className="text-xs text-gray-600">
-                <span className="font-semibold text-gray-900">
-                  Total: {currency(paymentStatusOverTimeData.reduce((sum, d) => sum + d.completed + d.pending, 0)).format()}
-                </span>
+              <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Payment Status (7 Days)</CardTitle>
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+                Total: <span className="text-gray-900">{currency(paymentStatusOverTimeData.reduce((sum, d) => sum + d.completed + d.pending, 0)).format()}</span>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
-              <ComposedChart data={paymentStatusOverTimeData} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
+          <CardContent className="pb-4">
+            <ResponsiveContainer width="100%" height={220}>
+              <ComposedChart data={paymentStatusOverTimeData} margin={{ top: 8, right: 45, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={primaryColor} stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor={primaryColor} stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor={primaryColor} stopOpacity={0.35}/>
+                    <stop offset="95%" stopColor={primaryColor} stopOpacity={0}/>
                   </linearGradient>
                   <linearGradient id="colorPending" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={gold300} stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor={gold300} stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor={gold300} stopOpacity={0.35}/>
+                    <stop offset="95%" stopColor={gold300} stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
                   dataKey="date" 
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
+                  tickMargin={6}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <YAxis 
                   yAxisId="left"
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280' }}
+                  tickMargin={6}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                  axisLine={false}
+                  tickLine={false}
+                  width={50}
                 />
                 <YAxis 
                   yAxisId="right"
                   orientation="right"
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
-                  label={{ value: 'Failed Count', angle: -90, position: 'insideRight', fill: gray700, fontSize: 11 }}
+                  tick={{ fontSize: 10, fill: '#6b7280' }}
+                  tickMargin={6}
+                  label={{ value: 'Failed Count', angle: -90, position: 'insideRight', fill: gray700, fontSize: 10 }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={40}
                 />
                 <Tooltip 
                   formatter={(value: number, name: string) => {
@@ -664,13 +670,13 @@ export function Payments() {
                     }
                     return [`$${value.toLocaleString()}`, name === 'completed' ? 'Completed' : name === 'pending' ? 'Pending' : 'Total'];
                   }}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                   cursor={{ stroke: primaryColor, strokeWidth: 1, strokeDasharray: '3 3' }}
                 />
                 <Legend 
-                  wrapperStyle={{ fontSize: '12px', color: gray700, paddingTop: '10px' }}
+                  wrapperStyle={{ fontSize: '11px', color: gray700, paddingTop: '8px' }}
                   iconType="circle"
-                  iconSize={10}
+                  iconSize={8}
                 />
                 <Bar 
                   yAxisId="left" 
@@ -704,21 +710,21 @@ export function Payments() {
         </Card>
 
         {/* Chart 3: Top Clients by Revenue (Horizontal Bar Chart) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Top Clients by Revenue</CardTitle>
-              <div className="text-xs text-gray-600">
-                Top <span className="font-semibold text-gray-900">5</span>
+              <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Top Clients by Revenue</CardTitle>
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+                Top <span className="text-gray-900">5</span>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
+          <CardContent className="pb-4">
+            <ResponsiveContainer width="100%" height={220}>
               <BarChart
                 data={topClientsData}
                 layout="vertical"
-                margin={{ top: 10, right: 60, left: 100, bottom: 5 }}
+                margin={{ top: 5, right: 50, left: 90, bottom: 0 }}
               >
                 <defs>
                   {topClientsData.map((entry, index) => (
@@ -731,21 +737,25 @@ export function Payments() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
                 <XAxis 
                   type="number"
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
+                  tickMargin={6}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <YAxis 
                   type="category"
                   dataKey="name"
-                  tick={{ fontSize: 11, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={8}
-                  width={95}
+                  tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
+                  tickMargin={6}
+                  width={85}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <Tooltip 
                   formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
                   labelFormatter={(label, payload) => payload?.[0]?.payload?.fullName || label}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                   cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
                 />
                 <Bar 
@@ -775,15 +785,15 @@ export function Payments() {
           <div className="bg-red-100 border-b border-red-300 rounded-t-xl">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg">
+                <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                   <AlertCircle className="w-5 h-5 text-red-700" />
-                  <span className="text-gray-900">Outstanding Balances</span>
-                  <Badge variant="warning" className="bg-red-200 text-red-800 border-red-400 hover:bg-red-200">
+                  <span>Outstanding Balances</span>
+                  <Badge variant="destructive" className="font-semibold">
                     {outstandingBalances.length}
                   </Badge>
                 </CardTitle>
               </div>
-              <p className="text-sm text-gray-700 mt-1">Invoices requiring payment</p>
+              <p className="text-sm text-gray-700 mt-1 font-medium">Invoices requiring payment</p>
             </CardHeader>
           </div>
           <CardContent className="p-2">
@@ -895,9 +905,9 @@ export function Payments() {
           <Card>
             <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                 Payment History
-                <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                <Badge variant="warning" className="font-semibold">
                   {filteredData.length}
                 </Badge>
               </CardTitle>

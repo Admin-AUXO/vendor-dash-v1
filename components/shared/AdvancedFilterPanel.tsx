@@ -134,7 +134,7 @@ export function AdvancedFilterPanel({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Filter className="w-5 h-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+              <h2 className="text-lg font-display font-semibold text-gray-900 tracking-tight">Filters</h2>
             </div>
             {hasActiveFilters && (
               <Button

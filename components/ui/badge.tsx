@@ -5,29 +5,29 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 whitespace-nowrap",
+  "inline-flex items-center justify-center rounded-full border font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 whitespace-nowrap select-none antialiased",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary-hover",
+          "border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary-hover hover:shadow-md hover:scale-105 active:scale-100",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-transparent bg-secondary text-secondary-foreground shadow-sm hover:bg-gray-300 hover:shadow-md hover:scale-105 active:scale-100",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "border-transparent bg-destructive text-destructive-foreground shadow-sm hover:bg-red-600 hover:shadow-md hover:scale-105 active:scale-100",
         outline:
-          "text-foreground border-border hover:bg-accent hover:text-accent-foreground",
+          "text-foreground border-2 border-border bg-white shadow-sm hover:bg-accent hover:text-accent-foreground hover:border-primary/60 hover:shadow-md hover:scale-105 active:scale-100",
         success:
-          "border-transparent bg-status-success text-status-success-foreground shadow-sm hover:bg-status-success/90",
+          "border border-status-success/40 bg-status-success-light text-status-success shadow-sm hover:bg-status-success/15 hover:border-status-success/60 hover:shadow-md hover:scale-105 active:scale-100",
         warning:
-          "border-transparent bg-status-warning text-status-warning-foreground shadow-sm hover:bg-status-warning/90",
+          "border border-status-warning/40 bg-status-warning-light text-status-warning shadow-sm hover:bg-status-warning/15 hover:border-status-warning/60 hover:shadow-md hover:scale-105 active:scale-100",
         info:
-          "border-transparent bg-status-info text-status-info-foreground shadow-sm hover:bg-status-info/90",
+          "border border-status-info/40 bg-status-info-light text-status-info shadow-sm hover:bg-status-info/15 hover:border-status-info/60 hover:shadow-md hover:scale-105 active:scale-100",
       },
       size: {
-        default: "px-2.5 py-0.5 text-xs",
-        sm: "px-2 py-0.5 text-xs",
-        lg: "px-3 py-1 text-sm",
+        default: "px-3 py-1 text-xs leading-tight tracking-tight min-h-[22px]",
+        sm: "px-2.5 py-0.5 text-[11px] leading-tight tracking-tight min-h-[20px]",
+        lg: "px-3.5 py-1.5 text-sm leading-tight tracking-tight min-h-[26px]",
       },
     },
     defaultVariants: {

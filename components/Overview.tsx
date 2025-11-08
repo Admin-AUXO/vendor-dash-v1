@@ -8,13 +8,19 @@ import {
   useNavigation,
 } from './shared';
 import { 
-  ClipboardList, 
+  Wrench, 
   Tag, 
   FileText, 
   TrendingUp,
   AlertTriangle,
   Clock,
-  ArrowRight
+  ArrowRight,
+  CheckCircle2,
+  Briefcase,
+  MessageSquare,
+  ClipboardCheck,
+  Wallet,
+  Receipt
 } from 'lucide-react';
 import { 
   metrics, 
@@ -102,18 +108,41 @@ export function Overview() {
   const [timelineItemsToShow, setTimelineItemsToShow] = useState(10);
   const timelineItemsPerLoad = 10;
 
-  // Format all activities for timeline
+  // Format all activities for timeline with appropriate icons
   const allTimelineItems = useMemo(() => {
-    return activities.map((activity: Activity) => ({
-      id: activity.id,
-      title: activity.title,
-      description: activity.description,
-      timestamp: activity.timestamp,
-      status: activity.type.includes('completed') || activity.type.includes('paid') ? 'success' as const :
-              activity.type.includes('urgent') || activity.type.includes('overdue') ? 'error' as const :
-              activity.type.includes('pending') || activity.type.includes('created') ? 'warning' as const :
-              'info' as const,
-    }));
+    return activities.map((activity: Activity) => {
+      let icon: typeof CheckCircle2 | undefined;
+      let status: 'success' | 'warning' | 'error' | 'info' = 'info';
+      
+      if (activity.type.includes('work-order')) {
+        icon = activity.type.includes('completed') ? ClipboardCheck : Wrench;
+        status = activity.type.includes('completed') ? 'success' : 
+                 activity.type.includes('urgent') ? 'error' : 'info';
+      } else if (activity.type.includes('invoice')) {
+        icon = Receipt;
+        status = activity.type.includes('paid') ? 'success' :
+                 activity.type.includes('overdue') ? 'error' : 'info';
+      } else if (activity.type.includes('payment')) {
+        icon = Wallet;
+        status = 'success';
+      } else if (activity.type.includes('bid')) {
+        icon = Briefcase;
+        status = activity.type.includes('accepted') ? 'success' :
+                 activity.type.includes('rejected') ? 'error' : 'warning';
+      } else if (activity.type.includes('ticket')) {
+        icon = MessageSquare;
+        status = activity.type.includes('resolved') ? 'success' : 'info';
+      }
+      
+      return {
+        id: activity.id,
+        title: activity.title,
+        description: activity.description,
+        timestamp: activity.timestamp,
+        icon,
+        status,
+      };
+    });
   }, []);
 
   // Get displayed timeline items
@@ -266,7 +295,7 @@ export function Overview() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Monitor your service operations, track performance metrics, and stay on top of urgent work orders.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Monitor your service operations, track performance metrics, and stay on top of urgent work orders.</p>
       </div>
 
       {/* KPI Stat Cards */}
@@ -276,7 +305,7 @@ export function Overview() {
           value={metrics.activeWorkOrders}
           change={`${metrics.pendingWorkOrders} pending`}
           trend="up"
-          icon={ClipboardList}
+          icon={Wrench}
           tooltip="Work orders currently in progress, including pending, assigned, or active statuses."
         />
         <StatCard
@@ -310,22 +339,23 @@ export function Overview() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Chart 1: Work Orders by Status (Pie Chart) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Work Orders by Status</CardTitle>
+            <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Work Orders by Status</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+          <CardContent className="pb-4">
+            <ResponsiveContainer width="100%" height={260}>
               <PieChart>
                 <Pie
                   data={workOrdersByStatusData}
-                  cx="35%"
+                  cx="38%"
                   cy="50%"
-                  labelLine={true}
-                  outerRadius={70}
+                  labelLine={false}
+                  outerRadius={75}
+                  innerRadius={25}
                   fill={gray500}
                   dataKey="value"
-                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                  label={({ percent }) => percent > 0.05 ? `${(percent * 100).toFixed(0)}%` : ''}
                 >
                   {workOrdersByStatusData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={statusColors[entry.name as keyof typeof statusColors] || primaryColor} />
@@ -333,7 +363,7 @@ export function Overview() {
                 </Pie>
                 <Tooltip 
                   formatter={(value: number, name: string) => [`${value} work orders`, name]}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                   labelFormatter={(label) => `Status: ${label}`}
                 />
                 <Legend 
@@ -347,11 +377,11 @@ export function Overview() {
                   wrapperStyle={{ 
                     fontSize: '12px', 
                     color: gray700,
-                    paddingLeft: '20px',
-                    lineHeight: '24px'
+                    paddingLeft: '16px',
+                    lineHeight: '22px'
                   }}
                   iconType="circle"
-                  iconSize={10}
+                  iconSize={8}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -359,52 +389,57 @@ export function Overview() {
         </Card>
 
         {/* Chart 2: Monthly Revenue Trend (Area Chart) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Monthly Revenue Trend</CardTitle>
-              <div className="text-sm text-gray-600">
-                Avg: <span className="font-semibold text-gray-900">${Math.round(monthlyRevenueChartData.avgRevenue).toLocaleString()}</span>
+              <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Monthly Revenue Trend</CardTitle>
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+                Avg: <span className="text-gray-900">${Math.round(monthlyRevenueChartData.avgRevenue).toLocaleString()}</span>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
-              <AreaChart data={monthlyRevenueChartData.data} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
+          <CardContent className="pb-4">
+            <ResponsiveContainer width="100%" height={220}>
+              <AreaChart data={monthlyRevenueChartData.data} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={primaryColor} stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor={primaryColor} stopOpacity={0.35}/>
                     <stop offset="95%" stopColor={primaryColor} stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
                   dataKey="month" 
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
+                  tickMargin={6}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <YAxis 
-                  tick={{ fontSize: 11, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280' }}
+                  tickMargin={6}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                  axisLine={false}
+                  tickLine={false}
+                  width={50}
                 />
                 <Tooltip 
                   formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                   cursor={{ stroke: primaryColor, strokeWidth: 2, strokeDasharray: '5 5' }}
                 />
                 <ReferenceLine 
                   y={monthlyRevenueChartData.avgRevenue} 
                   stroke={gray600} 
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   strokeDasharray="5 5" 
                   label={{ 
                     value: 'Avg', 
                     position: 'right', 
                     fill: gray700, 
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: 600,
-                    offset: 5
+                    offset: 3
                   }}
                 />
                 <Area 
@@ -413,7 +448,7 @@ export function Overview() {
                   stroke={primaryColor}
                   strokeWidth={2.5}
                   fill="url(#colorRevenue)"
-                  dot={{ fill: primaryColor, r: 3, strokeWidth: 2, stroke: 'white' }}
+                  dot={{ fill: primaryColor, r: 2.5, strokeWidth: 2, stroke: 'white' }}
                   activeDot={{ r: 5, fill: primaryColor, stroke: 'white', strokeWidth: 2 }}
                 />
               </AreaChart>
@@ -422,39 +457,44 @@ export function Overview() {
         </Card>
 
         {/* Chart 3: Work Orders by Priority (Bar Chart) */}
-        <Card>
+        <Card className="hover:shadow-lg transition-shadow duration-300">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Work Orders by Priority</CardTitle>
+            <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Work Orders by Priority</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={workOrdersByPriorityData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
+          <CardContent className="pb-4">
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={workOrdersByPriorityData} margin={{ top: 5, right: 8, left: -10, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
                   dataKey="name" 
-                  tick={{ fontSize: 12, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={8}
+                  tick={{ fontSize: 11, fill: '#6b7280', fontWeight: 500 }}
+                  tickMargin={6}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <YAxis 
-                  tick={{ fontSize: 12, fill: '#6b7280' }}
-                  tickMargin={8}
+                  tick={{ fontSize: 10, fill: '#6b7280' }}
+                  tickMargin={6}
                   hide
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <Tooltip 
                   formatter={(value: number) => [`${value} work orders`, 'Count']}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
                   cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
                   labelFormatter={(label) => `Priority: ${label}`}
                 />
                 <Bar 
                   dataKey="value" 
-                  radius={[4, 4, 0, 0]}
+                  radius={[6, 6, 0, 0]}
                   label={{ 
                     position: 'top', 
                     fill: gray700, 
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: 600,
-                    formatter: (value: number) => value > 0 ? value : ''
+                    formatter: (value: number) => value > 0 ? value : '',
+                    offset: 4
                   }}
                 >
                   {workOrdersByPriorityData.map((entry, index) => (
@@ -470,14 +510,16 @@ export function Overview() {
       {/* Urgent Work Orders and Activity Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Urgent Work Orders */}
-        <Card>
-          <div className="bg-yellow-100 border-b border-yellow-300 rounded-t-xl">
+        <Card className="overflow-hidden border-l-4 border-l-yellow-500 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-gradient-to-r from-yellow-50 via-yellow-50/90 to-yellow-100/50 border-b border-yellow-200">
             <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2 text-lg">
-                  <AlertTriangle className="w-5 h-5 text-yellow-700" />
-                  <span className="text-gray-900">Urgent Work Orders</span>
-                  <Badge variant="warning" className="bg-yellow-200 text-yellow-800 border-yellow-400 hover:bg-yellow-200">
+            <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
+                  <div className="p-1.5 rounded-lg bg-yellow-200/50">
+                    <AlertTriangle className="w-5 h-5 text-yellow-700" />
+                  </div>
+                  <span>Urgent Work Orders</span>
+                  <Badge variant="warning" className="bg-yellow-500 text-gray-900 border-yellow-600 hover:bg-yellow-600 font-bold shadow-md hover:shadow-lg">
                     {totalUrgentWorkOrders}
                   </Badge>
             </CardTitle>
@@ -485,13 +527,16 @@ export function Overview() {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('work-orders')}
-                  className="text-sm text-gray-700 hover:text-gray-900 hover:bg-yellow-200"
+                className="text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-yellow-200/70 hover:shadow-sm"
               >
                 <span>View All</span>
-                <ArrowRight className="w-4 h-4 ml-1" />
+                <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1" />
               </Button>
             </div>
-              <p className="text-sm text-gray-700 mt-1">Immediate attention required</p>
+              <p className="text-sm text-gray-600 mt-2 font-medium flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-600 animate-pulse"></span>
+                Immediate attention required
+              </p>
           </CardHeader>
           </div>
           <CardContent className="pt-4">
@@ -525,15 +570,27 @@ export function Overview() {
         </Card>
 
         {/* Activity Feed */}
-        <Card>
-          <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-              <Clock className="w-5 h-5" style={{ color: 'var(--info)' }} />
-              Recent Activity
+        <Card className="hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+          <CardHeader className="pb-3 bg-gradient-to-r from-blue-50/50 via-blue-50/30 to-transparent border-b border-gray-100">
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-200/50">
+                  <Clock className="w-5 h-5 text-blue-600" />
+                </div>
+                <span className="text-lg font-display font-semibold text-gray-900 tracking-tight">
+                  Recent Activity
+                </span>
+              </div>
+              <Badge variant="info" className="font-semibold">
+                {timelineItems.length}
+              </Badge>
             </CardTitle>
+            <p className="text-xs text-gray-600 mt-2 ml-12 font-medium">
+              Latest updates and events
+            </p>
           </CardHeader>
-          <CardContent className="pt-4">
-            <div className="overflow-y-auto pr-2" style={{ maxHeight: '750px' }}>
+          <CardContent className="pt-4 px-4">
+            <div className="overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ maxHeight: '680px' }}>
               <Timeline items={timelineItems} />
               {hasMoreTimelineItems && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
@@ -541,7 +598,7 @@ export function Overview() {
                     variant="outline"
                     size="sm"
                     onClick={handleLoadMore}
-                    className="w-full"
+                    className="w-full hover:bg-primary hover:text-gray-900 hover:border-primary transition-all duration-200 font-medium hover:shadow-sm"
                   >
                     Load More ({allTimelineItems.length - timelineItemsToShow} remaining)
                   </Button>

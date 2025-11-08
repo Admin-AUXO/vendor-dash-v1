@@ -64,11 +64,11 @@ function SliderTabs({ tabs, activeTab, onTabChange }: SliderTabsProps) {
             onClick={() => !tab.disabled && onTabChange(tab.value)}
             disabled={tab.disabled}
             className={cn(
-              'relative flex-1 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap',
-              'focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 rounded-t-lg',
+              'relative flex-1 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-t-lg',
               'text-center justify-center',
               activeTab === tab.value
-                ? 'text-gray-900'
+                ? 'text-gray-900 font-semibold'
                 : tab.disabled
                 ? 'text-gray-400 cursor-not-allowed'
                 : 'text-gray-600 hover:text-gray-900',
@@ -82,7 +82,7 @@ function SliderTabs({ tabs, activeTab, onTabChange }: SliderTabsProps) {
         ))}
         {/* Slider Indicator */}
         <div
-          className="absolute bottom-0 h-0.5 bg-yellow-500 rounded-full"
+          className="absolute bottom-0 h-0.5 bg-primary rounded-full shadow-sm"
           style={sliderStyle}
         />
       </div>
@@ -326,12 +326,13 @@ export function Marketplace() {
           return (
             <div className="flex justify-center">
               <Button
+                variant="default"
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   console.log('Submit bid for project:', row.original.projectId);
                 }}
-                className="flex items-center gap-1.5"
+                className="flex items-center gap-1.5 font-semibold shadow-md hover:shadow-lg"
               >
                 <Send className="w-4 h-4" />
                 Submit Bid
@@ -669,7 +670,7 @@ export function Marketplace() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Discover new project opportunities, submit competitive bids, and track your bidding activity.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Discover new project opportunities, submit competitive bids, and track your bidding activity.</p>
       </div>
 
       {/* Marketplace Stats */}
@@ -758,9 +759,9 @@ export function Marketplace() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                     Available Projects
-                    <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                    <Badge variant="warning" className="font-semibold">
                       {filteredProjects.length}
                     </Badge>
                   </CardTitle>
@@ -872,9 +873,9 @@ export function Marketplace() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                     My Bids
-                    <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                    <Badge variant="warning" className="font-semibold">
                       {filteredBids.length}
                     </Badge>
                   </CardTitle>
@@ -929,9 +930,9 @@ export function Marketplace() {
           <div className="lg:hidden mt-4">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                   My Bids
-                  <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                  <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-200 font-semibold shadow-sm">
                     {filteredBids.length}
                   </Badge>
                 </CardTitle>

@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { cn } from '../ui/utils';
 import {
@@ -48,27 +48,90 @@ export function StatCard({
       ? 'text-status-error'
       : 'text-gray-600';
 
+  const iconBgGradient =
+    trend === 'up'
+      ? 'from-status-success-light to-emerald-50'
+      : trend === 'down'
+      ? 'from-status-error-light to-red-50'
+      : 'from-gold-50 to-gold-100/50';
+
+  const iconColor =
+    trend === 'up'
+      ? 'text-status-success'
+      : trend === 'down'
+      ? 'text-status-error'
+      : 'text-gold-600';
+
+  const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus;
+
   const cardContent = (
-    <Card className={cn('border-0 shadow-md hover:shadow-lg transition-shadow h-full', className)}>
-      <CardContent className="p-5 h-full flex flex-col">
-        <div className="flex items-center justify-between gap-4 flex-1">
+    <Card 
+      className={cn(
+        'border-0 shadow-md hover:shadow-xl transition-all duration-300 h-full',
+        'bg-gradient-to-br from-white to-gray-50/50',
+        'hover:scale-[1.02] hover:-translate-y-0.5',
+        'group cursor-pointer',
+        className
+      )}
+    >
+      <CardContent className="p-6 h-full flex flex-col relative overflow-hidden">
+        {/* Decorative background accent */}
+        <div 
+          className={cn(
+            'absolute top-0 right-0 w-32 h-32 rounded-full opacity-5 transition-opacity duration-300 group-hover:opacity-10',
+            trend === 'up' ? 'bg-status-success' : trend === 'down' ? 'bg-status-error' : 'bg-primary'
+          )}
+          style={{ transform: 'translate(30%, -30%)' }}
+        />
+        
+        <div className="flex items-start justify-between gap-4 flex-1 relative z-10">
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-gray-500 mb-1 font-medium">{title}</p>
-            <h3 className="text-2xl font-bold text-gray-900 mb-0.5">{value}</h3>
-            <p className={cn('text-xs font-medium min-h-[16px]', changeColor)}>
-              {change || '\u00A0'}
-            </p>
+            <div className="flex items-center gap-2 mb-3">
+              <p className="text-xs text-gray-600 font-semibold uppercase tracking-wider">
+                {title}
+              </p>
+              {change && (
+                <div className={cn(
+                  'flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold',
+                  trend === 'up' && 'bg-status-success-light text-status-success',
+                  trend === 'down' && 'bg-status-error-light text-status-error',
+                  trend === 'neutral' && 'bg-gray-100 text-gray-600'
+                )}>
+                  <TrendIcon className="w-3 h-3" />
+                </div>
+              )}
+            </div>
+            <h3 className="text-3xl font-display font-bold text-gray-900 mb-2 tracking-tight">
+              {value}
+            </h3>
+            {change && (
+              <p className={cn('text-sm font-medium min-h-[20px] flex items-center gap-1.5', changeColor)}>
+                {change}
+              </p>
+            )}
           </div>
           <div
-            className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ backgroundColor: 'var(--gold-50)' }}
+            className={cn(
+              'w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0',
+              'bg-gradient-to-br shadow-lg transition-all duration-300',
+              'group-hover:scale-110 group-hover:shadow-xl',
+              iconBgGradient
+            )}
           >
             <Icon
-              className="w-7 h-7"
-              style={{ color: 'var(--gold-600)' }}
+              className={cn('w-8 h-8 transition-transform duration-300 group-hover:scale-110', iconColor)}
             />
           </div>
         </div>
+        
+        {/* Bottom accent line */}
+        <div 
+          className={cn(
+            'absolute bottom-0 left-0 right-0 h-1 transition-all duration-300',
+            trend === 'up' ? 'bg-status-success' : trend === 'down' ? 'bg-status-error' : 'bg-primary',
+            'group-hover:h-1.5'
+          )}
+        />
       </CardContent>
     </Card>
   );
@@ -81,7 +144,7 @@ export function StatCard({
             {cardContent}
           </TooltipTrigger>
           <TooltipContent className="max-w-xs">
-            <p className="text-sm">{tooltip}</p>
+            <p className="text-sm font-medium">{tooltip}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

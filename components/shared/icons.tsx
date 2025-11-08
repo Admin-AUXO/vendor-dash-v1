@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Wrench, Receipt, Wallet, Tag, LifeBuoy } from 'lucide-react';
 import { 
   FaBuilding, 
   FaHome, 
@@ -59,11 +59,15 @@ export {
   Home,
   Building,
   FileText,
-  DollarSign,
+  Tag,
+  Receipt,
+  Wallet,
   Briefcase,
   Wrench,
   ClipboardList,
   TrendingUp,
+  LifeBuoy,
+  CheckCircle2,
 } from 'lucide-react';
 
 // React Icons exports
@@ -123,9 +127,9 @@ export function Icon({ icon: IconComponent, className, size = 20 }: IconProps) {
 export function getIconByCategory(category: string): LucideIcon | React.ComponentType<any> {
   const iconMap: Record<string, LucideIcon | React.ComponentType<any>> = {
     // Work Orders
-    'work-order': FaClipboardList,
-    'maintenance': FaTools,
-    'repair': FaTools,
+    'work-order': Wrench,
+    'maintenance': Wrench,
+    'repair': Wrench,
     
     // Properties
     'residential': FaHome,
@@ -133,9 +137,11 @@ export function getIconByCategory(category: string): LucideIcon | React.Componen
     'property': HiOutlineHome,
     
     // Financial
-    'invoice': FaFileInvoice,
-    'payment': FaDollarSign,
-    'billing': HiOutlineCash,
+    'invoice': Receipt,
+    'payment': Wallet,
+    'billing': Tag,
+    'revenue': Tag,
+    'amount': Tag,
     
     // Marketplace
     'marketplace': FaBriefcase,
@@ -144,7 +150,8 @@ export function getIconByCategory(category: string): LucideIcon | React.Componen
     
     // General
     'dashboard': MdDashboard,
-    'help': MdHelp,
+    'help': LifeBuoy,
+    'support': LifeBuoy,
     'settings': FaCog,
     'notifications': FaBell,
   };

@@ -54,22 +54,22 @@ export function Sidebar({
     >
       {/* Logo/Brand Section */}
       {logo && (
-        <div className="p-4 border-b border-border">
+        <div className="p-4 border-b border-border bg-gradient-to-r from-white to-gold-50">
           <div className="flex items-center gap-3">
             {logo.icon ? (
               logo.icon
             ) : (
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm"
                 style={{ backgroundColor: 'var(--gold-400)' }}
               >
-                <span className="text-black font-bold text-base">PV</span>
+                <span className="text-black font-display font-extrabold text-lg tracking-tight">PV</span>
               </div>
             )}
             <div>
-              <h1 className="text-black font-bold text-base m-0 leading-tight">{logo.text}</h1>
+              <h1 className="text-gray-900 font-display font-bold text-lg m-0 leading-tight tracking-tight">{logo.text}</h1>
               {logo.subtitle && (
-                <p className="text-gray-500 text-xs m-0 leading-tight mt-0.5">{logo.subtitle}</p>
+                <p className="text-gray-600 text-xs m-0 leading-tight mt-0.5 font-medium">{logo.subtitle}</p>
               )}
             </div>
           </div>
@@ -90,27 +90,29 @@ export function Sidebar({
                   onClick={() => !isDisabled && onItemClick(item.id)}
                   disabled={isDisabled}
                   className={cn(
-                    'w-full flex items-center justify-between gap-2 px-3 py-3.5 rounded-lg transition-all font-medium text-left text-base',
-                    'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                    isActive
-                      ? 'text-black shadow-sm'
-                      : 'text-gray-700 hover:bg-gray-100',
+                    'w-full flex items-center justify-between gap-2 px-4 py-3.5 rounded-lg',
+                    'transition-all duration-200 font-medium text-left text-sm',
+                    'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                    'nav-item-base nav-item-hover relative',
+                    isActive && 'nav-item-active shadow-sm',
+                    !isActive && 'text-gray-700',
                     isDisabled && 'opacity-50 cursor-not-allowed'
                   )}
-                  style={
-                    isActive ? { backgroundColor: 'var(--gold-400)' } : undefined
-                  }
                 >
                   <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <Icon className="w-5 h-5 flex-shrink-0" />
-                    <span className="truncate">{item.label}</span>
+                    <Icon className={cn(
+                      'w-5 h-5 flex-shrink-0 transition-colors',
+                      isActive ? 'text-gray-900' : 'text-gray-600'
+                    )} />
+                    <span className="truncate font-medium">{item.label}</span>
                   </div>
                   {item.badge !== undefined && (
                     <span
                       className={cn(
-                        'px-2 py-0.5 text-xs font-semibold rounded-full flex-shrink-0',
+                        'px-2.5 py-0.5 text-xs font-semibold rounded-full flex-shrink-0',
+                        'transition-colors duration-200',
                         isActive
-                          ? 'bg-black text-white'
+                          ? 'bg-gray-900 text-white shadow-sm'
                           : 'bg-gray-200 text-gray-700'
                       )}
                     >

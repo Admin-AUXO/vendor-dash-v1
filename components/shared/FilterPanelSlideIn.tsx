@@ -138,7 +138,7 @@ export function FilterPanelSlideIn({
         <div className="flex items-center justify-between p-4 border-b border-border bg-gray-50">
           <div className="flex items-center gap-2">
             <Filter className="w-5 h-5 text-gray-600" />
-            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+            <h2 className="text-lg font-display font-semibold text-gray-900 tracking-tight">Filters</h2>
             {activeFilterCount > 0 && (
               <span className="ml-2 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
                 {activeFilterCount}

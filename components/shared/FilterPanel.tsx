@@ -77,7 +77,7 @@ export function FilterPanel({ filters, onFilterChange, className, collapsible = 
   return (
     <div className={cn('bg-white border border-border rounded-lg p-3 space-y-3', className)}>
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-gray-900">Filters</h3>
+        <h3 className="text-sm font-display font-semibold text-gray-900 tracking-tight">Filters</h3>
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}

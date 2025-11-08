@@ -1,11 +1,11 @@
 import { useState, lazy, Suspense } from 'react';
 import {
   LayoutDashboard,
-  ClipboardList,
-  FileText,
+  Wrench,
+  Receipt,
   CreditCard,
   Briefcase,
-  Headphones,
+  LifeBuoy,
 } from 'lucide-react';
 import { DashboardLayout, LoadingSpinner, NavigationProvider } from '@/components/shared';
 import { vendor } from '@/data';
@@ -28,12 +28,12 @@ const menuItems = [
   {
     id: 'work-orders',
     label: 'Work Orders',
-    icon: ClipboardList,
+    icon: Wrench,
   },
   {
     id: 'invoice',
     label: 'Invoice',
-    icon: FileText,
+    icon: Receipt,
   },
   {
     id: 'payments',
@@ -48,7 +48,7 @@ const menuItems = [
   {
     id: 'help-desk',
     label: 'Help Desk',
-    icon: Headphones,
+    icon: LifeBuoy,
   },
 ];
 

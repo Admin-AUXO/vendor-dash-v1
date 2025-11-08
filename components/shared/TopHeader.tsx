@@ -58,7 +58,7 @@ export function TopHeader({
       <div className="flex items-center justify-between gap-4">
         {/* Left Section - Page Title */}
         {title && (
-          <h1 className="text-2xl font-display font-bold text-gray-900">
+          <h1 className="text-2xl font-display font-bold text-gray-900 tracking-tight">
             {title}
           </h1>
         )}
@@ -106,11 +106,11 @@ export function TopHeader({
                     )}
                   </Avatar>
                   <div className="hidden lg:block text-left min-w-[140px]">
-                    <p className="text-base font-bold text-black m-0 leading-tight">
+                    <p className="text-sm font-display font-semibold text-gray-900 m-0 leading-tight">
                       {user.name}
                     </p>
                     {user.role && (
-                      <p className="text-xs text-gray-500 m-0 leading-tight mt-0.5">{user.role}</p>
+                      <p className="text-xs text-gray-600 m-0 leading-tight mt-0.5 font-medium">{user.role}</p>
                     )}
                   </div>
                   <ChevronDown className="w-4 h-4 text-gray-400 hidden lg:block" />

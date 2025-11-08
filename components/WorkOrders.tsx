@@ -19,9 +19,9 @@ import {
   type TableAction,
 } from './shared';
 import { 
-  ClipboardList, 
+  Wrench, 
   Clock, 
-  CheckCircle, 
+  CheckCircle2, 
   AlertCircle,
   Filter,
   Mail,
@@ -487,7 +487,7 @@ export function WorkOrders() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Manage service requests, track progress, and coordinate work assignments across your team.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Manage service requests, track progress, and coordinate work assignments across your team.</p>
       </div>
 
       {/* Summary Stat Cards */}
@@ -513,13 +513,13 @@ export function WorkOrders() {
         <StatCard
           title="In Progress"
           value={summaryStats.inProgress}
-          icon={ClipboardList}
+          icon={Wrench}
           tooltip="Work orders currently being worked on by technicians."
         />
         <StatCard
           title="Completed"
           value={summaryStats.completed}
-          icon={CheckCircle}
+          icon={CheckCircle2}
           tooltip="Total number of successfully finished work orders."
         />
         <StatCard
@@ -535,25 +535,25 @@ export function WorkOrders() {
         {/* Inbox Title - Outside the card */}
         <div className="flex items-center gap-2">
           <Mail className="w-5 h-5 text-yellow-600" />
-          <h2 className="text-2xl font-semibold text-gray-900">Inbox</h2>
+          <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Inbox</h2>
         </div>
 
         {/* Inbox Tabs and Content */}
         <Card>
           <CardContent className="p-0">
             <Tabs value={activeInboxTab} onValueChange={handleTabChange} className="w-full">
-              {/* Tab Headers - Slider Design */}
-              <div className="bg-gray-100 border-b border-gray-200 rounded-t-lg p-1.5">
+              {/* Tab Headers - Enhanced Slider Design */}
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 rounded-t-lg p-1.5">
                 <TabsList className="grid w-full grid-cols-3 bg-transparent p-0 h-auto gap-1.5">
                   <TabsTrigger
                     value="awaiting-response"
-                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-gray-900 rounded-md px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0"
+                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-gray-900 data-[state=active]:font-semibold rounded-lg px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0 hover:bg-white/50"
                   >
                     <span className="whitespace-nowrap">Awaiting Response</span>
                     <Badge
-                      className={`h-5 min-w-[20px] px-1 rounded-full text-xs font-semibold flex items-center justify-center border-0 ${
+                      className={`h-5 min-w-[20px] px-1.5 rounded-full text-xs font-bold flex items-center justify-center border-0 transition-colors ${
                         activeInboxTab === 'awaiting-response'
-                          ? 'bg-blue-500 text-white'
+                          ? 'bg-primary text-gray-900 shadow-sm'
                           : 'bg-gray-300 text-gray-600'
                       }`}
                     >
@@ -562,13 +562,13 @@ export function WorkOrders() {
                   </TabsTrigger>
                   <TabsTrigger
                     value="my-work-orders"
-                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-gray-900 rounded-md px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0"
+                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-gray-900 data-[state=active]:font-semibold rounded-lg px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0 hover:bg-white/50"
                   >
                     <span className="whitespace-nowrap">My Work Orders</span>
                     <Badge
-                      className={`h-5 min-w-[20px] px-1 rounded-full text-xs font-semibold flex items-center justify-center border-0 ${
+                      className={`h-5 min-w-[20px] px-1.5 rounded-full text-xs font-bold flex items-center justify-center border-0 transition-colors ${
                         activeInboxTab === 'my-work-orders'
-                          ? 'bg-blue-500 text-white'
+                          ? 'bg-primary text-gray-900 shadow-sm'
                           : 'bg-gray-300 text-gray-600'
                       }`}
                     >
@@ -577,13 +577,13 @@ export function WorkOrders() {
                   </TabsTrigger>
                   <TabsTrigger
                     value="rejected"
-                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-gray-900 rounded-md px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0"
+                    className="text-gray-600 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-gray-900 data-[state=active]:font-semibold rounded-lg px-4 py-2.5 font-medium transition-all duration-200 flex items-center justify-center gap-2 border-0 hover:bg-white/50"
                   >
                     <span className="whitespace-nowrap">Rejected</span>
                     <Badge
-                      className={`h-5 min-w-[20px] px-1 rounded-full text-xs font-semibold flex items-center justify-center border-0 ${
+                      className={`h-5 min-w-[20px] px-1.5 rounded-full text-xs font-bold flex items-center justify-center border-0 transition-colors ${
                         activeInboxTab === 'rejected'
-                          ? 'bg-blue-500 text-white'
+                          ? 'bg-primary text-gray-900 shadow-sm'
                           : 'bg-gray-300 text-gray-600'
                       }`}
                     >
@@ -738,9 +738,9 @@ export function WorkOrders() {
           <Card>
             <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                 All Work Orders
-                <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                <Badge variant="warning" className="font-semibold">
                   {filteredData.length}
                 </Badge>
               </CardTitle>

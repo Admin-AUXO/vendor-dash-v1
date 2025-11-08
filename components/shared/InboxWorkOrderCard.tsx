@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MapPin, Wrench, Clock, Tag, User, Calendar, Building2, ChevronDown, ChevronUp, FileText, Edit, Plus, Paperclip } from 'lucide-react';
 import { PriorityBadge } from './PriorityBadge';
 import { StatusBadge } from './StatusBadge';
+import { CategoryBadge } from './CategoryBadge';
 import { Button } from '../ui/button';
 import { cn } from '../ui/utils';
 import { format } from 'date-fns';
@@ -66,18 +67,34 @@ export function InboxWorkOrderCard({
   return (
     <div
       className={cn(
-        'group relative bg-white border border-gray-200 rounded-lg',
-        'hover:shadow-md hover:border-gray-300 transition-all duration-200',
-        'overflow-hidden',
+        'group relative bg-white border border-gray-200 rounded-xl',
+        'hover:shadow-lg hover:border-primary/30 transition-all duration-300',
+        'overflow-hidden border-l-4',
+        isOverdue ? 'border-l-status-error' :
+        workOrder.priority === 'urgent' ? 'border-l-priority-urgent' :
+        workOrder.priority === 'high' ? 'border-l-priority-high' :
+        'border-l-primary',
         className
       )}
     >
       {/* Main Card Content */}
-      <div className="p-4">
+      <div className="p-5">
         <div className="flex items-start gap-4">
           {/* Left Icon */}
-          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center shadow-sm">
-            <Wrench className="w-6 h-6 text-yellow-700" />
+          <div className={cn(
+            'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110',
+            isOverdue ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+            workOrder.priority === 'urgent' ? 'bg-gradient-to-br from-red-50 to-red-100/50' :
+            workOrder.priority === 'high' ? 'bg-gradient-to-br from-orange-50 to-orange-100/50' :
+            'bg-gradient-to-br from-primary/20 to-primary/10'
+          )}>
+            <Wrench className={cn(
+              'w-7 h-7 transition-colors duration-300',
+              isOverdue ? 'text-status-error' :
+              workOrder.priority === 'urgent' ? 'text-priority-urgent' :
+              workOrder.priority === 'high' ? 'text-priority-high' :
+              'text-primary'
+            )} />
           </div>
 
           {/* Content Section - Takes more space */}
@@ -97,9 +114,7 @@ export function InboxWorkOrderCard({
               <div className="flex items-center gap-2 flex-shrink-0">
                 <PriorityBadge priority={workOrder.priority} size="sm" />
                 <StatusBadge status={statusType} label={statusLabel} size="sm" />
-                <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-md capitalize font-medium">
-                  {workOrder.serviceCategory}
-                </span>
+                <CategoryBadge category={workOrder.serviceCategory} size="sm" />
               </div>
             </div>
 
@@ -169,9 +184,9 @@ export function InboxWorkOrderCard({
                   onViewDetails();
                 }
               }}
-              variant="outline"
+              variant="default"
               size="sm"
-              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium border-yellow-600 shadow-sm w-full"
+              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold border-yellow-600 hover:border-yellow-700/30 shadow-md hover:shadow-lg w-full"
             >
               <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
               {isExpanded ? (
@@ -191,14 +206,14 @@ export function InboxWorkOrderCard({
                 variant={actionVariant}
                 size="sm"
                 className={cn(
-                  'w-full',
+                  'w-full font-semibold shadow-md hover:shadow-lg',
                   actionLabel.toLowerCase().includes('archive')
-                    ? 'bg-gray-500 hover:bg-gray-600 text-white border-gray-600'
+                    ? 'bg-gray-500 hover:bg-gray-600 text-white border-gray-600 hover:border-gray-700/30'
                     : actionVariant === 'default' 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700 hover:border-blue-800/30'
                       : actionVariant === 'destructive'
-                        ? 'bg-red-600 hover:bg-red-700 text-white'
-                        : 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                        ? 'bg-red-600 hover:bg-red-700 text-white border-red-700 hover:border-red-800/30'
+                        : ''
                 )}
               >
                 {actionLabel}
@@ -218,7 +233,7 @@ export function InboxWorkOrderCard({
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
                   <Building2 className="w-4 h-4 text-yellow-600" />
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Client</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Client</h4>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -256,7 +271,7 @@ export function InboxWorkOrderCard({
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
                   <MapPin className="w-4 h-4 text-yellow-600" />
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Property & Service</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Property & Service</h4>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -282,7 +297,7 @@ export function InboxWorkOrderCard({
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
                   <Clock className="w-4 h-4 text-yellow-600" />
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Timeline</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Timeline</h4>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -344,7 +359,7 @@ export function InboxWorkOrderCard({
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
                   <Tag className="w-4 h-4 text-yellow-600" />
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Cost & Status</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Cost & Status</h4>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -410,7 +425,7 @@ export function InboxWorkOrderCard({
                   <div className="flex items-center justify-between pb-2 border-b-2 border-gray-300">
                     <div className="flex items-center gap-2">
                       <FileText className="w-4 h-4 text-yellow-600" />
-                      <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Notes</h4>
+                      <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Notes</h4>
                     </div>
                     <Button
                       onClick={(e) => {
@@ -419,7 +434,7 @@ export function InboxWorkOrderCard({
                       }}
                       variant="outline"
                       size="sm"
-                      className="h-8 px-3 text-xs font-medium border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700"
+                      className="h-8 px-3 text-xs font-semibold border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700 shadow-sm hover:shadow-md"
                     >
                       <Edit className="w-3.5 h-3.5 mr-1.5" />
                       Edit Notes
@@ -441,7 +456,7 @@ export function InboxWorkOrderCard({
                   <div className="flex items-center justify-between pb-2 border-b-2 border-gray-300">
                     <div className="flex items-center gap-2">
                       <Paperclip className="w-4 h-4 text-yellow-600" />
-                      <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
+                      <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">
                         Attachments {workOrder.attachments && workOrder.attachments.length > 0 && `(${workOrder.attachments.length})`}
                       </h4>
                     </div>
@@ -452,7 +467,7 @@ export function InboxWorkOrderCard({
                       }}
                       variant="outline"
                       size="sm"
-                      className="h-8 px-3 text-xs font-medium border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700"
+                      className="h-8 px-3 text-xs font-semibold border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700 shadow-sm hover:shadow-md"
                     >
                       <Plus className="w-3.5 h-3.5 mr-1.5" />
                       Add Attachment

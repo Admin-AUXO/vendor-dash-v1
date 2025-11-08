@@ -28,7 +28,7 @@ import {
   Calendar,
   ChevronDown,
   ChevronUp,
-  DollarSign,
+  Receipt,
   Plus,
   Mail
 } from 'lucide-react';
@@ -234,14 +234,30 @@ export function Invoice() {
 
     return (
       <div className={cn(
-        'group relative bg-white border border-gray-200 rounded-lg',
-        'hover:shadow-md hover:border-gray-300 transition-all duration-200',
-        'overflow-hidden'
+        'group relative bg-white border border-gray-200 rounded-xl',
+        'hover:shadow-lg hover:border-primary/30 transition-all duration-300',
+        'overflow-hidden border-l-4',
+        statusType === 'success' ? 'border-l-status-success' :
+        statusType === 'error' ? 'border-l-status-error' :
+        statusType === 'info' ? 'border-l-status-info' :
+        'border-l-primary'
       )}>
-        <div className="p-4">
+        <div className="p-5">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center shadow-sm">
-              <FileText className="w-6 h-6 text-yellow-700" />
+            <div className={cn(
+              'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110',
+              statusType === 'success' ? 'bg-gradient-to-br from-status-success-light to-emerald-50' :
+              statusType === 'error' ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+              statusType === 'info' ? 'bg-gradient-to-br from-blue-50 to-blue-100' :
+              'bg-gradient-to-br from-primary/20 to-primary/10'
+            )}>
+              <Receipt className={cn(
+                'w-7 h-7 transition-colors duration-300',
+                statusType === 'success' ? 'text-status-success' :
+                statusType === 'error' ? 'text-status-error' :
+                statusType === 'info' ? 'text-blue-600' :
+                'text-primary'
+              )} />
             </div>
 
             <div className="flex-1 min-w-0 space-y-3">
@@ -260,37 +276,37 @@ export function Invoice() {
               </div>
 
               <div className="grid grid-cols-3 gap-x-4 gap-y-2">
-                <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                  <Building2 className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                  <Building2 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate" title={invoice.clientName}>
                     {invoice.clientName}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                  <MapPin className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate" title={invoice.propertyAddress}>
                     {invoice.propertyAddress.split(',')[0]}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                  <DollarSign className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
-                  <span className="font-semibold text-gray-700 truncate">
+                <div className="flex items-center gap-1.5 text-xs font-semibold">
+                  <Tag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span className="text-gray-900 truncate">
                     {currency(invoice.total).format()}
                   </span>
                 </div>
                 {workOrderDisplayId && (
-                  <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                    <FileText className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                    <FileText className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                     <span className="font-mono truncate">{workOrderDisplayId}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                  <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate">Issued: {issueDate}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                  <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
-                  <span className={cn('truncate', isOverdue && 'text-red-600 font-semibold')}>
+                <div className="flex items-center gap-1.5 text-xs font-medium">
+                  <Calendar className={cn('w-3.5 h-3.5 flex-shrink-0', isOverdue ? 'text-status-error' : 'text-primary')} />
+                  <span className={cn('truncate', isOverdue && 'text-status-error font-semibold')}>
                     Due: {dueDate}
                   </span>
                 </div>
@@ -306,15 +322,15 @@ export function Invoice() {
                     onViewDetails();
                   }
                 }}
-                variant="outline"
+                variant="default"
                 size="sm"
-                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium border-yellow-600 shadow-sm w-full"
+                className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold border-primary hover:border-primary/20 shadow-md hover:shadow-lg w-full"
               >
                 <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
                 {isExpanded ? (
-                  <ChevronUp className="w-4 h-4 ml-1" />
+                  <ChevronUp className="w-4 h-4 ml-1.5 transition-transform duration-200" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 ml-1" />
+                  <ChevronDown className="w-4 h-4 ml-1.5 transition-transform duration-200" />
                 )}
               </Button>
 
@@ -327,12 +343,12 @@ export function Invoice() {
                   variant={actionVariant}
                   size="sm"
                   className={cn(
-                    'w-full',
+                    'w-full font-semibold shadow-md hover:shadow-lg',
                     actionVariant === 'default' 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700 hover:border-blue-800/30'
                       : actionVariant === 'destructive'
-                        ? 'bg-red-600 hover:bg-red-700 text-white'
-                        : 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                        ? 'bg-red-600 hover:bg-red-700 text-white border-red-700 hover:border-red-800/30'
+                        : ''
                   )}
                 >
                   {actionLabel}
@@ -343,13 +359,15 @@ export function Invoice() {
         </div>
 
         {isExpanded && (
-          <div className="border-t border-gray-200 bg-gray-50 transition-all duration-300 ease-in-out">
-            <div className="p-5">
+          <div className="border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white transition-all duration-300 ease-in-out">
+            <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="space-y-3.5">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
-                    <Building2 className="w-4 h-4 text-yellow-600" />
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Client</h4>
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Building2 className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Client</h4>
                   </div>
                   <div className="space-y-3">
                     <div>
@@ -372,9 +390,11 @@ export function Invoice() {
                 </div>
 
                 <div className="space-y-3.5">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
-                    <FileText className="w-4 h-4 text-yellow-600" />
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Invoice Details</h4>
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <FileText className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Invoice Details</h4>
                   </div>
                   <div className="space-y-3">
                     <div>
@@ -395,9 +415,11 @@ export function Invoice() {
                 </div>
 
                 <div className="space-y-3.5">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
-                    <Calendar className="w-4 h-4 text-yellow-600" />
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Dates</h4>
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Calendar className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Dates</h4>
                   </div>
                   <div className="space-y-3">
                     <div>
@@ -420,9 +442,11 @@ export function Invoice() {
                 </div>
 
                 <div className="space-y-3.5">
-                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
-                    <DollarSign className="w-4 h-4 text-yellow-600" />
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Amount</h4>
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Receipt className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Amount</h4>
                   </div>
                   <div className="space-y-3">
                     <div>
@@ -449,7 +473,7 @@ export function Invoice() {
 
               {invoice.lineItems && invoice.lineItems.length > 0 && (
                 <div className="mt-6 pt-6 border-t border-gray-300">
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-3">Line Items</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide mb-3">Line Items</h4>
                   <div className="space-y-2">
                     {invoice.lineItems.map((item) => (
                       <div key={item.id} className="flex justify-between items-center text-sm py-2 border-b border-gray-200">
@@ -466,7 +490,7 @@ export function Invoice() {
 
               {invoice.notes && (
                 <div className="mt-6 pt-6 border-t border-gray-300">
-                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Notes</h4>
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide mb-2">Notes</h4>
                   <p className="text-sm text-gray-700">{invoice.notes}</p>
                 </div>
               )}
@@ -685,7 +709,7 @@ export function Invoice() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Track invoices, monitor payment status, and manage billing for your service operations.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Track invoices, monitor payment status, and manage billing for your service operations.</p>
       </div>
 
       {/* Summary Stat Cards */}
@@ -783,12 +807,16 @@ export function Invoice() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-yellow-600" />
-              <h2 className="text-2xl font-semibold text-gray-900">Pre-Submission Invoices</h2>
-              <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+              <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Pre-Submission Invoices</h2>
+              <Badge variant="warning" className="font-semibold">
                 {preSubmissionInvoices.length}
               </Badge>
             </div>
-            <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium">
+            <Button 
+              size="sm" 
+              variant="default"
+              className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold shadow-md hover:shadow-lg border-primary hover:border-primary/20"
+            >
               <Plus className="w-4 h-4 mr-2" />
               Create Draft
             </Button>
@@ -823,8 +851,8 @@ export function Invoice() {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Mail className="w-5 h-5 text-yellow-600" />
-            <h2 className="text-2xl font-semibold text-gray-900">Post-Submission Invoices</h2>
-            <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+            <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Post-Submission Invoices</h2>
+            <Badge variant="warning" className="font-semibold">
               {postSubmissionInvoices.length}
             </Badge>
           </div>
@@ -889,9 +917,9 @@ export function Invoice() {
           <Card>
             <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                 All Invoices
-                <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                <Badge variant="warning" className="font-semibold">
                   {filteredData.length}
                 </Badge>
               </CardTitle>

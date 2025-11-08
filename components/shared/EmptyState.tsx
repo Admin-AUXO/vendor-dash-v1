@@ -41,34 +41,58 @@ export function EmptyState({
     'Invite team members to collaborate'
   ] : []);
 
+  const iconBgColor = variant === 'error' 
+    ? 'bg-status-error-light' 
+    : variant === 'no-results'
+    ? 'bg-primary/10'
+    : variant === 'empty'
+    ? 'bg-blue-50'
+    : 'bg-gray-100';
+
+  const iconColor = variant === 'error'
+    ? 'text-status-error'
+    : variant === 'no-results'
+    ? 'text-primary'
+    : variant === 'empty'
+    ? 'text-blue-600'
+    : 'text-gray-400';
+
   return (
-    <div className={cn('flex flex-col items-center justify-center py-12 px-4 text-center', className)} role="status" aria-live="polite">
+    <div className={cn('flex flex-col items-center justify-center py-16 px-4 text-center', className)} role="status" aria-live="polite">
       {DisplayIcon && (
-        <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4" aria-hidden="true">
-          <DisplayIcon className="w-8 h-8 text-gray-400" />
+        <div 
+          className={cn(
+            'w-20 h-20 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 hover:scale-105',
+            iconBgColor
+          )} 
+          aria-hidden="true"
+        >
+          <DisplayIcon className={cn('w-10 h-10', iconColor)} />
         </div>
       )}
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
+      <h3 className="text-xl font-display font-semibold text-gray-900 mb-3 tracking-tight">{title}</h3>
       {description && (
-        <p className="text-sm text-gray-600 max-w-sm mb-4" style={{ lineHeight: '1.5' }}>
+        <p className="text-sm text-gray-600 max-w-md mb-6 font-medium leading-relaxed">
           {description}
         </p>
       )}
       {defaultSuggestions.length > 0 && (
-        <ul className="text-sm text-gray-500 max-w-md mb-6 space-y-1" role="list">
-          {defaultSuggestions.map((suggestion, index) => (
-            <li key={index} className="flex items-start justify-center gap-2">
-              <span className="text-gray-400" aria-hidden="true">•</span>
-              <span>{suggestion}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="w-full max-w-md mb-6">
+          <ul className="text-sm text-gray-500 space-y-2" role="list">
+            {defaultSuggestions.map((suggestion, index) => (
+              <li key={index} className="flex items-start justify-start gap-2.5 bg-gray-50 rounded-lg px-3 py-2">
+                <span className="text-primary mt-0.5 flex-shrink-0" aria-hidden="true">•</span>
+                <span className="text-left font-medium">{suggestion}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       {action && (
         <Button 
           onClick={action.onClick} 
           variant="default"
-          className="min-h-[44px]"
+          className="min-h-[44px] px-6 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
           aria-label={action.label}
         >
           {action.label}

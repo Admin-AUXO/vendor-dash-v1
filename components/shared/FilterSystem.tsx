@@ -185,7 +185,7 @@ export function FilterSidebar({
         {!isCollapsed ? (
           <>
             <div className="flex items-center justify-between p-3 border-b border-border bg-gray-50">
-              <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2" id="filters-heading">
+              <h3 className="text-sm font-display font-semibold text-gray-900 flex items-center gap-2 tracking-tight" id="filters-heading">
                 <Filter className="w-4 h-4" aria-hidden="true" />
                 Filters
                 {activeFilterCount > 0 && (

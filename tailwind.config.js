@@ -9,8 +9,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['Instrument Sans', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Courier New', 'monospace'],
       },
       fontSize: {
         xs: ['var(--font-size-xs)', { lineHeight: 'var(--line-height-normal)' }],
@@ -76,6 +77,23 @@ export default {
           DEFAULT: 'var(--info)',
           foreground: 'var(--info-foreground)'
         },
+        status: {
+          success: 'var(--status-success)',
+          'success-light': 'var(--status-success-light)',
+          'success-foreground': 'var(--status-success-foreground)',
+          error: 'var(--status-error)',
+          'error-light': 'var(--status-error-light)',
+          'error-foreground': 'var(--status-error-foreground)',
+          warning: 'var(--status-warning)',
+          'warning-light': 'var(--status-warning-light)',
+          'warning-foreground': 'var(--status-warning-foreground)',
+          info: 'var(--status-info)',
+          'info-light': 'var(--status-info-light)',
+          'info-foreground': 'var(--status-info-foreground)',
+          pending: 'var(--status-pending)',
+          'pending-light': 'var(--status-pending-light)',
+          'pending-foreground': 'var(--status-pending-foreground)',
+        },
         border: 'var(--border)',
         input: {
           DEFAULT: 'var(--input)',
@@ -113,24 +131,6 @@ export default {
           700: 'var(--gray-700)',
           800: 'var(--gray-800)',
           900: 'var(--gray-900)',
-        },
-        // Status Colors
-        status: {
-          success: 'var(--status-success)',
-          'success-light': 'var(--status-success-light)',
-          'success-foreground': 'var(--status-success-foreground)',
-          warning: 'var(--status-warning)',
-          'warning-light': 'var(--status-warning-light)',
-          'warning-foreground': 'var(--status-warning-foreground)',
-          error: 'var(--status-error)',
-          'error-light': 'var(--status-error-light)',
-          'error-foreground': 'var(--status-error-foreground)',
-          info: 'var(--status-info)',
-          'info-light': 'var(--status-info-light)',
-          'info-foreground': 'var(--status-info-foreground)',
-          pending: 'var(--status-pending)',
-          'pending-light': 'var(--status-pending-light)',
-          'pending-foreground': 'var(--status-pending-foreground)',
         },
         // Priority Colors
         priority: {

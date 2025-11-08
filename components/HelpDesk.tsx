@@ -56,13 +56,18 @@ function SupportTicketCard({ ticket, onViewTicket }: SupportTicketCardProps) {
   const messageCount = ticket.messages?.length || 0;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-gray-300 transition-all duration-200">
+    <div className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg hover:border-primary/30 transition-all duration-300 border-l-4 border-l-primary group">
       <div className="flex items-center justify-between gap-4">
         {/* Ticket ID */}
-        <div className="flex-shrink-0 w-24">
-          <h3 className="font-bold text-sm text-gray-900 font-mono">
-            {ticket.ticketId}
-          </h3>
+        <div className="flex-shrink-0 w-28">
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-primary/10">
+              <MessageSquare className="w-4 h-4 text-primary" />
+            </div>
+            <h3 className="font-bold text-sm text-gray-900 font-mono">
+              {ticket.ticketId}
+            </h3>
+          </div>
         </div>
 
         {/* Priority Badge */}
@@ -75,10 +80,10 @@ function SupportTicketCard({ ticket, onViewTicket }: SupportTicketCardProps) {
           <Badge 
             variant="outline"
             className={cn(
-              'w-full justify-center',
-              statusType === 'pending' && 'bg-yellow-100 text-yellow-700 border-yellow-300',
+              'w-full justify-center font-semibold shadow-sm',
+              statusType === 'pending' && 'bg-yellow-100 text-yellow-800 border-yellow-300',
               statusType === 'warning' && 'bg-gray-100 text-gray-700 border-gray-300',
-              statusType === 'success' && 'bg-green-100 text-green-700 border-green-300',
+              statusType === 'success' && 'bg-status-success-light text-status-success border-status-success/30',
               statusType === 'info' && 'bg-blue-100 text-blue-700 border-blue-300',
             )}
           >
@@ -88,14 +93,14 @@ function SupportTicketCard({ ticket, onViewTicket }: SupportTicketCardProps) {
 
         {/* Category Badge */}
         <div className="flex-shrink-0 w-32">
-          <Badge variant="outline" className="bg-gray-100 text-gray-700 border-gray-300 capitalize text-xs w-full justify-center">
+          <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200 capitalize text-xs w-full justify-center font-medium shadow-sm">
             {ticket.category.replace('-', ' ')}
           </Badge>
         </div>
 
         {/* Subject */}
         <div className="flex-1 min-w-0">
-          <h4 className="font-semibold text-sm text-gray-900 truncate" title={ticket.subject}>
+          <h4 className="font-display font-semibold text-sm text-gray-900 truncate" title={ticket.subject}>
             {ticket.subject}
           </h4>
         </div>
@@ -103,27 +108,27 @@ function SupportTicketCard({ ticket, onViewTicket }: SupportTicketCardProps) {
         {/* Client */}
         <div className="flex-shrink-0 w-48 hidden lg:block">
           {clientName ? (
-            <div className="flex items-center gap-1.5 text-sm text-gray-600 truncate">
-              <Building2 className="w-4 h-4 text-gray-500 flex-shrink-0" />
+            <div className="flex items-center gap-1.5 text-sm text-gray-600 truncate font-medium">
+              <Building2 className="w-4 h-4 text-primary flex-shrink-0" />
               <span className="truncate" title={clientName}>{clientName}</span>
             </div>
           ) : (
-            <span className="text-sm text-gray-400">N/A</span>
+            <span className="text-sm text-gray-400 font-medium">N/A</span>
           )}
         </div>
 
         {/* Created Date */}
         <div className="flex-shrink-0 w-40 hidden md:block">
-          <div className="flex items-center gap-1.5 text-sm text-gray-600">
-            <Clock className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-sm text-gray-600 font-medium">
+            <Clock className="w-3.5 h-3.5 text-primary flex-shrink-0" />
             <span className="whitespace-nowrap">{format(new Date(ticket.createdDate), 'yyyy-MM-dd')}</span>
           </div>
         </div>
 
         {/* Message Count */}
         <div className="flex-shrink-0 w-24 hidden sm:block">
-          <div className="flex items-center gap-1.5 text-sm text-gray-600">
-            <MessageSquare className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-sm text-gray-600 font-medium">
+            <MessageSquare className="w-3.5 h-3.5 text-primary flex-shrink-0" />
             <span>{messageCount} {messageCount === 1 ? 'msg' : 'msgs'}</span>
           </div>
         </div>
@@ -132,8 +137,9 @@ function SupportTicketCard({ ticket, onViewTicket }: SupportTicketCardProps) {
         <div className="flex-shrink-0">
           <Button
             onClick={() => onViewTicket?.(ticket)}
-            className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium border-yellow-600 shadow-sm"
+            variant="default"
             size="sm"
+            className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold border-primary hover:border-primary/20 shadow-md hover:shadow-lg"
           >
             View Ticket
           </Button>
@@ -178,11 +184,11 @@ function SliderTabs({ tabs, activeTab, onTabChange }: SliderTabsProps) {
             onClick={() => !tab.disabled && onTabChange(tab.value)}
             disabled={tab.disabled}
             className={cn(
-              'relative flex-1 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap',
-              'focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 rounded-t-lg',
+              'relative flex-1 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-t-lg',
               'text-center justify-center',
               activeTab === tab.value
-                ? 'text-gray-900'
+                ? 'text-gray-900 font-semibold'
                 : tab.disabled
                 ? 'text-gray-400 cursor-not-allowed'
                 : 'text-gray-600 hover:text-gray-900',
@@ -196,7 +202,7 @@ function SliderTabs({ tabs, activeTab, onTabChange }: SliderTabsProps) {
         ))}
         {/* Slider Indicator */}
         <div
-          className="absolute bottom-0 h-0.5 bg-yellow-500 rounded-full"
+          className="absolute bottom-0 h-0.5 bg-primary rounded-full shadow-sm"
           style={sliderStyle}
         />
       </div>
@@ -402,7 +408,7 @@ export function HelpDesk() {
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
       {/* Welcome Message */}
       <div className="mb-2">
-        <p className="text-sm text-gray-600">Manage support tickets, respond to customer inquiries, and access knowledge base articles.</p>
+        <p className="text-sm text-gray-600 font-medium leading-relaxed">Manage support tickets, respond to customer inquiries, and access knowledge base articles.</p>
       </div>
 
       {/* Quick Contact and System Status Sections - Space Optimized */}
@@ -412,13 +418,13 @@ export function HelpDesk() {
           {/* Quick Contact Title */}
           <div className="flex items-center gap-2">
             <Phone className="w-5 h-5 text-yellow-600" />
-            <h2 className="text-2xl font-semibold text-gray-900">Quick Contact</h2>
+            <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Quick Contact</h2>
           </div>
 
           {/* System Status Title */}
           <div className="flex items-center gap-2">
             <Activity className="w-5 h-5 text-yellow-600" />
-            <h2 className="text-2xl font-semibold text-gray-900">System Status</h2>
+            <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">System Status</h2>
           </div>
         </div>
 
@@ -433,9 +439,9 @@ export function HelpDesk() {
                   <Phone className="w-5 h-5 text-yellow-700" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-sm text-gray-900">Phone Support</h4>
-                  <p className="text-sm text-gray-700">(800) 123-4567</p>
-                  <p className="text-xs text-gray-600">Mon-Fri, 8AM-6PM</p>
+                  <h4 className="font-display font-semibold text-sm text-gray-900 tracking-tight">Phone Support</h4>
+                  <p className="text-sm text-gray-700 font-medium">(800) 123-4567</p>
+                  <p className="text-xs text-gray-600 font-medium">Mon-Fri, 8AM-6PM</p>
                 </div>
               </div>
 
@@ -445,9 +451,9 @@ export function HelpDesk() {
                   <Mail className="w-5 h-5 text-gray-700" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-sm text-gray-900">Email Support</h4>
-                  <p className="text-sm text-gray-700">support@vendor.com</p>
-                  <p className="text-xs text-gray-600">24 hrs response</p>
+                  <h4 className="font-display font-semibold text-sm text-gray-900 tracking-tight">Email Support</h4>
+                  <p className="text-sm text-gray-700 font-medium">support@vendor.com</p>
+                  <p className="text-xs text-gray-600 font-medium">24 hrs response</p>
                 </div>
               </div>
             </CardContent>
@@ -568,9 +574,9 @@ export function HelpDesk() {
             {/* Tickets List - Card Based */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                   My Support Tickets
-                  <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                  <Badge variant="warning" className="font-semibold">
                     {filteredTickets.length}
                   </Badge>
                 </CardTitle>
@@ -732,7 +738,7 @@ export function HelpDesk() {
                       <div className="w-8 h-8 rounded-full bg-yellow-200 flex items-center justify-center">
                         <Info className="w-5 h-5 text-yellow-700" />
                       </div>
-                      <CardTitle className="text-gray-900">Before Submitting</CardTitle>
+                      <CardTitle className="text-gray-900 font-display font-semibold tracking-tight">Before Submitting</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -763,7 +769,7 @@ export function HelpDesk() {
               <div className="lg:col-span-1">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-sm font-semibold">Categories</CardTitle>
+                    <CardTitle className="text-sm font-display font-semibold text-gray-900 tracking-tight">Categories</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <button
@@ -911,7 +917,7 @@ export function HelpDesk() {
           <div className="space-y-4 transition-opacity duration-300">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                   <MessageSquare className="w-5 h-5" />
                   Live Chat
                 </CardTitle>
