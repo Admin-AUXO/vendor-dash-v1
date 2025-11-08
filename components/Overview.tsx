@@ -46,7 +46,6 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer,
-  Legend,
   ReferenceLine
 } from 'recharts';
 import { format, subMonths, startOfMonth, endOfMonth, eachMonthOfInterval } from 'date-fns';
@@ -361,48 +360,54 @@ export function Overview() {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Work Orders by Status</CardTitle>
           </CardHeader>
-          <CardContent className="pb-4">
-            <ResponsiveContainer width="100%" height={260}>
-              <PieChart>
-                <Pie
-                  data={workOrdersByStatusData}
-                  cx="38%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={75}
-                  innerRadius={25}
-                  fill={gray500}
-                  dataKey="value"
-                  label={({ percent }) => percent > 0.05 ? `${(percent * 100).toFixed(0)}%` : ''}
-                >
+          <CardContent>
+            <div className="flex items-center">
+              <div className="flex-1">
+                <ResponsiveContainer width="100%" height={260}>
+                  <PieChart>
+                    <Pie
+                      data={workOrdersByStatusData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      outerRadius={100}
+                      innerRadius={65}
+                      paddingAngle={2}
+                      fill={gray500}
+                      dataKey="value"
+                      label={({ percent }) => percent > 0.05 ? `${(percent * 100).toFixed(0)}%` : ''}
+                    >
+                      {workOrdersByStatusData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={statusColors[entry.name as keyof typeof statusColors] || primaryColor} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      formatter={(value: number, name: string) => [`${value} work orders`, name]}
+                      contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
+                      labelFormatter={(label) => `Status: ${label}`}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex-shrink-0 w-48 pl-6">
+                <div className="space-y-3">
                   {workOrdersByStatusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={statusColors[entry.name as keyof typeof statusColors] || primaryColor} />
+                    <div key={index} className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <div 
+                          className="w-4 h-4 rounded-full flex-shrink-0" 
+                          style={{ backgroundColor: statusColors[entry.name as keyof typeof statusColors] || primaryColor }}
+                        />
+                        <span className="text-sm text-gray-600 font-medium truncate">{entry.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-900 font-semibold flex-shrink-0">
+                        {entry.value}
+                      </span>
+                    </div>
                   ))}
-                </Pie>
-                <Tooltip 
-                  formatter={(value: number, name: string) => [`${value} work orders`, name]}
-                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', padding: '8px 12px' }}
-                  labelFormatter={(label) => `Status: ${label}`}
-                />
-                <Legend 
-                  verticalAlign="middle" 
-                  align="right"
-                  layout="vertical"
-                  formatter={(value) => {
-                    const dataEntry = workOrdersByStatusData.find(d => d.name === value);
-                    return `${value} (${dataEntry?.value || 0})`;
-                  }}
-                  wrapperStyle={{ 
-                    fontSize: '12px', 
-                    color: gray700,
-                    paddingLeft: '16px',
-                    lineHeight: '22px'
-                  }}
-                  iconType="circle"
-                  iconSize={8}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -418,7 +423,7 @@ export function Overview() {
           </CardHeader>
           <CardContent className="pb-4">
             <ResponsiveContainer width="100%" height={220}>
-              <AreaChart data={monthlyRevenueChartData.data} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
+              <AreaChart data={monthlyRevenueChartData.data} margin={{ top: 8, right: 35, left: -10, bottom: -5 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor={primaryColor} stopOpacity={0.35}/>
@@ -429,9 +434,10 @@ export function Overview() {
                 <XAxis 
                   dataKey="month" 
                   tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={6}
+                  tickMargin={4}
                   axisLine={false}
                   tickLine={false}
+                  height={30}
                 />
                 <YAxis 
                   tick={{ fontSize: 10, fill: '#6b7280' }}
@@ -457,7 +463,7 @@ export function Overview() {
                     fill: gray700, 
                     fontSize: 11,
                     fontWeight: 600,
-                    offset: 3
+                    offset: 10
                   }}
                 />
                 <Area 
@@ -481,14 +487,15 @@ export function Overview() {
           </CardHeader>
           <CardContent className="pb-4">
             <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={workOrdersByPriorityData} margin={{ top: 5, right: 8, left: -10, bottom: 0 }}>
+              <BarChart data={workOrdersByPriorityData} margin={{ top: 5, right: 8, left: -10, bottom: -5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
                   dataKey="name" 
                   tick={{ fontSize: 11, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={6}
+                  tickMargin={4}
                   axisLine={false}
                   tickLine={false}
+                  height={30}
                 />
                 <YAxis 
                   tick={{ fontSize: 10, fill: '#6b7280' }}

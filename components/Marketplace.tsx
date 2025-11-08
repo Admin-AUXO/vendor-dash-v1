@@ -94,7 +94,7 @@ export function Marketplace() {
   const [activeTab, setActiveTab] = useState('projects');
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
-    status: [],
+    status: ['open'], // Default to 'open' status for Available Projects
     serviceCategory: [],
     propertyType: [],
     endingSoon: '',

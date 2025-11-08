@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from './ui';
 import { 
   StatCard, 
@@ -10,6 +10,7 @@ import {
   EmptyState,
   ColumnVisibilityToggle,
   TableActions,
+  InboxPagination,
   type FilterGroup,
   type TableAction,
 } from './shared';
@@ -42,6 +43,10 @@ import { cn } from './ui/utils';
 
 export function Invoice() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [preSubmissionPage, setPreSubmissionPage] = useState(0);
+  const [preSubmissionPerPage, setPreSubmissionPerPage] = useState(5);
+  const [postSubmissionPage, setPostSubmissionPage] = useState(0);
+  const [postSubmissionPerPage, setPostSubmissionPerPage] = useState(5);
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     client: [],
@@ -202,6 +207,39 @@ export function Invoice() {
       ['sent', 'viewed'].includes(inv.status)
     );
   }, []);
+
+  // Paginate pre-submission invoices
+  const displayedPreSubmissionInvoices = useMemo(() => {
+    const start = preSubmissionPage * preSubmissionPerPage;
+    const end = start + preSubmissionPerPage;
+    return preSubmissionInvoices.slice(start, end);
+  }, [preSubmissionInvoices, preSubmissionPage, preSubmissionPerPage]);
+
+  const preSubmissionTotalPages = Math.ceil(preSubmissionInvoices.length / preSubmissionPerPage);
+
+  // Paginate post-submission invoices
+  const displayedPostSubmissionInvoices = useMemo(() => {
+    const start = postSubmissionPage * postSubmissionPerPage;
+    const end = start + postSubmissionPerPage;
+    return postSubmissionInvoices.slice(start, end);
+  }, [postSubmissionInvoices, postSubmissionPage, postSubmissionPerPage]);
+
+  const postSubmissionTotalPages = Math.ceil(postSubmissionInvoices.length / postSubmissionPerPage);
+
+  // Reset pages when data changes
+  useEffect(() => {
+    const preSubmissionTotalPages = Math.ceil(preSubmissionInvoices.length / preSubmissionPerPage);
+    if (preSubmissionTotalPages > 0 && preSubmissionPage >= preSubmissionTotalPages) {
+      setPreSubmissionPage(Math.max(0, preSubmissionTotalPages - 1));
+    }
+  }, [preSubmissionInvoices.length, preSubmissionPerPage, preSubmissionPage]);
+
+  useEffect(() => {
+    const postSubmissionTotalPages = Math.ceil(postSubmissionInvoices.length / postSubmissionPerPage);
+    if (postSubmissionTotalPages > 0 && postSubmissionPage >= postSubmissionTotalPages) {
+      setPostSubmissionPage(Math.max(0, postSubmissionTotalPages - 1));
+    }
+  }, [postSubmissionInvoices.length, postSubmissionPerPage, postSubmissionPage]);
 
   // Invoice Card Component
   // Post-Submission Invoice Card Component
@@ -1183,18 +1221,33 @@ export function Invoice() {
           <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
             <CardContent className="p-4 lg:p-5">
               {preSubmissionInvoices.length > 0 ? (
-                <div className="space-y-3 lg:space-y-4">
-                  {preSubmissionInvoices.map((invoice: Invoice) => (
-                    <InvoiceCard
-                      key={invoice.id}
-                      invoice={invoice}
-                      onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
-                      onAction={() => console.log('Send invoice:', invoice.invoiceNumber)}
-                      actionLabel="Send Invoice"
-                      actionVariant="default"
+                <>
+                  <div className="space-y-3 lg:space-y-4">
+                    {displayedPreSubmissionInvoices.map((invoice: Invoice) => (
+                      <InvoiceCard
+                        key={invoice.id}
+                        invoice={invoice}
+                        onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
+                        onAction={() => console.log('Send invoice:', invoice.invoiceNumber)}
+                        actionLabel="Send Invoice"
+                        actionVariant="default"
+                      />
+                    ))}
+                  </div>
+                  {preSubmissionInvoices.length > preSubmissionPerPage && (
+                    <InboxPagination
+                      currentPage={preSubmissionPage}
+                      totalPages={preSubmissionTotalPages}
+                      itemsPerPage={preSubmissionPerPage}
+                      totalItems={preSubmissionInvoices.length}
+                      onPageChange={setPreSubmissionPage}
+                      onItemsPerPageChange={(newItemsPerPage) => {
+                        setPreSubmissionPerPage(newItemsPerPage);
+                        setPreSubmissionPage(0);
+                      }}
                     />
-                  ))}
-                </div>
+                  )}
+                </>
               ) : (
                 <div className="py-8 lg:py-12">
                   <EmptyState
@@ -1236,18 +1289,33 @@ export function Invoice() {
           <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
             <CardContent className="p-4 lg:p-5">
               {postSubmissionInvoices.length > 0 ? (
-                <div className="space-y-3 lg:space-y-4">
-                  {postSubmissionInvoices.map((invoice: Invoice) => (
-                    <PostSubmissionInvoiceCard
-                      key={invoice.id}
-                      invoice={invoice}
-                      onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
-                      onAction={() => console.log('Follow up:', invoice.invoiceNumber)}
-                      actionLabel="Follow Up"
-                      actionVariant="default"
+                <>
+                  <div className="space-y-3 lg:space-y-4">
+                    {displayedPostSubmissionInvoices.map((invoice: Invoice) => (
+                      <PostSubmissionInvoiceCard
+                        key={invoice.id}
+                        invoice={invoice}
+                        onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
+                        onAction={() => console.log('Follow up:', invoice.invoiceNumber)}
+                        actionLabel="Follow Up"
+                        actionVariant="default"
+                      />
+                    ))}
+                  </div>
+                  {postSubmissionInvoices.length > postSubmissionPerPage && (
+                    <InboxPagination
+                      currentPage={postSubmissionPage}
+                      totalPages={postSubmissionTotalPages}
+                      itemsPerPage={postSubmissionPerPage}
+                      totalItems={postSubmissionInvoices.length}
+                      onPageChange={setPostSubmissionPage}
+                      onItemsPerPageChange={(newItemsPerPage) => {
+                        setPostSubmissionPerPage(newItemsPerPage);
+                        setPostSubmissionPage(0);
+                      }}
                     />
-                  ))}
-                </div>
+                  )}
+                </>
               ) : (
                 <div className="py-8 lg:py-12">
                   <EmptyState

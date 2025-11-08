@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from './ui';
 import { 
   StatCard, 
@@ -10,6 +10,7 @@ import {
   EmptyState,
   ColumnVisibilityToggle,
   TableActions,
+  InboxPagination,
   type FilterGroup,
   type TableAction,
 } from './shared';
@@ -56,6 +57,8 @@ const getCSSVariable = (variable: string, fallback: string): string => {
 
 export function Payments() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [outstandingInvoicesPage, setOutstandingInvoicesPage] = useState(0);
+  const [outstandingInvoicesPerPage, setOutstandingInvoicesPerPage] = useState(5);
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     paymentMethod: [],
@@ -186,8 +189,22 @@ export function Payments() {
       });
   }, []);
 
-  // Display all outstanding balances without scrollbar
-  const displayedOutstandingBalances = outstandingBalances;
+  // Paginate outstanding balances
+  const displayedOutstandingBalances = useMemo(() => {
+    const start = outstandingInvoicesPage * outstandingInvoicesPerPage;
+    const end = start + outstandingInvoicesPerPage;
+    return outstandingBalances.slice(start, end);
+  }, [outstandingBalances, outstandingInvoicesPage, outstandingInvoicesPerPage]);
+
+  const outstandingInvoicesTotalPages = Math.ceil(outstandingBalances.length / outstandingInvoicesPerPage);
+
+  // Reset page when data changes
+  useEffect(() => {
+    const totalPages = Math.ceil(outstandingBalances.length / outstandingInvoicesPerPage);
+    if (totalPages > 0 && outstandingInvoicesPage >= totalPages) {
+      setOutstandingInvoicesPage(Math.max(0, totalPages - 1));
+    }
+  }, [outstandingBalances.length, outstandingInvoicesPerPage, outstandingInvoicesPage]);
 
   // Chart 1: Payment Methods Distribution (RadialBarChart)
   const paymentMethodsData = useMemo(() => {
@@ -594,20 +611,24 @@ export function Payments() {
               </div>
               <div className="flex-shrink-0 w-48 pl-6">
                 <div className="space-y-3">
-                  {paymentMethodsData.map((entry, index) => (
-                    <div key={index} className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <div 
-                          className="w-4 h-4 rounded-full flex-shrink-0" 
-                          style={{ backgroundColor: entry.fill }}
-                        />
-                        <span className="text-sm text-gray-600 font-medium truncate">{entry.name}</span>
+                  {paymentMethodsData.map((entry, index) => {
+                    const total = paymentMethodsData.reduce((sum, item) => sum + item.value, 0);
+                    const percentage = total > 0 ? ((entry.value / total) * 100).toFixed(0) : '0';
+                    return (
+                      <div key={index} className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <div 
+                            className="w-4 h-4 rounded-full flex-shrink-0" 
+                            style={{ backgroundColor: entry.fill }}
+                          />
+                          <span className="text-sm text-gray-600 font-medium truncate">{entry.name}</span>
+                        </div>
+                        <span className="text-sm text-gray-900 font-semibold flex-shrink-0">
+                          {entry.value} ({percentage}%)
+                        </span>
                       </div>
-                      <span className="text-sm text-gray-900 font-semibold flex-shrink-0">
-                        {entry.value}
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -626,7 +647,7 @@ export function Payments() {
           </CardHeader>
           <CardContent className="pb-4">
             <ResponsiveContainer width="100%" height={220}>
-              <ComposedChart data={paymentStatusOverTimeData} margin={{ top: 8, right: 45, left: -10, bottom: 0 }}>
+              <ComposedChart data={paymentStatusOverTimeData} margin={{ top: 8, right: 45, left: -10, bottom: -5 }}>
                 <defs>
                   <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor={primaryColor} stopOpacity={0.35}/>
@@ -641,9 +662,10 @@ export function Payments() {
                 <XAxis 
                   dataKey="date" 
                   tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={6}
+                  tickMargin={4}
                   axisLine={false}
                   tickLine={false}
+                  height={30}
                 />
                 <YAxis 
                   yAxisId="left"
@@ -725,7 +747,7 @@ export function Payments() {
               <BarChart
                 data={topClientsData}
                 layout="vertical"
-                margin={{ top: 5, right: 50, left: 90, bottom: 0 }}
+                margin={{ top: 5, right: 50, left: 8, bottom: -5 }}
               >
                 <defs>
                   {topClientsData.map((entry, index) => (
@@ -739,17 +761,18 @@ export function Payments() {
                 <XAxis 
                   type="number"
                   tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={6}
+                  tickMargin={4}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
                   axisLine={false}
                   tickLine={false}
+                  height={30}
                 />
                 <YAxis 
                   type="category"
                   dataKey="name"
                   tick={{ fontSize: 10, fill: '#6b7280', fontWeight: 500 }}
-                  tickMargin={6}
-                  width={85}
+                  tickMargin={8}
+                  width={80}
                   axisLine={false}
                   tickLine={false}
                 />
@@ -936,6 +959,19 @@ export function Payments() {
                   );
                 })}
               </div>
+              {outstandingBalances.length > outstandingInvoicesPerPage && (
+                <InboxPagination
+                  currentPage={outstandingInvoicesPage}
+                  totalPages={outstandingInvoicesTotalPages}
+                  itemsPerPage={outstandingInvoicesPerPage}
+                  totalItems={outstandingBalances.length}
+                  onPageChange={setOutstandingInvoicesPage}
+                  onItemsPerPageChange={(newItemsPerPage) => {
+                    setOutstandingInvoicesPerPage(newItemsPerPage);
+                    setOutstandingInvoicesPage(0);
+                  }}
+                />
+              )}
             </CardContent>
           </Card>
         </div>

@@ -3,7 +3,6 @@ import { Search, X, ChevronDown, ChevronUp, Filter } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Checkbox } from '../ui/checkbox';
 import { ScrollArea } from '../ui/scroll-area';
-import { Separator } from '../ui/separator';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { cn } from '../ui/utils';
@@ -197,52 +196,54 @@ export function AdvancedFilterPanel({
 
       {/* Filter Groups */}
       <ScrollArea className={cn("flex-1", variant === 'drawer' ? "h-[calc(85vh-200px)]" : hideHeader ? "max-h-none" : "max-h-[calc(100vh-300px)]")}>
-        <div className={cn("space-y-4", hideHeader ? "" : "p-4")}>
-          {filters.map((filter) => {
+        <div className={cn("space-y-1", hideHeader ? "p-3" : "p-4")}>
+          {filters.map((filter, index) => {
             const isExpanded = expandedGroups.has(filter.id);
             const activeCount = getActiveFilterCount(filter.id);
             const filteredOptions = getFilteredOptions(filter);
 
             return (
-              <div key={filter.id} className="space-y-2">
+              <div key={filter.id} className={cn("space-y-0", index > 0 && "border-t border-gray-100 pt-1")}>
                 <button
                   onClick={() => toggleGroup(filter.id)}
                   className={cn(
-                    "w-full flex items-center justify-between text-sm font-medium transition-all duration-200 rounded-md px-2 py-2",
-                    "hover:bg-gray-50",
-                    isExpanded && "bg-gray-50",
+                    "w-full flex items-center justify-between text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2.5",
+                    "hover:bg-gray-50/80 active:bg-gray-100",
+                    isExpanded && "bg-primary/5 border border-primary/20",
                     activeCount > 0 && "text-primary font-semibold"
                   )}
                 >
-                  <div className="flex items-center gap-2">
-                    <span>{filter.label}</span>
+                  <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                    <span className="truncate">{filter.label}</span>
                     {activeCount > 0 && (
                       <Badge 
                         variant="secondary" 
-                        className="h-5 px-1.5 text-xs bg-primary/10 text-primary border-primary/20"
+                        className="h-5 px-2 text-xs bg-primary text-primary-foreground border-primary/30 font-semibold shadow-sm flex-shrink-0"
                       >
                         {activeCount}
                       </Badge>
                     )}
                     {filteredOptions.length > 0 && activeCount === 0 && (
-                      <span className="text-xs text-gray-400 font-normal">
+                      <span className="text-xs text-gray-400 font-normal flex-shrink-0">
                         ({filteredOptions.length})
                       </span>
                     )}
                   </div>
-                  {isExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-gray-400" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
-                  )}
+                  <div className="flex-shrink-0 ml-2">
+                    {isExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-400" />
+                    )}
+                  </div>
                 </button>
 
                 {isExpanded && (
-                  <div className="space-y-3 pl-3 border-l-2 border-primary/20 bg-gray-50/50 rounded-r-md p-3">
+                  <div className="space-y-3 mt-2 ml-1 pl-4 border-l-2 border-primary/30 bg-gradient-to-r from-primary/5 to-transparent rounded-r-lg py-3 pr-3">
                     {/* Search within filter options */}
                     {filter.searchable && filteredOptions.length > 5 && (
                       <div className="relative">
-                        <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                         <Input
                           type="text"
                           placeholder={`Search ${filter.label.toLowerCase()}...`}
@@ -253,7 +254,7 @@ export function AdvancedFilterPanel({
                               [filter.id]: e.target.value,
                             }))
                           }
-                          className="pl-8 pr-8 h-8 text-sm bg-white border-gray-200 focus:border-primary"
+                          className="pl-9 pr-9 h-9 text-sm bg-white border-gray-200 focus:border-primary shadow-sm"
                         />
                         {filterSearchQueries[filter.id] && (
                           <button
@@ -265,9 +266,9 @@ export function AdvancedFilterPanel({
                                 return next;
                               })
                             }
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                           >
-                            <X className="w-3 h-3" />
+                            <X className="w-3.5 h-3.5" />
                           </button>
                         )}
                       </div>
@@ -275,7 +276,7 @@ export function AdvancedFilterPanel({
 
                     {/* Filter Options */}
                     {filter.type === 'checkbox' ? (
-                      <div className="space-y-1 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                      <div className="space-y-1.5 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-1.5">
                         {filteredOptions.length > 0 ? (
                           filteredOptions.map((option) => {
                             const checked = (filterValues[filter.id] as string[])?.includes(option.value) || false;
@@ -283,9 +284,9 @@ export function AdvancedFilterPanel({
                               <label
                                 key={option.value}
                                 className={cn(
-                                  "flex items-center gap-2 cursor-pointer p-2 rounded-md transition-all duration-150 group",
-                                  "hover:bg-white hover:shadow-sm",
-                                  checked && "bg-primary/5 border border-primary/20"
+                                  "flex items-center gap-3 cursor-pointer p-2.5 rounded-lg transition-all duration-150 group",
+                                  "hover:bg-white hover:shadow-sm hover:border hover:border-gray-200",
+                                  checked && "bg-primary/10 border border-primary/30 shadow-sm"
                                 )}
                               >
                                 <Checkbox
@@ -293,20 +294,23 @@ export function AdvancedFilterPanel({
                                   onCheckedChange={(checked) =>
                                     handleCheckboxChange(filter.id, option.value, checked as boolean)
                                   }
-                                  className={checked ? "border-primary data-[state=checked]:bg-primary" : ""}
+                                  className={cn(
+                                    "transition-all",
+                                    checked ? "border-primary data-[state=checked]:bg-primary data-[state=checked]:border-primary" : "border-gray-300"
+                                  )}
                                 />
                                 <span className={cn(
-                                  "text-sm flex-1",
-                                  checked ? "text-gray-900 font-medium" : "text-gray-700"
+                                  "text-sm flex-1 transition-colors",
+                                  checked ? "text-gray-900 font-semibold" : "text-gray-700 group-hover:text-gray-900"
                                 )}>
                                   {option.label}
                                 </span>
                                 {option.count !== undefined && (
                                   <span className={cn(
-                                    "text-xs px-1.5 py-0.5 rounded",
+                                    "text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0 transition-colors",
                                     checked 
-                                      ? "bg-primary/10 text-primary font-medium" 
-                                      : "text-gray-500 group-hover:text-gray-700"
+                                      ? "bg-primary text-primary-foreground" 
+                                      : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
                                   )}>
                                     {option.count}
                                   </span>
@@ -315,8 +319,8 @@ export function AdvancedFilterPanel({
                             );
                           })
                         ) : (
-                          <div className="text-sm text-gray-500 py-4 text-center bg-gray-50 rounded-md">
-                            No options found
+                          <div className="text-sm text-gray-500 py-6 text-center bg-gray-50 rounded-lg border border-gray-200">
+                            <p className="mb-2">No options found</p>
                             {filterSearchQueries[filter.id] && (
                               <button
                                 onClick={() =>
@@ -326,7 +330,7 @@ export function AdvancedFilterPanel({
                                     return next;
                                   })
                                 }
-                                className="ml-2 text-primary hover:underline"
+                                className="text-primary hover:underline font-medium text-xs"
                               >
                                 Clear search
                               </button>
@@ -338,7 +342,7 @@ export function AdvancedFilterPanel({
                       <select
                         value={(filterValues[filter.id] as string) || ''}
                         onChange={(e) => handleSelectChange(filter.id, e.target.value)}
-                        className="w-full px-3 py-2 text-sm border border-input-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white"
+                        className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-white shadow-sm transition-all"
                       >
                         <option value="">All</option>
                         {filteredOptions.map((option) => (
@@ -355,16 +359,13 @@ export function AdvancedFilterPanel({
                         variant="ghost"
                         size="sm"
                         onClick={() => clearFilter(filter.id)}
-                        className="h-7 text-xs text-gray-600 hover:text-gray-900 hover:bg-white w-full justify-start"
+                        className="h-8 text-xs text-gray-600 hover:text-gray-900 hover:bg-white/80 w-full justify-start border border-gray-200 hover:border-gray-300 rounded-lg transition-all"
                       >
-                        <X className="w-3 h-3 mr-1.5" />
+                        <X className="w-3.5 h-3.5 mr-2" />
                         Clear {filter.label}
                       </Button>
                     )}
                   </div>
-                )}
-                {filter.id !== filters[filters.length - 1]?.id && (
-                  <Separator className="mt-3" />
                 )}
               </div>
             );
