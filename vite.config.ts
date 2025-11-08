@@ -14,9 +14,11 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Split React and React DOM into a separate chunk
+          // Don't split React - keep it with the main bundle to avoid useLayoutEffect errors
+          // React must be available when other chunks load
           if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
-            return 'vendor-react';
+            // Keep React in the main bundle by returning undefined
+            return undefined;
           }
           
           // Split PDF libraries (heavy, rarely used)
@@ -103,6 +105,12 @@ export default defineConfig(({ mode }) => ({
   optimizeDeps: {
     // Ensure React is properly resolved and optimized
     include: ['react', 'react-dom'],
+    // Force React to be included in the main bundle
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
+      },
+    },
   },
 }))
 
