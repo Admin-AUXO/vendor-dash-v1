@@ -174,10 +174,51 @@ export default {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'float': {
+          '0%, 100%': { 
+            transform: 'translateY(0) translateX(0) scale(1)',
+            opacity: '0.3',
+          },
+          '33%': { 
+            transform: 'translateY(-20px) translateX(10px) scale(1.1)',
+            opacity: '0.5',
+          },
+          '66%': { 
+            transform: 'translateY(10px) translateX(-10px) scale(0.9)',
+            opacity: '0.4',
+          },
+        },
+        'fade-in': {
+          from: { 
+            opacity: '0',
+            transform: 'translateY(10px)',
+          },
+          to: { 
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        'spin-slow': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        'spin-slow-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
+        'shimmer': {
+          '0%': { transform: 'translateX(-100%) skewX(-15deg)' },
+          '100%': { transform: 'translateX(200%) skewX(-15deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'float': 'float 6s ease-in-out infinite',
+        'fade-in': 'fade-in 0.5s ease-out',
+        'spin-slow': 'spin-slow 4s linear infinite',
+        'spin-slow-reverse': 'spin-slow-reverse 3s linear infinite',
+        'shimmer': 'shimmer 2s ease-in-out infinite',
       },
     }
   },

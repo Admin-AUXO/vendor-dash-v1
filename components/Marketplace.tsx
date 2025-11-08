@@ -380,7 +380,7 @@ export function Marketplace() {
         return (
           <div>
             <div className="text-sm text-gray-900">
-              <span className="font-mono uppercase">{project?.projectId || row.original.projectId}</span>
+              <span className="font-semibold font-mono">{project?.projectId || row.original.projectId}</span>
               {project && (
                 <span className="ml-2">{project.propertyAddress}</span>
               )}
@@ -709,12 +709,12 @@ export function Marketplace() {
           {
             value: 'projects',
             label: 'Available Projects',
-            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-700">{marketplaceStats.availableProjects}</Badge>
+            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-600">{marketplaceStats.availableProjects}</Badge>
           },
           {
             value: 'bids',
             label: 'My Bids',
-            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-700">{marketplaceStats.myBids}</Badge>
+            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-600">{marketplaceStats.myBids}</Badge>
           },
         ]}
         activeTab={activeTab}
@@ -756,8 +756,49 @@ export function Marketplace() {
               />
             </div>
 
+            {/* Enhanced Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gradient-to-r from-blue-50/80 via-blue-50/50 to-transparent rounded-xl border border-blue-200/60 shadow-sm mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-blue-100/80 shadow-sm">
+                  <Briefcase className="w-5 h-5 text-blue-700" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">
+                      Available Projects
+                    </h2>
+                    <p className="text-xs text-gray-600 font-medium mt-0.5">
+                      Browse and submit bids for open projects
+                    </p>
+                  </div>
+                  <Badge variant="warning" className="font-semibold shadow-sm min-w-[28px] justify-center">
+                    {filteredProjects.length}
+                  </Badge>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsFilterPanelOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  Filters
+                  {activeFilterCount > 0 && (
+                    <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </Button>
+                {projectTableInstance && (
+                  <ColumnVisibilityToggle table={projectTableInstance} />
+                )}
+              </div>
+            </div>
+
             <Card>
-              <CardHeader>
+              <CardHeader className="hidden">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                     Available Projects
@@ -765,25 +806,6 @@ export function Marketplace() {
                       {filteredProjects.length}
                     </Badge>
                   </CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setIsFilterPanelOpen(true)}
-                      className="flex items-center gap-2"
-                    >
-                      <Filter className="w-4 h-4" />
-                      Filters
-                      {activeFilterCount > 0 && (
-                        <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
-                          {activeFilterCount}
-                        </span>
-                      )}
-                    </Button>
-                    {projectTableInstance && (
-                      <ColumnVisibilityToggle table={projectTableInstance} />
-                    )}
-                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -810,8 +832,29 @@ export function Marketplace() {
 
           {/* Mobile Data Table */}
           <div className="lg:hidden mt-4">
+            {/* Enhanced Header for Mobile */}
+            <div className="flex flex-col gap-3 p-4 bg-gradient-to-r from-blue-50/80 via-blue-50/50 to-transparent rounded-xl border border-blue-200/60 shadow-sm mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-blue-100/80 shadow-sm">
+                  <Briefcase className="w-5 h-5 text-blue-700" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <h2 className="text-xl font-display font-semibold text-gray-900 tracking-tight">
+                      Available Projects
+                    </h2>
+                    <p className="text-xs text-gray-600 font-medium mt-0.5">
+                      Browse and submit bids for open projects
+                    </p>
+                  </div>
+                  <Badge variant="warning" className="font-semibold shadow-sm min-w-[28px] justify-center">
+                    {filteredProjects.length}
+                  </Badge>
+                </div>
+              </div>
+            </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="hidden">
                 <CardTitle>Available Projects ({filteredProjects.length})</CardTitle>
               </CardHeader>
               <CardContent>
@@ -870,8 +913,49 @@ export function Marketplace() {
               />
             </div>
 
+            {/* Enhanced Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-xl border border-primary/20 shadow-sm mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-primary/20 shadow-sm">
+                  <FileCheck className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">
+                      My Bids
+                    </h2>
+                    <p className="text-xs text-gray-600 font-medium mt-0.5">
+                      Track your submitted bids and their status
+                    </p>
+                  </div>
+                  <Badge variant="warning" className="font-semibold shadow-sm min-w-[28px] justify-center">
+                    {filteredBids.length}
+                  </Badge>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsBidFilterPanelOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  Filters
+                  {activeBidFilterCount > 0 && (
+                    <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
+                      {activeBidFilterCount}
+                    </span>
+                  )}
+                </Button>
+                {bidTableInstance && (
+                  <ColumnVisibilityToggle table={bidTableInstance} />
+                )}
+              </div>
+            </div>
+
             <Card>
-              <CardHeader>
+              <CardHeader className="hidden">
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                     My Bids
@@ -879,25 +963,6 @@ export function Marketplace() {
                       {filteredBids.length}
                     </Badge>
                   </CardTitle>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setIsBidFilterPanelOpen(true)}
-                      className="flex items-center gap-2"
-                    >
-                      <Filter className="w-4 h-4" />
-                      Filters
-                      {activeBidFilterCount > 0 && (
-                        <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
-                          {activeBidFilterCount}
-                        </span>
-                      )}
-                    </Button>
-                    {bidTableInstance && (
-                      <ColumnVisibilityToggle table={bidTableInstance} />
-                    )}
-                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -928,8 +993,29 @@ export function Marketplace() {
 
           {/* Mobile Data Table */}
           <div className="lg:hidden mt-4">
+            {/* Enhanced Header for Mobile */}
+            <div className="flex flex-col gap-3 p-4 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-xl border border-primary/20 shadow-sm mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-lg bg-primary/20 shadow-sm">
+                  <FileCheck className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div>
+                    <h2 className="text-xl font-display font-semibold text-gray-900 tracking-tight">
+                      My Bids
+                    </h2>
+                    <p className="text-xs text-gray-600 font-medium mt-0.5">
+                      Track your submitted bids and their status
+                    </p>
+                  </div>
+                  <Badge variant="warning" className="font-semibold shadow-sm min-w-[28px] justify-center">
+                    {filteredBids.length}
+                  </Badge>
+                </div>
+              </div>
+            </div>
             <Card>
-              <CardHeader>
+              <CardHeader className="hidden">
                 <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
                   My Bids
                   <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-200 font-semibold shadow-sm">

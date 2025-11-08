@@ -67,12 +67,15 @@ export function InboxWorkOrderCard({
   return (
     <div
       className={cn(
-        'group relative bg-white border border-gray-200 rounded-xl',
-        'hover:shadow-lg hover:border-primary/30 transition-all duration-300',
+        'group relative bg-white border border-gray-200 rounded-xl shadow-sm',
+        'hover:shadow-md hover:border-primary/30 transition-all duration-300',
         'overflow-hidden border-l-4',
         isOverdue ? 'border-l-status-error' :
         workOrder.priority === 'urgent' ? 'border-l-priority-urgent' :
         workOrder.priority === 'high' ? 'border-l-priority-high' :
+        statusType === 'success' ? 'border-l-status-success' :
+        statusType === 'info' ? 'border-l-status-info' :
+        statusType === 'pending' ? 'border-l-status-pending' :
         'border-l-primary',
         className
       )}
@@ -82,8 +85,13 @@ export function InboxWorkOrderCard({
         <div className="flex items-start gap-4">
           {/* Left Icon */}
           <div className={cn(
-            'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110',
+            'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-sm',
+            'transition-all duration-300 group-hover:scale-110 group-hover:shadow-md',
             isOverdue ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+            statusType === 'success' ? 'bg-gradient-to-br from-status-success-light to-emerald-50' :
+            statusType === 'error' ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+            statusType === 'info' ? 'bg-gradient-to-br from-status-info-light to-blue-50' :
+            statusType === 'pending' ? 'bg-gradient-to-br from-status-pending-light to-yellow-50' :
             workOrder.priority === 'urgent' ? 'bg-gradient-to-br from-red-50 to-red-100/50' :
             workOrder.priority === 'high' ? 'bg-gradient-to-br from-orange-50 to-orange-100/50' :
             'bg-gradient-to-br from-primary/20 to-primary/10'
@@ -91,6 +99,10 @@ export function InboxWorkOrderCard({
             <Wrench className={cn(
               'w-7 h-7 transition-colors duration-300',
               isOverdue ? 'text-status-error' :
+              statusType === 'success' ? 'text-status-success' :
+              statusType === 'error' ? 'text-status-error' :
+              statusType === 'info' ? 'text-status-info' :
+              statusType === 'pending' ? 'text-status-pending' :
               workOrder.priority === 'urgent' ? 'text-priority-urgent' :
               workOrder.priority === 'high' ? 'text-priority-high' :
               'text-primary'
@@ -103,10 +115,11 @@ export function InboxWorkOrderCard({
             <div className="flex items-center gap-3 flex-wrap">
               {/* Work Order ID and Description - vertically centered */}
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <h3 className="font-bold text-base text-gray-900 font-mono flex-shrink-0">
+                <h3 className="font-semibold text-sm text-gray-900 font-mono flex-shrink-0">
                   {workOrder.workOrderId}
                 </h3>
-                <p className="text-sm text-gray-800 font-semibold truncate">
+                <div className="h-4 w-px bg-gray-300 flex-shrink-0"></div>
+                <p className="text-sm text-gray-900 font-semibold truncate">
                   {workOrder.serviceDescription}
                 </p>
               </div>
@@ -139,7 +152,7 @@ export function InboxWorkOrderCard({
               {/* Row 1, Column 3: Amount */}
               <div className="flex items-center gap-1.5 text-xs text-gray-600">
                 <Tag className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
-                <span className="font-semibold text-gray-700 truncate">
+                <span className="font-semibold text-gray-900 truncate">
                   ${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
@@ -174,7 +187,7 @@ export function InboxWorkOrderCard({
           </div>
 
           {/* Action Buttons Section - Right Side */}
-          <div className="flex-shrink-0 flex flex-col gap-2 items-end justify-start min-w-[140px]">
+          <div className="flex-shrink-0 flex flex-col gap-2.5 items-stretch justify-start min-w-[140px]">
             {/* View Details Button - Toggles Expansion */}
             <Button
               onClick={(e) => {
@@ -186,13 +199,13 @@ export function InboxWorkOrderCard({
               }}
               variant="default"
               size="sm"
-              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold border-yellow-600 hover:border-yellow-700/30 shadow-md hover:shadow-lg w-full"
+              className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold border-yellow-600 hover:border-yellow-700/30 shadow-sm hover:shadow-md w-full transition-all duration-300"
             >
               <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
               {isExpanded ? (
-                <ChevronUp className="w-4 h-4 ml-1" />
+                <ChevronUp className="w-4 h-4 ml-1.5 transition-transform duration-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 ml-1" />
+                <ChevronDown className="w-4 h-4 ml-1.5 transition-transform duration-300" />
               )}
             </Button>
 
@@ -206,7 +219,7 @@ export function InboxWorkOrderCard({
                 variant={actionVariant}
                 size="sm"
                 className={cn(
-                  'w-full font-semibold shadow-md hover:shadow-lg',
+                  'w-full font-semibold shadow-sm hover:shadow-md transition-all duration-300',
                   actionLabel.toLowerCase().includes('archive')
                     ? 'bg-gray-500 hover:bg-gray-600 text-white border-gray-600 hover:border-gray-700/30'
                     : actionVariant === 'default' 
@@ -233,7 +246,7 @@ export function InboxWorkOrderCard({
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
                   <Building2 className="w-4 h-4 text-yellow-600" />
-                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Client</h4>
+                  <h4 className="text-xs font-display font-semibold text-gray-900 uppercase tracking-wide">Client</h4>
                 </div>
                 <div className="space-y-3">
                   <div>
@@ -442,7 +455,7 @@ export function InboxWorkOrderCard({
                   </div>
                   {workOrder.notes ? (
                     <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                      <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{workOrder.notes}</p>
+                      <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">{workOrder.notes}</p>
                     </div>
                   ) : (
                     <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">

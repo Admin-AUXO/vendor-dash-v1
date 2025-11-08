@@ -6,6 +6,8 @@ import {
   InboxWorkOrderCard,
   InboxPagination,
   useNavigation,
+  DateRangePicker,
+  type DateRange,
 } from './shared';
 import { 
   Wrench, 
@@ -20,7 +22,8 @@ import {
   MessageSquare,
   ClipboardCheck,
   Wallet,
-  Receipt
+  Receipt,
+  Calendar
 } from 'lucide-react';
 import { 
   metrics, 
@@ -57,6 +60,7 @@ const getCSSVariable = (variable: string, fallback: string): string => {
 
 export function Overview() {
   const { navigate } = useNavigation();
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   
   // Get theme colors from CSS variables - Yellow/Gold shades and Grey shades only
   const primaryColor = useMemo(() => getCSSVariable('--primary', '#f7d604'), []);
@@ -135,10 +139,10 @@ export function Overview() {
       }
       
       return {
-        id: activity.id,
-        title: activity.title,
-        description: activity.description,
-        timestamp: activity.timestamp,
+      id: activity.id,
+      title: activity.title,
+      description: activity.description,
+      timestamp: activity.timestamp,
         icon,
         status,
       };
@@ -293,9 +297,23 @@ export function Overview() {
 
   return (
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
-      {/* Welcome Message */}
-      <div className="mb-2">
-        <p className="text-sm text-gray-600 font-medium leading-relaxed">Monitor your service operations, track performance metrics, and stay on top of urgent work orders.</p>
+      {/* Header Section with Date Range Picker */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
+        <div className="flex-1">
+          <p className="text-sm text-gray-600 font-medium leading-relaxed">Monitor your service operations, track performance metrics, and stay on top of urgent work orders.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-600 font-medium">Date Range:</span>
+          </div>
+          <DateRangePicker
+            onDateRangeChange={setDateRange}
+            value={dateRange}
+            placeholder="Select date range"
+            className="w-[280px]"
+          />
+        </div>
       </div>
 
       {/* KPI Stat Cards */}
@@ -393,7 +411,7 @@ export function Overview() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Monthly Revenue Trend</CardTitle>
-              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-600 rounded-full font-display font-semibold">
                 Avg: <span className="text-gray-900">${Math.round(monthlyRevenueChartData.avgRevenue).toLocaleString()}</span>
               </div>
             </div>
@@ -527,7 +545,7 @@ export function Overview() {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('work-orders')}
-                className="text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-yellow-200/70 hover:shadow-sm"
+                className="text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-yellow-200/70 hover:shadow-sm"
               >
                 <span>View All</span>
                 <ArrowRight className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -564,7 +582,7 @@ export function Overview() {
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-gray-500 text-center py-8">No urgent work orders</p>
+              <p className="text-sm text-gray-600 text-center py-8 font-medium">No urgent work orders</p>
             )}
           </CardContent>
         </Card>
@@ -575,7 +593,7 @@ export function Overview() {
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-200/50">
-                  <Clock className="w-5 h-5 text-blue-600" />
+                <Clock className="w-5 h-5 text-blue-600" />
                 </div>
                 <span className="text-lg font-display font-semibold text-gray-900 tracking-tight">
                   Recent Activity

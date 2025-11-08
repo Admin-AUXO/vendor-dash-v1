@@ -33,7 +33,7 @@ export function PriorityBadge({ priority, label, className, size = 'md' }: Prior
   return (
     <span
       className={cn(
-        'inline-flex items-center justify-center rounded-full border font-semibold shadow-sm transition-all duration-200 antialiased',
+        'inline-flex items-center justify-center rounded-full border font-semibold shadow-sm transition-all duration-300 antialiased',
         'hover:shadow-md hover:scale-105 active:scale-100 cursor-default select-none',
         priorityStyles[priority],
         sizeStyles[size],

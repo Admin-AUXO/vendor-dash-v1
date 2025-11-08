@@ -41,22 +41,37 @@ let cachedData: {
 function getCachedData() {
   if (!cachedData.workOrders) {
     // Generate in dependency order
-    cachedData.workOrders = generateWorkOrders(40);
-    cachedData.invoices = generateInvoices(cachedData.workOrders, 50);
-    cachedData.payments = generatePayments(cachedData.invoices, 30);
-    cachedData.marketplaceProjects = generateMarketplaceProjects(20);
-    cachedData.bids = generateBids(cachedData.marketplaceProjects, 30);
-    cachedData.supportTickets = generateSupportTickets(10);
-    cachedData.clients = generateClients(10);
+    // Minimum requirements for charts:
+    // - Work Orders: Need at least 1 per service category (8), status (5), priority (4)
+    //   Plus enough completed orders for invoices (at least 20 completed)
+    //   Minimum total: 40 work orders to ensure full variability
+    cachedData.workOrders = generateWorkOrders(60);
+    
+    // Invoices: Need at least 1 per status (8 statuses) and enough paid invoices for payments
+    // Minimum: 30 invoices with at least 20 paid invoices for payment generation
+    cachedData.invoices = generateInvoices(cachedData.workOrders, 40);
+    
+    // Payments: Need payments across 6 months, 7 days, all payment methods (6), all statuses (4)
+    // Need payments from multiple clients (at least 6 clients)
+    // Minimum: 30 payments to ensure full chart coverage
+    cachedData.payments = generatePayments(cachedData.invoices, 40);
+    
+    cachedData.marketplaceProjects = generateMarketplaceProjects(25);
+    cachedData.bids = generateBids(cachedData.marketplaceProjects, 35);
+    cachedData.supportTickets = generateSupportTickets(15);
+    
+    // Clients: Need at least 6-8 clients for top clients chart
+    cachedData.clients = generateClients(12);
+    
     cachedData.activities = generateActivities(
       cachedData.workOrders,
       cachedData.invoices,
       cachedData.payments,
       cachedData.bids,
       cachedData.supportTickets,
-      60
+      80
     );
-    cachedData.notifications = generateNotifications(cachedData.workOrders, cachedData.invoices, 15);
+    cachedData.notifications = generateNotifications(cachedData.workOrders, cachedData.invoices, 20);
     cachedData.vendor = generateVendor();
     cachedData.metrics = generateDashboardMetrics(
       cachedData.workOrders,
@@ -67,7 +82,7 @@ function getCachedData() {
     );
     cachedData.weeklyRevenueData = generateTimeSeriesData(7);
     cachedData.monthlyRevenueData = generateTimeSeriesData(30);
-    cachedData.knowledgeBaseArticles = generateKnowledgeBaseArticles(20);
+    cachedData.knowledgeBaseArticles = generateKnowledgeBaseArticles(25);
     
     // Calculate service distribution from actual work orders
     const categoryMap: Record<string, number> = {

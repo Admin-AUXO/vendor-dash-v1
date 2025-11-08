@@ -5,9 +5,415 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PropertyVendor Pro - Service Dashboard</title>
+    <!-- Preload fonts for better loading performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Initial Loading Screen Styles - Inline for immediate rendering -->
+    <style>
+      /* Critical loading screen styles - inline for immediate rendering */
+      #initial-loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: linear-gradient(to bottom right, #f9fafb, #ffffff, #f9fafb);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        transition: opacity 0.3s ease-out;
+      }
+      
+      #initial-loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        position: relative;
+      }
+      
+      /* Animated background particles */
+      .loading-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(247, 214, 4, 0.1);
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0) translateX(0) scale(1);
+          opacity: 0.3;
+        }
+        33% {
+          transform: translateY(-20px) translateX(10px) scale(1.1);
+          opacity: 0.5;
+        }
+        66% {
+          transform: translateY(10px) translateX(-10px) scale(0.9);
+          opacity: 0.4;
+        }
+      }
+      
+      /* Icon container with pulsing rings */
+      .loading-icon-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 96px;
+        height: 96px;
+      }
+      
+      .loading-icon-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(247, 214, 4, 0.2);
+        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+      
+      .loading-icon-ring-2 {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(247, 214, 4, 0.1);
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      .loading-icon {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(247, 214, 4, 0.2), rgba(247, 214, 4, 0.1));
+        backdrop-filter: blur(4px);
+        border: 2px solid rgba(247, 214, 4, 0.3);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .loading-icon svg {
+        width: 48px;
+        height: 48px;
+        color: #f7d604;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @keyframes ping {
+        75%, 100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      
+      /* Spinner */
+      .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(247, 214, 4, 0.2);
+        border-top-color: #f7d604;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      
+      /* Message text */
+      .loading-message {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #374151;
+        text-align: center;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.5s ease-out;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Progress bar */
+      .loading-progress-container {
+        width: 256px;
+        max-width: 80vw;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .loading-progress-bar {
+        height: 10px;
+        background: rgba(229, 231, 235, 0.6);
+        border-radius: 9999px;
+        overflow: hidden;
+        border: 1px solid rgba(229, 231, 235, 0.5);
+        position: relative;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      
+      .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(to right, #f7d604, rgba(247, 214, 4, 0.9), rgba(247, 214, 4, 0.8));
+        border-radius: 9999px;
+        transition: width 0.5s ease-out;
+        width: 0%;
+        box-shadow: 0 1px 3px rgba(247, 214, 4, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Shimmer effect on progress bar */
+      .loading-progress-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.5),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+      
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+      
+      .loading-progress-text {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #6b7280;
+      }
+      
+      .loading-progress-text span:last-child {
+        font-weight: 600;
+        color: #374151;
+      }
+      
+      /* Loading dots */
+      .loading-dots {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .loading-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #f7d604;
+        animation: bounce 1s ease-in-out infinite;
+      }
+      
+      .loading-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      
+      .loading-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- Initial Loading Screen - Shows immediately before React loads -->
+    <div id="initial-loading-screen">
+      <div class="loading-particles" id="particles-container"></div>
+      <div class="loading-container">
+        <!-- Icon with pulsing rings -->
+        <div class="loading-icon-container">
+          <div class="loading-icon-ring"></div>
+          <div class="loading-icon-ring-2"></div>
+          <div class="loading-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Spinner -->
+        <div class="loading-spinner"></div>
+        
+        <!-- Message -->
+        <div class="loading-message">
+          Preparing your dashboard...
+        </div>
+        
+        <!-- Progress bar -->
+        <div class="loading-progress-container">
+          <div class="loading-progress-bar">
+            <div class="loading-progress-fill"></div>
+          </div>
+          <div class="loading-progress-text">
+            <span>Loading</span>
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+        
+        <!-- Loading dots -->
+        <div class="loading-dots">
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+        </div>
+      </div>
+    </div>
+    
     <div id="root"></div>
+    
+    <!-- Script to hide initial loading screen when React is ready -->
+    <script>
+      // Create floating particles
+      (function() {
+        const container = document.getElementById('particles-container');
+        if (container) {
+          for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 60 + 20;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(particle);
+          }
+        }
+        
+        // Simulate progress
+        let progress = 0;
+        const progressFill = document.querySelector('.loading-progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+        
+        const progressInterval = setInterval(function() {
+          progress += Math.random() * 8 + 2;
+          if (progress >= 90) {
+            progress = 90;
+            clearInterval(progressInterval);
+          }
+          if (progressFill) {
+            progressFill.style.width = progress + '%';
+          }
+          if (progressPercent) {
+            progressPercent.textContent = Math.round(progress) + '%';
+          }
+        }, 200);
+      })();
+      
+      // Function to hide initial loading screen
+      function hideInitialLoadingScreen() {
+        const initialScreen = document.getElementById('initial-loading-screen');
+        if (initialScreen && !initialScreen.classList.contains('hidden')) {
+          initialScreen.classList.add('hidden');
+          // Remove from DOM after animation completes
+          setTimeout(function() {
+            if (initialScreen.parentNode) {
+              initialScreen.remove();
+            }
+          }, 300);
+          return true;
+        }
+        return false;
+      }
+      
+      // Listen for React ready event
+      window.addEventListener('react-ready', hideInitialLoadingScreen);
+      
+      // Also check on DOMContentLoaded as fallback
+      window.addEventListener('DOMContentLoaded', function() {
+        // Wait for React to mount, then hide the initial loading screen
+        const checkReactReady = setInterval(function() {
+          const root = document.getElementById('root');
+          // Check if React is ready via data attribute or if root has content
+          if (root && (root.getAttribute('data-react-ready') === 'true' || root.children.length > 0)) {
+            if (hideInitialLoadingScreen()) {
+              clearInterval(checkReactReady);
+            }
+          }
+        }, 50); // Check more frequently for faster transition
+        
+        // Fallback: hide after maximum wait time (5 seconds)
+        setTimeout(function() {
+          hideInitialLoadingScreen();
+          clearInterval(checkReactReady);
+        }, 5000);
+      });
+      
+      // Immediate check in case React loads before DOMContentLoaded
+      if (document.readyState === 'loading') {
+        // DOM is still loading, wait for DOMContentLoaded
+      } else {
+        // DOM is already ready, check immediately
+        const root = document.getElementById('root');
+        if (root && root.getAttribute('data-react-ready') === 'true') {
+          hideInitialLoadingScreen();
+        }
+      }
+    </script>
+    
     <script type="module" src="/main.tsx"></script>
   </body>
 </html>

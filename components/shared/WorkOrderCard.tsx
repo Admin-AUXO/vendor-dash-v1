@@ -57,30 +57,56 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 
+  const isOverdue = new Date(workOrder.dueDate) < new Date() && workOrder.status !== 'completed';
+
   return (
     <div
       className={cn(
-        'group relative bg-white border border-gray-200 rounded-lg',
-        'hover:shadow-lg hover:border-gray-300 transition-all duration-200',
-        'overflow-hidden',
+        'group relative bg-white border border-gray-200 rounded-lg shadow-sm',
+        'hover:shadow-md hover:border-gray-300 transition-all duration-300',
+        'overflow-hidden border-l-4',
+        isOverdue ? 'border-l-status-error' :
+        statusType === 'success' ? 'border-l-status-success' :
+        statusType === 'error' ? 'border-l-status-error' :
+        statusType === 'info' ? 'border-l-status-info' :
+        statusType === 'pending' ? 'border-l-status-pending' :
+        'border-l-primary',
         className
       )}
     >
       {/* Main Card Content */}
       <div className="p-4 flex items-start gap-3">
         {/* Left Icon */}
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center shadow-sm">
-          <Wrench className="w-6 h-6 text-yellow-700" />
+        <div className={cn(
+          'flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-sm',
+          'transition-all duration-300 group-hover:scale-110 group-hover:shadow-md',
+          isOverdue ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+          statusType === 'success' ? 'bg-gradient-to-br from-status-success-light to-emerald-50' :
+          statusType === 'error' ? 'bg-gradient-to-br from-status-error-light to-red-50' :
+          statusType === 'info' ? 'bg-gradient-to-br from-status-info-light to-blue-50' :
+          statusType === 'pending' ? 'bg-gradient-to-br from-status-pending-light to-yellow-50' :
+          'bg-gradient-to-br from-yellow-100 to-yellow-200'
+        )}>
+          <Wrench className={cn(
+            'w-6 h-6 transition-colors duration-300',
+            isOverdue ? 'text-status-error' :
+            statusType === 'success' ? 'text-status-success' :
+            statusType === 'error' ? 'text-status-error' :
+            statusType === 'info' ? 'text-status-info' :
+            statusType === 'pending' ? 'text-status-pending' :
+            'text-yellow-700'
+          )} />
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
       {/* Header Row - ID and Badges */}
           <div className="flex items-start justify-between gap-3 mb-2">
-            <div className="flex items-center gap-2 flex-1 min-w-0 flex-wrap">
-              <h3 className="font-bold text-base text-gray-900">
+            <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
+              <h3 className="font-semibold text-sm text-gray-900 font-mono flex-shrink-0">
             {workOrder.workOrderId}
           </h3>
+          <div className="h-4 w-px bg-gray-300 flex-shrink-0"></div>
           <PriorityBadge priority={workOrder.priority} size="sm" />
           <StatusBadge status={statusType} label={statusLabel} size="sm" />
           <CategoryBadge category={workOrder.serviceCategory} size="sm" />
@@ -88,7 +114,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
           </div>
 
           {/* Service Description */}
-          <p className="text-sm text-gray-800 font-semibold mb-3">
+          <p className="text-sm text-gray-900 font-semibold mb-3">
             {workOrder.serviceDescription}
           </p>
 
@@ -104,7 +130,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
             </div>
             <div className="flex items-center gap-1.5">
               <Tag className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
-              <span className="font-semibold text-gray-700">${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span className="font-semibold text-gray-900">${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
             {workOrder.assignedTechnician && (
               <div className="flex items-center gap-1.5">
@@ -116,7 +142,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
         </div>
 
         {/* View Details Button */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 flex items-start">
           <Button
             onClick={(e) => {
               e.stopPropagation();
@@ -124,17 +150,17 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
             }}
             variant="default"
             size="sm"
-            className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold border-yellow-600 hover:border-yellow-700/30 shadow-md hover:shadow-lg flex items-center gap-2"
+            className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold border-yellow-600 hover:border-yellow-700/30 shadow-sm hover:shadow-md flex items-center gap-2 transition-all duration-300"
           >
             {isExpanded ? (
               <>
                 <span>Hide Details</span>
-                <ChevronUp className="w-4 h-4" />
+                <ChevronUp className="w-4 h-4 transition-transform duration-300" />
               </>
             ) : (
               <>
                 <span>View Details</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-4 h-4 transition-transform duration-300" />
               </>
             )}
           </Button>
@@ -153,7 +179,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                 <div className="space-y-3">
                   <div className="flex items-center gap-2.5 text-sm">
                     <Building2 className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                    <span className="text-gray-700 font-medium">{workOrder.clientName}</span>
+                    <span className="text-gray-900 font-medium">{workOrder.clientName}</span>
                   </div>
                   {workOrder.clientContact && (
                     <div className="flex items-center gap-2.5 text-sm">
@@ -184,7 +210,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                 <div className="space-y-3">
                   <div className="flex items-start gap-2.5 text-sm">
                     <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 leading-relaxed">{workOrder.propertyAddress}</span>
+                    <span className="text-gray-900 leading-relaxed">{workOrder.propertyAddress}</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-sm">
                     <Building2 className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -206,14 +232,14 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                       <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="text-xs text-gray-500 mb-0.5">Requested</div>
-                        <div className="text-gray-700 font-medium">{format(new Date(workOrder.requestDate), 'MMM dd, yyyy')}</div>
+                        <div className="text-gray-900 font-medium">{format(new Date(workOrder.requestDate), 'MMM dd, yyyy')}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="text-xs text-gray-500 mb-0.5">Due</div>
-                        <div className="text-gray-700 font-medium">{format(new Date(workOrder.dueDate), 'MMM dd, yyyy')}</div>
+                        <div className="text-gray-900 font-medium">{format(new Date(workOrder.dueDate), 'MMM dd, yyyy')}</div>
                       </div>
                     </div>
                     {workOrder.completedDate && (
@@ -221,7 +247,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                         <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
                         <div className="flex-1">
                           <div className="text-xs text-gray-500 mb-0.5">Completed</div>
-                          <div className="text-gray-700 font-medium">{format(new Date(workOrder.completedDate), 'MMM dd, yyyy')}</div>
+                          <div className="text-gray-900 font-medium">{format(new Date(workOrder.completedDate), 'MMM dd, yyyy')}</div>
                         </div>
                       </div>
                     )}
@@ -233,7 +259,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                       {workOrder.assignedTeam && (
                         <div className="flex items-center gap-2 text-sm">
                           <Users className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                          <span className="text-gray-700">Team: {workOrder.assignedTeam}</span>
+                          <span className="text-gray-900">Team: {workOrder.assignedTeam}</span>
                         </div>
                       )}
                       {workOrder.estimatedHours && (
@@ -241,7 +267,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                           <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           <div className="flex-1">
                             <div className="text-xs text-gray-500 mb-0.5">Estimated Hours</div>
-                            <div className="text-gray-700 font-medium">{workOrder.estimatedHours} hours</div>
+                            <div className="text-gray-900 font-medium">{workOrder.estimatedHours} hours</div>
                           </div>
                         </div>
                       )}
@@ -250,7 +276,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                           <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           <div className="flex-1">
                             <div className="text-xs text-gray-500 mb-0.5">Actual Hours</div>
-                            <div className="text-gray-700 font-medium">
+                            <div className="text-gray-900 font-medium">
                               {workOrder.actualHours} hours
                               {workOrder.estimatedHours && (
                                 <span className={`ml-2 text-xs font-normal ${workOrder.actualHours > workOrder.estimatedHours ? 'text-red-600' : workOrder.actualHours < workOrder.estimatedHours ? 'text-green-600' : 'text-gray-500'}`}>
@@ -274,7 +300,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                     <Tag className="w-4 h-4 text-gray-400 flex-shrink-0" />
                     <div className="flex-1">
                       <div className="text-xs text-gray-500 mb-0.5">Estimated Cost</div>
-                      <div className="text-gray-700 font-medium">${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                      <div className="text-gray-900 font-medium">${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                     </div>
                   </div>
                   {workOrder.actualCost && (
@@ -282,7 +308,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                       <Tag className="w-4 h-4 text-gray-400 flex-shrink-0" />
                       <div className="flex-1">
                         <div className="text-xs text-gray-500 mb-0.5">Actual Cost</div>
-                        <div className="text-gray-700 font-medium">
+                        <div className="text-gray-900 font-medium">
                           ${workOrder.actualCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           {workOrder.estimatedCost && (
                             <span className={`ml-2 text-xs font-normal ${workOrder.actualCost > workOrder.estimatedCost ? 'text-red-600' : workOrder.actualCost < workOrder.estimatedCost ? 'text-green-600' : 'text-gray-500'}`}>
@@ -301,7 +327,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
             {workOrder.notes && (
               <div className="pt-3 border-t border-gray-200">
                 <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Notes</h4>
-                <div className="flex items-start gap-2.5 text-sm text-gray-700 bg-white p-3 rounded-md border border-gray-200">
+                <div className="flex items-start gap-2.5 text-sm text-gray-600 bg-white p-3 rounded-md border border-gray-200">
                   <FileText className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
                   <p className="flex-1 leading-relaxed">{workOrder.notes}</p>
                 </div>
@@ -316,7 +342,7 @@ export function WorkOrderCard({ workOrder, onClick, className }: WorkOrderCardPr
                   onClick?.();
                 }}
                 variant="default"
-                className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold shadow-md hover:shadow-lg border-gray-900 hover:border-gray-800/20"
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold shadow-sm hover:shadow-md border-gray-900 hover:border-gray-800/20 transition-all duration-300"
               >
                 Open Work Order
               </Button>

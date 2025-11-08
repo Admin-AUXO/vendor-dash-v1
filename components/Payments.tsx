@@ -29,6 +29,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { format, subDays, startOfDay, endOfDay, eachDayOfInterval } from 'date-fns';
 import currency from 'currency.js';
 import { DateRange } from './shared/DateRangePicker';
+import { cn } from './ui/utils';
 import {
   PieChart,
   Pie,
@@ -600,9 +601,9 @@ export function Payments() {
                           className="w-4 h-4 rounded-full flex-shrink-0" 
                           style={{ backgroundColor: entry.fill }}
                         />
-                        <span className="text-sm text-gray-700 font-medium truncate">{entry.name}</span>
+                        <span className="text-sm text-gray-600 font-medium truncate">{entry.name}</span>
                       </div>
-                      <span className="text-sm text-gray-900 font-bold flex-shrink-0">
+                      <span className="text-sm text-gray-900 font-semibold flex-shrink-0">
                         {entry.value}
                       </span>
                     </div>
@@ -618,7 +619,7 @@ export function Payments() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Payment Status (7 Days)</CardTitle>
-              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-600 rounded-full font-display font-semibold">
                 Total: <span className="text-gray-900">{currency(paymentStatusOverTimeData.reduce((sum, d) => sum + d.completed + d.pending, 0)).format()}</span>
               </div>
             </div>
@@ -714,7 +715,7 @@ export function Payments() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg font-display font-semibold text-gray-900 tracking-tight">Top Clients by Revenue</CardTitle>
-              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-700 rounded-full font-display font-semibold">
+              <div className="text-xs px-3 py-1.5 bg-primary/10 text-gray-600 rounded-full font-display font-semibold">
                 Top <span className="text-gray-900">5</span>
               </div>
             </div>
@@ -779,96 +780,165 @@ export function Payments() {
         </Card>
       </div>
 
-      {/* Outstanding Balances - Table Format */}
+      {/* Outstanding Invoices Section */}
       {displayedOutstandingBalances.length > 0 && (
-        <Card>
-          <div className="bg-red-100 border-b border-red-300 rounded-t-xl">
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-lg font-display font-semibold text-gray-900 tracking-tight">
-                  <AlertCircle className="w-5 h-5 text-red-700" />
-                  <span>Outstanding Balances</span>
-                  <Badge variant="destructive" className="font-semibold">
-                    {outstandingBalances.length}
-                  </Badge>
-                </CardTitle>
+        <div className="space-y-4">
+          {/* Enhanced Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gradient-to-r from-red-50/80 via-red-50/50 to-transparent rounded-xl border border-red-200/60 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-red-100/80 shadow-sm">
+                <AlertCircle className="w-5 h-5 text-red-700" />
               </div>
-              <p className="text-sm text-gray-700 mt-1 font-medium">Invoices requiring payment</p>
-            </CardHeader>
-          </div>
-          <CardContent className="p-2">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Invoice #</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Client</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Invoice Date</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Due Date</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Days Overdue</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Work Order</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Amount</th>
-                    <th className="text-center py-2 px-2 font-medium text-gray-700">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayedOutstandingBalances.map((inv: Invoice) => {
-                    // Calculate days overdue for any unpaid invoice past due date
-                    const today = new Date();
-                    const dueDate = new Date(inv.dueDate);
-                    const daysOverdue = inv.status !== 'paid' && dueDate < today
-                      ? Math.ceil((today.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24))
-                      : 0;
-                    
-                    return (
-                      <tr
-                        key={inv.id}
-                        className="border-b hover:bg-gray-50"
-                      >
-                        <td className="py-2 px-2 text-center">
-                          <span className="font-semibold font-mono">{inv.invoiceNumber}</span>
-                        </td>
-                        <td className="py-2 px-2 text-center text-gray-900">{inv.clientName}</td>
-                        <td className="py-2 px-2 text-center text-gray-600">
-                          {format(new Date(inv.issueDate), 'MMM dd, yyyy')}
-                        </td>
-                        <td className="py-2 px-2 text-center text-gray-600">
-                          {format(new Date(inv.dueDate), 'MMM dd, yyyy')}
-                        </td>
-                        <td className="py-2 px-2 text-center">
-                          {daysOverdue > 0 ? (
-                            <span className="text-red-600 font-semibold">{daysOverdue} days</span>
-                          ) : (
-                            <span className="text-gray-400">—</span>
-                          )}
-                        </td>
-                        <td className="py-2 px-2 text-center">
-                          {inv.workOrderId ? (
-                            <span className="font-mono text-gray-900">{workOrderLookup.get(inv.workOrderId) || inv.workOrderId}</span>
-                          ) : (
-                            <span className="text-gray-400">—</span>
-                          )}
-                        </td>
-                        <td className="py-2 px-2 text-center font-semibold text-gray-900">
-                          {currency(inv.total).format()}
-                        </td>
-                        <td className="py-2 px-2 text-center">
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="h-8 px-3 bg-red-600 hover:bg-red-700 text-white border-red-600"
-                          >
-                            Send Reminder
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <div className="flex items-center gap-3">
+                <div>
+                  <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">
+                    Outstanding Invoices
+                  </h2>
+                  <p className="text-xs text-gray-600 font-medium mt-0.5">
+                    Invoices requiring payment
+                  </p>
+                </div>
+                <Badge variant="destructive" className="font-semibold shadow-sm min-w-[28px] justify-center">
+                  {outstandingBalances.length}
+                </Badge>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+          
+          {/* Enhanced Card Container */}
+          <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <CardContent className="p-4 lg:p-5">
+              <div className="space-y-3 lg:space-y-4">
+                {displayedOutstandingBalances.map((inv: Invoice) => {
+                  // Calculate days overdue for any unpaid invoice past due date
+                  const today = new Date();
+                  const dueDate = new Date(inv.dueDate);
+                  const daysOverdue = inv.status !== 'paid' && dueDate < today
+                    ? Math.ceil((today.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24))
+                    : 0;
+                  const workOrderDisplayId = inv.workOrderId ? workOrderLookup.get(inv.workOrderId) : null;
+                  const isUrgent = daysOverdue > 0;
+                  
+                  // Calculate days until due (if not overdue)
+                  const daysUntilDue = !isUrgent && dueDate >= today
+                    ? Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+                    : null;
+                  
+                  // Determine badge to show - always show a badge
+                  const getStatusBadge = () => {
+                    if (isUrgent) {
+                      return (
+                        <Badge variant="destructive" className="font-semibold text-xs whitespace-nowrap">
+                          {daysOverdue} {daysOverdue === 1 ? 'day' : 'days'} overdue
+                        </Badge>
+                      );
+                    } else if (daysUntilDue !== null && daysUntilDue <= 7) {
+                      return (
+                        <Badge variant="warning" className="font-semibold text-xs whitespace-nowrap">
+                          Due in {daysUntilDue} {daysUntilDue === 1 ? 'day' : 'days'}
+                        </Badge>
+                      );
+                    } else {
+                      return (
+                        <Badge variant="info" className="font-semibold text-xs whitespace-nowrap">
+                          Pending Payment
+                        </Badge>
+                      );
+                    }
+                  };
+                  
+                  return (
+                    <div
+                      key={inv.id}
+                      className={cn(
+                        'group relative bg-white border border-gray-200 rounded-xl shadow-sm',
+                        'hover:shadow-md hover:border-red-300 transition-all duration-300',
+                        'overflow-hidden border-l-4',
+                        isUrgent ? 'border-l-status-error' : 'border-l-red-400'
+                      )}
+                    >
+                      <div className="p-4 lg:p-5">
+                        {/* Single Row Layout - Invoice ID and Client Name Left Aligned */}
+                        <div className="flex items-center gap-4 lg:gap-6 flex-wrap lg:flex-nowrap">
+                          {/* Icon */}
+                          <div className={cn(
+                            'flex-shrink-0 w-10 h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center shadow-sm',
+                            'transition-all duration-300 group-hover:scale-110 group-hover:shadow-md',
+                            'bg-gradient-to-br from-red-100 to-red-50'
+                          )}>
+                            <FileText className={cn(
+                              'w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300',
+                              'text-red-600'
+                            )} />
+                          </div>
+
+                          {/* Invoice Number - Left Aligned */}
+                          <div className="flex items-center justify-start flex-1 min-w-[100px] lg:min-w-[120px]">
+                            <h3 className="font-semibold text-sm lg:text-base text-gray-900 font-mono tracking-tight text-left">
+                              {inv.invoiceNumber}
+                            </h3>
+                          </div>
+
+                          {/* Separator */}
+                          <div className="h-4 w-px bg-gray-300 flex-shrink-0"></div>
+
+                          {/* Client Name - Left Aligned */}
+                          <div className="flex items-center gap-1.5 justify-start flex-1 min-w-[120px] lg:min-w-[150px]">
+                            <Building2 className="w-4 h-4 text-red-600 flex-shrink-0" />
+                            <p className="text-sm text-gray-900 font-medium text-left truncate" title={inv.clientName}>
+                              {inv.clientName}
+                            </p>
+                          </div>
+
+                          {/* Work Order ID - Always Show */}
+                          <div className="flex items-center gap-1.5 justify-center flex-1 min-w-[100px] lg:min-w-[110px]">
+                            <FileText className="w-4 h-4 text-red-600 flex-shrink-0" />
+                            <span className="text-sm font-mono text-gray-700 text-center">
+                              {workOrderDisplayId || 'N/A'}
+                            </span>
+                          </div>
+
+                          {/* Status Badge - Always Show */}
+                          <div className="flex items-center justify-center flex-1 min-w-[120px] lg:min-w-[140px]">
+                            {getStatusBadge()}
+                          </div>
+
+                          {/* Amount */}
+                          <div className="flex items-center gap-1.5 justify-center flex-1 min-w-[100px] lg:min-w-[110px]">
+                            <Tag className="w-4 h-4 text-red-600 flex-shrink-0" />
+                            <span className="text-sm font-semibold text-gray-900 text-center whitespace-nowrap">
+                              {currency(inv.total).format()}
+                            </span>
+                          </div>
+
+                          {/* Due Date */}
+                          <div className="flex items-center gap-1.5 justify-center flex-1 min-w-[130px] lg:min-w-[150px]">
+                            <AlertCircle className={cn('w-4 h-4 flex-shrink-0', isUrgent ? 'text-red-600' : 'text-gray-400')} />
+                            <span className={cn('text-sm font-medium text-center whitespace-nowrap', isUrgent ? 'text-red-600 font-semibold' : 'text-gray-700')}>
+                              Due: {format(dueDate, 'MMM dd, yyyy')}
+                            </span>
+                          </div>
+
+                          {/* Send Reminder Button */}
+                          <div className="flex-shrink-0 w-full lg:w-auto lg:min-w-[140px] flex items-center justify-center">
+                            <Button
+                              variant="default"
+                              size="sm"
+                              onClick={() => console.log('Send reminder for:', inv.invoiceNumber)}
+                              className="bg-red-600 hover:bg-red-700 text-white border-red-600 hover:border-red-700/30 shadow-sm hover:shadow-md w-full lg:w-auto font-semibold transition-all duration-300 whitespace-nowrap"
+                            >
+                              Send Reminder
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* Filter System - Mobile */}

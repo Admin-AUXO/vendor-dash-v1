@@ -204,6 +204,341 @@ export function Invoice() {
   }, []);
 
   // Invoice Card Component
+  // Post-Submission Invoice Card Component
+  const PostSubmissionInvoiceCard = ({ invoice, onViewDetails, onAction, actionLabel, actionVariant = 'default' }: {
+    invoice: Invoice;
+    onViewDetails?: () => void;
+    onAction?: () => void;
+    actionLabel?: string;
+    actionVariant?: 'default' | 'destructive' | 'outline';
+  }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const workOrderDisplayId = invoice.workOrderId ? workOrderLookup.get(invoice.workOrderId) : null;
+    
+    const statusType = 
+      invoice.status === 'paid' ? 'success' :
+      invoice.status === 'overdue' ? 'error' :
+      invoice.status === 'disputed' ? 'error' :
+      invoice.status === 'approved' ? 'success' :
+      invoice.status === 'viewed' ? 'info' :
+      invoice.status === 'sent' ? 'info' :
+      'pending';
+
+    const statusLabel = invoice.status
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    const issueDate = format(new Date(invoice.issueDate), 'MMM dd, yyyy');
+    // Check if dueDate exists and is valid
+    let hasDueDate = false;
+    let dueDate: string | null = null;
+    let isOverdue = false;
+    
+    if (invoice.dueDate && invoice.dueDate.trim() !== '') {
+      try {
+        const dueDateObj = new Date(invoice.dueDate);
+        if (!isNaN(dueDateObj.getTime())) {
+          hasDueDate = true;
+          dueDate = format(dueDateObj, 'MMM dd, yyyy');
+          isOverdue = dueDateObj < new Date() && invoice.status !== 'paid';
+        }
+      } catch (e) {
+        // Invalid date, treat as no due date
+        hasDueDate = false;
+      }
+    }
+
+    return (
+      <div className={cn(
+        'group relative bg-white border border-gray-200 rounded-xl shadow-sm',
+        'hover:shadow-md hover:border-primary/30 transition-all duration-300',
+        'overflow-hidden border-l-4',
+        statusType === 'success' ? 'border-l-status-success' :
+        statusType === 'error' ? 'border-l-status-error' :
+        statusType === 'info' ? 'border-l-status-info' :
+        statusType === 'pending' ? 'border-l-status-pending' :
+        'border-l-primary'
+      )}>
+        <div className="p-4 lg:p-5">
+          <div className="flex items-start gap-3 lg:gap-4">
+            {/* Enhanced Icon Container */}
+            <div className={cn(
+              'flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 rounded-xl flex items-center justify-center shadow-sm',
+              'transition-all duration-300 group-hover:scale-110 group-hover:shadow-md',
+              statusType === 'info' ? 'bg-gradient-to-br from-status-info-light to-blue-50' :
+              'bg-gradient-to-br from-primary/20 to-primary/10'
+            )}>
+              <Receipt className={cn(
+                'w-6 h-6 lg:w-7 lg:h-7 transition-colors duration-300',
+                statusType === 'info' ? 'text-status-info' :
+                'text-primary'
+              )} />
+            </div>
+
+            {/* Enhanced Content Area */}
+            <div className="flex-1 min-w-0 space-y-3">
+              {/* Header Row - Separator between Invoice ID and Client Name */}
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm lg:text-base text-gray-900 font-mono flex-shrink-0 tracking-tight">
+                    {invoice.invoiceNumber}
+                  </h3>
+                  {/* Separator */}
+                  <div className="h-4 w-px bg-gray-300 flex-shrink-0"></div>
+                  {/* Client Name - Left Aligned */}
+                  <p className="text-sm text-gray-900 font-semibold text-left">
+                    {invoice.clientName}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <StatusBadge status={statusType} label={statusLabel} size="sm" />
+                </div>
+              </div>
+
+              {/* Enhanced Info Grid - Better Layout */}
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-x-4 gap-y-2.5">
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
+                  <Building2 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span className="truncate" title={invoice.clientName}>
+                    {invoice.clientName}
+                  </span>
+                </div>
+                {workOrderDisplayId && (
+                  <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
+                    <FileText className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                    <span className="font-mono truncate">{workOrderDisplayId}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span className="truncate" title={invoice.propertyAddress}>
+                    {invoice.propertyAddress.split(',')[0]}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span className="truncate">Issued: {issueDate}</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-gray-900">
+                  <Tag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span className="truncate">
+                    {currency(invoice.total).format()}
+                  </span>
+                </div>
+                {/* Due Date or Badge - Aligned */}
+                <div className="flex items-center gap-2">
+                  {hasDueDate ? (
+                    <div className="flex items-center gap-2 text-xs font-medium">
+                      <Calendar className={cn('w-3.5 h-3.5 flex-shrink-0', isOverdue ? 'text-status-error' : 'text-primary')} />
+                      <span className={cn('truncate', isOverdue && 'text-status-error font-semibold')}>
+                        Due: {dueDate}
+                      </span>
+                    </div>
+                  ) : (
+                    <Badge variant="warning" className="text-xs font-semibold">
+                      No Due Date
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Button Container */}
+            <div className="flex-shrink-0 flex flex-col gap-2.5 items-stretch justify-start min-w-[130px] lg:min-w-[140px]">
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(!isExpanded);
+                  if (!isExpanded && onViewDetails) {
+                    onViewDetails();
+                  }
+                }}
+                variant="outline"
+                size="sm"
+                className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold border-primary hover:border-primary/20 shadow-sm hover:shadow-md w-full transition-all duration-300"
+              >
+                <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
+                {isExpanded ? (
+                  <ChevronUp className="w-4 h-4 ml-1.5 transition-transform duration-300" />
+                ) : (
+                  <ChevronDown className="w-4 h-4 ml-1.5 transition-transform duration-300" />
+                )}
+              </Button>
+
+              {onAction && actionLabel && (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAction?.();
+                  }}
+                  variant={actionVariant}
+                  size="sm"
+                  className={cn(
+                    'w-full font-semibold shadow-sm hover:shadow-md transition-all duration-300',
+                    actionVariant === 'default' 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700 hover:border-blue-800/30'
+                      : actionVariant === 'destructive'
+                        ? 'bg-red-600 hover:bg-red-700 text-white border-red-700 hover:border-red-800/30'
+                        : ''
+                  )}
+                >
+                  {actionLabel}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {isExpanded && (
+          <div className="border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white transition-all duration-300 ease-in-out">
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Building2 className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Client</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Name</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.clientName}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Address</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.clientAddress}</div>
+                    </div>
+                    {invoice.clientEmail && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Email</div>
+                        <a href={`mailto:${invoice.clientEmail}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline truncate block font-semibold">
+                          {invoice.clientEmail}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <FileText className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Invoice Details</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Invoice Number</div>
+                      <div className="text-sm text-gray-900 font-mono font-semibold">{invoice.invoiceNumber}</div>
+                    </div>
+                    {workOrderDisplayId && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Work Order</div>
+                        <div className="text-sm text-gray-900 font-mono font-semibold">{workOrderDisplayId}</div>
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Property Address</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.propertyAddress}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Calendar className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Dates</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Issue Date</div>
+                      <div className="text-sm text-gray-900 font-semibold">{issueDate}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Due Date</div>
+                      {hasDueDate ? (
+                        <div className={cn('text-sm font-semibold', isOverdue ? 'text-red-600' : 'text-gray-900')}>
+                          {dueDate}
+                        </div>
+                      ) : (
+                        <Badge variant="warning" className="text-xs">
+                          No Due Date
+                        </Badge>
+                      )}
+                    </div>
+                    {invoice.paidDate && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Paid Date</div>
+                        <div className="text-sm text-gray-900 font-semibold">{format(new Date(invoice.paidDate), 'MMM dd, yyyy')}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2.5 border-b-2 border-primary/20">
+                    <div className="p-1.5 rounded-lg bg-primary/10">
+                      <Receipt className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide">Amount</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Subtotal</div>
+                      <div className="text-sm text-gray-900 font-semibold">{currency(invoice.subtotal).format()}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Tax</div>
+                      <div className="text-sm text-gray-900 font-semibold">{currency(invoice.taxAmount).format()}</div>
+                    </div>
+                    {invoice.discount && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Discount</div>
+                        <div className="text-sm text-gray-900 font-semibold">{currency(invoice.discount).format()}</div>
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Total</div>
+                      <div className="text-base text-gray-900 font-semibold">{currency(invoice.total).format()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {invoice.lineItems && invoice.lineItems.length > 0 && (
+                <div className="mt-6 pt-6 border-t border-gray-300">
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide mb-3">Line Items</h4>
+                  <div className="space-y-2">
+                    {invoice.lineItems.map((item) => (
+                      <div key={item.id} className="flex justify-between items-center text-sm py-2 border-b border-gray-200">
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900">{item.description}</div>
+                          <div className="text-xs text-gray-500">Qty: {item.quantity} × {currency(item.unitPrice).format()}</div>
+                        </div>
+                        <div className="font-semibold text-gray-900">{currency(item.total).format()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {invoice.notes && (
+                <div className="mt-6 pt-6 border-t border-gray-300">
+                  <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide mb-2">Notes</h4>
+                  <p className="text-sm text-gray-600">{invoice.notes}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const InvoiceCard = ({ invoice, onViewDetails, onAction, actionLabel, actionVariant = 'default' }: {
     invoice: Invoice;
     onViewDetails?: () => void;
@@ -234,39 +569,47 @@ export function Invoice() {
 
     return (
       <div className={cn(
-        'group relative bg-white border border-gray-200 rounded-xl',
-        'hover:shadow-lg hover:border-primary/30 transition-all duration-300',
+        'group relative bg-white border border-gray-200 rounded-xl shadow-sm',
+        'hover:shadow-md hover:border-primary/30 transition-all duration-300',
         'overflow-hidden border-l-4',
         statusType === 'success' ? 'border-l-status-success' :
         statusType === 'error' ? 'border-l-status-error' :
         statusType === 'info' ? 'border-l-status-info' :
+        statusType === 'pending' ? 'border-l-status-pending' :
         'border-l-primary'
       )}>
-        <div className="p-5">
-          <div className="flex items-start gap-4">
+        <div className="p-4 lg:p-5">
+          <div className="flex items-start gap-3 lg:gap-4">
+            {/* Enhanced Icon Container */}
             <div className={cn(
-              'flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-md transition-transform duration-300 group-hover:scale-110',
+              'flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 rounded-xl flex items-center justify-center shadow-sm',
+              'transition-all duration-300 group-hover:scale-110 group-hover:shadow-md',
               statusType === 'success' ? 'bg-gradient-to-br from-status-success-light to-emerald-50' :
               statusType === 'error' ? 'bg-gradient-to-br from-status-error-light to-red-50' :
-              statusType === 'info' ? 'bg-gradient-to-br from-blue-50 to-blue-100' :
+              statusType === 'info' ? 'bg-gradient-to-br from-status-info-light to-blue-50' :
+              statusType === 'pending' ? 'bg-gradient-to-br from-status-pending-light to-yellow-50' :
               'bg-gradient-to-br from-primary/20 to-primary/10'
             )}>
               <Receipt className={cn(
-                'w-7 h-7 transition-colors duration-300',
+                'w-6 h-6 lg:w-7 lg:h-7 transition-colors duration-300',
                 statusType === 'success' ? 'text-status-success' :
                 statusType === 'error' ? 'text-status-error' :
-                statusType === 'info' ? 'text-blue-600' :
+                statusType === 'info' ? 'text-status-info' :
+                statusType === 'pending' ? 'text-status-pending' :
                 'text-primary'
               )} />
             </div>
 
+            {/* Enhanced Content Area */}
             <div className="flex-1 min-w-0 space-y-3">
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <h3 className="font-bold text-base text-gray-900 font-mono flex-shrink-0">
+              {/* Header Row - Improved Spacing */}
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <h3 className="font-semibold text-sm lg:text-base text-gray-900 font-mono flex-shrink-0 tracking-tight">
                     {invoice.invoiceNumber}
                   </h3>
-                  <p className="text-sm text-gray-800 font-semibold truncate">
+                  <div className="h-4 w-px bg-gray-300 flex-shrink-0"></div>
+                  <p className="text-sm text-gray-900 font-semibold truncate">
                     {invoice.clientName}
                   </p>
                 </div>
@@ -275,36 +618,37 @@ export function Invoice() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-x-4 gap-y-2">
-                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+              {/* Enhanced Info Grid - Better Layout */}
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-x-4 gap-y-2.5">
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
                   <Building2 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate" title={invoice.clientName}>
                     {invoice.clientName}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
                   <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate" title={invoice.propertyAddress}>
                     {invoice.propertyAddress.split(',')[0]}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs font-semibold">
+                <div className="flex items-center gap-2 text-xs font-semibold text-gray-900">
                   <Tag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                  <span className="text-gray-900 truncate">
+                  <span className="truncate">
                     {currency(invoice.total).format()}
                   </span>
                 </div>
                 {workOrderDisplayId && (
-                  <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                  <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
                     <FileText className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                     <span className="font-mono truncate">{workOrderDisplayId}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                <div className="flex items-center gap-2 text-xs text-gray-600 font-medium">
                   <Calendar className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                   <span className="truncate">Issued: {issueDate}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs font-medium">
+                <div className="flex items-center gap-2 text-xs font-medium">
                   <Calendar className={cn('w-3.5 h-3.5 flex-shrink-0', isOverdue ? 'text-status-error' : 'text-primary')} />
                   <span className={cn('truncate', isOverdue && 'text-status-error font-semibold')}>
                     Due: {dueDate}
@@ -313,7 +657,8 @@ export function Invoice() {
               </div>
             </div>
 
-            <div className="flex-shrink-0 flex flex-col gap-2 items-end justify-start min-w-[140px]">
+            {/* Enhanced Button Container */}
+            <div className="flex-shrink-0 flex flex-col gap-2.5 items-stretch justify-start min-w-[130px] lg:min-w-[140px]">
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -324,13 +669,13 @@ export function Invoice() {
                 }}
                 variant="default"
                 size="sm"
-                className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold border-primary hover:border-primary/20 shadow-md hover:shadow-lg w-full"
+                className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold border-primary hover:border-primary/20 shadow-sm hover:shadow-md w-full transition-all duration-300"
               >
                 <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
                 {isExpanded ? (
-                  <ChevronUp className="w-4 h-4 ml-1.5 transition-transform duration-200" />
+                  <ChevronUp className="w-4 h-4 ml-1.5 transition-transform duration-300" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 ml-1.5 transition-transform duration-200" />
+                  <ChevronDown className="w-4 h-4 ml-1.5 transition-transform duration-300" />
                 )}
               </Button>
 
@@ -343,7 +688,7 @@ export function Invoice() {
                   variant={actionVariant}
                   size="sm"
                   className={cn(
-                    'w-full font-semibold shadow-md hover:shadow-lg',
+                    'w-full font-semibold shadow-sm hover:shadow-md transition-all duration-300',
                     actionVariant === 'default' 
                       ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-700 hover:border-blue-800/30'
                       : actionVariant === 'destructive'
@@ -465,7 +810,7 @@ export function Invoice() {
                     )}
                     <div>
                       <div className="text-xs text-gray-500 mb-1 font-medium">Total</div>
-                      <div className="text-sm text-gray-900 font-bold text-lg">{currency(invoice.total).format()}</div>
+                      <div className="text-base text-gray-900 font-semibold">{currency(invoice.total).format()}</div>
                     </div>
                   </div>
                 </div>
@@ -491,7 +836,7 @@ export function Invoice() {
               {invoice.notes && (
                 <div className="mt-6 pt-6 border-t border-gray-300">
                   <h4 className="text-xs font-display font-bold text-gray-900 uppercase tracking-wide mb-2">Notes</h4>
-                  <p className="text-sm text-gray-700">{invoice.notes}</p>
+                  <p className="text-sm text-gray-600">{invoice.notes}</p>
                 </div>
               )}
             </div>
@@ -801,30 +1146,44 @@ export function Invoice() {
       </div>
 
       {/* Pre-Submission and Post-Submission Invoices */}
-      <div className="space-y-6">
+      <div className="space-y-6 lg:space-y-8">
         {/* Pre-Submission Invoices Section */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-yellow-600" />
-              <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Pre-Submission Invoices</h2>
-              <Badge variant="warning" className="font-semibold">
+          {/* Enhanced Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gradient-to-r from-yellow-50/80 via-yellow-50/50 to-transparent rounded-xl border border-yellow-200/60 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-yellow-100/80 shadow-sm">
+                <FileText className="w-5 h-5 text-yellow-700" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div>
+                  <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">
+                    Pre-Submission Invoices
+                  </h2>
+                  <p className="text-xs text-gray-600 font-medium mt-0.5">
+                    Draft invoices ready to be sent
+                  </p>
+                </div>
+                <Badge variant="warning" className="font-semibold shadow-sm min-w-[28px] justify-center">
                 {preSubmissionInvoices.length}
               </Badge>
+            </div>
             </div>
             <Button 
               size="sm" 
               variant="default"
-              className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold shadow-md hover:shadow-lg border-primary hover:border-primary/20"
+              className="bg-primary hover:bg-primary-hover text-gray-900 font-semibold shadow-md hover:shadow-lg border-primary hover:border-primary/20 whitespace-nowrap"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Draft
             </Button>
           </div>
-          <Card>
-            <CardContent className="pt-4">
+          
+          {/* Enhanced Card Container */}
+          <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <CardContent className="p-4 lg:p-5">
               {preSubmissionInvoices.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-3 lg:space-y-4">
                   {preSubmissionInvoices.map((invoice: Invoice) => (
                     <InvoiceCard
                       key={invoice.id}
@@ -837,11 +1196,13 @@ export function Invoice() {
                   ))}
                 </div>
               ) : (
-                <EmptyState
-                  title="No pre-submission invoices"
-                  description="Draft invoices will appear here"
-                  variant="empty"
-                />
+                <div className="py-8 lg:py-12">
+                  <EmptyState
+                    title="No pre-submission invoices"
+                    description="Draft invoices ready to be sent will appear here. Create your first draft to get started."
+                    variant="empty"
+                  />
+                </div>
               )}
             </CardContent>
           </Card>
@@ -849,19 +1210,35 @@ export function Invoice() {
 
         {/* Post-Submission Invoices Section */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Mail className="w-5 h-5 text-yellow-600" />
-            <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">Post-Submission Invoices</h2>
-            <Badge variant="warning" className="font-semibold">
+          {/* Enhanced Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-gradient-to-r from-blue-50/80 via-blue-50/50 to-transparent rounded-xl border border-blue-200/60 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-blue-100/80 shadow-sm">
+                <Mail className="w-5 h-5 text-blue-700" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div>
+                  <h2 className="text-2xl font-display font-semibold text-gray-900 tracking-tight">
+                    Post-Submission Invoices
+                  </h2>
+                  <p className="text-xs text-gray-600 font-medium mt-0.5">
+                    Sent invoices awaiting client response
+                  </p>
+                </div>
+                <Badge variant="info" className="font-semibold shadow-sm min-w-[28px] justify-center">
               {postSubmissionInvoices.length}
             </Badge>
           </div>
-          <Card>
-            <CardContent className="pt-4">
+            </div>
+          </div>
+          
+          {/* Enhanced Card Container */}
+          <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+            <CardContent className="p-4 lg:p-5">
               {postSubmissionInvoices.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-3 lg:space-y-4">
                   {postSubmissionInvoices.map((invoice: Invoice) => (
-                    <InvoiceCard
+                    <PostSubmissionInvoiceCard
                       key={invoice.id}
                       invoice={invoice}
                       onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
@@ -872,11 +1249,13 @@ export function Invoice() {
                   ))}
                 </div>
               ) : (
-                <EmptyState
-                  title="No post-submission invoices"
-                  description="Invoices requiring follow-up will appear here"
-                  variant="empty"
-                />
+                <div className="py-8 lg:py-12">
+                  <EmptyState
+                    title="No post-submission invoices"
+                    description="Invoices that have been sent and are awaiting client response will appear here."
+                    variant="empty"
+                  />
+                </div>
               )}
             </CardContent>
           </Card>

@@ -204,7 +204,7 @@ export function generateWorkOrders(count: number = 50): WorkOrder[] {
   const now = new Date();
   
   // Generate client pool for better relationships
-  const clientPool = Array.from({ length: Math.max(10, Math.floor(count / 5)) }, (_, i) => {
+  const clientPool = Array.from({ length: Math.max(12, Math.floor(count / 5)) }, (_, i) => {
     const contactPerson = faker.person.fullName();
     const nameParts = contactPerson.split(' ');
     const firstName = nameParts[0];
@@ -223,26 +223,117 @@ export function generateWorkOrders(count: number = 50): WorkOrder[] {
   // Generate technician pool
   const technicianPool = Array.from({ length: 15 }, () => faker.person.fullName());
 
+  // Track minimum requirements to ensure complete variability
+  const statusCounts: Record<string, number> = {
+    'pending': 0,
+    'assigned': 0,
+    'in-progress': 0,
+    'completed': 0,
+    'cancelled': 0,
+  };
+  const priorityCounts: Record<string, number> = {
+    'urgent': 0,
+    'high': 0,
+    'medium': 0,
+    'low': 0,
+  };
+  const categoryCounts: Record<string, number> = {
+    'plumbing': 0,
+    'hvac': 0,
+    'electrical': 0,
+    'carpentry': 0,
+    'painting': 0,
+    'landscaping': 0,
+    'appliance': 0,
+    'general': 0,
+  };
+  const minPerStatus = Math.max(1, Math.floor(count / statuses.length));
+  const minPerPriority = Math.max(1, Math.floor(count / priorities.length));
+  const minPerCategory = Math.max(1, Math.floor(count / serviceCategories.length));
+  const minCompleted = Math.max(20, Math.floor(count * 0.4)); // At least 40% completed for invoices
+
+  // Track completed work orders to distribute them across time
+  let completedIndex = 0;
+
   for (let i = 1; i <= count; i++) {
-    const requestDate = faker.date.recent({ days: 90 });
-    const dueDate = addDays(requestDate, faker.number.int({ min: 1, max: 14 }));
-    const status = randomElement(statuses);
-    const priority = randomElement(priorities);
+    // Ensure minimum distribution for charts
+    let status: WorkOrder['status'];
+    if (i <= statuses.length) {
+      // First N work orders: one per status
+      status = statuses[i - 1];
+    } else if (statusCounts['completed'] < minCompleted) {
+      // Ensure enough completed work orders for invoices
+      status = 'completed';
+    } else {
+      // Otherwise random, but ensure minimums
+      const neededStatuses = statuses.filter(s => statusCounts[s] < minPerStatus);
+      status = neededStatuses.length > 0 ? randomElement(neededStatuses) : randomElement(statuses);
+    }
+    statusCounts[status]++;
+
+    let priority: WorkOrder['priority'];
+    if (i <= priorities.length) {
+      // First N work orders: one per priority
+      priority = priorities[i - 1];
+    } else {
+      // Ensure minimum distribution
+      const neededPriorities = priorities.filter(p => priorityCounts[p] < minPerPriority);
+      priority = neededPriorities.length > 0 ? randomElement(neededPriorities) : randomElement(priorities);
+    }
+    priorityCounts[priority]++;
+
     const isCompleted = status === 'completed';
     const isCancelled = status === 'cancelled';
     
+    // Distribute work orders across time
+    // For completed work orders, distribute across last 6 months for invoice generation
+    let requestDate: Date;
+    if (isCompleted) {
+      // Distribute completed work orders across last 6 months
+      const monthOffset = completedIndex % 6;
+      completedIndex++;
+      const monthStart = subMonths(now, 6 - monthOffset);
+      const monthEnd = subMonths(now, Math.max(0, 5 - monthOffset));
+      requestDate = faker.date.between({
+        from: monthEnd > monthStart ? monthStart : subMonths(now, 6),
+        to: monthEnd > monthStart ? monthEnd : now,
+      });
+    } else {
+      requestDate = faker.date.recent({ days: 180 }); // Last 6 months
+    }
+    const dueDate = addDays(requestDate, faker.number.int({ min: 1, max: 14 }));
+    
     // Completed date should be after request date but before or equal to due date (usually)
+    // For completed work orders, ensure completion dates are distributed across last 6 months
     const completedDate = isCompleted 
       ? (() => {
-          const maxCompletedDate = dueDate > now ? now : dueDate;
+          // Use the request date month as base to ensure distribution
+          const monthStart = new Date(requestDate.getFullYear(), requestDate.getMonth(), 1);
+          const monthEnd = new Date(requestDate.getFullYear(), requestDate.getMonth() + 1, 0);
+          if (monthEnd > now) monthEnd.setTime(now.getTime());
+          if (monthEnd > dueDate) monthEnd.setTime(dueDate.getTime());
+          const validFrom = requestDate > monthStart ? requestDate : monthStart;
+          const validTo = dueDate < monthEnd ? dueDate : monthEnd;
           // Ensure to date is after from date
-          const validToDate = maxCompletedDate > requestDate ? maxCompletedDate : addDays(requestDate, 1);
-          return faker.date.between({ from: requestDate, to: validToDate });
+          const finalTo = validTo > validFrom ? validTo : addDays(validFrom, 1);
+          return faker.date.between({ from: validFrom, to: finalTo });
         })()
       : undefined;
 
     const client = randomElement(clientPool);
-    const serviceCategory = randomElement(serviceCategories);
+    
+    // Ensure minimum distribution across service categories
+    let serviceCategory: WorkOrder['serviceCategory'];
+    if (i <= serviceCategories.length) {
+      // First N work orders: one per category
+      serviceCategory = serviceCategories[i - 1];
+    } else {
+      // Ensure minimum distribution
+      const neededCategories = serviceCategories.filter(c => categoryCounts[c] < minPerCategory);
+      serviceCategory = neededCategories.length > 0 ? randomElement(neededCategories) : randomElement(serviceCategories);
+    }
+    categoryCounts[serviceCategory]++;
+    
     const propertyType = randomElement(propertyTypes);
     
     // Generate realistic property address
@@ -368,9 +459,23 @@ export function generateInvoices(workOrders: WorkOrder[], count: number = 40): I
   const completedWorkOrders = workOrders.filter(wo => wo.status === 'completed' && wo.actualCost);
   const now = new Date();
 
+  // Track minimum requirements
+  const statusCounts: Record<string, number> = {
+    'draft': 0,
+    'sent': 0,
+    'viewed': 0,
+    'approved': 0,
+    'paid': 0,
+    'overdue': 0,
+    'disputed': 0,
+    'cancelled': 0,
+  };
+  const minPerStatus = Math.max(1, Math.floor(count / statuses.length));
+  const minPaid = Math.max(20, Math.floor(count * 0.5)); // At least 50% paid for payments
+
   // Create a map to track which work orders have invoices
   const invoicedWorkOrders = new Set<string>();
-  const invoiceCount = Math.min(count, completedWorkOrders.length * 1.2); // Some work orders might not have invoices yet
+  const invoiceCount = Math.min(count, completedWorkOrders.length * 1.5); // Allow more invoices from completed orders
 
   for (let i = 1; i <= invoiceCount && completedWorkOrders.length > 0; i++) {
     // Prefer work orders without invoices, but allow some duplicates
@@ -381,14 +486,50 @@ export function generateInvoices(workOrders: WorkOrder[], count: number = 40): I
     
     invoicedWorkOrders.add(workOrder.id);
 
+    // Ensure minimum distribution for charts
+    let status: Invoice['status'];
+    if (i <= statuses.length) {
+      // First N invoices: one per status
+      status = statuses[i - 1];
+    } else if (statusCounts['paid'] < minPaid) {
+      // Ensure enough paid invoices for payments
+      status = 'paid';
+    } else {
+      // Otherwise random, but ensure minimums
+      const neededStatuses = statuses.filter(s => statusCounts[s] < minPerStatus);
+      status = neededStatuses.length > 0 ? randomElement(neededStatuses) : randomElement(statuses);
+    }
+    statusCounts[status]++;
+
     // Issue date should be on or after completion date
+    // Distribute invoices across last 6 months for monthly revenue chart
     const completionDate = workOrder.completedDate ? new Date(workOrder.completedDate) : now;
-    // Ensure issue date is between completion date and now (or up to 30 days after completion)
-    const maxIssueDate = completionDate > now ? addDays(completionDate, 30) : now;
-    const issueDate = faker.date.between({ 
-      from: completionDate, 
-      to: maxIssueDate
-    });
+    
+    // For paid invoices, distribute across last 6 months to ensure payments can be distributed
+    let issueDate: Date;
+    if (status === 'paid') {
+      // Distribute paid invoices across last 6 months
+      const monthOffset = faker.number.int({ min: 0, max: 5 });
+      const targetMonth = new Date(now);
+      targetMonth.setMonth(now.getMonth() - monthOffset);
+      const monthStart = new Date(targetMonth.getFullYear(), targetMonth.getMonth(), 1);
+      const monthEnd = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0);
+      if (monthEnd > now) monthEnd.setTime(now.getTime());
+      
+      // Ensure issue date is after completion date
+      const validFrom = completionDate > monthStart ? completionDate : monthStart;
+      const validTo = completionDate > monthEnd ? addDays(completionDate, 30) : monthEnd;
+      if (validTo > now) validTo.setTime(now.getTime());
+      
+      issueDate = faker.date.between({ from: validFrom, to: validTo });
+    } else {
+      // For non-paid invoices, use completion date logic
+      const maxIssueDate = completionDate > now ? addDays(completionDate, 30) : now;
+      issueDate = faker.date.between({ 
+        from: completionDate, 
+        to: maxIssueDate
+      });
+    }
     
     // Due date based on payment terms
     const paymentTerm = randomElement(paymentTerms);
@@ -397,8 +538,7 @@ export function generateInvoices(workOrders: WorkOrder[], count: number = 40): I
                          paymentTerm === 'Net 15' ? 15 :
                          paymentTerm === 'Net 30' ? 30 : 45;
     const dueDate = addDays(issueDate, daysUntilDue);
-    
-    const status = randomElement(statuses);
+
     const isPaid = status === 'paid';
     const isCancelled = status === 'cancelled';
     
@@ -501,34 +641,135 @@ export function generateInvoices(workOrders: WorkOrder[], count: number = 40): I
 // Generate Payments
 export function generatePayments(invoices: Invoice[], count: number = 35): Payment[] {
   const paymentMethods: Payment['paymentMethod'][] = ['check', 'ach', 'wire', 'credit-card', 'cash', 'other'];
+  const paymentStatuses: Payment['status'][] = ['completed', 'pending', 'failed', 'refunded'];
   
   const payments: Payment[] = [];
   const paidInvoices = invoices.filter(inv => inv.status === 'paid' && inv.paidDate);
+  const now = new Date();
+  
+  // Track minimum requirements for charts
+  const methodCounts: Record<string, number> = {
+    'check': 0,
+    'ach': 0,
+    'wire': 0,
+    'credit-card': 0,
+    'cash': 0,
+    'other': 0,
+  };
+  const statusCounts: Record<string, number> = {
+    'completed': 0,
+    'pending': 0,
+    'failed': 0,
+    'refunded': 0,
+  };
+  const minPerMethod = Math.max(1, Math.floor(count / paymentMethods.length));
+  const minPerStatus = Math.max(1, Math.floor(count / paymentStatuses.length));
+  const minCompleted = Math.max(20, Math.floor(count * 0.7)); // At least 70% completed for revenue charts
+  
+  // Distribute payments across last 6 months for monthly revenue chart
+  const sixMonthsAgo = new Date(now);
+  sixMonthsAgo.setMonth(now.getMonth() - 6);
+  
+  // Distribute payments across last 7 days for daily payment status chart
+  const sevenDaysAgo = new Date(now);
+  sevenDaysAgo.setDate(now.getDate() - 7);
+  
   const processedInvoices = new Set<string>();
 
-  const paymentCount = Math.min(count, paidInvoices.length);
+  // Allow more payments than paid invoices (some invoices might have multiple payments)
+  const paymentCount = Math.min(count, paidInvoices.length * 1.5);
 
   for (let i = 1; i <= paymentCount && paidInvoices.length > 0; i++) {
-    const availableInvoices = paidInvoices.filter(inv => !processedInvoices.has(inv.id));
-    if (availableInvoices.length === 0) break;
-    
-    const invoice = randomElement(availableInvoices);
-    processedInvoices.add(invoice.id);
-
-    // Payment date should match or be close to invoice paid date
-    const invoicePaidDate = invoice.paidDate ? new Date(invoice.paidDate) : new Date();
-    const paymentDateTo = addDays(invoicePaidDate, 2);
-    // Ensure to date is after from date
-    const validPaymentDateTo = paymentDateTo > invoicePaidDate ? paymentDateTo : addDays(invoicePaidDate, 1);
-    const paymentDate = faker.date.between({
-      from: invoicePaidDate,
-      to: validPaymentDateTo,
+    // Allow some invoices to have multiple payments for better distribution
+    const availableInvoices = paidInvoices.filter(inv => {
+      const timesUsed = Array.from(processedInvoices).filter(id => id === inv.id).length;
+      return timesUsed < 2; // Allow up to 2 payments per invoice
     });
+    
+    let invoiceObj: Invoice | undefined;
+    if (availableInvoices.length > 0) {
+      invoiceObj = randomElement(availableInvoices);
+      processedInvoices.add(invoiceObj.id);
+    } else if (paidInvoices.length > 0) {
+      // If we've used all invoices once, allow reuse
+      invoiceObj = randomElement(paidInvoices);
+      processedInvoices.add(invoiceObj.id);
+    } else {
+      break;
+    }
+    
+    if (!invoiceObj) continue;
 
-    // Payment status - most should be completed for paid invoices
-    const paymentStatus = faker.datatype.boolean({ probability: 0.9 }) 
-      ? 'completed' as const
-      : randomElement(['pending', 'failed', 'refunded'] as const);
+    // Distribute payments across time for charts
+    // First, ensure we have payments in each of the last 6 months
+    // Then, ensure we have payments in each of the last 7 days
+    let paymentDate: Date;
+    
+    // Strategy: Distribute payments to cover all time periods for charts
+    if (i <= 6) {
+      // First 6 payments: one per month for monthly revenue chart (oldest to newest)
+      const monthOffset = 6 - i;
+      const targetMonth = new Date(now);
+      targetMonth.setMonth(now.getMonth() - monthOffset);
+      const monthStart = new Date(targetMonth.getFullYear(), targetMonth.getMonth(), 1);
+      const monthEnd = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0);
+      if (monthEnd > now) monthEnd.setTime(now.getTime());
+      paymentDate = faker.date.between({ from: monthStart, to: monthEnd });
+    } else if (i <= 13) {
+      // Next 7 payments: one per day for daily payment status chart (oldest to newest)
+      const dayOffset = 7 - (i - 6);
+      const targetDay = new Date(now);
+      targetDay.setDate(now.getDate() - dayOffset);
+      targetDay.setHours(0, 0, 0, 0);
+      const dayEnd = new Date(targetDay);
+      dayEnd.setHours(23, 59, 59, 999);
+      if (dayEnd > now) dayEnd.setTime(now.getTime());
+      paymentDate = faker.date.between({ from: targetDay, to: dayEnd });
+    } else {
+      // Remaining payments: distributed across last 6 months
+      const randomMonthOffset = faker.number.int({ min: 0, max: 5 });
+      const targetMonth = new Date(now);
+      targetMonth.setMonth(now.getMonth() - randomMonthOffset);
+      const monthStart = new Date(targetMonth.getFullYear(), targetMonth.getMonth(), 1);
+      const monthEnd = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0);
+      if (monthEnd > now) monthEnd.setTime(now.getTime());
+      if (monthStart < sixMonthsAgo) {
+        paymentDate = faker.date.between({ from: sixMonthsAgo, to: now });
+      } else {
+        paymentDate = faker.date.between({ from: monthStart, to: monthEnd });
+      }
+    }
+    
+    // Ensure payment date is within reasonable range
+    if (paymentDate > now) paymentDate = new Date(now);
+    if (paymentDate < sixMonthsAgo) paymentDate = faker.date.between({ from: sixMonthsAgo, to: now });
+
+    // Ensure minimum distribution of payment methods
+    let paymentMethod: Payment['paymentMethod'];
+    if (i <= paymentMethods.length) {
+      // First N payments: one per method
+      paymentMethod = paymentMethods[i - 1];
+    } else {
+      // Ensure minimum distribution
+      const neededMethods = paymentMethods.filter(m => methodCounts[m] < minPerMethod);
+      paymentMethod = neededMethods.length > 0 ? randomElement(neededMethods) : randomElement(paymentMethods);
+    }
+    methodCounts[paymentMethod]++;
+
+    // Ensure minimum distribution of payment statuses
+    let paymentStatus: Payment['status'];
+    if (i <= paymentStatuses.length) {
+      // First N payments: one per status
+      paymentStatus = paymentStatuses[i - 1];
+    } else if (statusCounts['completed'] < minCompleted) {
+      // Ensure enough completed payments for revenue charts
+      paymentStatus = 'completed';
+    } else {
+      // Ensure minimum distribution
+      const neededStatuses = paymentStatuses.filter(s => statusCounts[s] < minPerStatus);
+      paymentStatus = neededStatuses.length > 0 ? randomElement(neededStatuses) : randomElement(paymentStatuses);
+    }
+    statusCounts[paymentStatus]++;
 
     // Generate technician/processor name
     const processedBy = faker.person.fullName();
@@ -536,14 +777,14 @@ export function generatePayments(invoices: Invoice[], count: number = 35): Payme
     payments.push({
       id: `pay-${i}`,
       paymentId: generateId('PAY', i),
-      invoiceId: invoice.id,
-      invoiceNumber: invoice.invoiceNumber,
-      workOrderId: invoice.workOrderId,
-      clientId: invoice.clientId,
-      clientName: invoice.clientName,
+      invoiceId: invoiceObj.id,
+      invoiceNumber: invoiceObj.invoiceNumber,
+      workOrderId: invoiceObj.workOrderId,
+      clientId: invoiceObj.clientId,
+      clientName: invoiceObj.clientName,
       paymentDate: paymentDate.toISOString(),
-      amount: invoice.total,
-      paymentMethod: invoice.paymentMethod || randomElement(paymentMethods),
+      amount: invoiceObj.total,
+      paymentMethod: paymentMethod,
       status: paymentStatus,
       referenceNumber: paymentStatus === 'completed' 
         ? `REF-${faker.string.alphanumeric(10).toUpperCase()}`

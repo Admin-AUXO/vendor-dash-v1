@@ -24,7 +24,7 @@ export function PageHeader({ title, description, actions, className }: PageHeade
   return (
     <div className={cn('flex items-center justify-between mb-6', className)}>
       <div>
-        <h1 className="text-3xl font-display font-bold text-gray-900 mb-2 tracking-tight">
+        <h1 className="text-2xl font-display font-semibold text-gray-900 mb-2 tracking-tight">
           {title}
         </h1>
         {description && (

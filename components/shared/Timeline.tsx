@@ -98,16 +98,16 @@ export function Timeline({ items, className }: TimelineProps) {
             >
               {/* Icon */}
               <div className="relative z-10 flex items-center justify-center flex-shrink-0">
-                <div
+                  <div
                   className={cn(
                     'w-10 h-10 rounded-lg border-2 flex items-center justify-center shadow-sm',
                     'transition-transform duration-200 group-hover:scale-110 group-hover:shadow-md',
                     statusConfigItem.iconBg,
                     statusConfigItem.border
                   )}
-                >
+                  >
                   <Icon className="w-5 h-5 text-white" strokeWidth={2.5} />
-                </div>
+                  </div>
                 {/* Status indicator dot */}
                 <div className={cn(
                   'absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white',
