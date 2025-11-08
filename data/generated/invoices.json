@@ -2,1826 +2,4425 @@
   {
     "id": "inv-1",
     "invoiceNumber": "INV-0001",
-    "workOrderId": "wo-22",
-    "clientId": "client-20",
-    "clientName": "Bins, Bashirian and Klein",
-    "clientAddress": "209 MacGyver Light Suite 598, Adamsland, MN 81482-7519",
-    "clientEmail": "Dr.Runte34@hotmail.com",
-    "propertyAddress": "90743 Bergstrom Rest, Unit 6",
-    "issueDate": "2025-10-27T04:17:45.544Z",
-    "dueDate": "2025-11-03T04:17:45.544Z",
+    "workOrderId": "wo-61",
+    "clientId": "client-11",
+    "clientName": "Turcotte Inc",
+    "clientAddress": "152 Woodside Road Suite 246, South Wardmouth, IN 50182",
+    "clientEmail": "Calvin.Hegmann@yahoo.com",
+    "propertyAddress": "74972 Ila Ports, Unit 39",
+    "issueDate": "2025-08-11T20:29:41.851Z",
+    "dueDate": "2025-09-10T20:29:41.851Z",
     "status": "draft",
     "lineItems": [
       {
         "id": "item-1-1",
-        "description": "Repair garbage disposal",
+        "description": "Seasonal maintenance",
         "quantity": 1,
-        "unitPrice": 399,
-        "taxRate": 0.079,
-        "total": 431
+        "unitPrice": 632,
+        "taxRate": 0.074,
+        "total": 679
+      },
+      {
+        "id": "item-1-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 316,
+        "taxRate": 0.069,
+        "total": 338
       }
     ],
-    "subtotal": 399,
-    "taxAmount": 32,
-    "total": 431,
-    "paymentTerms": "Net 7"
+    "subtotal": 948,
+    "taxAmount": 69,
+    "total": 1017,
+    "paymentTerms": "Net 30"
   },
   {
     "id": "inv-2",
     "invoiceNumber": "INV-0002",
-    "workOrderId": "wo-44",
-    "clientId": "client-15",
-    "clientName": "Heller Inc",
-    "clientAddress": "93619 Leonel Cliffs Suite 599, Fort Ona, IN 29592",
-    "clientEmail": "Manuel.Heaney93@hotmail.com",
-    "propertyAddress": "111 Maggio Trafficway, Unit 25",
-    "issueDate": "2025-09-22T02:48:13.131Z",
-    "dueDate": "2025-10-07T02:48:13.131Z",
+    "workOrderId": "wo-50",
+    "clientId": "client-16",
+    "clientName": "Kuhic, Grimes and Parisian",
+    "clientAddress": "11503 Adelbert Creek Apt. 222, New Lauryn, AZ 71390-2881",
+    "clientEmail": "Stephanie.McDermott53@yahoo.com",
+    "propertyAddress": "357 Timmy Groves, Suite 260",
+    "issueDate": "2025-10-28T14:37:44.987Z",
+    "dueDate": "2025-11-04T14:37:44.987Z",
     "status": "sent",
     "lineItems": [
       {
         "id": "item-2-1",
-        "description": "Custom trim work",
-        "quantity": 3,
-        "unitPrice": 291,
-        "taxRate": 0.079,
-        "total": 942
+        "description": "Fix sewer line backup",
+        "quantity": 1,
+        "unitPrice": 430,
+        "taxRate": 0.066,
+        "total": 458
       },
       {
         "id": "item-2-2",
         "description": "Labor",
-        "quantity": 2,
-        "unitPrice": 160,
-        "taxRate": 0.095,
-        "total": 350
+        "quantity": 3,
+        "unitPrice": 31,
+        "taxRate": 0.07,
+        "total": 100
       },
       {
         "id": "item-2-3",
-        "description": "Labor",
-        "quantity": 2,
-        "unitPrice": 62,
-        "taxRate": 0.1,
-        "total": 136
+        "description": "Materials",
+        "quantity": 1,
+        "unitPrice": 204,
+        "taxRate": 0.094,
+        "total": 223
       }
     ],
-    "subtotal": 1317,
-    "taxAmount": 111,
-    "discount": 54,
-    "total": 1374,
-    "paymentTerms": "Net 15"
+    "subtotal": 727,
+    "taxAmount": 54,
+    "total": 781,
+    "paymentTerms": "Net 7"
   },
   {
     "id": "inv-3",
     "invoiceNumber": "INV-0003",
-    "workOrderId": "wo-41",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "242 Marjolaine Brook Apt. 699, Purdyville, WA 45141-1418",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "14417 Melyssa Loaf, Unit 46",
-    "issueDate": "2025-06-09T02:10:52.024Z",
-    "dueDate": "2025-07-09T02:10:52.024Z",
+    "workOrderId": "wo-64",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "174 Annetta Cliff Apt. 672, East Darron, WV 13007",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "5797 S Lincoln Street, Suite 137",
+    "issueDate": "2025-11-06T19:51:32.078Z",
+    "dueDate": "2025-11-21T19:51:32.078Z",
     "status": "viewed",
     "lineItems": [
       {
         "id": "item-3-1",
-        "description": "Fix microwave",
-        "quantity": 3,
-        "unitPrice": 70,
-        "taxRate": 0.06,
-        "total": 223
-      },
-      {
-        "id": "item-3-2",
-        "description": "Additional services",
+        "description": "Paint garage door",
         "quantity": 2,
-        "unitPrice": 38,
-        "taxRate": 0.073,
-        "total": 82
-      },
-      {
-        "id": "item-3-3",
-        "description": "Materials",
-        "quantity": 3,
-        "unitPrice": 25,
-        "taxRate": 0.1,
-        "total": 83
+        "unitPrice": 342,
+        "taxRate": 0.063,
+        "total": 727
       }
     ],
-    "subtotal": 361,
-    "taxAmount": 27,
-    "total": 388,
-    "paymentTerms": "Net 30"
+    "subtotal": 684,
+    "taxAmount": 43,
+    "discount": 57,
+    "total": 670,
+    "paymentTerms": "Net 15"
   },
   {
     "id": "inv-4",
     "invoiceNumber": "INV-0004",
-    "workOrderId": "wo-30",
-    "clientId": "client-17",
-    "clientName": "Lueilwitz, Predovic and Vandervort",
-    "clientAddress": "96244 Karina Pines Apt. 507, Fort Vernieburgh, HI 05488-6776",
-    "clientEmail": "Byron.Kohler84@hotmail.com",
-    "propertyAddress": "830 Rohan Alley, Suite 838",
-    "issueDate": "2025-09-24T01:09:30.518Z",
-    "dueDate": "2025-10-09T01:09:30.518Z",
+    "workOrderId": "wo-20",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "64804 Gleason Expressway Apt. 584, Hattiesburg, VT 65666",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "5697 Martin Luther King Boulevard Apt. 164",
+    "issueDate": "2025-09-29T08:10:21.114Z",
+    "dueDate": "2025-10-14T08:10:21.114Z",
     "status": "approved",
     "lineItems": [
       {
         "id": "item-4-1",
-        "description": "Seasonal maintenance",
-        "quantity": 1,
-        "unitPrice": 600,
-        "taxRate": 0.063,
-        "total": 638
+        "description": "Install new thermostat",
+        "quantity": 3,
+        "unitPrice": 135,
+        "taxRate": 0.067,
+        "total": 432
       }
     ],
-    "subtotal": 600,
-    "taxAmount": 38,
-    "total": 638,
+    "subtotal": 405,
+    "taxAmount": 27,
+    "total": 432,
     "paymentTerms": "Net 15"
   },
   {
     "id": "inv-5",
     "invoiceNumber": "INV-0005",
-    "workOrderId": "wo-23",
-    "clientId": "client-9",
-    "clientName": "Wisoky LLC",
-    "clientAddress": "68886 Orchard Lane Apt. 904, Kunzecester, VA 59518-9109",
-    "clientEmail": "Wendell.V53@yahoo.com",
-    "propertyAddress": "1875 W Main, Unit 18",
-    "issueDate": "2025-06-13T19:06:13.965Z",
-    "dueDate": "2025-07-13T19:06:13.965Z",
-    "paidDate": "2025-06-19T23:46:22.044Z",
+    "workOrderId": "wo-43",
+    "clientId": "client-19",
+    "clientName": "Flatley - Spinka",
+    "clientAddress": "8017 Kozey Club Suite 584, Orlando, IN 92605-4419",
+    "clientEmail": "Wanda.Jr.88@gmail.com",
+    "propertyAddress": "5160 Abernathy Ford, Building X",
+    "issueDate": "2025-10-26T11:40:18.511Z",
+    "dueDate": "2025-11-10T11:40:18.511Z",
+    "paidDate": "2025-11-07T01:51:50.844Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-5-1",
-        "description": "Fix microwave",
+        "description": "Install ceiling fan",
         "quantity": 3,
-        "unitPrice": 413,
-        "taxRate": 0.085,
-        "total": 1344
+        "unitPrice": 183,
+        "taxRate": 0.064,
+        "total": 584
       }
     ],
-    "subtotal": 1239,
-    "taxAmount": 105,
-    "total": 1344,
-    "paymentTerms": "Net 30",
-    "paymentMethod": "credit-card",
-    "referenceNumber": "REF-1KZSTCLO",
-    "notes": "Payment processed successfully"
+    "subtotal": 549,
+    "taxAmount": 35,
+    "discount": 55,
+    "total": 529,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-FMJBWG5F",
+    "notes": "Payment received on time"
   },
   {
     "id": "inv-6",
     "invoiceNumber": "INV-0006",
-    "workOrderId": "wo-37",
-    "clientId": "client-3",
-    "clientName": "Mosciski Inc",
-    "clientAddress": "8662 Marlborough Road Apt. 671, Cecileburgh, NC 29339-9008",
-    "clientEmail": "Leslie_Crona@hotmail.com",
-    "propertyAddress": "74461 Zelma Grove Apt. 361",
-    "issueDate": "2025-08-06T12:55:40.371Z",
-    "dueDate": "2025-09-05T12:55:40.371Z",
+    "workOrderId": "wo-84",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "51305 Manor Way Apt. 423, Alvinamouth, CO 65595-3252",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "87656 Wood Street, Building I",
+    "issueDate": "2025-10-27T20:32:14.720Z",
+    "dueDate": "2025-11-26T20:32:14.720Z",
     "status": "overdue",
     "lineItems": [
       {
         "id": "item-6-1",
-        "description": "Exterior house painting",
+        "description": "Property inspection",
         "quantity": 1,
-        "unitPrice": 1252,
-        "taxRate": 0.063,
-        "total": 1331
+        "unitPrice": 704,
+        "taxRate": 0.098,
+        "total": 773
       },
       {
         "id": "item-6-2",
-        "description": "Travel fee",
-        "quantity": 3,
-        "unitPrice": 183,
-        "taxRate": 0.079,
-        "total": 592
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 60,
+        "taxRate": 0.066,
+        "total": 128
       },
       {
         "id": "item-6-3",
-        "description": "Materials",
-        "quantity": 3,
-        "unitPrice": 198,
-        "taxRate": 0.075,
-        "total": 639
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 77,
+        "taxRate": 0.084,
+        "total": 167
       }
     ],
-    "subtotal": 2395,
-    "taxAmount": 167,
-    "total": 2562,
+    "subtotal": 978,
+    "taxAmount": 90,
+    "total": 1068,
     "paymentTerms": "Net 30"
   },
   {
     "id": "inv-7",
     "invoiceNumber": "INV-0007",
-    "workOrderId": "wo-11",
-    "clientId": "client-16",
-    "clientName": "Herzog - Boyer",
-    "clientAddress": "7186 Torphy Union Suite 894, Fort Abelardoboro, ND 23226-8902",
-    "clientEmail": "Elbert.OConnell@gmail.com",
-    "propertyAddress": "52927 Darrin Streets, Building Y",
-    "issueDate": "2025-08-18T13:05:44.040Z",
-    "dueDate": "2025-08-25T13:05:44.040Z",
+    "workOrderId": "wo-77",
+    "clientId": "client-6",
+    "clientName": "Rath Group",
+    "clientAddress": "449 W Park Street Suite 671, East Viva, WY 58574-6375",
+    "clientEmail": "Lindsay_Kirlin82@hotmail.com",
+    "propertyAddress": "83161 Bernier Burgs, Unit 41",
+    "issueDate": "2025-05-25T04:21:10.571Z",
+    "dueDate": "2025-06-01T04:21:10.571Z",
     "status": "disputed",
     "lineItems": [
       {
         "id": "item-7-1",
-        "description": "Build custom shelving",
-        "quantity": 2,
-        "unitPrice": 451,
-        "taxRate": 0.066,
-        "total": 962
+        "description": "Fix garbage disposal",
+        "quantity": 3,
+        "unitPrice": 210,
+        "taxRate": 0.094,
+        "total": 689
       },
       {
         "id": "item-7-2",
-        "description": "Travel fee",
+        "description": "Labor",
         "quantity": 3,
-        "unitPrice": 80,
-        "taxRate": 0.066,
-        "total": 256
+        "unitPrice": 36,
+        "taxRate": 0.076,
+        "total": 116
       },
       {
         "id": "item-7-3",
-        "description": "Labor",
-        "quantity": 1,
-        "unitPrice": 308,
-        "taxRate": 0.089,
-        "total": 335
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 43,
+        "taxRate": 0.069,
+        "total": 92
       }
     ],
-    "subtotal": 1450,
-    "taxAmount": 103,
-    "total": 1553,
+    "subtotal": 824,
+    "taxAmount": 73,
+    "total": 897,
     "paymentTerms": "Net 7"
   },
   {
     "id": "inv-8",
     "invoiceNumber": "INV-0008",
-    "workOrderId": "wo-40",
-    "clientId": "client-10",
-    "clientName": "Collins, Schmitt and Becker",
-    "clientAddress": "514 Veronica Club Apt. 987, New Briceberg, AK 79012",
-    "clientEmail": "Damon.Wyman@yahoo.com",
-    "propertyAddress": "98956 Terrell Trail Suite 163",
-    "issueDate": "2025-11-02T18:30:44.208Z",
-    "dueDate": "2025-11-09T18:30:44.208Z",
+    "workOrderId": "wo-55",
+    "clientId": "client-40",
+    "clientName": "Lubowitz and Sons",
+    "clientAddress": "7874 Third Avenue Apt. 764, Odiemouth, NJ 24899",
+    "clientEmail": "Marlon_Barrows6@gmail.com",
+    "propertyAddress": "209 Connelly Mountains, Suite 603",
+    "issueDate": "2025-10-17T04:53:02.986Z",
+    "dueDate": "2025-11-01T04:53:02.986Z",
     "status": "cancelled",
     "lineItems": [
       {
         "id": "item-8-1",
-        "description": "Fix power outage issue",
-        "quantity": 1,
-        "unitPrice": 1081,
-        "taxRate": 0.079,
-        "total": 1166
-      },
-      {
-        "id": "item-8-2",
-        "description": "Parts and supplies",
-        "quantity": 1,
-        "unitPrice": 480,
-        "taxRate": 0.066,
-        "total": 512
+        "description": "Fix dryer",
+        "quantity": 2,
+        "unitPrice": 242,
+        "taxRate": 0.085,
+        "total": 525
       }
     ],
-    "subtotal": 1561,
-    "taxAmount": 117,
-    "total": 1678,
-    "paymentTerms": "Net 7",
+    "subtotal": 484,
+    "taxAmount": 41,
+    "total": 525,
+    "paymentTerms": "Net 15",
     "notes": "Invoice cancelled"
   },
   {
     "id": "inv-9",
     "invoiceNumber": "INV-0009",
-    "workOrderId": "wo-31",
-    "clientId": "client-11",
-    "clientName": "Spinka and Sons",
-    "clientAddress": "71094 N 7th Street Apt. 426, Clotildechester, ME 36881",
-    "clientEmail": "Wesley.Kemmer12@hotmail.com",
-    "propertyAddress": "6355 Aufderhar Forest, Suite 184",
-    "issueDate": "2025-08-24T09:16:10.997Z",
-    "dueDate": "2025-09-08T09:16:10.997Z",
-    "paidDate": "2025-09-04T12:41:25.339Z",
+    "workOrderId": "wo-10",
+    "clientId": "client-1",
+    "clientName": "Sipes, Crona and Jakubowski",
+    "clientAddress": "310 N Washington Street Apt. 152, Columbus, PA 45539-0420",
+    "clientEmail": "Mr.Sipes91@hotmail.com",
+    "propertyAddress": "955 Pfeffer Stream, Building U",
+    "issueDate": "2025-11-08T02:06:15.147Z",
+    "dueDate": "2025-11-15T02:06:15.147Z",
+    "paidDate": "2025-11-15T23:25:27.674Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-9-1",
-        "description": "Fix microwave",
+        "description": "Fix water pressure issues",
         "quantity": 3,
-        "unitPrice": 226,
-        "taxRate": 0.095,
-        "total": 742
+        "unitPrice": 262,
+        "taxRate": 0.068,
+        "total": 839
       },
       {
         "id": "item-9-2",
-        "description": "Parts and supplies",
-        "quantity": 3,
-        "unitPrice": 65,
-        "taxRate": 0.095,
-        "total": 214
-      },
-      {
-        "id": "item-9-3",
         "description": "Materials",
-        "quantity": 2,
-        "unitPrice": 39,
-        "taxRate": 0.069,
-        "total": 83
+        "quantity": 1,
+        "unitPrice": 298,
+        "taxRate": 0.099,
+        "total": 328
       }
     ],
-    "subtotal": 951,
-    "taxAmount": 88,
-    "total": 1039,
-    "paymentTerms": "Net 15",
-    "paymentMethod": "ach",
-    "referenceNumber": "REF-Z9NFDOBK",
-    "notes": "Payment received on time"
+    "subtotal": 1084,
+    "taxAmount": 83,
+    "total": 1167,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-LVTWNJ3U",
+    "notes": "Payment processed successfully"
   },
   {
     "id": "inv-10",
     "invoiceNumber": "INV-0010",
-    "workOrderId": "wo-13",
-    "clientId": "client-3",
-    "clientName": "Mosciski Inc",
-    "clientAddress": "47842 Duke Street Suite 536, Lowellcester, HI 57857-7452",
-    "clientEmail": "Leslie_Crona@hotmail.com",
-    "propertyAddress": "2097 Beatty Inlet, Suite 487",
-    "issueDate": "2025-08-06T08:06:28.425Z",
-    "dueDate": "2025-09-20T08:06:28.425Z",
-    "paidDate": "2025-08-13T17:04:21.251Z",
+    "workOrderId": "wo-83",
+    "clientId": "client-12",
+    "clientName": "Waelchi - Kuhic",
+    "clientAddress": "700 Gabe Pine Suite 438, Eddieborough, AR 37569-4286",
+    "clientEmail": "Abraham.Herzog36@yahoo.com",
+    "propertyAddress": "43745 Huel Mill Apt. 183",
+    "issueDate": "2025-10-26T10:22:07.050Z",
+    "dueDate": "2025-11-02T10:22:07.050Z",
+    "paidDate": "2025-10-29T04:59:33.871Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-10-1",
-        "description": "Exterior house painting",
+        "description": "Fix noisy air conditioner",
+        "quantity": 1,
+        "unitPrice": 991,
+        "taxRate": 0.063,
+        "total": 1053
+      },
+      {
+        "id": "item-10-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 230,
+        "taxRate": 0.096,
+        "total": 504
+      },
+      {
+        "id": "item-10-3",
+        "description": "Labor",
         "quantity": 3,
-        "unitPrice": 269,
+        "unitPrice": 127,
         "taxRate": 0.083,
-        "total": 874
+        "total": 413
       }
     ],
-    "subtotal": 807,
-    "taxAmount": 67,
-    "total": 874,
-    "paymentTerms": "Net 45",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-ZVPZRUXW",
-    "notes": "Thank you for your payment"
+    "subtotal": 1832,
+    "taxAmount": 138,
+    "discount": 58,
+    "total": 1912,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-FOL089RT",
+    "notes": "Payment processed successfully"
   },
   {
     "id": "inv-11",
     "invoiceNumber": "INV-0011",
-    "workOrderId": "wo-36",
-    "clientId": "client-20",
-    "clientName": "Bins, Bashirian and Klein",
-    "clientAddress": "75582 College Street Suite 212, Port Rupert, CA 22926-1786",
-    "clientEmail": "Dr.Runte34@hotmail.com",
-    "propertyAddress": "933 Shayna Hills, Building U",
-    "issueDate": "2025-11-08T07:51:41.314Z",
-    "dueDate": "2025-11-23T07:51:41.314Z",
-    "paidDate": "2025-11-11T02:12:54.548Z",
+    "workOrderId": "wo-25",
+    "clientId": "client-23",
+    "clientName": "Cremin Inc",
+    "clientAddress": "52881 E 12th Street Suite 585, Emiestad, MO 34450-4844",
+    "clientEmail": "Elena_Mills@yahoo.com",
+    "propertyAddress": "563 Middle Street, Building Y",
+    "issueDate": "2025-08-31T22:53:16.216Z",
+    "dueDate": "2025-09-15T22:53:16.216Z",
+    "paidDate": "2025-09-06T10:44:08.582Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-11-1",
-        "description": "Replace air filter",
-        "quantity": 3,
-        "unitPrice": 128,
-        "taxRate": 0.067,
-        "total": 410
+        "description": "Fix leaky faucet in kitchen",
+        "quantity": 1,
+        "unitPrice": 1087,
+        "taxRate": 0.097,
+        "total": 1192
       }
     ],
-    "subtotal": 384,
-    "taxAmount": 26,
-    "total": 410,
+    "subtotal": 1087,
+    "taxAmount": 105,
+    "total": 1192,
     "paymentTerms": "Net 15",
-    "paymentMethod": "check",
-    "referenceNumber": "REF-HSMJH7QM",
-    "notes": "Payment received on time"
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-CL7GOBN5",
+    "notes": "Payment processed successfully"
   },
   {
     "id": "inv-12",
     "invoiceNumber": "INV-0012",
-    "workOrderId": "wo-33",
-    "clientId": "client-15",
-    "clientName": "Heller Inc",
-    "clientAddress": "8232 Balmoral Road Suite 343, Port Flossieworth, MN 92039",
-    "clientEmail": "Manuel.Heaney93@hotmail.com",
-    "propertyAddress": "87626 Turcotte Row, Building F",
-    "issueDate": "2025-10-24T21:36:58.850Z",
-    "dueDate": "2025-10-24T21:36:58.850Z",
-    "paidDate": "2025-10-26T04:44:01.886Z",
+    "workOrderId": "wo-24",
+    "clientId": "client-7",
+    "clientName": "Moore LLC",
+    "clientAddress": "645 Bernier Port Suite 552, Hirthefurt, IL 41127-8270",
+    "clientEmail": "Kerry_OHara98@hotmail.com",
+    "propertyAddress": "65830 Chestnut Street, Suite 650",
+    "issueDate": "2025-11-08T03:40:28.402Z",
+    "dueDate": "2025-12-23T03:40:28.402Z",
+    "paidDate": "2025-11-22T20:10:38.295Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-12-1",
-        "description": "Build custom shelving",
+        "description": "Repair deck railing",
+        "quantity": 3,
+        "unitPrice": 209,
+        "taxRate": 0.061,
+        "total": 665
+      },
+      {
+        "id": "item-12-2",
+        "description": "Labor",
         "quantity": 2,
-        "unitPrice": 421,
-        "taxRate": 0.064,
-        "total": 896
+        "unitPrice": 92,
+        "taxRate": 0.071,
+        "total": 197
+      },
+      {
+        "id": "item-12-3",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 32,
+        "taxRate": 0.077,
+        "total": 69
       }
     ],
-    "subtotal": 842,
-    "taxAmount": 54,
-    "total": 896,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "ach",
-    "referenceNumber": "REF-JIKPENDJ",
-    "notes": "Thank you for your payment"
+    "subtotal": 875,
+    "taxAmount": 56,
+    "discount": 67,
+    "total": 864,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-O1ZWTEVK",
+    "notes": "Payment processed successfully"
   },
   {
     "id": "inv-13",
     "invoiceNumber": "INV-0013",
-    "workOrderId": "wo-26",
-    "clientId": "client-18",
-    "clientName": "Dibbert, Mayert and Windler",
-    "clientAddress": "349 Woodside Apt. 847, North Lenora, CO 68359-2234",
-    "clientEmail": "Alfred_Leannon84@yahoo.com",
-    "propertyAddress": "531 Howard Road, Unit 17",
-    "issueDate": "2025-11-01T18:12:02.539Z",
-    "dueDate": "2025-12-16T18:12:02.539Z",
-    "paidDate": "2025-11-11T21:46:02.212Z",
+    "workOrderId": "wo-54",
+    "clientId": "client-15",
+    "clientName": "Harber - Kuphal",
+    "clientAddress": "5079 Deckow Bypass Suite 697, West Eric, VT 43391-6511",
+    "clientEmail": "Kara_Hermiston@yahoo.com",
+    "propertyAddress": "180 Kunde Shoal Suite 125",
+    "issueDate": "2025-09-29T02:47:38.016Z",
+    "dueDate": "2025-10-06T02:47:38.016Z",
+    "paidDate": "2025-10-07T22:12:18.019Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-13-1",
-        "description": "Touch up paint job",
-        "quantity": 3,
-        "unitPrice": 243,
-        "taxRate": 0.082,
-        "total": 789
-      },
-      {
-        "id": "item-13-2",
-        "description": "Travel fee",
-        "quantity": 3,
-        "unitPrice": 44,
-        "taxRate": 0.092,
-        "total": 144
-      },
-      {
-        "id": "item-13-3",
-        "description": "Parts and supplies",
-        "quantity": 3,
-        "unitPrice": 107,
-        "taxRate": 0.086,
-        "total": 349
+        "description": "Paint kitchen cabinets",
+        "quantity": 2,
+        "unitPrice": 377,
+        "taxRate": 0.076,
+        "total": 811
       }
     ],
-    "subtotal": 1182,
-    "taxAmount": 100,
-    "total": 1282,
-    "paymentTerms": "Net 45",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-0ZG7DRTQ",
+    "subtotal": 754,
+    "taxAmount": 57,
+    "total": 811,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-T4H8WAZL",
     "notes": "Thank you for your payment"
   },
   {
     "id": "inv-14",
     "invoiceNumber": "INV-0014",
-    "workOrderId": "wo-34",
-    "clientId": "client-13",
-    "clientName": "Donnelly, Lesch and McGlynn",
-    "clientAddress": "931 Lavon Coves Apt. 868, East Gaetanofurt, IN 55249",
-    "clientEmail": "Donald.Altenwerth8@yahoo.com",
-    "propertyAddress": "4120 Camylle View, Suite 994",
-    "issueDate": "2025-10-26T04:47:31.494Z",
-    "dueDate": "2025-10-26T04:47:31.494Z",
-    "paidDate": "2025-10-26T18:59:23.355Z",
+    "workOrderId": "wo-39",
+    "clientId": "client-1",
+    "clientName": "Sipes, Crona and Jakubowski",
+    "clientAddress": "42291 Nelson Street Apt. 893, Tristinboro, CO 99614",
+    "clientEmail": "Mr.Sipes91@hotmail.com",
+    "propertyAddress": "576 New Street, Unit 3",
+    "issueDate": "2025-10-17T03:52:22.141Z",
+    "dueDate": "2025-11-16T03:52:22.141Z",
+    "paidDate": "2025-11-06T09:27:16.650Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-14-1",
-        "description": "Full house repaint",
+        "description": "Garden bed maintenance",
+        "quantity": 2,
+        "unitPrice": 579,
+        "taxRate": 0.09,
+        "total": 1262
+      },
+      {
+        "id": "item-14-2",
+        "description": "Labor",
         "quantity": 3,
-        "unitPrice": 301,
-        "taxRate": 0.095,
-        "total": 989
+        "unitPrice": 181,
+        "taxRate": 0.076,
+        "total": 584
       }
     ],
-    "subtotal": 903,
-    "taxAmount": 86,
-    "total": 989,
-    "paymentTerms": "Due on Receipt",
+    "subtotal": 1701,
+    "taxAmount": 145,
+    "total": 1846,
+    "paymentTerms": "Net 30",
     "paymentMethod": "cash",
-    "referenceNumber": "REF-KAIICFL0",
+    "referenceNumber": "REF-4JOHRD92",
     "notes": "Thank you for your payment"
   },
   {
     "id": "inv-15",
     "invoiceNumber": "INV-0015",
-    "workOrderId": "wo-7",
+    "workOrderId": "wo-67",
     "clientId": "client-7",
-    "clientName": "Bartoletti, O'Conner and Rath",
-    "clientAddress": "8217 Welch Crescent Suite 569, Fort Lysanneborough, NE 01930",
-    "clientEmail": "Dominick_Pouros@hotmail.com",
-    "propertyAddress": "298 E Elm Street, Building L",
-    "issueDate": "2025-10-12T16:05:15.892Z",
-    "dueDate": "2025-10-12T16:05:15.892Z",
-    "paidDate": "2025-10-12T23:38:21.277Z",
+    "clientName": "Moore LLC",
+    "clientAddress": "1970 New Road Suite 570, Miguelshire, WA 80320-3397",
+    "clientEmail": "Kerry_OHara98@hotmail.com",
+    "propertyAddress": "30900 Ortiz Gardens, Unit 45",
+    "issueDate": "2025-09-27T02:32:37.412Z",
+    "dueDate": "2025-10-12T02:32:37.412Z",
+    "paidDate": "2025-10-08T14:25:36.110Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-15-1",
-        "description": "Fix refrigerator",
+        "description": "Full house repaint",
         "quantity": 1,
-        "unitPrice": 452,
-        "taxRate": 0.077,
-        "total": 487
+        "unitPrice": 1254,
+        "taxRate": 0.086,
+        "total": 1362
       }
     ],
-    "subtotal": 452,
-    "taxAmount": 35,
-    "total": 487,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "cash",
-    "referenceNumber": "REF-1ZXPTK7I",
+    "subtotal": 1254,
+    "taxAmount": 108,
+    "discount": 113,
+    "total": 1249,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-AIZCRYDO",
     "notes": "Thank you for your payment"
   },
   {
     "id": "inv-16",
     "invoiceNumber": "INV-0016",
-    "workOrderId": "wo-10",
-    "clientId": "client-12",
-    "clientName": "Bernier and Sons",
-    "clientAddress": "99661 Shaylee Springs Apt. 164, Fort Ari, LA 81587-6750",
-    "clientEmail": "Alma_Von75@yahoo.com",
-    "propertyAddress": "83260 Aidan Plaza, Unit 4",
-    "issueDate": "2025-10-22T20:57:14.141Z",
-    "dueDate": "2025-11-06T20:57:14.141Z",
-    "paidDate": "2025-11-04T00:23:20.054Z",
+    "workOrderId": "wo-48",
+    "clientId": "client-17",
+    "clientName": "Schinner, Lueilwitz and Okuneva",
+    "clientAddress": "668 Ahmad Ridge Apt. 463, San Diego, WV 22101",
+    "clientEmail": "Candice_Paucek99@gmail.com",
+    "propertyAddress": "362 Beahan Plain, Building Z",
+    "issueDate": "2025-07-13T11:03:31.675Z",
+    "dueDate": "2025-07-13T11:03:31.675Z",
+    "paidDate": "2025-07-15T20:29:09.857Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-16-1",
-        "description": "General maintenance",
+        "description": "Install new cabinets",
         "quantity": 3,
-        "unitPrice": 174,
-        "taxRate": 0.061,
-        "total": 554
-      },
-      {
-        "id": "item-16-2",
-        "description": "Additional services",
-        "quantity": 3,
-        "unitPrice": 47,
-        "taxRate": 0.066,
-        "total": 150
+        "unitPrice": 185,
+        "taxRate": 0.084,
+        "total": 602
       }
     ],
-    "subtotal": 663,
-    "taxAmount": 41,
-    "total": 704,
-    "paymentTerms": "Net 15",
+    "subtotal": 555,
+    "taxAmount": 47,
+    "total": 602,
+    "paymentTerms": "Due on Receipt",
     "paymentMethod": "wire",
-    "referenceNumber": "REF-FVATC7IT",
-    "notes": "Payment received on time"
+    "referenceNumber": "REF-5IEWEC2G",
+    "notes": "Payment processed successfully"
   },
   {
     "id": "inv-17",
     "invoiceNumber": "INV-0017",
-    "workOrderId": "wo-24",
-    "clientId": "client-10",
-    "clientName": "Collins, Schmitt and Becker",
-    "clientAddress": "7133 Madie Divide Apt. 167, Blandamouth, CO 03685",
-    "clientEmail": "Damon.Wyman@yahoo.com",
-    "propertyAddress": "294 Moore Ville, Unit 6",
-    "issueDate": "2025-08-01T21:10:08.806Z",
-    "dueDate": "2025-08-01T21:10:08.806Z",
-    "paidDate": "2025-08-02T20:46:04.742Z",
+    "workOrderId": "wo-58",
+    "clientId": "client-28",
+    "clientName": "Balistreri Group",
+    "clientAddress": "704 Avenue Road Suite 352, Nienowbury, PA 84244",
+    "clientEmail": "Kristen.White12@yahoo.com",
+    "propertyAddress": "956 Weissnat Turnpike, Building N",
+    "issueDate": "2025-10-29T13:56:01.280Z",
+    "dueDate": "2025-11-05T13:56:01.280Z",
+    "paidDate": "2025-11-03T14:56:00.151Z",
     "status": "paid",
     "lineItems": [
       {
         "id": "item-17-1",
-        "description": "Deep cleaning service",
-        "quantity": 1,
-        "unitPrice": 414,
-        "taxRate": 0.073,
-        "total": 444
+        "description": "Fix furnace heating issue",
+        "quantity": 3,
+        "unitPrice": 147,
+        "taxRate": 0.065,
+        "total": 470
       },
       {
         "id": "item-17-2",
         "description": "Additional services",
         "quantity": 1,
-        "unitPrice": 122,
-        "taxRate": 0.082,
-        "total": 132
+        "unitPrice": 79,
+        "taxRate": 0.091,
+        "total": 86
       },
       {
         "id": "item-17-3",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 118,
+        "taxRate": 0.071,
+        "total": 126
+      }
+    ],
+    "subtotal": 638,
+    "taxAmount": 44,
+    "total": 682,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-7VAV5M6G",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-18",
+    "invoiceNumber": "INV-0018",
+    "workOrderId": "wo-79",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "582 Bulah Unions Apt. 504, Dianaborough, MN 29232-2774",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "7889 Lavern Drive, Unit 49",
+    "issueDate": "2025-09-17T16:57:09.078Z",
+    "dueDate": "2025-09-17T16:57:09.078Z",
+    "paidDate": "2025-09-20T06:38:08.374Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-18-1",
+        "description": "Replace old HVAC system",
+        "quantity": 1,
+        "unitPrice": 1003,
+        "taxRate": 0.095,
+        "total": 1098
+      }
+    ],
+    "subtotal": 1003,
+    "taxAmount": 95,
+    "total": 1098,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-VNJWQAOR",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-19",
+    "invoiceNumber": "INV-0019",
+    "workOrderId": "wo-53",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "5551 Kunze Neck Suite 639, East Gussieberg, MA 29692-4759",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "1895 Hane Vista, Building T",
+    "issueDate": "2025-09-17T22:57:20.074Z",
+    "dueDate": "2025-10-17T22:57:20.074Z",
+    "paidDate": "2025-09-20T08:50:30.164Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-19-1",
+        "description": "Seasonal maintenance",
+        "quantity": 1,
+        "unitPrice": 538,
+        "taxRate": 0.083,
+        "total": 583
+      },
+      {
+        "id": "item-19-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 137,
+        "taxRate": 0.087,
+        "total": 149
+      },
+      {
+        "id": "item-19-3",
         "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 82,
+        "taxRate": 0.071,
+        "total": 176
+      }
+    ],
+    "subtotal": 839,
+    "taxAmount": 69,
+    "total": 908,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-UYYDV3A0",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-20",
+    "invoiceNumber": "INV-0020",
+    "workOrderId": "wo-26",
+    "clientId": "client-29",
+    "clientName": "Satterfield Inc",
+    "clientAddress": "69080 Kianna Station Suite 170, Lake Chaseport, TN 60724",
+    "clientEmail": "Ms._Sr.56@hotmail.com",
+    "propertyAddress": "8714 Kuhlman Run, Unit 34",
+    "issueDate": "2025-10-18T13:16:04.852Z",
+    "dueDate": "2025-10-18T13:16:04.852Z",
+    "paidDate": "2025-10-22T18:16:10.923Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-20-1",
+        "description": "Install ceiling fan",
+        "quantity": 3,
+        "unitPrice": 247,
+        "taxRate": 0.075,
+        "total": 797
+      }
+    ],
+    "subtotal": 741,
+    "taxAmount": 56,
+    "total": 797,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-ARW8JJ7Z",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-21",
+    "invoiceNumber": "INV-0021",
+    "workOrderId": "wo-28",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "92596 Thiel Prairie Apt. 151, Lake Newell, CT 34180-9076",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "545 N Market Street Apt. 998",
+    "issueDate": "2025-11-06T06:11:47.325Z",
+    "dueDate": "2025-11-13T06:11:47.325Z",
+    "paidDate": "2025-11-09T12:17:46.055Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-21-1",
+        "description": "Fix furnace heating issue",
+        "quantity": 3,
+        "unitPrice": 381,
+        "taxRate": 0.06,
+        "total": 1212
+      },
+      {
+        "id": "item-21-2",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 163,
+        "taxRate": 0.074,
+        "total": 350
+      }
+    ],
+    "subtotal": 1469,
+    "taxAmount": 93,
+    "discount": 84,
+    "total": 1478,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-ANWVOL4T",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-22",
+    "invoiceNumber": "INV-0022",
+    "workOrderId": "wo-12",
+    "clientId": "client-7",
+    "clientName": "Moore LLC",
+    "clientAddress": "214 St Mary's Road Apt. 390, Fort Cathrineville, KS 54321-7136",
+    "clientEmail": "Kerry_OHara98@hotmail.com",
+    "propertyAddress": "122 Lawrence Passage, Building T",
+    "issueDate": "2025-08-27T22:18:44.849Z",
+    "dueDate": "2025-08-27T22:18:44.849Z",
+    "paidDate": "2025-08-29T12:53:39.988Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-22-1",
+        "description": "Fix sewer line backup",
+        "quantity": 1,
+        "unitPrice": 711,
+        "taxRate": 0.079,
+        "total": 767
+      },
+      {
+        "id": "item-22-2",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 219,
+        "taxRate": 0.07,
+        "total": 234
+      }
+    ],
+    "subtotal": 930,
+    "taxAmount": 71,
+    "discount": 63,
+    "total": 938,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-OMGV5NR1",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-23",
+    "invoiceNumber": "INV-0023",
+    "workOrderId": "wo-8",
+    "clientId": "client-14",
+    "clientName": "Cremin and Sons",
+    "clientAddress": "10641 Klein Light Apt. 176, New Busterport, CA 68839",
+    "clientEmail": "Timothy_Hauck63@yahoo.com",
+    "propertyAddress": "823 Commercial Street, Suite 171",
+    "issueDate": "2025-09-15T19:20:53.744Z",
+    "dueDate": "2025-09-30T19:20:53.744Z",
+    "paidDate": "2025-09-24T12:22:56.372Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-23-1",
+        "description": "Emergency repair",
+        "quantity": 1,
+        "unitPrice": 742,
+        "taxRate": 0.076,
+        "total": 798
+      }
+    ],
+    "subtotal": 742,
+    "taxAmount": 56,
+    "total": 798,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-7OGA7S0J",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-24",
+    "invoiceNumber": "INV-0024",
+    "workOrderId": "wo-37",
+    "clientId": "client-16",
+    "clientName": "Kuhic, Grimes and Parisian",
+    "clientAddress": "741 Jarod Junctions Suite 225, Sanfordville, AL 56596",
+    "clientEmail": "Stephanie.McDermott53@yahoo.com",
+    "propertyAddress": "49867 Tower Road, Unit 23",
+    "issueDate": "2025-10-19T21:56:42.936Z",
+    "dueDate": "2025-11-03T21:56:42.936Z",
+    "paidDate": "2025-10-30T15:52:44.352Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-24-1",
+        "description": "Install new thermostat",
+        "quantity": 1,
+        "unitPrice": 817,
+        "taxRate": 0.097,
+        "total": 896
+      },
+      {
+        "id": "item-24-2",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 391,
+        "taxRate": 0.087,
+        "total": 425
+      },
+      {
+        "id": "item-24-3",
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 74,
+        "taxRate": 0.065,
+        "total": 158
+      }
+    ],
+    "subtotal": 1356,
+    "taxAmount": 123,
+    "discount": 121,
+    "total": 1358,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-YBVHBCEF",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-25",
+    "invoiceNumber": "INV-0025",
+    "workOrderId": "wo-80",
+    "clientId": "client-5",
+    "clientName": "McLaughlin - Schroeder",
+    "clientAddress": "8368 Barbara Gateway Suite 312, East Milfordside, IN 71395",
+    "clientEmail": "Myrtle.Kerluke70@gmail.com",
+    "propertyAddress": "18787 Adams Flats Apt. 462",
+    "issueDate": "2025-08-25T06:21:00.003Z",
+    "dueDate": "2025-09-01T06:21:00.003Z",
+    "paidDate": "2025-08-30T02:40:50.483Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-25-1",
+        "description": "Install new toilet",
+        "quantity": 1,
+        "unitPrice": 1067,
+        "taxRate": 0.081,
+        "total": 1153
+      }
+    ],
+    "subtotal": 1067,
+    "taxAmount": 86,
+    "total": 1153,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-9LZEDL2M",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-26",
+    "invoiceNumber": "INV-0026",
+    "workOrderId": "wo-56",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "699 Marie Road Apt. 684, North Flo, OR 32513-4344",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "552 Lysanne Trafficway, Building Q",
+    "issueDate": "2025-09-11T10:23:42.801Z",
+    "dueDate": "2025-09-11T10:23:42.801Z",
+    "paidDate": "2025-09-11T17:34:35.535Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-26-1",
+        "description": "Unclog bathroom drain",
+        "quantity": 1,
+        "unitPrice": 353,
+        "taxRate": 0.081,
+        "total": 382
+      },
+      {
+        "id": "item-26-2",
+        "description": "Travel fee",
+        "quantity": 2,
+        "unitPrice": 54,
+        "taxRate": 0.069,
+        "total": 115
+      }
+    ],
+    "subtotal": 461,
+    "taxAmount": 36,
+    "total": 497,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-WKKITG2A",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-27",
+    "invoiceNumber": "INV-0027",
+    "workOrderId": "wo-9",
+    "clientId": "client-14",
+    "clientName": "Cremin and Sons",
+    "clientAddress": "681 Meadow Lane Apt. 884, Ivyboro, PA 15235-1873",
+    "clientEmail": "Timothy_Hauck63@yahoo.com",
+    "propertyAddress": "1582 State Street Suite 860",
+    "issueDate": "2025-10-25T01:52:54.621Z",
+    "dueDate": "2025-11-01T01:52:54.621Z",
+    "paidDate": "2025-10-25T17:09:50.413Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-27-1",
+        "description": "Annual HVAC maintenance",
+        "quantity": 3,
+        "unitPrice": 294,
+        "taxRate": 0.1,
+        "total": 970
+      },
+      {
+        "id": "item-27-2",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 134,
+        "taxRate": 0.072,
+        "total": 431
+      }
+    ],
+    "subtotal": 1284,
+    "taxAmount": 117,
+    "total": 1401,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-JQB5IOKK",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-28",
+    "invoiceNumber": "INV-0028",
+    "workOrderId": "wo-29",
+    "clientId": "client-1",
+    "clientName": "Sipes, Crona and Jakubowski",
+    "clientAddress": "8111 S Railroad Street Suite 567, Pedroland, OK 84954-2489",
+    "clientEmail": "Mr.Sipes91@hotmail.com",
+    "propertyAddress": "504 Kimberly Ports, Building L",
+    "issueDate": "2025-06-01T20:21:44.267Z",
+    "dueDate": "2025-07-01T20:21:44.267Z",
+    "paidDate": "2025-06-27T02:53:40.552Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-28-1",
+        "description": "Repair deck railing",
+        "quantity": 2,
+        "unitPrice": 309,
+        "taxRate": 0.082,
+        "total": 669
+      }
+    ],
+    "subtotal": 618,
+    "taxAmount": 51,
+    "discount": 57,
+    "total": 612,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-VJYJQXBG",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-29",
+    "invoiceNumber": "INV-0029",
+    "workOrderId": "wo-66",
+    "clientId": "client-11",
+    "clientName": "Turcotte Inc",
+    "clientAddress": "836 Lori Burgs Apt. 232, Hettingerboro, MO 34171-3928",
+    "clientEmail": "Calvin.Hegmann@yahoo.com",
+    "propertyAddress": "559 N Pearl Street, Unit 46",
+    "issueDate": "2025-10-28T18:33:20.570Z",
+    "dueDate": "2025-11-04T18:33:20.570Z",
+    "paidDate": "2025-11-06T05:11:04.167Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-29-1",
+        "description": "Repair window frame",
+        "quantity": 2,
+        "unitPrice": 333,
+        "taxRate": 0.097,
+        "total": 731
+      },
+      {
+        "id": "item-29-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 51,
+        "taxRate": 0.1,
+        "total": 168
+      },
+      {
+        "id": "item-29-3",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 104,
+        "taxRate": 0.075,
+        "total": 112
+      }
+    ],
+    "subtotal": 923,
+    "taxAmount": 88,
+    "total": 1011,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-8IYS1I11",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-30",
+    "invoiceNumber": "INV-0030",
+    "workOrderId": "wo-36",
+    "clientId": "client-34",
+    "clientName": "Greenholt, Braun and Thompson",
+    "clientAddress": "88540 Dominic Shoals Apt. 182, Ratkebury, RI 17530-0354",
+    "clientEmail": "Rogelio_Gleichner58@yahoo.com",
+    "propertyAddress": "235 Elbert Valleys Suite 197",
+    "issueDate": "2025-08-24T14:29:40.487Z",
+    "dueDate": "2025-08-31T14:29:40.487Z",
+    "paidDate": "2025-08-27T19:24:47.309Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-30-1",
+        "description": "Paint garage door",
+        "quantity": 3,
+        "unitPrice": 294,
+        "taxRate": 0.07,
+        "total": 944
+      },
+      {
+        "id": "item-30-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 322,
+        "taxRate": 0.088,
+        "total": 350
+      }
+    ],
+    "subtotal": 1204,
+    "taxAmount": 90,
+    "total": 1294,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-IVJFT202",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-31",
+    "invoiceNumber": "INV-0031",
+    "workOrderId": "wo-16",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "548 Smitham Ranch Apt. 907, Lake Jaloncester, NV 31391",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "604 Jessyca Mill, Unit 15",
+    "issueDate": "2025-11-08T10:05:00.984Z",
+    "dueDate": "2025-12-23T10:05:00.984Z",
+    "paidDate": "2025-12-18T22:46:30.250Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-31-1",
+        "description": "Handyman services",
+        "quantity": 2,
+        "unitPrice": 379,
+        "taxRate": 0.062,
+        "total": 805
+      },
+      {
+        "id": "item-31-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 211,
+        "taxRate": 0.066,
+        "total": 225
+      },
+      {
+        "id": "item-31-3",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 353,
+        "taxRate": 0.083,
+        "total": 382
+      }
+    ],
+    "subtotal": 1322,
+    "taxAmount": 90,
+    "discount": 71,
+    "total": 1341,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-5KZYDJ0U",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-32",
+    "invoiceNumber": "INV-0032",
+    "workOrderId": "wo-47",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "95049 Wyman Rue Suite 117, West Brockboro, MS 94408-5168",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "7936 Lucy Lane, Building Y",
+    "issueDate": "2025-06-13T06:27:19.999Z",
+    "dueDate": "2025-07-28T06:27:19.999Z",
+    "paidDate": "2025-06-29T05:40:06.623Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-32-1",
+        "description": "Paint front door",
+        "quantity": 2,
+        "unitPrice": 348,
+        "taxRate": 0.09,
+        "total": 759
+      },
+      {
+        "id": "item-32-2",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 145,
+        "taxRate": 0.099,
+        "total": 319
+      }
+    ],
+    "subtotal": 986,
+    "taxAmount": 92,
+    "total": 1078,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-JDQAFH2T",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-33",
+    "invoiceNumber": "INV-0033",
+    "workOrderId": "wo-31",
+    "clientId": "client-13",
+    "clientName": "Raynor LLC",
+    "clientAddress": "933 Kuvalis Rest Suite 153, Vacaville, MT 46703",
+    "clientEmail": "Gina.Bosco26@hotmail.com",
+    "propertyAddress": "7007 Heath Road, Building F",
+    "issueDate": "2025-08-20T00:16:58.680Z",
+    "dueDate": "2025-09-04T00:16:58.680Z",
+    "paidDate": "2025-08-30T01:51:58.527Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-33-1",
+        "description": "Install new door",
+        "quantity": 1,
+        "unitPrice": 1139,
+        "taxRate": 0.096,
+        "total": 1248
+      },
+      {
+        "id": "item-33-2",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 293,
+        "taxRate": 0.074,
+        "total": 315
+      }
+    ],
+    "subtotal": 1432,
+    "taxAmount": 131,
+    "discount": 130,
+    "total": 1433,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-HNIXEESN",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-34",
+    "invoiceNumber": "INV-0034",
+    "workOrderId": "wo-75",
+    "clientId": "client-21",
+    "clientName": "Jacobson - Jones",
+    "clientAddress": "3447 Lueilwitz Meadow Suite 292, Dockstad, WY 12087-2285",
+    "clientEmail": "Cory_Jacobs66@gmail.com",
+    "propertyAddress": "60579 Glover Parkways Suite 328",
+    "issueDate": "2025-10-07T00:00:40.296Z",
+    "dueDate": "2025-10-14T00:00:40.296Z",
+    "paidDate": "2025-10-15T13:50:56.075Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-34-1",
+        "description": "Emergency repair",
+        "quantity": 2,
+        "unitPrice": 376,
+        "taxRate": 0.1,
+        "total": 827
+      },
+      {
+        "id": "item-34-2",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 117,
+        "taxRate": 0.068,
+        "total": 125
+      },
+      {
+        "id": "item-34-3",
+        "description": "Travel fee",
+        "quantity": 2,
+        "unitPrice": 186,
+        "taxRate": 0.074,
+        "total": 400
+      }
+    ],
+    "subtotal": 1241,
+    "taxAmount": 111,
+    "total": 1352,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-E8J2P0AL",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-35",
+    "invoiceNumber": "INV-0035",
+    "workOrderId": "wo-23",
+    "clientId": "client-39",
+    "clientName": "Prosacco, Koss and Mertz",
+    "clientAddress": "537 Susana Brook Apt. 608, Fort Cleve, NY 45681-5547",
+    "clientEmail": "Van_Harvey76@yahoo.com",
+    "propertyAddress": "47340 N Elm Street Suite 147",
+    "issueDate": "2025-10-26T10:40:44.848Z",
+    "dueDate": "2025-11-02T10:40:44.848Z",
+    "paidDate": "2025-10-30T15:48:49.274Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-35-1",
+        "description": "Repair heat pump",
+        "quantity": 1,
+        "unitPrice": 1084,
+        "taxRate": 0.06,
+        "total": 1149
+      }
+    ],
+    "subtotal": 1084,
+    "taxAmount": 65,
+    "total": 1149,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-SAYLZHZQ",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-36",
+    "invoiceNumber": "INV-0036",
+    "workOrderId": "wo-27",
+    "clientId": "client-37",
+    "clientName": "Crooks - Prohaska",
+    "clientAddress": "385 Abbott Ville Suite 371, Fort Chester, FL 89678-8964",
+    "clientEmail": "Allison_Turcotte@hotmail.com",
+    "propertyAddress": "126 Manchester Road, Suite 366",
+    "issueDate": "2025-09-17T03:13:10.567Z",
+    "dueDate": "2025-10-02T03:13:10.567Z",
+    "paidDate": "2025-09-28T10:34:55.542Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-36-1",
+        "description": "Repair shower valve",
+        "quantity": 2,
+        "unitPrice": 370,
+        "taxRate": 0.065,
+        "total": 788
+      },
+      {
+        "id": "item-36-2",
+        "description": "Travel fee",
+        "quantity": 3,
+        "unitPrice": 32,
+        "taxRate": 0.098,
+        "total": 105
+      },
+      {
+        "id": "item-36-3",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 123,
+        "taxRate": 0.096,
+        "total": 270
+      }
+    ],
+    "subtotal": 1082,
+    "taxAmount": 81,
+    "total": 1163,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-CQC900CZ",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-37",
+    "invoiceNumber": "INV-0037",
+    "workOrderId": "wo-42",
+    "clientId": "client-33",
+    "clientName": "Beier, Hartmann and Will",
+    "clientAddress": "74172 Berenice Highway Apt. 632, Antwonville, IL 39467-9962",
+    "clientEmail": "Julius_Rempel@gmail.com",
+    "propertyAddress": "54078 S Union Street, Unit 49",
+    "issueDate": "2025-11-01T18:16:25.185Z",
+    "dueDate": "2025-12-01T18:16:25.185Z",
+    "paidDate": "2025-11-30T05:18:46.990Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-37-1",
+        "description": "Exterior house painting",
+        "quantity": 3,
+        "unitPrice": 152,
+        "taxRate": 0.066,
+        "total": 486
+      }
+    ],
+    "subtotal": 456,
+    "taxAmount": 30,
+    "total": 486,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-HMUJFSHJ",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-38",
+    "invoiceNumber": "INV-0038",
+    "workOrderId": "wo-69",
+    "clientId": "client-14",
+    "clientName": "Cremin and Sons",
+    "clientAddress": "61821 Marquardt Extensions Apt. 440, Damienville, AL 73081",
+    "clientEmail": "Timothy_Hauck63@yahoo.com",
+    "propertyAddress": "402 Turner Trail Apt. 789",
+    "issueDate": "2025-10-10T16:43:12.465Z",
+    "dueDate": "2025-10-25T16:43:12.465Z",
+    "paidDate": "2025-10-15T11:01:49.447Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-38-1",
+        "description": "Fix microwave",
+        "quantity": 3,
+        "unitPrice": 379,
+        "taxRate": 0.063,
+        "total": 1209
+      },
+      {
+        "id": "item-38-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 135,
+        "taxRate": 0.096,
+        "total": 444
+      }
+    ],
+    "subtotal": 1542,
+    "taxAmount": 111,
+    "total": 1653,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-SE7H2VME",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-39",
+    "invoiceNumber": "INV-0039",
+    "workOrderId": "wo-49",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "331 Finn Estate Suite 535, Vandervortton, NV 10377",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "120 Cliff Road, Suite 673",
+    "issueDate": "2025-09-09T18:45:53.463Z",
+    "dueDate": "2025-09-09T18:45:53.463Z",
+    "paidDate": "2025-09-10T00:14:35.427Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-39-1",
+        "description": "Repair deck railing",
+        "quantity": 3,
+        "unitPrice": 283,
+        "taxRate": 0.089,
+        "total": 925
+      },
+      {
+        "id": "item-39-2",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 110,
+        "taxRate": 0.075,
+        "total": 355
+      }
+    ],
+    "subtotal": 1179,
+    "taxAmount": 101,
+    "total": 1280,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-NQKYHOKL",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-40",
+    "invoiceNumber": "INV-0040",
+    "workOrderId": "wo-46",
+    "clientId": "client-1",
+    "clientName": "Sipes, Crona and Jakubowski",
+    "clientAddress": "2325 Cummerata Hill Suite 394, Virgieville, KS 45861",
+    "clientEmail": "Mr.Sipes91@hotmail.com",
+    "propertyAddress": "407 Grimes Stream, Unit 38",
+    "issueDate": "2025-11-08T09:39:00.422Z",
+    "dueDate": "2025-12-23T09:39:00.422Z",
+    "paidDate": "2025-11-27T08:40:32.750Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-40-1",
+        "description": "Install new sod",
+        "quantity": 3,
+        "unitPrice": 388,
+        "taxRate": 0.098,
+        "total": 1278
+      },
+      {
+        "id": "item-40-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 129,
+        "taxRate": 0.1,
+        "total": 142
+      },
+      {
+        "id": "item-40-3",
+        "description": "Travel fee",
+        "quantity": 3,
+        "unitPrice": 90,
+        "taxRate": 0.062,
+        "total": 287
+      }
+    ],
+    "subtotal": 1563,
+    "taxAmount": 144,
+    "total": 1707,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-CANC7E6J",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-41",
+    "invoiceNumber": "INV-0041",
+    "workOrderId": "wo-19",
+    "clientId": "client-22",
+    "clientName": "Barrows Group",
+    "clientAddress": "752 Rodriguez Manor Apt. 491, West Hollyburgh, IL 63046-7267",
+    "clientEmail": "Everett.Lueilwitz48@yahoo.com",
+    "propertyAddress": "85228 Keebler Villages, Unit 14",
+    "issueDate": "2025-09-19T20:03:13.763Z",
+    "dueDate": "2025-11-03T20:03:13.763Z",
+    "paidDate": "2025-09-28T00:35:49.368Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-41-1",
+        "description": "Install new sod",
+        "quantity": 3,
+        "unitPrice": 439,
+        "taxRate": 0.096,
+        "total": 1443
+      },
+      {
+        "id": "item-41-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 71,
+        "taxRate": 0.071,
+        "total": 228
+      },
+      {
+        "id": "item-41-3",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 406,
+        "taxRate": 0.081,
+        "total": 439
+      }
+    ],
+    "subtotal": 1936,
+    "taxAmount": 174,
+    "discount": 143,
+    "total": 1967,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-XAWEP7BF",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-42",
+    "invoiceNumber": "INV-0042",
+    "workOrderId": "wo-72",
+    "clientId": "client-17",
+    "clientName": "Schinner, Lueilwitz and Okuneva",
+    "clientAddress": "986 Madison Street Suite 376, Allieworth, LA 76170",
+    "clientEmail": "Candice_Paucek99@gmail.com",
+    "propertyAddress": "993 E South Street, Unit 7",
+    "issueDate": "2025-07-11T00:58:42.426Z",
+    "dueDate": "2025-07-18T00:58:42.426Z",
+    "paidDate": "2025-07-20T03:32:24.893Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-42-1",
+        "description": "Design and install landscape",
+        "quantity": 1,
+        "unitPrice": 1202,
+        "taxRate": 0.089,
+        "total": 1309
+      },
+      {
+        "id": "item-42-2",
+        "description": "Travel fee",
+        "quantity": 2,
+        "unitPrice": 89,
+        "taxRate": 0.067,
+        "total": 190
+      },
+      {
+        "id": "item-42-3",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 197,
+        "taxRate": 0.067,
+        "total": 631
+      }
+    ],
+    "subtotal": 1971,
+    "taxAmount": 159,
+    "total": 2130,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-LDSKQBJI",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-43",
+    "invoiceNumber": "INV-0043",
+    "workOrderId": "wo-76",
+    "clientId": "client-37",
+    "clientName": "Crooks - Prohaska",
+    "clientAddress": "58162 Railroad Avenue Apt. 751, Dublin, DE 24300-4415",
+    "clientEmail": "Allison_Turcotte@hotmail.com",
+    "propertyAddress": "3220 Brook Lane, Building R",
+    "issueDate": "2025-10-24T01:07:00.327Z",
+    "dueDate": "2025-11-23T01:07:00.327Z",
+    "paidDate": "2025-11-13T14:38:30.299Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-43-1",
+        "description": "Install irrigation system",
+        "quantity": 3,
+        "unitPrice": 553,
+        "taxRate": 0.064,
+        "total": 1765
+      },
+      {
+        "id": "item-43-2",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 59,
+        "taxRate": 0.091,
+        "total": 193
+      },
+      {
+        "id": "item-43-3",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 191,
+        "taxRate": 0.062,
+        "total": 406
+      }
+    ],
+    "subtotal": 2218,
+    "taxAmount": 146,
+    "total": 2364,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-2Z6NFWHN",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-44",
+    "invoiceNumber": "INV-0044",
+    "workOrderId": "wo-21",
+    "clientId": "client-11",
+    "clientName": "Turcotte Inc",
+    "clientAddress": "4578 Sipes Junction Suite 436, Boyleview, OK 09325-4126",
+    "clientEmail": "Calvin.Hegmann@yahoo.com",
+    "propertyAddress": "6163 Collin Landing Suite 485",
+    "issueDate": "2025-10-27T12:22:08.533Z",
+    "dueDate": "2025-11-03T12:22:08.533Z",
+    "paidDate": "2025-11-01T18:37:20.535Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-44-1",
+        "description": "Replace light switch",
+        "quantity": 2,
+        "unitPrice": 584,
+        "taxRate": 0.075,
+        "total": 1256
+      }
+    ],
+    "subtotal": 1168,
+    "taxAmount": 88,
+    "total": 1256,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-ZHHSIR2A",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-45",
+    "invoiceNumber": "INV-0045",
+    "workOrderId": "wo-33",
+    "clientId": "client-34",
+    "clientName": "Greenholt, Braun and Thompson",
+    "clientAddress": "54996 Laverna Village Apt. 908, Mossieboro, AZ 86993-2961",
+    "clientEmail": "Rogelio_Gleichner58@yahoo.com",
+    "propertyAddress": "7458 Jaskolski Lake, Suite 576",
+    "issueDate": "2025-10-05T01:18:49.203Z",
+    "dueDate": "2025-11-04T01:18:49.203Z",
+    "paidDate": "2025-10-11T23:01:57.108Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-45-1",
+        "description": "Fix water pressure issues",
+        "quantity": 1,
+        "unitPrice": 660,
+        "taxRate": 0.077,
+        "total": 711
+      },
+      {
+        "id": "item-45-2",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 94,
+        "taxRate": 0.094,
+        "total": 309
+      }
+    ],
+    "subtotal": 942,
+    "taxAmount": 78,
+    "total": 1020,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-PEHL3AON",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-46",
+    "invoiceNumber": "INV-0046",
+    "workOrderId": "wo-15",
+    "clientId": "client-27",
+    "clientName": "Walsh - Stracke",
+    "clientAddress": "7926 W Jefferson Street Suite 753, Russelfurt, OK 26065-2045",
+    "clientEmail": "Lance_Johnston@hotmail.com",
+    "propertyAddress": "48622 Aidan Meadows, Building Z",
+    "issueDate": "2025-09-29T17:41:45.264Z",
+    "dueDate": "2025-09-29T17:41:45.264Z",
+    "paidDate": "2025-09-30T05:09:24.318Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-46-1",
+        "description": "Replace water heater",
+        "quantity": 1,
+        "unitPrice": 987,
+        "taxRate": 0.1,
+        "total": 1086
+      },
+      {
+        "id": "item-46-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 476,
+        "taxRate": 0.069,
+        "total": 509
+      }
+    ],
+    "subtotal": 1463,
+    "taxAmount": 132,
+    "total": 1595,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-TTKLYYNL",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-47",
+    "invoiceNumber": "INV-0047",
+    "workOrderId": "wo-71",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "645 S Water Street Apt. 403, South Alexandro, GA 02106-6841",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "49885 First Avenue Suite 478",
+    "issueDate": "2025-07-21T12:22:49.787Z",
+    "dueDate": "2025-08-05T12:22:49.787Z",
+    "paidDate": "2025-08-05T16:12:22.296Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-47-1",
+        "description": "Fix circuit breaker issue",
+        "quantity": 3,
+        "unitPrice": 153,
+        "taxRate": 0.063,
+        "total": 488
+      },
+      {
+        "id": "item-47-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 118,
+        "taxRate": 0.1,
+        "total": 130
+      }
+    ],
+    "subtotal": 577,
+    "taxAmount": 41,
+    "total": 618,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-O4MHX2DX",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-48",
+    "invoiceNumber": "INV-0048",
+    "workOrderId": "wo-13",
+    "clientId": "client-25",
+    "clientName": "Kessler and Sons",
+    "clientAddress": "7965 Powlowski Ports Suite 210, Port Fae, OK 38063-6718",
+    "clientEmail": "Kerry_Osinski@hotmail.com",
+    "propertyAddress": "877 Greenville Road Apt. 150",
+    "issueDate": "2025-08-16T02:55:10.154Z",
+    "dueDate": "2025-08-16T02:55:10.154Z",
+    "paidDate": "2025-08-17T01:34:43.122Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-48-1",
+        "description": "Replace old HVAC system",
+        "quantity": 3,
+        "unitPrice": 464,
+        "taxRate": 0.089,
+        "total": 1516
+      }
+    ],
+    "subtotal": 1392,
+    "taxAmount": 124,
+    "discount": 66,
+    "total": 1450,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-MRG1UITN",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-49",
+    "invoiceNumber": "INV-0049",
+    "workOrderId": "wo-35",
+    "clientId": "client-38",
+    "clientName": "Ebert, Reichel and Harvey",
+    "clientAddress": "9210 Johnson Street Suite 444, Indianapolis, GA 81423",
+    "clientEmail": "Nicholas.Bailey@gmail.com",
+    "propertyAddress": "84391 Martine Hills, Suite 395",
+    "issueDate": "2025-08-09T05:09:16.377Z",
+    "dueDate": "2025-08-16T05:09:16.377Z",
+    "paidDate": "2025-08-14T11:02:33.635Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-49-1",
+        "description": "Install new cabinets",
+        "quantity": 3,
+        "unitPrice": 242,
+        "taxRate": 0.06,
+        "total": 770
+      }
+    ],
+    "subtotal": 726,
+    "taxAmount": 44,
+    "discount": 53,
+    "total": 717,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-UIUPUZW2",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-50",
+    "invoiceNumber": "INV-0050",
+    "workOrderId": "wo-22",
+    "clientId": "client-24",
+    "clientName": "Wintheiser, Bauch and Hilll",
+    "clientAddress": "62923 Castle Lane Apt. 872, Zechariahmouth, GA 32229",
+    "clientEmail": "Mable_Leuschke2@gmail.com",
+    "propertyAddress": "50831 Green Land, Suite 721",
+    "issueDate": "2025-10-29T05:03:10.368Z",
+    "dueDate": "2025-12-13T05:03:10.368Z",
+    "paidDate": "2025-12-09T10:37:02.245Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-50-1",
+        "description": "Repair garbage disposal",
+        "quantity": 3,
+        "unitPrice": 381,
+        "taxRate": 0.09,
+        "total": 1246
+      },
+      {
+        "id": "item-50-2",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 42,
+        "taxRate": 0.061,
+        "total": 134
+      }
+    ],
+    "subtotal": 1269,
+    "taxAmount": 111,
+    "total": 1380,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-T7YFFQ7U",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-51",
+    "invoiceNumber": "INV-0051",
+    "workOrderId": "wo-11",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "475 Powlowski Greens Apt. 303, Kilbackfurt, OH 69844",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "40793 Borer Terrace, Building D",
+    "issueDate": "2025-06-06T11:54:48.434Z",
+    "dueDate": "2025-07-21T11:54:48.434Z",
+    "paidDate": "2025-07-09T07:47:48.699Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-51-1",
+        "description": "Touch up paint job",
+        "quantity": 2,
+        "unitPrice": 868,
+        "taxRate": 0.097,
+        "total": 1904
+      }
+    ],
+    "subtotal": 1736,
+    "taxAmount": 168,
+    "total": 1904,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-IHGHXUHZ",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-52",
+    "invoiceNumber": "INV-0052",
+    "workOrderId": "wo-6",
+    "clientId": "client-17",
+    "clientName": "Schinner, Lueilwitz and Okuneva",
+    "clientAddress": "328 Solon View Apt. 562, South Albertoburgh, MT 07228-2458",
+    "clientEmail": "Candice_Paucek99@gmail.com",
+    "propertyAddress": "63438 Moen Cliff, Suite 967",
+    "issueDate": "2025-11-05T04:03:06.646Z",
+    "dueDate": "2025-11-05T04:03:06.646Z",
+    "paidDate": "2025-11-06T20:30:25.277Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-52-1",
+        "description": "Remove dead trees",
+        "quantity": 3,
+        "unitPrice": 502,
+        "taxRate": 0.08,
+        "total": 1626
+      }
+    ],
+    "subtotal": 1506,
+    "taxAmount": 120,
+    "discount": 151,
+    "total": 1475,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-BHOOMON3",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-53",
+    "invoiceNumber": "INV-0053",
+    "workOrderId": "wo-40",
+    "clientId": "client-35",
+    "clientName": "Deckow, Kiehn and Cassin",
+    "clientAddress": "57526 Howe Streets Apt. 195, East Boyd, MS 77318",
+    "clientEmail": "Sean_Schiller@hotmail.com",
+    "propertyAddress": "486 N 2nd Street, Unit 26",
+    "issueDate": "2025-11-07T21:50:14.046Z",
+    "dueDate": "2025-12-22T21:50:14.046Z",
+    "paidDate": "2025-12-17T14:01:35.701Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-53-1",
+        "description": "Repair washing machine",
+        "quantity": 2,
+        "unitPrice": 216,
+        "taxRate": 0.074,
+        "total": 464
+      },
+      {
+        "id": "item-53-2",
+        "description": "Materials",
+        "quantity": 1,
+        "unitPrice": 183,
+        "taxRate": 0.086,
+        "total": 199
+      }
+    ],
+    "subtotal": 615,
+    "taxAmount": 48,
+    "discount": 56,
+    "total": 607,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-8TIDGRXW",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-54",
+    "invoiceNumber": "INV-0054",
+    "workOrderId": "wo-4",
+    "clientId": "client-36",
+    "clientName": "Hauck - Crist",
+    "clientAddress": "91176 Thiel Landing Suite 303, Deionburgh, MS 09878",
+    "clientEmail": "Billy.Grimes83@yahoo.com",
+    "propertyAddress": "8943 Boehm Ridge, Suite 745",
+    "issueDate": "2025-08-03T16:54:26.488Z",
+    "dueDate": "2025-09-17T16:54:26.488Z",
+    "paidDate": "2025-09-19T00:40:12.120Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-54-1",
+        "description": "Repair broken door",
+        "quantity": 2,
+        "unitPrice": 402,
+        "taxRate": 0.099,
+        "total": 884
+      }
+    ],
+    "subtotal": 804,
+    "taxAmount": 80,
+    "total": 884,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-RLL4Y2UE",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-55",
+    "invoiceNumber": "INV-0055",
+    "workOrderId": "wo-81",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "16130 Keebler Parks Apt. 427, Port Dallinfield, KS 67249",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "84853 Johns Way, Suite 429",
+    "issueDate": "2025-11-06T16:43:56.367Z",
+    "dueDate": "2025-12-06T16:43:56.367Z",
+    "paidDate": "2025-11-19T03:29:37.569Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-55-1",
+        "description": "Install irrigation system",
+        "quantity": 1,
+        "unitPrice": 1258,
+        "taxRate": 0.091,
+        "total": 1372
+      }
+    ],
+    "subtotal": 1258,
+    "taxAmount": 114,
+    "total": 1372,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-SFO5NSFY",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-56",
+    "invoiceNumber": "INV-0056",
+    "workOrderId": "wo-51",
+    "clientId": "client-19",
+    "clientName": "Flatley - Spinka",
+    "clientAddress": "25150 Aufderhar Harbors Suite 180, Dorotheaview, OK 51064-9769",
+    "clientEmail": "Wanda.Jr.88@gmail.com",
+    "propertyAddress": "3218 Manor Gardens Apt. 117",
+    "issueDate": "2025-10-21T19:27:10.342Z",
+    "dueDate": "2025-12-05T19:27:10.342Z",
+    "paidDate": "2025-11-03T01:38:19.120Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-56-1",
+        "description": "Seasonal maintenance",
+        "quantity": 1,
+        "unitPrice": 636,
+        "taxRate": 0.099,
+        "total": 699
+      },
+      {
+        "id": "item-56-2",
+        "description": "Additional services",
+        "quantity": 1,
+        "unitPrice": 251,
+        "taxRate": 0.084,
+        "total": 272
+      },
+      {
+        "id": "item-56-3",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 314,
+        "taxRate": 0.075,
+        "total": 338
+      }
+    ],
+    "subtotal": 1201,
+    "taxAmount": 108,
+    "total": 1309,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-W9NSY3PN",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-57",
+    "invoiceNumber": "INV-0057",
+    "workOrderId": "wo-78",
+    "clientId": "client-27",
+    "clientName": "Walsh - Stracke",
+    "clientAddress": "1606 S Broadway Street Suite 680, North Bertrand, UT 77430",
+    "clientEmail": "Lance_Johnston@hotmail.com",
+    "propertyAddress": "82344 Cynthia Trace, Suite 794",
+    "issueDate": "2025-07-18T07:50:37.435Z",
+    "dueDate": "2025-07-18T07:50:37.435Z",
+    "paidDate": "2025-07-19T23:58:32.193Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-57-1",
+        "description": "Interior wall painting",
+        "quantity": 1,
+        "unitPrice": 395,
+        "taxRate": 0.09,
+        "total": 431
+      },
+      {
+        "id": "item-57-2",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 51,
+        "taxRate": 0.06,
+        "total": 162
+      }
+    ],
+    "subtotal": 548,
+    "taxAmount": 45,
+    "total": 593,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-925OXZVS",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-58",
+    "invoiceNumber": "INV-0058",
+    "workOrderId": "wo-38",
+    "clientId": "client-7",
+    "clientName": "Moore LLC",
+    "clientAddress": "11995 Noel Wells Suite 448, North Carlottafort, RI 06567-0849",
+    "clientEmail": "Kerry_OHara98@hotmail.com",
+    "propertyAddress": "28370 Emely Bypass, Suite 528",
+    "issueDate": "2025-11-06T07:03:57.061Z",
+    "dueDate": "2025-11-06T07:03:57.061Z",
+    "paidDate": "2025-11-07T00:50:49.653Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-58-1",
+        "description": "General maintenance",
+        "quantity": 2,
+        "unitPrice": 311,
+        "taxRate": 0.088,
+        "total": 677
+      },
+      {
+        "id": "item-58-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 40,
+        "taxRate": 0.074,
+        "total": 129
+      },
+      {
+        "id": "item-58-3",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 116,
+        "taxRate": 0.085,
+        "total": 126
+      }
+    ],
+    "subtotal": 858,
+    "taxAmount": 74,
+    "total": 932,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "check",
+    "referenceNumber": "REF-6X2FSDYW",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-59",
+    "invoiceNumber": "INV-0059",
+    "workOrderId": "wo-60",
+    "clientId": "client-35",
+    "clientName": "Deckow, Kiehn and Cassin",
+    "clientAddress": "339 School Road Suite 687, New Rasheedberg, ID 33235-0791",
+    "clientEmail": "Sean_Schiller@hotmail.com",
+    "propertyAddress": "6559 Parker Branch, Building Z",
+    "issueDate": "2025-10-20T08:48:16.490Z",
+    "dueDate": "2025-10-20T08:48:16.490Z",
+    "paidDate": "2025-10-21T08:19:14.773Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-59-1",
+        "description": "Fix sewer line backup",
+        "quantity": 3,
+        "unitPrice": 308,
+        "taxRate": 0.096,
+        "total": 1013
+      },
+      {
+        "id": "item-59-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 115,
+        "taxRate": 0.082,
+        "total": 373
+      }
+    ],
+    "subtotal": 1269,
+    "taxAmount": 117,
+    "total": 1386,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-WPHXK4XQ",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-60",
+    "invoiceNumber": "INV-0060",
+    "workOrderId": "wo-30",
+    "clientId": "client-28",
+    "clientName": "Balistreri Group",
+    "clientAddress": "6007 Kenny Ridges Apt. 167, Reingerfurt, ID 17894-5889",
+    "clientEmail": "Kristen.White12@yahoo.com",
+    "propertyAddress": "841 Kuvalis Spur, Unit 34",
+    "issueDate": "2025-11-07T04:46:31.673Z",
+    "dueDate": "2025-11-22T04:46:31.673Z",
+    "paidDate": "2025-11-12T07:34:04.756Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-60-1",
+        "description": "Replace garbage disposal",
+        "quantity": 1,
+        "unitPrice": 842,
+        "taxRate": 0.063,
+        "total": 895
+      },
+      {
+        "id": "item-60-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 317,
+        "taxRate": 0.09,
+        "total": 346
+      }
+    ],
+    "subtotal": 1159,
+    "taxAmount": 82,
+    "total": 1241,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-C12ZQ061",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-61",
+    "invoiceNumber": "INV-0061",
+    "workOrderId": "wo-7",
+    "clientId": "client-16",
+    "clientName": "Kuhic, Grimes and Parisian",
+    "clientAddress": "247 Old Lane Suite 259, South Tobinberg, MN 36827-0094",
+    "clientEmail": "Stephanie.McDermott53@yahoo.com",
+    "propertyAddress": "574 E Center Street, Building Q",
+    "issueDate": "2025-08-03T21:37:10.188Z",
+    "dueDate": "2025-08-03T21:37:10.188Z",
+    "paidDate": "2025-08-04T04:30:38.409Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-61-1",
+        "description": "Repair oven",
+        "quantity": 3,
+        "unitPrice": 453,
+        "taxRate": 0.06,
+        "total": 1441
+      },
+      {
+        "id": "item-61-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 145,
+        "taxRate": 0.076,
+        "total": 156
+      },
+      {
+        "id": "item-61-3",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 161,
+        "taxRate": 0.07,
+        "total": 517
+      }
+    ],
+    "subtotal": 1987,
+    "taxAmount": 127,
+    "discount": 88,
+    "total": 2026,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-KKQAZUUX",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-62",
+    "invoiceNumber": "INV-0062",
+    "workOrderId": "wo-45",
+    "clientId": "client-37",
+    "clientName": "Crooks - Prohaska",
+    "clientAddress": "59303 Emard Club Apt. 753, Hodkiewiczland, CT 48471",
+    "clientEmail": "Allison_Turcotte@hotmail.com",
+    "propertyAddress": "9969 Walker Burgs Suite 455",
+    "issueDate": "2025-10-16T03:02:38.169Z",
+    "dueDate": "2025-10-31T03:02:38.169Z",
+    "paidDate": "2025-10-26T03:49:40.772Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-62-1",
+        "description": "Remove dead trees",
+        "quantity": 3,
+        "unitPrice": 441,
+        "taxRate": 0.067,
+        "total": 1412
+      }
+    ],
+    "subtotal": 1323,
+    "taxAmount": 89,
+    "total": 1412,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-AQ2R1LZK",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-63",
+    "invoiceNumber": "INV-0063",
+    "workOrderId": "wo-32",
+    "clientId": "client-35",
+    "clientName": "Deckow, Kiehn and Cassin",
+    "clientAddress": "700 W Jefferson Street Suite 726, Flostad, TX 97182-5807",
+    "clientEmail": "Sean_Schiller@hotmail.com",
+    "propertyAddress": "183 Waverley Road, Unit 7",
+    "issueDate": "2025-09-04T03:04:50.454Z",
+    "dueDate": "2025-10-19T03:04:50.454Z",
+    "paidDate": "2025-10-23T02:46:58.662Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-63-1",
+        "description": "Install ceiling fan",
+        "quantity": 3,
+        "unitPrice": 270,
+        "taxRate": 0.066,
+        "total": 863
+      },
+      {
+        "id": "item-63-2",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 201,
+        "taxRate": 0.099,
+        "total": 442
+      }
+    ],
+    "subtotal": 1212,
+    "taxAmount": 93,
+    "total": 1305,
+    "paymentTerms": "Net 45",
+    "paymentMethod": "credit-card",
+    "referenceNumber": "REF-EOOYAZA7",
+    "notes": "Payment received on time"
+  },
+  {
+    "id": "inv-64",
+    "invoiceNumber": "INV-0064",
+    "workOrderId": "wo-82",
+    "clientId": "client-30",
+    "clientName": "Rosenbaum - Padberg",
+    "clientAddress": "238 Murphy Wells Apt. 363, Mosheport, AL 51588",
+    "clientEmail": "Ginger.Lang3@gmail.com",
+    "propertyAddress": "624 Riverside Avenue, Unit 24",
+    "issueDate": "2025-10-27T00:46:42.887Z",
+    "dueDate": "2025-10-27T00:46:42.887Z",
+    "paidDate": "2025-10-27T10:14:21.984Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-64-1",
+        "description": "Fix squeaky floorboards",
+        "quantity": 1,
+        "unitPrice": 1516,
+        "taxRate": 0.096,
+        "total": 1662
+      },
+      {
+        "id": "item-64-2",
+        "description": "Additional services",
+        "quantity": 1,
+        "unitPrice": 228,
+        "taxRate": 0.092,
+        "total": 249
+      },
+      {
+        "id": "item-64-3",
+        "description": "Additional services",
+        "quantity": 1,
+        "unitPrice": 641,
+        "taxRate": 0.092,
+        "total": 700
+      }
+    ],
+    "subtotal": 2385,
+    "taxAmount": 226,
+    "total": 2611,
+    "paymentTerms": "Due on Receipt",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-V1FHQTXI",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-65",
+    "invoiceNumber": "INV-0065",
+    "workOrderId": "wo-18",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "85464 Durgan Harbor Apt. 366, Lake Ridge, CA 54443-5889",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "57250 Sauer Crest, Suite 159",
+    "issueDate": "2025-09-07T08:27:00.599Z",
+    "dueDate": "2025-09-14T08:27:00.599Z",
+    "paidDate": "2025-09-08T22:59:55.603Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-65-1",
+        "description": "Fix water pressure issues",
+        "quantity": 3,
+        "unitPrice": 245,
+        "taxRate": 0.075,
+        "total": 790
+      }
+    ],
+    "subtotal": 735,
+    "taxAmount": 55,
+    "discount": 69,
+    "total": 721,
+    "paymentTerms": "Net 7",
+    "paymentMethod": "cash",
+    "referenceNumber": "REF-ZZNARLML",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-66",
+    "invoiceNumber": "INV-0066",
+    "workOrderId": "wo-34",
+    "clientId": "client-23",
+    "clientName": "Cremin Inc",
+    "clientAddress": "647 S Church Street Suite 721, South Virgie, NH 48901-9152",
+    "clientEmail": "Elena_Mills@yahoo.com",
+    "propertyAddress": "38464 Evangeline Views, Unit 29",
+    "issueDate": "2025-11-06T18:56:28.427Z",
+    "dueDate": "2025-11-21T18:56:28.427Z",
+    "paidDate": "2025-11-11T21:49:03.156Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-66-1",
+        "description": "Fix refrigerator",
+        "quantity": 3,
+        "unitPrice": 123,
+        "taxRate": 0.08,
+        "total": 399
+      }
+    ],
+    "subtotal": 369,
+    "taxAmount": 30,
+    "total": 399,
+    "paymentTerms": "Net 15",
+    "paymentMethod": "ach",
+    "referenceNumber": "REF-7HFVE5MB",
+    "notes": "Thank you for your payment"
+  },
+  {
+    "id": "inv-67",
+    "invoiceNumber": "INV-0067",
+    "workOrderId": "wo-70",
+    "clientId": "client-29",
+    "clientName": "Satterfield Inc",
+    "clientAddress": "2859 Mraz Hills Suite 293, South Neva, OK 79791-3377",
+    "clientEmail": "Ms._Sr.56@hotmail.com",
+    "propertyAddress": "4272 Milton Road, Suite 643",
+    "issueDate": "2025-11-02T06:00:47.512Z",
+    "dueDate": "2025-12-02T06:00:47.512Z",
+    "paidDate": "2025-11-15T08:26:38.383Z",
+    "status": "paid",
+    "lineItems": [
+      {
+        "id": "item-67-1",
+        "description": "Install new cabinets",
+        "quantity": 2,
+        "unitPrice": 713,
+        "taxRate": 0.067,
+        "total": 1522
+      }
+    ],
+    "subtotal": 1426,
+    "taxAmount": 96,
+    "total": 1522,
+    "paymentTerms": "Net 30",
+    "paymentMethod": "wire",
+    "referenceNumber": "REF-6YNVWGGO",
+    "notes": "Payment processed successfully"
+  },
+  {
+    "id": "inv-68",
+    "invoiceNumber": "INV-0068",
+    "workOrderId": "wo-41",
+    "clientId": "client-25",
+    "clientName": "Kessler and Sons",
+    "clientAddress": "9194 Edmond Drives Apt. 768, East Nels, IA 36027",
+    "clientEmail": "Kerry_Osinski@hotmail.com",
+    "propertyAddress": "380 Gutmann Extensions, Suite 615",
+    "issueDate": "2025-09-29T14:45:52.089Z",
+    "dueDate": "2025-10-14T14:45:52.089Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-68-1",
+        "description": "Replace water heater",
+        "quantity": 2,
+        "unitPrice": 240,
+        "taxRate": 0.08,
+        "total": 518
+      },
+      {
+        "id": "item-68-2",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 94,
+        "taxRate": 0.089,
+        "total": 205
+      }
+    ],
+    "subtotal": 668,
+    "taxAmount": 55,
+    "discount": 57,
+    "total": 666,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-69",
+    "invoiceNumber": "INV-0069",
+    "workOrderId": "wo-68",
+    "clientId": "client-10",
+    "clientName": "Tremblay - Heller",
+    "clientAddress": "8662 Sabryna Forges Suite 786, Yuma, OR 39658-2014",
+    "clientEmail": "Don.PhD67@yahoo.com",
+    "propertyAddress": "597 The Limes, Suite 799",
+    "issueDate": "2025-10-02T00:53:26.469Z",
+    "dueDate": "2025-11-16T00:53:26.469Z",
+    "status": "overdue",
+    "lineItems": [
+      {
+        "id": "item-69-1",
+        "description": "Fix refrigerator",
+        "quantity": 2,
+        "unitPrice": 243,
+        "taxRate": 0.093,
+        "total": 531
+      }
+    ],
+    "subtotal": 486,
+    "taxAmount": 45,
+    "total": 531,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-70",
+    "invoiceNumber": "INV-0070",
+    "workOrderId": "wo-52",
+    "clientId": "client-9",
+    "clientName": "Haley - Wisozk",
+    "clientAddress": "956 Osborne Spur Suite 595, Dibbertport, ND 34570-6881",
+    "clientEmail": "Salvatore_Glover64@gmail.com",
+    "propertyAddress": "37993 College Avenue, Building V",
+    "issueDate": "2025-11-07T10:02:30.224Z",
+    "dueDate": "2025-11-14T10:02:30.224Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-70-1",
+        "description": "Remove dead trees",
+        "quantity": 3,
+        "unitPrice": 271,
+        "taxRate": 0.087,
+        "total": 884
+      }
+    ],
+    "subtotal": 813,
+    "taxAmount": 71,
+    "total": 884,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-71",
+    "invoiceNumber": "INV-0071",
+    "workOrderId": "wo-17",
+    "clientId": "client-11",
+    "clientName": "Turcotte Inc",
+    "clientAddress": "104 6th Street Suite 316, Ransomview, HI 41186",
+    "clientEmail": "Calvin.Hegmann@yahoo.com",
+    "propertyAddress": "8722 Delilah Park, Building X",
+    "issueDate": "2025-08-19T04:33:23.903Z",
+    "dueDate": "2025-09-03T04:33:23.903Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-71-1",
+        "description": "Fix circuit breaker issue",
+        "quantity": 2,
+        "unitPrice": 504,
+        "taxRate": 0.065,
+        "total": 1074
+      },
+      {
+        "id": "item-71-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 133,
+        "taxRate": 0.089,
+        "total": 435
+      },
+      {
+        "id": "item-71-3",
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 178,
+        "taxRate": 0.098,
+        "total": 391
+      }
+    ],
+    "subtotal": 1763,
+    "taxAmount": 137,
+    "discount": 131,
+    "total": 1769,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-72",
+    "invoiceNumber": "INV-0072",
+    "workOrderId": "wo-57",
+    "clientId": "client-25",
+    "clientName": "Kessler and Sons",
+    "clientAddress": "843 Gladstone Road Suite 543, Pleasanton, NJ 56299-5882",
+    "clientEmail": "Kerry_Osinski@hotmail.com",
+    "propertyAddress": "5534 Cory Gardens Suite 848",
+    "issueDate": "2025-10-12T07:42:27.920Z",
+    "dueDate": "2025-11-11T07:42:27.920Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-72-1",
+        "description": "AC unit not cooling properly",
+        "quantity": 3,
+        "unitPrice": 430,
+        "taxRate": 0.078,
+        "total": 1391
+      },
+      {
+        "id": "item-72-2",
+        "description": "Travel fee",
+        "quantity": 3,
+        "unitPrice": 154,
+        "taxRate": 0.068,
+        "total": 493
+      },
+      {
+        "id": "item-72-3",
+        "description": "Labor",
+        "quantity": 3,
+        "unitPrice": 115,
+        "taxRate": 0.098,
+        "total": 379
+      }
+    ],
+    "subtotal": 2097,
+    "taxAmount": 166,
+    "total": 2263,
+    "paymentTerms": "Net 30",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-73",
+    "invoiceNumber": "INV-0073",
+    "workOrderId": "wo-63",
+    "clientId": "client-13",
+    "clientName": "Raynor LLC",
+    "clientAddress": "22250 Geovany Shore Apt. 123, Alafaya, MT 70635-9348",
+    "clientEmail": "Gina.Bosco26@hotmail.com",
+    "propertyAddress": "166 Coronation Road, Building G",
+    "issueDate": "2025-10-13T02:34:40.314Z",
+    "dueDate": "2025-10-13T02:34:40.314Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-73-1",
+        "description": "General upkeep",
+        "quantity": 3,
+        "unitPrice": 248,
+        "taxRate": 0.067,
+        "total": 794
+      }
+    ],
+    "subtotal": 744,
+    "taxAmount": 50,
+    "total": 794,
+    "paymentTerms": "Due on Receipt",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-74",
+    "invoiceNumber": "INV-0074",
+    "workOrderId": "wo-14",
+    "clientId": "client-39",
+    "clientName": "Prosacco, Koss and Mertz",
+    "clientAddress": "36606 Kestrel Close Suite 531, Charleneport, NJ 49079",
+    "clientEmail": "Van_Harvey76@yahoo.com",
+    "propertyAddress": "8961 Ahmed Manor Apt. 371",
+    "issueDate": "2025-08-26T19:55:40.079Z",
+    "dueDate": "2025-09-02T19:55:40.079Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-74-1",
+        "description": "Fix flickering lights",
+        "quantity": 1,
+        "unitPrice": 385,
+        "taxRate": 0.073,
+        "total": 413
+      },
+      {
+        "id": "item-74-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 45,
+        "taxRate": 0.089,
+        "total": 147
+      },
+      {
+        "id": "item-74-3",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 41,
+        "taxRate": 0.06,
+        "total": 130
+      }
+    ],
+    "subtotal": 643,
+    "taxAmount": 47,
+    "total": 690,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-75",
+    "invoiceNumber": "INV-0075",
+    "workOrderId": "wo-59",
+    "clientId": "client-19",
+    "clientName": "Flatley - Spinka",
+    "clientAddress": "78298 Hawthorn Close Apt. 241, Sunrise Manor, NM 66056-5492",
+    "clientEmail": "Wanda.Jr.88@gmail.com",
+    "propertyAddress": "953 Georgette Bridge, Building R",
+    "issueDate": "2025-08-04T00:44:07.825Z",
+    "dueDate": "2025-08-11T00:44:07.825Z",
+    "status": "overdue",
+    "lineItems": [
+      {
+        "id": "item-75-1",
+        "description": "Fix microwave",
+        "quantity": 3,
+        "unitPrice": 214,
+        "taxRate": 0.069,
+        "total": 686
+      },
+      {
+        "id": "item-75-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 99,
+        "taxRate": 0.061,
+        "total": 210
+      },
+      {
+        "id": "item-75-3",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 49,
+        "taxRate": 0.072,
+        "total": 158
+      }
+    ],
+    "subtotal": 987,
+    "taxAmount": 67,
+    "total": 1054,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-76",
+    "invoiceNumber": "INV-0076",
+    "workOrderId": "wo-62",
+    "clientId": "client-28",
+    "clientName": "Balistreri Group",
+    "clientAddress": "5309 Grove Lane Apt. 999, Port Emmahaven, NV 66908",
+    "clientEmail": "Kristen.White12@yahoo.com",
+    "propertyAddress": "23628 Lake Avenue, Building Q",
+    "issueDate": "2025-08-17T07:53:43.948Z",
+    "dueDate": "2025-09-01T07:53:43.948Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-76-1",
+        "description": "Mulch garden beds",
+        "quantity": 2,
+        "unitPrice": 557,
+        "taxRate": 0.068,
+        "total": 1190
+      },
+      {
+        "id": "item-76-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 45,
+        "taxRate": 0.074,
+        "total": 145
+      }
+    ],
+    "subtotal": 1249,
+    "taxAmount": 86,
+    "discount": 51,
+    "total": 1284,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-77",
+    "invoiceNumber": "INV-0077",
+    "workOrderId": "wo-65",
+    "clientId": "client-18",
+    "clientName": "Wisoky, Harris and Lueilwitz",
+    "clientAddress": "1106 Antoinette Inlet Suite 241, Rileyview, MD 43614",
+    "clientEmail": "Geraldine_Skiles85@hotmail.com",
+    "propertyAddress": "94012 Carter Pike, Unit 46",
+    "issueDate": "2025-06-13T23:14:35.443Z",
+    "dueDate": "2025-06-28T23:14:35.443Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-77-1",
+        "description": "Replace old HVAC system",
+        "quantity": 3,
+        "unitPrice": 343,
+        "taxRate": 0.087,
+        "total": 1119
+      }
+    ],
+    "subtotal": 1029,
+    "taxAmount": 90,
+    "total": 1119,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-78",
+    "invoiceNumber": "INV-0078",
+    "workOrderId": "wo-73",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "260 Blake Center Apt. 425, North Lindsayhaven, ID 95029-4808",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "4248 Casper Walk, Suite 518",
+    "issueDate": "2025-08-28T05:06:40.885Z",
+    "dueDate": "2025-09-27T05:06:40.885Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-78-1",
+        "description": "General upkeep",
+        "quantity": 3,
+        "unitPrice": 259,
+        "taxRate": 0.093,
+        "total": 849
+      }
+    ],
+    "subtotal": 777,
+    "taxAmount": 72,
+    "total": 849,
+    "paymentTerms": "Net 30"
+  },
+  {
+    "id": "inv-79",
+    "invoiceNumber": "INV-0079",
+    "workOrderId": "wo-74",
+    "clientId": "client-23",
+    "clientName": "Cremin Inc",
+    "clientAddress": "10830 Prospect Street Apt. 834, Russelboro, MT 07811",
+    "clientEmail": "Elena_Mills@yahoo.com",
+    "propertyAddress": "760 Walnut Street, Building R",
+    "issueDate": "2025-10-17T19:40:16.203Z",
+    "dueDate": "2025-10-24T19:40:16.203Z",
+    "status": "overdue",
+    "lineItems": [
+      {
+        "id": "item-79-1",
+        "description": "Unclog bathroom drain",
+        "quantity": 2,
+        "unitPrice": 425,
+        "taxRate": 0.1,
+        "total": 935
+      },
+      {
+        "id": "item-79-2",
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 52,
+        "taxRate": 0.076,
+        "total": 112
+      },
+      {
+        "id": "item-79-3",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 133,
+        "taxRate": 0.077,
+        "total": 430
+      }
+    ],
+    "subtotal": 1353,
+    "taxAmount": 124,
+    "total": 1477,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-80",
+    "invoiceNumber": "INV-0080",
+    "workOrderId": "wo-44",
+    "clientId": "client-14",
+    "clientName": "Cremin and Sons",
+    "clientAddress": "52146 Manor Drive Apt. 351, Lake Jayne, MA 16546-4889",
+    "clientEmail": "Timothy_Hauck63@yahoo.com",
+    "propertyAddress": "88480 Tennyson Road, Building Y",
+    "issueDate": "2025-10-16T11:05:01.397Z",
+    "dueDate": "2025-10-16T11:05:01.397Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-80-1",
+        "description": "Fix circuit breaker issue",
+        "quantity": 2,
+        "unitPrice": 516,
+        "taxRate": 0.077,
+        "total": 1111
+      }
+    ],
+    "subtotal": 1032,
+    "taxAmount": 79,
+    "total": 1111,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-81",
+    "invoiceNumber": "INV-0081",
+    "workOrderId": "wo-73",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "6102 Hillside Apt. 304, New Lydiafurt, AZ 92403-5548",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "4248 Casper Walk, Suite 518",
+    "issueDate": "2025-09-20T20:43:03.672Z",
+    "dueDate": "2025-09-20T20:43:03.672Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-81-1",
+        "description": "General upkeep",
+        "quantity": 1,
+        "unitPrice": 778,
+        "taxRate": 0.089,
+        "total": 847
+      }
+    ],
+    "subtotal": 778,
+    "taxAmount": 69,
+    "total": 847,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-82",
+    "invoiceNumber": "INV-0082",
+    "workOrderId": "wo-20",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "61258 Ullrich Mountains Apt. 218, Sabinaburgh, ND 83251",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "5697 Martin Luther King Boulevard Apt. 164",
+    "issueDate": "2025-09-11T23:54:38.018Z",
+    "dueDate": "2025-09-11T23:54:38.018Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-82-1",
+        "description": "Install new thermostat",
+        "quantity": 3,
+        "unitPrice": 135,
+        "taxRate": 0.087,
+        "total": 440
+      }
+    ],
+    "subtotal": 405,
+    "taxAmount": 35,
+    "total": 440,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-83",
+    "invoiceNumber": "INV-0083",
+    "workOrderId": "wo-56",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "7687 Poplar Road Apt. 928, North Destineyburgh, PA 42631",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "552 Lysanne Trafficway, Building Q",
+    "issueDate": "2025-09-17T20:25:41.108Z",
+    "dueDate": "2025-11-01T20:25:41.108Z",
+    "status": "overdue",
+    "lineItems": [
+      {
+        "id": "item-83-1",
+        "description": "Unclog bathroom drain",
+        "quantity": 1,
+        "unitPrice": 353,
+        "taxRate": 0.098,
+        "total": 388
+      },
+      {
+        "id": "item-83-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 61,
+        "taxRate": 0.068,
+        "total": 65
+      }
+    ],
+    "subtotal": 414,
+    "taxAmount": 39,
+    "total": 453,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-84",
+    "invoiceNumber": "INV-0084",
+    "workOrderId": "wo-28",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "73059 Duke Street Suite 110, Schambergerland, NJ 91381",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "545 N Market Street Apt. 998",
+    "issueDate": "2025-11-06T13:38:06.834Z",
+    "dueDate": "2025-12-21T13:38:06.834Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-84-1",
+        "description": "Fix furnace heating issue",
+        "quantity": 3,
+        "unitPrice": 381,
+        "taxRate": 0.086,
+        "total": 1241
+      },
+      {
+        "id": "item-84-2",
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 177,
+        "taxRate": 0.069,
+        "total": 378
+      }
+    ],
+    "subtotal": 1497,
+    "taxAmount": 122,
+    "total": 1619,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-85",
+    "invoiceNumber": "INV-0085",
+    "workOrderId": "wo-31",
+    "clientId": "client-13",
+    "clientName": "Raynor LLC",
+    "clientAddress": "76211 Rath Shores Suite 382, San Ramon, IL 70529",
+    "clientEmail": "Gina.Bosco26@hotmail.com",
+    "propertyAddress": "7007 Heath Road, Building F",
+    "issueDate": "2025-09-28T10:24:08.851Z",
+    "dueDate": "2025-11-12T10:24:08.851Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-85-1",
+        "description": "Install new door",
+        "quantity": 2,
+        "unitPrice": 570,
+        "taxRate": 0.079,
+        "total": 1230
+      },
+      {
+        "id": "item-85-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 72,
+        "taxRate": 0.084,
+        "total": 234
+      }
+    ],
+    "subtotal": 1356,
+    "taxAmount": 108,
+    "total": 1464,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-86",
+    "invoiceNumber": "INV-0086",
+    "workOrderId": "wo-55",
+    "clientId": "client-40",
+    "clientName": "Lubowitz and Sons",
+    "clientAddress": "2002 Iva Drives Suite 720, Amayaview, FL 69674",
+    "clientEmail": "Marlon_Barrows6@gmail.com",
+    "propertyAddress": "209 Connelly Mountains, Suite 603",
+    "issueDate": "2025-09-24T02:06:30.907Z",
+    "dueDate": "2025-10-24T02:06:30.907Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-86-1",
+        "description": "Fix dryer",
+        "quantity": 1,
+        "unitPrice": 484,
+        "taxRate": 0.081,
+        "total": 523
+      },
+      {
+        "id": "item-86-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 191,
+        "taxRate": 0.061,
+        "total": 203
+      },
+      {
+        "id": "item-86-3",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 25,
+        "taxRate": 0.086,
+        "total": 54
+      }
+    ],
+    "subtotal": 725,
+    "taxAmount": 55,
+    "total": 780,
+    "paymentTerms": "Net 30"
+  },
+  {
+    "id": "inv-87",
+    "invoiceNumber": "INV-0087",
+    "workOrderId": "wo-53",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "4373 Pollich Forges Apt. 211, Fort Elbertfurt, GA 91798",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "1895 Hane Vista, Building T",
+    "issueDate": "2025-06-15T02:03:00.652Z",
+    "dueDate": "2025-06-22T02:03:00.652Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-87-1",
+        "description": "Seasonal maintenance",
+        "quantity": 3,
+        "unitPrice": 179,
+        "taxRate": 0.094,
+        "total": 587
+      }
+    ],
+    "subtotal": 537,
+    "taxAmount": 50,
+    "total": 587,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-88",
+    "invoiceNumber": "INV-0088",
+    "workOrderId": "wo-83",
+    "clientId": "client-12",
+    "clientName": "Waelchi - Kuhic",
+    "clientAddress": "21842 Harrison Avenue Suite 828, Andreanechester, VT 45406",
+    "clientEmail": "Abraham.Herzog36@yahoo.com",
+    "propertyAddress": "43745 Huel Mill Apt. 183",
+    "issueDate": "2025-06-26T13:25:42.439Z",
+    "dueDate": "2025-07-11T13:25:42.439Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-88-1",
+        "description": "Fix noisy air conditioner",
+        "quantity": 3,
+        "unitPrice": 330,
+        "taxRate": 0.066,
+        "total": 1055
+      },
+      {
+        "id": "item-88-2",
+        "description": "Travel fee",
+        "quantity": 2,
+        "unitPrice": 188,
+        "taxRate": 0.066,
+        "total": 401
+      }
+    ],
+    "subtotal": 1366,
+    "taxAmount": 90,
+    "discount": 129,
+    "total": 1327,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-89",
+    "invoiceNumber": "INV-0089",
+    "workOrderId": "wo-24",
+    "clientId": "client-7",
+    "clientName": "Moore LLC",
+    "clientAddress": "678 W Walnut Street Apt. 468, Fond du Lac, OK 59875",
+    "clientEmail": "Kerry_OHara98@hotmail.com",
+    "propertyAddress": "65830 Chestnut Street, Suite 650",
+    "issueDate": "2025-07-26T15:35:34.864Z",
+    "dueDate": "2025-09-09T15:35:34.864Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-89-1",
+        "description": "Repair deck railing",
+        "quantity": 1,
+        "unitPrice": 628,
+        "taxRate": 0.081,
+        "total": 679
+      },
+      {
+        "id": "item-89-2",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 99,
+        "taxRate": 0.071,
+        "total": 212
+      }
+    ],
+    "subtotal": 826,
+    "taxAmount": 65,
+    "discount": 65,
+    "total": 826,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-90",
+    "invoiceNumber": "INV-0090",
+    "workOrderId": "wo-16",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "391 Stiedemann Knoll Apt. 646, Goyetteberg, KS 42674",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "604 Jessyca Mill, Unit 15",
+    "issueDate": "2025-11-08T08:27:58.644Z",
+    "dueDate": "2025-12-23T08:27:58.644Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-90-1",
+        "description": "Handyman services",
+        "quantity": 2,
+        "unitPrice": 379,
+        "taxRate": 0.083,
+        "total": 821
+      }
+    ],
+    "subtotal": 758,
+    "taxAmount": 63,
+    "total": 821,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-91",
+    "invoiceNumber": "INV-0091",
+    "workOrderId": "wo-18",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "5085 Padberg Way Apt. 148, Sharonstead, NJ 52295-0348",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "57250 Sauer Crest, Suite 159",
+    "issueDate": "2025-08-23T13:33:26.565Z",
+    "dueDate": "2025-09-07T13:33:26.565Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-91-1",
+        "description": "Fix water pressure issues",
+        "quantity": 3,
+        "unitPrice": 245,
+        "taxRate": 0.092,
+        "total": 803
+      },
+      {
+        "id": "item-91-2",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 35,
+        "taxRate": 0.067,
+        "total": 112
+      },
+      {
+        "id": "item-91-3",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 143,
+        "taxRate": 0.077,
+        "total": 308
+      }
+    ],
+    "subtotal": 1126,
+    "taxAmount": 97,
+    "total": 1223,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-92",
+    "invoiceNumber": "INV-0092",
+    "workOrderId": "wo-39",
+    "clientId": "client-1",
+    "clientName": "Sipes, Crona and Jakubowski",
+    "clientAddress": "5232 Castle Road Apt. 175, Alameda, WV 42838",
+    "clientEmail": "Mr.Sipes91@hotmail.com",
+    "propertyAddress": "576 New Street, Unit 3",
+    "issueDate": "2025-10-30T16:20:02.817Z",
+    "dueDate": "2025-11-06T16:20:02.817Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-92-1",
+        "description": "Garden bed maintenance",
+        "quantity": 2,
+        "unitPrice": 579,
+        "taxRate": 0.085,
+        "total": 1256
+      },
+      {
+        "id": "item-92-2",
+        "description": "Additional services",
+        "quantity": 1,
+        "unitPrice": 147,
+        "taxRate": 0.073,
+        "total": 158
+      }
+    ],
+    "subtotal": 1305,
+    "taxAmount": 109,
+    "total": 1414,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-93",
+    "invoiceNumber": "INV-0093",
+    "workOrderId": "wo-55",
+    "clientId": "client-40",
+    "clientName": "Lubowitz and Sons",
+    "clientAddress": "48604 Bianka Rue Apt. 630, Bell Gardens, OR 14858",
+    "clientEmail": "Marlon_Barrows6@gmail.com",
+    "propertyAddress": "209 Connelly Mountains, Suite 603",
+    "issueDate": "2025-09-13T06:48:44.440Z",
+    "dueDate": "2025-09-20T06:48:44.440Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-93-1",
+        "description": "Fix dryer",
+        "quantity": 1,
+        "unitPrice": 484,
+        "taxRate": 0.065,
+        "total": 515
+      },
+      {
+        "id": "item-93-2",
+        "description": "Parts and supplies",
         "quantity": 2,
         "unitPrice": 30,
         "taxRate": 0.099,
         "total": 66
       }
     ],
-    "subtotal": 596,
-    "taxAmount": 46,
-    "total": 642,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-DSYOYTEP",
-    "notes": "Payment received on time"
-  },
-  {
-    "id": "inv-18",
-    "invoiceNumber": "INV-0018",
-    "workOrderId": "wo-29",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "7452 Brooke Burg Apt. 583, Bernhardchester, ND 80834-2196",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "6543 Heron Close, Unit 25",
-    "issueDate": "2025-08-04T06:32:23.665Z",
-    "dueDate": "2025-08-11T06:32:23.665Z",
-    "paidDate": "2025-08-08T00:47:09.320Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-18-1",
-        "description": "Fix leaky faucet in kitchen",
-        "quantity": 2,
-        "unitPrice": 247,
-        "taxRate": 0.073,
-        "total": 530
-      }
-    ],
-    "subtotal": 494,
-    "taxAmount": 36,
-    "total": 530,
-    "paymentTerms": "Net 7",
-    "paymentMethod": "check",
-    "referenceNumber": "REF-EDIXF4J6",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-19",
-    "invoiceNumber": "INV-0019",
-    "workOrderId": "wo-38",
-    "clientId": "client-1",
-    "clientName": "Pouros - Nitzsche",
-    "clientAddress": "45603 Church Lane Apt. 346, Herzogshire, RI 19578",
-    "clientEmail": "Scott_I@hotmail.com",
-    "propertyAddress": "4678 Kuhn Lake, Unit 19",
-    "issueDate": "2025-09-17T12:52:37.717Z",
-    "dueDate": "2025-09-17T12:52:37.717Z",
-    "paidDate": "2025-09-20T07:40:58.948Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-19-1",
-        "description": "Emergency repair",
-        "quantity": 1,
-        "unitPrice": 1182,
-        "taxRate": 0.1,
-        "total": 1300
-      },
-      {
-        "id": "item-19-2",
-        "description": "Travel fee",
-        "quantity": 3,
-        "unitPrice": 149,
-        "taxRate": 0.1,
-        "total": 492
-      }
-    ],
-    "subtotal": 1629,
-    "taxAmount": 163,
-    "total": 1792,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "cash",
-    "referenceNumber": "REF-BAP4LMKV",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-20",
-    "invoiceNumber": "INV-0020",
-    "workOrderId": "wo-27",
-    "clientId": "client-15",
-    "clientName": "Heller Inc",
-    "clientAddress": "641 Kerluke Unions Apt. 202, Texas City, VA 51021-7110",
-    "clientEmail": "Manuel.Heaney93@hotmail.com",
-    "propertyAddress": "8410 Priory Close, Unit 15",
-    "issueDate": "2025-09-29T14:17:21.243Z",
-    "dueDate": "2025-11-13T14:17:21.243Z",
-    "paidDate": "2025-10-28T05:06:18.845Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-20-1",
-        "description": "Paint garage door",
-        "quantity": 3,
-        "unitPrice": 234,
-        "taxRate": 0.097,
-        "total": 770
-      },
-      {
-        "id": "item-20-2",
-        "description": "Materials",
-        "quantity": 1,
-        "unitPrice": 209,
-        "taxRate": 0.063,
-        "total": 222
-      }
-    ],
-    "subtotal": 911,
-    "taxAmount": 81,
-    "total": 992,
-    "paymentTerms": "Net 45",
-    "paymentMethod": "cash",
-    "referenceNumber": "REF-GOAAHLGD",
-    "notes": "Payment received on time"
-  },
-  {
-    "id": "inv-21",
-    "invoiceNumber": "INV-0021",
-    "workOrderId": "wo-28",
-    "clientId": "client-5",
-    "clientName": "Waelchi - Kshlerin",
-    "clientAddress": "671 Canal Street Suite 423, West Alessandro, OR 48717-0218",
-    "clientEmail": "Dr.Huels@hotmail.com",
-    "propertyAddress": "8413 Lavina Gardens, Suite 214",
-    "issueDate": "2025-11-05T14:44:17.629Z",
-    "dueDate": "2025-11-05T14:44:17.629Z",
-    "paidDate": "2025-11-06T04:56:29.060Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-21-1",
-        "description": "Paint kitchen cabinets",
-        "quantity": 3,
-        "unitPrice": 354,
-        "taxRate": 0.083,
-        "total": 1150
-      },
-      {
-        "id": "item-21-2",
-        "description": "Additional services",
-        "quantity": 1,
-        "unitPrice": 214,
-        "taxRate": 0.088,
-        "total": 233
-      },
-      {
-        "id": "item-21-3",
-        "description": "Travel fee",
-        "quantity": 2,
-        "unitPrice": 107,
-        "taxRate": 0.068,
-        "total": 229
-      }
-    ],
-    "subtotal": 1490,
-    "taxAmount": 122,
-    "total": 1612,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "credit-card",
-    "referenceNumber": "REF-NCS3B537",
-    "notes": "Payment received on time"
-  },
-  {
-    "id": "inv-22",
-    "invoiceNumber": "INV-0022",
-    "workOrderId": "wo-25",
-    "clientId": "client-12",
-    "clientName": "Bernier and Sons",
-    "clientAddress": "920 George Street Apt. 821, Labadieborough, SC 29707-9363",
-    "clientEmail": "Alma_Von75@yahoo.com",
-    "propertyAddress": "516 Devon Cliff Apt. 876",
-    "issueDate": "2025-07-16T02:53:22.996Z",
-    "dueDate": "2025-08-15T02:53:22.996Z",
-    "paidDate": "2025-08-13T10:00:57.953Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-22-1",
-        "description": "Fix broken drawer",
-        "quantity": 2,
-        "unitPrice": 493,
-        "taxRate": 0.066,
-        "total": 1051
-      },
-      {
-        "id": "item-22-2",
-        "description": "Parts and supplies",
-        "quantity": 2,
-        "unitPrice": 52,
-        "taxRate": 0.079,
-        "total": 112
-      },
-      {
-        "id": "item-22-3",
-        "description": "Additional services",
-        "quantity": 2,
-        "unitPrice": 147,
-        "taxRate": 0.072,
-        "total": 315
-      }
-    ],
-    "subtotal": 1384,
-    "taxAmount": 94,
-    "total": 1478,
-    "paymentTerms": "Net 30",
-    "paymentMethod": "check",
-    "referenceNumber": "REF-0XLCH8NT",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-23",
-    "invoiceNumber": "INV-0023",
-    "workOrderId": "wo-14",
-    "clientId": "client-18",
-    "clientName": "Dibbert, Mayert and Windler",
-    "clientAddress": "195 Luisa Knolls Suite 837, Schulistview, NJ 81809-1167",
-    "clientEmail": "Alfred_Leannon84@yahoo.com",
-    "propertyAddress": "257 Mona Coves, Unit 25",
-    "issueDate": "2025-09-20T07:40:27.800Z",
-    "dueDate": "2025-09-27T07:40:27.800Z",
-    "paidDate": "2025-09-29T20:22:35.864Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-23-1",
-        "description": "Emergency repair",
-        "quantity": 3,
-        "unitPrice": 391,
-        "taxRate": 0.093,
-        "total": 1282
-      }
-    ],
-    "subtotal": 1173,
-    "taxAmount": 109,
-    "total": 1282,
-    "paymentTerms": "Net 7",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-DC9G5GUT",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-24",
-    "invoiceNumber": "INV-0024",
-    "workOrderId": "wo-6",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "62609 Westfield Road Suite 973, South Bend, DE 60264",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "573 Laura Radial, Suite 672",
-    "issueDate": "2025-06-29T15:11:32.797Z",
-    "dueDate": "2025-06-29T15:11:32.797Z",
-    "paidDate": "2025-07-02T17:30:50.026Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-24-1",
-        "description": "Design and install landscape",
-        "quantity": 1,
-        "unitPrice": 1897,
-        "taxRate": 0.075,
-        "total": 2039
-      }
-    ],
-    "subtotal": 1897,
-    "taxAmount": 142,
-    "total": 2039,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "cash",
-    "referenceNumber": "REF-HR5IX9FW",
-    "notes": "Payment processed successfully"
-  },
-  {
-    "id": "inv-25",
-    "invoiceNumber": "INV-0025",
-    "workOrderId": "wo-43",
-    "clientId": "client-4",
-    "clientName": "Huel - Altenwerth",
-    "clientAddress": "7817 The Copse Suite 983, Langoshburgh, NH 84803-2516",
-    "clientEmail": "Geoffrey_DDS49@hotmail.com",
-    "propertyAddress": "36202 The Chase, Suite 253",
-    "issueDate": "2025-10-03T23:52:42.372Z",
-    "dueDate": "2025-10-03T23:52:42.372Z",
-    "paidDate": "2025-10-04T04:11:22.753Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-25-1",
-        "description": "Repair oven",
-        "quantity": 1,
-        "unitPrice": 997,
-        "taxRate": 0.079,
-        "total": 1076
-      },
-      {
-        "id": "item-25-2",
-        "description": "Additional services",
-        "quantity": 2,
-        "unitPrice": 76,
-        "taxRate": 0.061,
-        "total": 161
-      }
-    ],
-    "subtotal": 1149,
-    "taxAmount": 88,
-    "total": 1237,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "check",
-    "referenceNumber": "REF-3F2P8CIJ",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-26",
-    "invoiceNumber": "INV-0026",
-    "workOrderId": "wo-18",
-    "clientId": "client-5",
-    "clientName": "Waelchi - Kshlerin",
-    "clientAddress": "5168 Labadie Knolls Suite 538, Reichelshire, CA 44262-5160",
-    "clientEmail": "Dr.Huels@hotmail.com",
-    "propertyAddress": "349 Priory Road Suite 294",
-    "issueDate": "2025-09-03T02:00:31.796Z",
-    "dueDate": "2025-10-18T02:00:31.796Z",
-    "paidDate": "2025-10-20T11:34:04.442Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-26-1",
-        "description": "Emergency repair",
-        "quantity": 1,
-        "unitPrice": 1003,
-        "taxRate": 0.097,
-        "total": 1100
-      }
-    ],
-    "subtotal": 1003,
-    "taxAmount": 97,
-    "discount": 100,
-    "total": 1000,
-    "paymentTerms": "Net 45",
-    "paymentMethod": "ach",
-    "referenceNumber": "REF-ZKZXEMAG",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-27",
-    "invoiceNumber": "INV-0027",
-    "workOrderId": "wo-42",
-    "clientId": "client-5",
-    "clientName": "Waelchi - Kshlerin",
-    "clientAddress": "81589 Ora Dale Apt. 971, Bossier City, WV 93901",
-    "clientEmail": "Dr.Huels@hotmail.com",
-    "propertyAddress": "253 Winona Lights, Suite 288",
-    "issueDate": "2025-09-16T07:28:02.340Z",
-    "dueDate": "2025-10-16T07:28:02.340Z",
-    "paidDate": "2025-10-04T00:36:28.422Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-27-1",
-        "description": "Replace water heater",
-        "quantity": 3,
-        "unitPrice": 121,
-        "taxRate": 0.092,
-        "total": 396
-      },
-      {
-        "id": "item-27-2",
-        "description": "Labor",
-        "quantity": 1,
-        "unitPrice": 139,
-        "taxRate": 0.062,
-        "total": 148
-      },
-      {
-        "id": "item-27-3",
-        "description": "Additional services",
-        "quantity": 2,
-        "unitPrice": 37,
-        "taxRate": 0.082,
-        "total": 80
-      }
-    ],
-    "subtotal": 576,
-    "taxAmount": 48,
-    "total": 624,
-    "paymentTerms": "Net 30",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-BMNZVEIY",
-    "notes": "Payment processed successfully"
-  },
-  {
-    "id": "inv-28",
-    "invoiceNumber": "INV-0028",
-    "workOrderId": "wo-39",
-    "clientId": "client-18",
-    "clientName": "Dibbert, Mayert and Windler",
-    "clientAddress": "8320 Kuhic Forge Suite 184, Hammesshire, ID 54279-3083",
-    "clientEmail": "Alfred_Leannon84@yahoo.com",
-    "propertyAddress": "108 N 3rd Street, Suite 126",
-    "issueDate": "2025-10-09T12:43:13.294Z",
-    "dueDate": "2025-10-16T12:43:13.294Z",
-    "paidDate": "2025-10-15T18:51:12.664Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-28-1",
-        "description": "Fix refrigerator",
-        "quantity": 1,
-        "unitPrice": 310,
-        "taxRate": 0.086,
-        "total": 337
-      },
-      {
-        "id": "item-28-2",
-        "description": "Labor",
-        "quantity": 3,
-        "unitPrice": 27,
-        "taxRate": 0.088,
-        "total": 88
-      }
-    ],
-    "subtotal": 391,
-    "taxAmount": 34,
-    "total": 425,
-    "paymentTerms": "Net 7",
-    "paymentMethod": "credit-card",
-    "referenceNumber": "REF-DXMKP89W",
-    "notes": "Thank you for your payment"
-  },
-  {
-    "id": "inv-29",
-    "invoiceNumber": "INV-0029",
-    "workOrderId": "wo-20",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "91020 Heidenreich Freeway Apt. 196, Avondale, RI 06462-4031",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "44574 Hayes Pines Apt. 302",
-    "issueDate": "2025-09-04T17:47:47.677Z",
-    "dueDate": "2025-10-04T17:47:47.677Z",
-    "paidDate": "2025-09-29T19:40:54.767Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-29-1",
-        "description": "Fix dryer",
-        "quantity": 2,
-        "unitPrice": 374,
-        "taxRate": 0.078,
-        "total": 806
-      }
-    ],
-    "subtotal": 748,
-    "taxAmount": 58,
-    "total": 806,
-    "paymentTerms": "Net 30",
-    "paymentMethod": "credit-card",
-    "referenceNumber": "REF-LBYAIB94",
-    "notes": "Payment processed successfully"
-  },
-  {
-    "id": "inv-30",
-    "invoiceNumber": "INV-0030",
-    "workOrderId": "wo-32",
-    "clientId": "client-13",
-    "clientName": "Donnelly, Lesch and McGlynn",
-    "clientAddress": "64823 Jacinto Village Apt. 439, West Bertafort, NM 68970",
-    "clientEmail": "Donald.Altenwerth8@yahoo.com",
-    "propertyAddress": "81547 Bogisich Forks, Unit 36",
-    "issueDate": "2025-08-25T09:48:22.217Z",
-    "dueDate": "2025-10-09T09:48:22.217Z",
-    "paidDate": "2025-09-23T08:11:19.196Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-30-1",
-        "description": "Fix sewer line backup",
-        "quantity": 3,
-        "unitPrice": 226,
-        "taxRate": 0.071,
-        "total": 726
-      }
-    ],
-    "subtotal": 678,
-    "taxAmount": 48,
-    "total": 726,
-    "paymentTerms": "Net 45",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-QG86LQUU",
-    "notes": "Payment processed successfully"
-  },
-  {
-    "id": "inv-31",
-    "invoiceNumber": "INV-0031",
-    "workOrderId": "wo-8",
-    "clientId": "client-18",
-    "clientName": "Dibbert, Mayert and Windler",
-    "clientAddress": "735 Cummings Walks Suite 128, New Alville, CO 95750-6923",
-    "clientEmail": "Alfred_Leannon84@yahoo.com",
-    "propertyAddress": "39617 Alexander Tunnel, Unit 5",
-    "issueDate": "2025-11-05T17:48:02.464Z",
-    "dueDate": "2025-12-05T17:48:02.464Z",
-    "paidDate": "2025-11-15T08:33:18.737Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-31-1",
-        "description": "Seasonal maintenance",
-        "quantity": 3,
-        "unitPrice": 90,
-        "taxRate": 0.09,
-        "total": 294
-      }
-    ],
-    "subtotal": 270,
-    "taxAmount": 24,
-    "total": 294,
-    "paymentTerms": "Net 30",
-    "paymentMethod": "wire",
-    "referenceNumber": "REF-BZVLJNVB",
-    "notes": "Payment received on time"
-  },
-  {
-    "id": "inv-32",
-    "invoiceNumber": "INV-0032",
-    "workOrderId": "wo-17",
-    "clientId": "client-6",
-    "clientName": "Kohler, Waters and Jacobson",
-    "clientAddress": "54026 Stamm Junctions Suite 618, Santee, FL 18118",
-    "clientEmail": "Elias_Murray53@yahoo.com",
-    "propertyAddress": "438 Maggio Lock, Building D",
-    "issueDate": "2025-10-29T23:16:26.008Z",
-    "dueDate": "2025-10-29T23:16:26.008Z",
-    "paidDate": "2025-10-30T19:23:00.013Z",
-    "status": "paid",
-    "lineItems": [
-      {
-        "id": "item-32-1",
-        "description": "Repair garbage disposal",
-        "quantity": 3,
-        "unitPrice": 411,
-        "taxRate": 0.075,
-        "total": 1325
-      },
-      {
-        "id": "item-32-2",
-        "description": "Parts and supplies",
-        "quantity": 1,
-        "unitPrice": 481,
-        "taxRate": 0.088,
-        "total": 523
-      },
-      {
-        "id": "item-32-3",
-        "description": "Parts and supplies",
-        "quantity": 2,
-        "unitPrice": 191,
-        "taxRate": 0.089,
-        "total": 416
-      }
-    ],
-    "subtotal": 2096,
-    "taxAmount": 168,
-    "total": 2264,
-    "paymentTerms": "Due on Receipt",
-    "paymentMethod": "ach",
-    "referenceNumber": "REF-EHJUXLZD",
-    "notes": "Payment received on time"
-  },
-  {
-    "id": "inv-33",
-    "invoiceNumber": "INV-0033",
-    "workOrderId": "wo-9",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "7519 Meadow Way Suite 612, West Elnoraton, SD 26472",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "895 N Franklin Street, Suite 905",
-    "issueDate": "2025-10-04T16:58:51.883Z",
-    "dueDate": "2025-11-18T16:58:51.883Z",
-    "status": "viewed",
-    "lineItems": [
-      {
-        "id": "item-33-1",
-        "description": "Design and install landscape",
-        "quantity": 1,
-        "unitPrice": 1727,
-        "taxRate": 0.07,
-        "total": 1848
-      },
-      {
-        "id": "item-33-2",
-        "description": "Labor",
-        "quantity": 1,
-        "unitPrice": 284,
-        "taxRate": 0.095,
-        "total": 311
-      }
-    ],
-    "subtotal": 2011,
-    "taxAmount": 148,
-    "discount": 157,
-    "total": 2002,
-    "paymentTerms": "Net 45"
-  },
-  {
-    "id": "inv-34",
-    "invoiceNumber": "INV-0034",
-    "workOrderId": "wo-19",
-    "clientId": "client-3",
-    "clientName": "Mosciski Inc",
-    "clientAddress": "1394 Zechariah Junction Suite 850, East Cortezcester, CO 64173-6366",
-    "clientEmail": "Leslie_Crona@hotmail.com",
-    "propertyAddress": "15837 12th Street, Suite 653",
-    "issueDate": "2025-10-20T02:07:18.527Z",
-    "dueDate": "2025-12-04T02:07:18.527Z",
-    "status": "cancelled",
-    "lineItems": [
-      {
-        "id": "item-34-1",
-        "description": "Paint kitchen cabinets",
-        "quantity": 1,
-        "unitPrice": 383,
-        "taxRate": 0.064,
-        "total": 408
-      },
-      {
-        "id": "item-34-2",
-        "description": "Additional services",
-        "quantity": 3,
-        "unitPrice": 35,
-        "taxRate": 0.071,
-        "total": 112
-      }
-    ],
-    "subtotal": 488,
-    "taxAmount": 32,
-    "total": 520,
-    "paymentTerms": "Net 45",
-    "notes": "Invoice cancelled"
-  },
-  {
-    "id": "inv-35",
-    "invoiceNumber": "INV-0035",
-    "workOrderId": "wo-21",
-    "clientId": "client-7",
-    "clientName": "Bartoletti, O'Conner and Rath",
-    "clientAddress": "18999 Dallin Valley Suite 292, Dareborough, MT 43824-6531",
-    "clientEmail": "Dominick_Pouros@hotmail.com",
-    "propertyAddress": "723 Flatley Garden, Suite 967",
-    "issueDate": "2025-10-21T14:09:10.881Z",
-    "dueDate": "2025-11-05T14:09:10.881Z",
-    "status": "viewed",
-    "lineItems": [
-      {
-        "id": "item-35-1",
-        "description": "Mulch garden beds",
-        "quantity": 1,
-        "unitPrice": 1164,
-        "taxRate": 0.097,
-        "total": 1277
-      },
-      {
-        "id": "item-35-2",
-        "description": "Materials",
-        "quantity": 2,
-        "unitPrice": 260,
-        "taxRate": 0.079,
-        "total": 561
-      }
-    ],
-    "subtotal": 1684,
-    "taxAmount": 154,
-    "total": 1838,
-    "paymentTerms": "Net 15"
-  },
-  {
-    "id": "inv-36",
-    "invoiceNumber": "INV-0036",
-    "workOrderId": "wo-16",
-    "clientId": "client-6",
-    "clientName": "Kohler, Waters and Jacobson",
-    "clientAddress": "642 E Market Street Suite 518, New Keaton, AR 13211-9741",
-    "clientEmail": "Elias_Murray53@yahoo.com",
-    "propertyAddress": "3579 Woodside Road Suite 531",
-    "issueDate": "2025-10-25T11:57:02.759Z",
-    "dueDate": "2025-10-25T11:57:02.759Z",
-    "status": "approved",
-    "lineItems": [
-      {
-        "id": "item-36-1",
-        "description": "Paint bedroom walls",
-        "quantity": 1,
-        "unitPrice": 395,
-        "taxRate": 0.073,
-        "total": 424
-      },
-      {
-        "id": "item-36-2",
-        "description": "Materials",
-        "quantity": 2,
-        "unitPrice": 97,
-        "taxRate": 0.062,
-        "total": 206
-      },
-      {
-        "id": "item-36-3",
-        "description": "Travel fee",
-        "quantity": 1,
-        "unitPrice": 149,
-        "taxRate": 0.089,
-        "total": 162
-      }
-    ],
-    "subtotal": 738,
-    "taxAmount": 54,
-    "total": 792,
-    "paymentTerms": "Due on Receipt"
-  },
-  {
-    "id": "inv-37",
-    "invoiceNumber": "INV-0037",
-    "workOrderId": "wo-4",
-    "clientId": "client-15",
-    "clientName": "Heller Inc",
-    "clientAddress": "2863 Forest Road Suite 812, Zulaufmouth, IA 43512-1403",
-    "clientEmail": "Manuel.Heaney93@hotmail.com",
-    "propertyAddress": "95112 Tyshawn Neck, Unit 44",
-    "issueDate": "2025-10-25T01:50:13.893Z",
-    "dueDate": "2025-11-01T01:50:13.893Z",
-    "status": "draft",
-    "lineItems": [
-      {
-        "id": "item-37-1",
-        "description": "Fix broken drawer",
-        "quantity": 2,
-        "unitPrice": 709,
-        "taxRate": 0.069,
-        "total": 1516
-      },
-      {
-        "id": "item-37-2",
-        "description": "Travel fee",
-        "quantity": 2,
-        "unitPrice": 74,
-        "taxRate": 0.097,
-        "total": 162
-      }
-    ],
-    "subtotal": 1566,
-    "taxAmount": 112,
-    "total": 1678,
+    "subtotal": 544,
+    "taxAmount": 37,
+    "total": 581,
     "paymentTerms": "Net 7"
   },
   {
-    "id": "inv-38",
-    "invoiceNumber": "INV-0038",
-    "workOrderId": "wo-15",
-    "clientId": "client-15",
-    "clientName": "Heller Inc",
-    "clientAddress": "11453 Hammes Loop Suite 584, Strackeboro, ND 38179",
-    "clientEmail": "Manuel.Heaney93@hotmail.com",
-    "propertyAddress": "702 Cavendish Road, Unit 20",
-    "issueDate": "2025-11-02T22:05:47.513Z",
-    "dueDate": "2025-12-17T22:05:47.513Z",
-    "status": "viewed",
-    "lineItems": [
-      {
-        "id": "item-38-1",
-        "description": "Install irrigation system",
-        "quantity": 1,
-        "unitPrice": 1331,
-        "taxRate": 0.075,
-        "total": 1431
-      },
-      {
-        "id": "item-38-2",
-        "description": "Materials",
-        "quantity": 2,
-        "unitPrice": 118,
-        "taxRate": 0.082,
-        "total": 255
-      }
-    ],
-    "subtotal": 1567,
-    "taxAmount": 119,
-    "total": 1686,
-    "paymentTerms": "Net 45"
-  },
-  {
-    "id": "inv-39",
-    "invoiceNumber": "INV-0039",
-    "workOrderId": "wo-12",
-    "clientId": "client-5",
-    "clientName": "Waelchi - Kshlerin",
-    "clientAddress": "33050 S 3rd Street Apt. 998, Remingtoncester, CO 41316-5871",
-    "clientEmail": "Dr.Huels@hotmail.com",
-    "propertyAddress": "40855 Bogan Manor Suite 164",
-    "issueDate": "2025-09-03T17:05:34.961Z",
-    "dueDate": "2025-09-18T17:05:34.961Z",
-    "status": "approved",
-    "lineItems": [
-      {
-        "id": "item-39-1",
-        "description": "Fix furnace heating issue",
-        "quantity": 1,
-        "unitPrice": 684,
-        "taxRate": 0.087,
-        "total": 744
-      }
-    ],
-    "subtotal": 684,
-    "taxAmount": 60,
-    "total": 744,
-    "paymentTerms": "Net 15"
-  },
-  {
-    "id": "inv-40",
-    "invoiceNumber": "INV-0040",
-    "workOrderId": "wo-35",
-    "clientId": "client-3",
-    "clientName": "Mosciski Inc",
-    "clientAddress": "285 Bergnaum Viaduct Apt. 736, Fort Javier, CO 79998-3629",
-    "clientEmail": "Leslie_Crona@hotmail.com",
-    "propertyAddress": "70111 Bradtke Ford, Unit 11",
-    "issueDate": "2025-07-26T11:55:09.701Z",
-    "dueDate": "2025-08-10T11:55:09.701Z",
-    "status": "approved",
-    "lineItems": [
-      {
-        "id": "item-40-1",
-        "description": "Replace light switch",
-        "quantity": 1,
-        "unitPrice": 1021,
-        "taxRate": 0.06,
-        "total": 1082
-      },
-      {
-        "id": "item-40-2",
-        "description": "Materials",
-        "quantity": 2,
-        "unitPrice": 144,
-        "taxRate": 0.096,
-        "total": 316
-      },
-      {
-        "id": "item-40-3",
-        "description": "Parts and supplies",
-        "quantity": 1,
-        "unitPrice": 232,
-        "taxRate": 0.096,
-        "total": 254
-      }
-    ],
-    "subtotal": 1541,
-    "taxAmount": 111,
-    "total": 1652,
-    "paymentTerms": "Net 15"
-  },
-  {
-    "id": "inv-41",
-    "invoiceNumber": "INV-0041",
-    "workOrderId": "wo-18",
-    "clientId": "client-5",
-    "clientName": "Waelchi - Kshlerin",
-    "clientAddress": "328 S 4th Street Suite 473, Edina, NJ 24788",
-    "clientEmail": "Dr.Huels@hotmail.com",
-    "propertyAddress": "349 Priory Road Suite 294",
-    "issueDate": "2025-08-15T11:07:47.520Z",
-    "dueDate": "2025-09-14T11:07:47.520Z",
+    "id": "inv-94",
+    "invoiceNumber": "INV-0094",
+    "workOrderId": "wo-43",
+    "clientId": "client-19",
+    "clientName": "Flatley - Spinka",
+    "clientAddress": "3812 Rozella Ridge Apt. 399, Bossier City, MS 73581",
+    "clientEmail": "Wanda.Jr.88@gmail.com",
+    "propertyAddress": "5160 Abernathy Ford, Building X",
+    "issueDate": "2025-10-15T19:24:35.653Z",
+    "dueDate": "2025-11-14T19:24:35.653Z",
     "status": "disputed",
     "lineItems": [
       {
-        "id": "item-41-1",
-        "description": "Emergency repair",
+        "id": "item-94-1",
+        "description": "Install ceiling fan",
         "quantity": 2,
-        "unitPrice": 502,
-        "taxRate": 0.067,
-        "total": 1071
+        "unitPrice": 275,
+        "taxRate": 0.082,
+        "total": 595
       },
       {
-        "id": "item-41-2",
-        "description": "Materials",
-        "quantity": 3,
-        "unitPrice": 122,
-        "taxRate": 0.09,
-        "total": 399
+        "id": "item-94-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 216,
+        "taxRate": 0.076,
+        "total": 232
+      },
+      {
+        "id": "item-94-3",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 130,
+        "taxRate": 0.062,
+        "total": 276
       }
     ],
-    "subtotal": 1370,
-    "taxAmount": 100,
-    "total": 1470,
+    "subtotal": 1026,
+    "taxAmount": 77,
+    "total": 1103,
     "paymentTerms": "Net 30"
   },
   {
-    "id": "inv-42",
-    "invoiceNumber": "INV-0042",
-    "workOrderId": "wo-11",
-    "clientId": "client-16",
-    "clientName": "Herzog - Boyer",
-    "clientAddress": "4696 Kent Road Suite 177, Leopoldland, SD 33038",
-    "clientEmail": "Elbert.OConnell@gmail.com",
-    "propertyAddress": "52927 Darrin Streets, Building Y",
-    "issueDate": "2025-08-18T06:58:47.461Z",
-    "dueDate": "2025-09-02T06:58:47.461Z",
-    "status": "overdue",
-    "lineItems": [
-      {
-        "id": "item-42-1",
-        "description": "Build custom shelving",
-        "quantity": 2,
-        "unitPrice": 451,
-        "taxRate": 0.091,
-        "total": 984
-      },
-      {
-        "id": "item-42-2",
-        "description": "Labor",
-        "quantity": 1,
-        "unitPrice": 285,
-        "taxRate": 0.071,
-        "total": 305
-      }
-    ],
-    "subtotal": 1187,
-    "taxAmount": 102,
-    "total": 1289,
-    "paymentTerms": "Net 15"
-  },
-  {
-    "id": "inv-43",
-    "invoiceNumber": "INV-0043",
-    "workOrderId": "wo-10",
-    "clientId": "client-12",
-    "clientName": "Bernier and Sons",
-    "clientAddress": "220 Ettie Way Apt. 737, Reillyville, WA 53421-5655",
-    "clientEmail": "Alma_Von75@yahoo.com",
-    "propertyAddress": "83260 Aidan Plaza, Unit 4",
-    "issueDate": "2025-10-25T05:23:00.722Z",
-    "dueDate": "2025-11-01T05:23:00.722Z",
-    "status": "approved",
-    "lineItems": [
-      {
-        "id": "item-43-1",
-        "description": "General maintenance",
-        "quantity": 1,
-        "unitPrice": 523,
-        "taxRate": 0.071,
-        "total": 560
-      },
-      {
-        "id": "item-43-2",
-        "description": "Labor",
-        "quantity": 2,
-        "unitPrice": 122,
-        "taxRate": 0.063,
-        "total": 259
-      },
-      {
-        "id": "item-43-3",
-        "description": "Materials",
-        "quantity": 3,
-        "unitPrice": 76,
-        "taxRate": 0.071,
-        "total": 244
-      }
-    ],
-    "subtotal": 995,
-    "taxAmount": 68,
-    "total": 1063,
-    "paymentTerms": "Net 7"
-  },
-  {
-    "id": "inv-44",
-    "invoiceNumber": "INV-0044",
-    "workOrderId": "wo-34",
-    "clientId": "client-13",
-    "clientName": "Donnelly, Lesch and McGlynn",
-    "clientAddress": "4497 Veterans Memorial Drive Apt. 541, Lake Alejandrincester, MT 13546-5055",
-    "clientEmail": "Donald.Altenwerth8@yahoo.com",
-    "propertyAddress": "4120 Camylle View, Suite 994",
-    "issueDate": "2025-11-06T12:31:19.613Z",
-    "dueDate": "2025-11-21T12:31:19.613Z",
-    "status": "sent",
-    "lineItems": [
-      {
-        "id": "item-44-1",
-        "description": "Full house repaint",
-        "quantity": 1,
-        "unitPrice": 904,
-        "taxRate": 0.099,
-        "total": 993
-      }
-    ],
-    "subtotal": 904,
-    "taxAmount": 89,
-    "total": 993,
-    "paymentTerms": "Net 15"
-  },
-  {
-    "id": "inv-45",
-    "invoiceNumber": "INV-0045",
-    "workOrderId": "wo-22",
-    "clientId": "client-20",
-    "clientName": "Bins, Bashirian and Klein",
-    "clientAddress": "255 Shirley Parks Apt. 502, Catonsville, TN 19177",
-    "clientEmail": "Dr.Runte34@hotmail.com",
-    "propertyAddress": "90743 Bergstrom Rest, Unit 6",
-    "issueDate": "2025-11-01T11:34:09.511Z",
-    "dueDate": "2025-11-01T11:34:09.511Z",
+    "id": "inv-95",
+    "invoiceNumber": "INV-0095",
+    "workOrderId": "wo-26",
+    "clientId": "client-29",
+    "clientName": "Satterfield Inc",
+    "clientAddress": "72783 Connie Mission Apt. 896, Wellington, AR 08021-0376",
+    "clientEmail": "Ms._Sr.56@hotmail.com",
+    "propertyAddress": "8714 Kuhlman Run, Unit 34",
+    "issueDate": "2025-10-21T02:26:31.262Z",
+    "dueDate": "2025-10-21T02:26:31.262Z",
     "status": "cancelled",
     "lineItems": [
       {
-        "id": "item-45-1",
-        "description": "Repair garbage disposal",
+        "id": "item-95-1",
+        "description": "Install ceiling fan",
         "quantity": 1,
-        "unitPrice": 399,
-        "taxRate": 0.065,
-        "total": 425
-      },
-      {
-        "id": "item-45-2",
-        "description": "Materials",
-        "quantity": 1,
-        "unitPrice": 149,
-        "taxRate": 0.068,
-        "total": 159
+        "unitPrice": 742,
+        "taxRate": 0.083,
+        "total": 804
       }
     ],
-    "subtotal": 548,
-    "taxAmount": 36,
-    "total": 584,
+    "subtotal": 742,
+    "taxAmount": 62,
+    "total": 804,
     "paymentTerms": "Due on Receipt",
     "notes": "Invoice cancelled"
   },
   {
-    "id": "inv-46",
-    "invoiceNumber": "INV-0046",
-    "workOrderId": "wo-25",
-    "clientId": "client-12",
-    "clientName": "Bernier and Sons",
-    "clientAddress": "227 Larissa Estates Suite 797, Apple Valley, NV 64731-7552",
-    "clientEmail": "Alma_Von75@yahoo.com",
-    "propertyAddress": "516 Devon Cliff Apt. 876",
-    "issueDate": "2025-10-22T19:51:50.711Z",
-    "dueDate": "2025-11-21T19:51:50.711Z",
-    "status": "viewed",
+    "id": "inv-96",
+    "invoiceNumber": "INV-0096",
+    "workOrderId": "wo-43",
+    "clientId": "client-19",
+    "clientName": "Flatley - Spinka",
+    "clientAddress": "304 Stoltenberg Mount Apt. 630, Lake Robbchester, HI 22278-3751",
+    "clientEmail": "Wanda.Jr.88@gmail.com",
+    "propertyAddress": "5160 Abernathy Ford, Building X",
+    "issueDate": "2025-09-01T02:28:53.253Z",
+    "dueDate": "2025-09-08T02:28:53.253Z",
+    "status": "sent",
     "lineItems": [
       {
-        "id": "item-46-1",
-        "description": "Fix broken drawer",
-        "quantity": 2,
-        "unitPrice": 493,
-        "taxRate": 0.073,
-        "total": 1058
-      },
-      {
-        "id": "item-46-2",
-        "description": "Parts and supplies",
+        "id": "item-96-1",
+        "description": "Install ceiling fan",
         "quantity": 1,
-        "unitPrice": 374,
-        "taxRate": 0.086,
-        "total": 406
-      },
-      {
-        "id": "item-46-3",
-        "description": "Labor",
-        "quantity": 1,
-        "unitPrice": 340,
-        "taxRate": 0.093,
-        "total": 372
+        "unitPrice": 550,
+        "taxRate": 0.069,
+        "total": 588
       }
     ],
-    "subtotal": 1700,
-    "taxAmount": 136,
-    "total": 1836,
-    "paymentTerms": "Net 30"
-  },
-  {
-    "id": "inv-47",
-    "invoiceNumber": "INV-0047",
-    "workOrderId": "wo-25",
-    "clientId": "client-12",
-    "clientName": "Bernier and Sons",
-    "clientAddress": "3670 Grange Road Apt. 716, Kansas City, AL 95684-1912",
-    "clientEmail": "Alma_Von75@yahoo.com",
-    "propertyAddress": "516 Devon Cliff Apt. 876",
-    "issueDate": "2025-10-15T21:47:51.323Z",
-    "dueDate": "2025-11-14T21:47:51.323Z",
-    "status": "viewed",
-    "lineItems": [
-      {
-        "id": "item-47-1",
-        "description": "Fix broken drawer",
-        "quantity": 1,
-        "unitPrice": 986,
-        "taxRate": 0.098,
-        "total": 1083
-      },
-      {
-        "id": "item-47-2",
-        "description": "Materials",
-        "quantity": 3,
-        "unitPrice": 95,
-        "taxRate": 0.095,
-        "total": 312
-      }
-    ],
-    "subtotal": 1271,
-    "taxAmount": 124,
-    "total": 1395,
-    "paymentTerms": "Net 30"
-  },
-  {
-    "id": "inv-48",
-    "invoiceNumber": "INV-0048",
-    "workOrderId": "wo-24",
-    "clientId": "client-10",
-    "clientName": "Collins, Schmitt and Becker",
-    "clientAddress": "82893 Pound Lane Apt. 353, Bransontown, ID 73604",
-    "clientEmail": "Damon.Wyman@yahoo.com",
-    "propertyAddress": "294 Moore Ville, Unit 6",
-    "issueDate": "2025-08-27T13:24:47.745Z",
-    "dueDate": "2025-08-27T13:24:47.745Z",
-    "status": "draft",
-    "lineItems": [
-      {
-        "id": "item-48-1",
-        "description": "Deep cleaning service",
-        "quantity": 2,
-        "unitPrice": 207,
-        "taxRate": 0.078,
-        "total": 446
-      }
-    ],
-    "subtotal": 414,
-    "taxAmount": 32,
-    "total": 446,
-    "paymentTerms": "Due on Receipt"
-  },
-  {
-    "id": "inv-49",
-    "invoiceNumber": "INV-0049",
-    "workOrderId": "wo-21",
-    "clientId": "client-7",
-    "clientName": "Bartoletti, O'Conner and Rath",
-    "clientAddress": "79610 North Avenue Suite 493, North Eldredcester, VT 21216",
-    "clientEmail": "Dominick_Pouros@hotmail.com",
-    "propertyAddress": "723 Flatley Garden, Suite 967",
-    "issueDate": "2025-10-10T22:26:56.306Z",
-    "dueDate": "2025-10-17T22:26:56.306Z",
-    "status": "approved",
-    "lineItems": [
-      {
-        "id": "item-49-1",
-        "description": "Mulch garden beds",
-        "quantity": 1,
-        "unitPrice": 1164,
-        "taxRate": 0.075,
-        "total": 1251
-      }
-    ],
-    "subtotal": 1164,
-    "taxAmount": 87,
-    "total": 1251,
+    "subtotal": 550,
+    "taxAmount": 38,
+    "discount": 51,
+    "total": 537,
     "paymentTerms": "Net 7"
   },
   {
-    "id": "inv-50",
-    "invoiceNumber": "INV-0050",
-    "workOrderId": "wo-20",
-    "clientId": "client-19",
-    "clientName": "Emmerich - Moen",
-    "clientAddress": "53212 Wendell Glens Apt. 371, New Ashaville, FL 05242",
-    "clientEmail": "Roy.Dietrich@hotmail.com",
-    "propertyAddress": "44574 Hayes Pines Apt. 302",
-    "issueDate": "2025-11-02T09:05:10.153Z",
-    "dueDate": "2025-11-09T09:05:10.153Z",
+    "id": "inv-97",
+    "invoiceNumber": "INV-0097",
+    "workOrderId": "wo-52",
+    "clientId": "client-9",
+    "clientName": "Haley - Wisozk",
+    "clientAddress": "9409 Maggio Wall Apt. 466, Coralieshire, HI 19537-3266",
+    "clientEmail": "Salvatore_Glover64@gmail.com",
+    "propertyAddress": "37993 College Avenue, Building V",
+    "issueDate": "2025-11-07T08:39:06.095Z",
+    "dueDate": "2025-11-07T08:39:06.095Z",
     "status": "cancelled",
     "lineItems": [
       {
-        "id": "item-50-1",
-        "description": "Fix dryer",
-        "quantity": 1,
-        "unitPrice": 748,
-        "taxRate": 0.086,
-        "total": 812
+        "id": "item-97-1",
+        "description": "Remove dead trees",
+        "quantity": 3,
+        "unitPrice": 271,
+        "taxRate": 0.093,
+        "total": 889
       },
       {
-        "id": "item-50-2",
+        "id": "item-97-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 118,
+        "taxRate": 0.074,
+        "total": 253
+      },
+      {
+        "id": "item-97-3",
         "description": "Additional services",
         "quantity": 3,
-        "unitPrice": 37,
-        "taxRate": 0.098,
-        "total": 122
+        "unitPrice": 110,
+        "taxRate": 0.095,
+        "total": 361
       }
     ],
-    "subtotal": 859,
-    "taxAmount": 75,
-    "total": 934,
+    "subtotal": 1379,
+    "taxAmount": 124,
+    "total": 1503,
+    "paymentTerms": "Due on Receipt",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-98",
+    "invoiceNumber": "INV-0098",
+    "workOrderId": "wo-55",
+    "clientId": "client-40",
+    "clientName": "Lubowitz and Sons",
+    "clientAddress": "55841 Ullrich Greens Apt. 600, North Rashad, WY 61698",
+    "clientEmail": "Marlon_Barrows6@gmail.com",
+    "propertyAddress": "209 Connelly Mountains, Suite 603",
+    "issueDate": "2025-10-01T14:17:09.238Z",
+    "dueDate": "2025-11-15T14:17:09.238Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-98-1",
+        "description": "Fix dryer",
+        "quantity": 3,
+        "unitPrice": 161,
+        "taxRate": 0.084,
+        "total": 524
+      },
+      {
+        "id": "item-98-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 61,
+        "taxRate": 0.075,
+        "total": 197
+      }
+    ],
+    "subtotal": 666,
+    "taxAmount": 55,
+    "total": 721,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-99",
+    "invoiceNumber": "INV-0099",
+    "workOrderId": "wo-36",
+    "clientId": "client-34",
+    "clientName": "Greenholt, Braun and Thompson",
+    "clientAddress": "494 Yost Dale Suite 558, Maziechester, NV 58328-1260",
+    "clientEmail": "Rogelio_Gleichner58@yahoo.com",
+    "propertyAddress": "235 Elbert Valleys Suite 197",
+    "issueDate": "2025-08-23T09:27:49.867Z",
+    "dueDate": "2025-09-07T09:27:49.867Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-99-1",
+        "description": "Paint garage door",
+        "quantity": 3,
+        "unitPrice": 294,
+        "taxRate": 0.07,
+        "total": 944
+      }
+    ],
+    "subtotal": 882,
+    "taxAmount": 62,
+    "total": 944,
+    "paymentTerms": "Net 15",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-100",
+    "invoiceNumber": "INV-0100",
+    "workOrderId": "wo-18",
+    "clientId": "client-26",
+    "clientName": "White, Grant and Runolfsdottir",
+    "clientAddress": "4515 Rutherford Ways Apt. 577, Fort Darronchester, CT 57927",
+    "clientEmail": "Gabriel.Yost@gmail.com",
+    "propertyAddress": "57250 Sauer Crest, Suite 159",
+    "issueDate": "2025-08-24T14:34:44.540Z",
+    "dueDate": "2025-08-31T14:34:44.540Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-100-1",
+        "description": "Fix water pressure issues",
+        "quantity": 3,
+        "unitPrice": 245,
+        "taxRate": 0.083,
+        "total": 796
+      }
+    ],
+    "subtotal": 735,
+    "taxAmount": 61,
+    "discount": 61,
+    "total": 735,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-101",
+    "invoiceNumber": "INV-0101",
+    "workOrderId": "wo-83",
+    "clientId": "client-12",
+    "clientName": "Waelchi - Kuhic",
+    "clientAddress": "93683 Leffler Landing Apt. 705, Urbanmouth, FL 85610-1133",
+    "clientEmail": "Abraham.Herzog36@yahoo.com",
+    "propertyAddress": "43745 Huel Mill Apt. 183",
+    "issueDate": "2025-08-03T04:08:55.605Z",
+    "dueDate": "2025-09-17T04:08:55.605Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-101-1",
+        "description": "Fix noisy air conditioner",
+        "quantity": 3,
+        "unitPrice": 330,
+        "taxRate": 0.074,
+        "total": 1063
+      },
+      {
+        "id": "item-101-2",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 267,
+        "taxRate": 0.074,
+        "total": 287
+      },
+      {
+        "id": "item-101-3",
+        "description": "Additional services",
+        "quantity": 3,
+        "unitPrice": 84,
+        "taxRate": 0.06,
+        "total": 267
+      }
+    ],
+    "subtotal": 1509,
+    "taxAmount": 108,
+    "discount": 67,
+    "total": 1550,
+    "paymentTerms": "Net 45",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-102",
+    "invoiceNumber": "INV-0102",
+    "workOrderId": "wo-17",
+    "clientId": "client-11",
+    "clientName": "Turcotte Inc",
+    "clientAddress": "3076 Swaniawski Motorway Suite 718, Connfurt, KY 43877-5565",
+    "clientEmail": "Calvin.Hegmann@yahoo.com",
+    "propertyAddress": "8722 Delilah Park, Building X",
+    "issueDate": "2025-05-29T22:41:33.941Z",
+    "dueDate": "2025-06-28T22:41:33.941Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-102-1",
+        "description": "Fix circuit breaker issue",
+        "quantity": 3,
+        "unitPrice": 336,
+        "taxRate": 0.068,
+        "total": 1077
+      },
+      {
+        "id": "item-102-2",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 126,
+        "taxRate": 0.064,
+        "total": 268
+      }
+    ],
+    "subtotal": 1260,
+    "taxAmount": 85,
+    "total": 1345,
+    "paymentTerms": "Net 30",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-103",
+    "invoiceNumber": "INV-0103",
+    "workOrderId": "wo-30",
+    "clientId": "client-28",
+    "clientName": "Balistreri Group",
+    "clientAddress": "5735 Bode Orchard Apt. 864, New Sister, RI 50304-0860",
+    "clientEmail": "Kristen.White12@yahoo.com",
+    "propertyAddress": "841 Kuvalis Spur, Unit 34",
+    "issueDate": "2025-08-09T21:32:37.164Z",
+    "dueDate": "2025-08-09T21:32:37.164Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-103-1",
+        "description": "Replace garbage disposal",
+        "quantity": 1,
+        "unitPrice": 842,
+        "taxRate": 0.082,
+        "total": 911
+      },
+      {
+        "id": "item-103-2",
+        "description": "Additional services",
+        "quantity": 2,
+        "unitPrice": 198,
+        "taxRate": 0.077,
+        "total": 426
+      },
+      {
+        "id": "item-103-3",
+        "description": "Materials",
+        "quantity": 3,
+        "unitPrice": 98,
+        "taxRate": 0.086,
+        "total": 319
+      }
+    ],
+    "subtotal": 1532,
+    "taxAmount": 124,
+    "total": 1656,
+    "paymentTerms": "Due on Receipt",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-104",
+    "invoiceNumber": "INV-0104",
+    "workOrderId": "wo-65",
+    "clientId": "client-18",
+    "clientName": "Wisoky, Harris and Lueilwitz",
+    "clientAddress": "3142 Marlon Drive Suite 774, Beahanchester, MS 33045-1160",
+    "clientEmail": "Geraldine_Skiles85@hotmail.com",
+    "propertyAddress": "94012 Carter Pike, Unit 46",
+    "issueDate": "2025-10-28T20:36:47.658Z",
+    "dueDate": "2025-10-28T20:36:47.658Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-104-1",
+        "description": "Replace old HVAC system",
+        "quantity": 2,
+        "unitPrice": 515,
+        "taxRate": 0.084,
+        "total": 1117
+      }
+    ],
+    "subtotal": 1030,
+    "taxAmount": 87,
+    "total": 1117,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-105",
+    "invoiceNumber": "INV-0105",
+    "workOrderId": "wo-82",
+    "clientId": "client-30",
+    "clientName": "Rosenbaum - Padberg",
+    "clientAddress": "54232 Abernathy Causeway Apt. 708, Randalville, MS 23921-5254",
+    "clientEmail": "Ginger.Lang3@gmail.com",
+    "propertyAddress": "624 Riverside Avenue, Unit 24",
+    "issueDate": "2025-11-03T21:15:04.417Z",
+    "dueDate": "2025-12-18T21:15:04.417Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-105-1",
+        "description": "Fix squeaky floorboards",
+        "quantity": 3,
+        "unitPrice": 505,
+        "taxRate": 0.07,
+        "total": 1621
+      },
+      {
+        "id": "item-105-2",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 123,
+        "taxRate": 0.063,
+        "total": 261
+      }
+    ],
+    "subtotal": 1761,
+    "taxAmount": 121,
+    "total": 1882,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-106",
+    "invoiceNumber": "INV-0106",
+    "workOrderId": "wo-81",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "3185 N College Street Suite 496, Callieburgh, HI 95723-1714",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "84853 Johns Way, Suite 429",
+    "issueDate": "2025-11-05T01:31:00.069Z",
+    "dueDate": "2025-11-12T01:31:00.069Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-106-1",
+        "description": "Install irrigation system",
+        "quantity": 1,
+        "unitPrice": 1258,
+        "taxRate": 0.073,
+        "total": 1350
+      }
+    ],
+    "subtotal": 1258,
+    "taxAmount": 92,
+    "total": 1350,
+    "paymentTerms": "Net 7"
+  },
+  {
+    "id": "inv-107",
+    "invoiceNumber": "INV-0107",
+    "workOrderId": "wo-79",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "488 Schmeler Rapids Suite 256, Stehrtown, TX 23750",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "7889 Lavern Drive, Unit 49",
+    "issueDate": "2025-09-14T09:49:51.979Z",
+    "dueDate": "2025-09-14T09:49:51.979Z",
+    "status": "sent",
+    "lineItems": [
+      {
+        "id": "item-107-1",
+        "description": "Replace old HVAC system",
+        "quantity": 1,
+        "unitPrice": 1003,
+        "taxRate": 0.099,
+        "total": 1102
+      },
+      {
+        "id": "item-107-2",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 353,
+        "taxRate": 0.091,
+        "total": 385
+      },
+      {
+        "id": "item-107-3",
+        "description": "Travel fee",
+        "quantity": 1,
+        "unitPrice": 410,
+        "taxRate": 0.071,
+        "total": 439
+      }
+    ],
+    "subtotal": 1766,
+    "taxAmount": 160,
+    "total": 1926,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-108",
+    "invoiceNumber": "INV-0108",
+    "workOrderId": "wo-65",
+    "clientId": "client-18",
+    "clientName": "Wisoky, Harris and Lueilwitz",
+    "clientAddress": "3659 Effertz Mall Apt. 900, East Justonbury, WA 51509",
+    "clientEmail": "Geraldine_Skiles85@hotmail.com",
+    "propertyAddress": "94012 Carter Pike, Unit 46",
+    "issueDate": "2025-08-21T04:02:44.910Z",
+    "dueDate": "2025-09-20T04:02:44.910Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-108-1",
+        "description": "Replace old HVAC system",
+        "quantity": 1,
+        "unitPrice": 1030,
+        "taxRate": 0.089,
+        "total": 1122
+      }
+    ],
+    "subtotal": 1030,
+    "taxAmount": 92,
+    "total": 1122,
+    "paymentTerms": "Net 30"
+  },
+  {
+    "id": "inv-109",
+    "invoiceNumber": "INV-0109",
+    "workOrderId": "wo-42",
+    "clientId": "client-33",
+    "clientName": "Beier, Hartmann and Will",
+    "clientAddress": "16495 Fourth Avenue Apt. 775, Haleychester, NJ 04386",
+    "clientEmail": "Julius_Rempel@gmail.com",
+    "propertyAddress": "54078 S Union Street, Unit 49",
+    "issueDate": "2025-10-31T03:28:05.983Z",
+    "dueDate": "2025-11-30T03:28:05.983Z",
+    "status": "disputed",
+    "lineItems": [
+      {
+        "id": "item-109-1",
+        "description": "Exterior house painting",
+        "quantity": 3,
+        "unitPrice": 152,
+        "taxRate": 0.078,
+        "total": 492
+      },
+      {
+        "id": "item-109-2",
+        "description": "Travel fee",
+        "quantity": 3,
+        "unitPrice": 53,
+        "taxRate": 0.075,
+        "total": 171
+      },
+      {
+        "id": "item-109-3",
+        "description": "Labor",
+        "quantity": 1,
+        "unitPrice": 190,
+        "taxRate": 0.09,
+        "total": 207
+      }
+    ],
+    "subtotal": 805,
+    "taxAmount": 65,
+    "total": 870,
+    "paymentTerms": "Net 30"
+  },
+  {
+    "id": "inv-110",
+    "invoiceNumber": "INV-0110",
+    "workOrderId": "wo-84",
+    "clientId": "client-8",
+    "clientName": "Mohr and Sons",
+    "clientAddress": "2527 Rice Meadow Suite 389, South Alvah, KS 88708",
+    "clientEmail": "Lisa.Russel-Rosenbaum@yahoo.com",
+    "propertyAddress": "87656 Wood Street, Building I",
+    "issueDate": "2025-09-25T19:18:31.308Z",
+    "dueDate": "2025-10-10T19:18:31.308Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-110-1",
+        "description": "Property inspection",
+        "quantity": 3,
+        "unitPrice": 235,
+        "taxRate": 0.087,
+        "total": 766
+      },
+      {
+        "id": "item-110-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 271,
+        "taxRate": 0.077,
+        "total": 292
+      }
+    ],
+    "subtotal": 976,
+    "taxAmount": 82,
+    "total": 1058,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-111",
+    "invoiceNumber": "INV-0111",
+    "workOrderId": "wo-32",
+    "clientId": "client-35",
+    "clientName": "Deckow, Kiehn and Cassin",
+    "clientAddress": "2272 Jaleel Brooks Apt. 300, Fort Deonte, ID 48128-5743",
+    "clientEmail": "Sean_Schiller@hotmail.com",
+    "propertyAddress": "183 Waverley Road, Unit 7",
+    "issueDate": "2025-09-24T23:33:41.869Z",
+    "dueDate": "2025-10-09T23:33:41.869Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-111-1",
+        "description": "Install ceiling fan",
+        "quantity": 2,
+        "unitPrice": 405,
+        "taxRate": 0.081,
+        "total": 876
+      },
+      {
+        "id": "item-111-2",
+        "description": "Parts and supplies",
+        "quantity": 1,
+        "unitPrice": 279,
+        "taxRate": 0.074,
+        "total": 300
+      }
+    ],
+    "subtotal": 1089,
+    "taxAmount": 87,
+    "total": 1176,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-112",
+    "invoiceNumber": "INV-0112",
+    "workOrderId": "wo-34",
+    "clientId": "client-23",
+    "clientName": "Cremin Inc",
+    "clientAddress": "34924 Cherry Tree Close Suite 396, Luettgenside, IA 52976",
+    "clientEmail": "Elena_Mills@yahoo.com",
+    "propertyAddress": "38464 Evangeline Views, Unit 29",
+    "issueDate": "2025-11-07T02:20:06.749Z",
+    "dueDate": "2025-11-07T02:20:06.749Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-112-1",
+        "description": "Fix refrigerator",
+        "quantity": 1,
+        "unitPrice": 370,
+        "taxRate": 0.067,
+        "total": 395
+      },
+      {
+        "id": "item-112-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 69,
+        "taxRate": 0.1,
+        "total": 152
+      }
+    ],
+    "subtotal": 508,
+    "taxAmount": 39,
+    "total": 547,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-113",
+    "invoiceNumber": "INV-0113",
+    "workOrderId": "wo-45",
+    "clientId": "client-37",
+    "clientName": "Crooks - Prohaska",
+    "clientAddress": "859 Cierra Viaduct Apt. 971, Casperstead, KY 41385-2988",
+    "clientEmail": "Allison_Turcotte@hotmail.com",
+    "propertyAddress": "9969 Walker Burgs Suite 455",
+    "issueDate": "2025-10-27T06:07:15.903Z",
+    "dueDate": "2025-11-03T06:07:15.903Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-113-1",
+        "description": "Remove dead trees",
+        "quantity": 1,
+        "unitPrice": 1324,
+        "taxRate": 0.09,
+        "total": 1443
+      },
+      {
+        "id": "item-113-2",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 202,
+        "taxRate": 0.062,
+        "total": 644
+      }
+    ],
+    "subtotal": 1930,
+    "taxAmount": 157,
+    "discount": 122,
+    "total": 1965,
     "paymentTerms": "Net 7",
     "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-114",
+    "invoiceNumber": "INV-0114",
+    "workOrderId": "wo-73",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "404 Skiles Center Suite 609, Schaeferberg, MA 92971",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "4248 Casper Walk, Suite 518",
+    "issueDate": "2025-10-27T23:21:05.957Z",
+    "dueDate": "2025-10-27T23:21:05.957Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-114-1",
+        "description": "General upkeep",
+        "quantity": 3,
+        "unitPrice": 259,
+        "taxRate": 0.1,
+        "total": 855
+      },
+      {
+        "id": "item-114-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 159,
+        "taxRate": 0.088,
+        "total": 346
+      },
+      {
+        "id": "item-114-3",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 153,
+        "taxRate": 0.069,
+        "total": 327
+      }
+    ],
+    "subtotal": 1401,
+    "taxAmount": 127,
+    "discount": 58,
+    "total": 1470,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-115",
+    "invoiceNumber": "INV-0115",
+    "workOrderId": "wo-14",
+    "clientId": "client-39",
+    "clientName": "Prosacco, Koss and Mertz",
+    "clientAddress": "40759 Oakfield Road Suite 344, Parisianboro, MT 47518",
+    "clientEmail": "Van_Harvey76@yahoo.com",
+    "propertyAddress": "8961 Ahmed Manor Apt. 371",
+    "issueDate": "2025-09-25T07:30:41.119Z",
+    "dueDate": "2025-09-25T07:30:41.119Z",
+    "status": "viewed",
+    "lineItems": [
+      {
+        "id": "item-115-1",
+        "description": "Fix flickering lights",
+        "quantity": 2,
+        "unitPrice": 193,
+        "taxRate": 0.06,
+        "total": 409
+      },
+      {
+        "id": "item-115-2",
+        "description": "Parts and supplies",
+        "quantity": 2,
+        "unitPrice": 34,
+        "taxRate": 0.086,
+        "total": 74
+      }
+    ],
+    "subtotal": 454,
+    "taxAmount": 29,
+    "total": 483,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-116",
+    "invoiceNumber": "INV-0116",
+    "workOrderId": "wo-69",
+    "clientId": "client-14",
+    "clientName": "Cremin and Sons",
+    "clientAddress": "461 Poplar Road Apt. 268, West Demondside, FL 75634",
+    "clientEmail": "Timothy_Hauck63@yahoo.com",
+    "propertyAddress": "402 Turner Trail Apt. 789",
+    "issueDate": "2025-10-28T12:59:31.910Z",
+    "dueDate": "2025-12-12T12:59:31.910Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-116-1",
+        "description": "Fix microwave",
+        "quantity": 2,
+        "unitPrice": 569,
+        "taxRate": 0.073,
+        "total": 1221
+      }
+    ],
+    "subtotal": 1138,
+    "taxAmount": 83,
+    "total": 1221,
+    "paymentTerms": "Net 45"
+  },
+  {
+    "id": "inv-117",
+    "invoiceNumber": "INV-0117",
+    "workOrderId": "wo-64",
+    "clientId": "client-32",
+    "clientName": "Satterfield and Sons",
+    "clientAddress": "292 Victoria Road Suite 747, New Marc, LA 48301-2119",
+    "clientEmail": "Ronnie_DVM95@yahoo.com",
+    "propertyAddress": "5797 S Lincoln Street, Suite 137",
+    "issueDate": "2025-10-28T04:36:14.933Z",
+    "dueDate": "2025-12-12T04:36:14.933Z",
+    "status": "cancelled",
+    "lineItems": [
+      {
+        "id": "item-117-1",
+        "description": "Paint garage door",
+        "quantity": 1,
+        "unitPrice": 683,
+        "taxRate": 0.084,
+        "total": 740
+      },
+      {
+        "id": "item-117-2",
+        "description": "Labor",
+        "quantity": 2,
+        "unitPrice": 52,
+        "taxRate": 0.066,
+        "total": 111
+      },
+      {
+        "id": "item-117-3",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 95,
+        "taxRate": 0.08,
+        "total": 308
+      }
+    ],
+    "subtotal": 1072,
+    "taxAmount": 87,
+    "total": 1159,
+    "paymentTerms": "Net 45",
+    "notes": "Invoice cancelled"
+  },
+  {
+    "id": "inv-118",
+    "invoiceNumber": "INV-0118",
+    "workOrderId": "wo-20",
+    "clientId": "client-31",
+    "clientName": "Conroy Inc",
+    "clientAddress": "22506 Maurice Burgs Apt. 406, North Kieran, ND 57565-7823",
+    "clientEmail": "Mr._Cummerata@gmail.com",
+    "propertyAddress": "5697 Martin Luther King Boulevard Apt. 164",
+    "issueDate": "2025-11-03T13:13:05.899Z",
+    "dueDate": "2025-11-18T13:13:05.899Z",
+    "status": "draft",
+    "lineItems": [
+      {
+        "id": "item-118-1",
+        "description": "Install new thermostat",
+        "quantity": 2,
+        "unitPrice": 202,
+        "taxRate": 0.096,
+        "total": 443
+      },
+      {
+        "id": "item-118-2",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 61,
+        "taxRate": 0.069,
+        "total": 130
+      },
+      {
+        "id": "item-118-3",
+        "description": "Additional services",
+        "quantity": 1,
+        "unitPrice": 122,
+        "taxRate": 0.089,
+        "total": 133
+      }
+    ],
+    "subtotal": 648,
+    "taxAmount": 58,
+    "total": 706,
+    "paymentTerms": "Net 15"
+  },
+  {
+    "id": "inv-119",
+    "invoiceNumber": "INV-0119",
+    "workOrderId": "wo-45",
+    "clientId": "client-37",
+    "clientName": "Crooks - Prohaska",
+    "clientAddress": "32690 Division Street Suite 733, New Aurelioburgh, SD 48716",
+    "clientEmail": "Allison_Turcotte@hotmail.com",
+    "propertyAddress": "9969 Walker Burgs Suite 455",
+    "issueDate": "2025-11-05T21:07:38.729Z",
+    "dueDate": "2025-11-05T21:07:38.729Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-119-1",
+        "description": "Remove dead trees",
+        "quantity": 2,
+        "unitPrice": 662,
+        "taxRate": 0.098,
+        "total": 1454
+      },
+      {
+        "id": "item-119-2",
+        "description": "Materials",
+        "quantity": 2,
+        "unitPrice": 149,
+        "taxRate": 0.064,
+        "total": 317
+      }
+    ],
+    "subtotal": 1622,
+    "taxAmount": 149,
+    "total": 1771,
+    "paymentTerms": "Due on Receipt"
+  },
+  {
+    "id": "inv-120",
+    "invoiceNumber": "INV-0120",
+    "workOrderId": "wo-34",
+    "clientId": "client-23",
+    "clientName": "Cremin Inc",
+    "clientAddress": "984 Rosemary Isle Suite 425, Fort Frederick, ND 58269",
+    "clientEmail": "Elena_Mills@yahoo.com",
+    "propertyAddress": "38464 Evangeline Views, Unit 29",
+    "issueDate": "2025-11-06T18:02:11.752Z",
+    "dueDate": "2025-11-21T18:02:11.752Z",
+    "status": "approved",
+    "lineItems": [
+      {
+        "id": "item-120-1",
+        "description": "Fix refrigerator",
+        "quantity": 3,
+        "unitPrice": 123,
+        "taxRate": 0.061,
+        "total": 392
+      },
+      {
+        "id": "item-120-2",
+        "description": "Materials",
+        "quantity": 3,
+        "unitPrice": 43,
+        "taxRate": 0.065,
+        "total": 137
+      },
+      {
+        "id": "item-120-3",
+        "description": "Parts and supplies",
+        "quantity": 3,
+        "unitPrice": 14,
+        "taxRate": 0.069,
+        "total": 45
+      }
+    ],
+    "subtotal": 540,
+    "taxAmount": 34,
+    "discount": 51,
+    "total": 523,
+    "paymentTerms": "Net 15"
   }
 ]

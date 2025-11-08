@@ -1,7 +1,7 @@
 [
   {
     "label": "Plumbing",
-    "value": 13
+    "value": 25
   },
   {
     "label": "HVAC",
@@ -9,26 +9,26 @@
   },
   {
     "label": "Electrical",
-    "value": 13
+    "value": 25
   },
   {
     "label": "Carpentry",
-    "value": 12
+    "value": 25
   },
   {
     "label": "Painting",
-    "value": 12
+    "value": 25
   },
   {
     "label": "Landscaping",
-    "value": 13
+    "value": 25
   },
   {
     "label": "Appliance",
-    "value": 12
+    "value": 25
   },
   {
     "label": "General",
-    "value": 12
+    "value": 25
   }
 ]

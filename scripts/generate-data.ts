@@ -31,17 +31,23 @@ const __dirname = dirname(__filename);
 // Output directory for generated data
 const OUTPUT_DIR = join(__dirname, '..', 'data', 'generated');
 
-// Generate sufficient data - increased counts for better coverage
-const WORK_ORDERS_COUNT = 100;
-const INVOICES_COUNT = 50; // Reduced to ensure we have enough completed work orders
-const PAYMENTS_COUNT = 40;
-const MARKETPLACE_PROJECTS_COUNT = 40;
-const BIDS_COUNT = 50;
-const SUPPORT_TICKETS_COUNT = 30;
-const CLIENTS_COUNT = 20;
-const ACTIVITIES_COUNT = 150;
-const NOTIFICATIONS_COUNT = 30;
-const KNOWLEDGE_BASE_ARTICLES_COUNT = 30;
+// Generate extensive data with high variability and all available options
+// These counts ensure:
+// - All status combinations are represented
+// - All priority levels have sufficient examples
+// - All service categories are well-distributed
+// - All payment methods and statuses are covered
+// - Sufficient data for filtering and searching
+const WORK_ORDERS_COUNT = 200;        // Enough for all statuses (5) × priorities (4) × categories (8) = 160 minimum
+const INVOICES_COUNT = 120;           // Enough for all statuses (8) with multiples per status
+const PAYMENTS_COUNT = 100;           // Enough for all payment methods (6) × statuses (4) = 24 minimum, plus multiples
+const MARKETPLACE_PROJECTS_COUNT = 80; // Enough for all statuses (5) × categories (6) = 30 minimum
+const BIDS_COUNT = 120;               // Multiple bids per project for better variety
+const SUPPORT_TICKETS_COUNT = 60;     // Enough for all categories (6) × priorities (4) = 24 minimum
+const CLIENTS_COUNT = 30;             // Enough for all client types (4) with good distribution
+const ACTIVITIES_COUNT = 300;         // More activities for richer timeline
+const NOTIFICATIONS_COUNT = 50;       // More notifications for better coverage
+const KNOWLEDGE_BASE_ARTICLES_COUNT = 40; // More articles for knowledge base
 
 async function ensureDirectoryExists(dir: string) {
   try {
