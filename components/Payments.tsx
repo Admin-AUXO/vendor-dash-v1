@@ -18,7 +18,6 @@ import {
   AlertCircle,
   Building2,
   Wallet,
-  ArrowRight,
   Filter,
   FileText
 } from 'lucide-react';
@@ -27,11 +26,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import currency from 'currency.js';
 import { DateRange } from 'react-day-picker';
-import { useNavigation } from './shared/NavigationContext';
 
 
 export function Payments() {
-  const { navigate } = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
@@ -140,7 +137,6 @@ export function Payments() {
   }, []);
 
   const displayedOutstandingBalances = outstandingBalances.slice(0, 5);
-  const hasMoreOutstanding = outstandingBalances.length > 5;
 
 
   // Payment method icon mapping
@@ -342,79 +338,88 @@ export function Payments() {
       {/* Outstanding Balances - Table Format */}
       {displayedOutstandingBalances.length > 0 && (
         <Card>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <AlertCircle className="w-5 h-5" style={{ color: 'var(--warning)' }} />
-                Outstanding Balances
-                <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
-                  {outstandingBalances.length}
-                </Badge>
-              </CardTitle>
-              {hasMoreOutstanding && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate('invoice')}
-                  className="text-sm"
-                >
-                  View All
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              )}
-            </div>
-          </CardHeader>
+          <div className="bg-red-100 border-b border-red-300 rounded-t-xl">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <AlertCircle className="w-5 h-5 text-red-700" />
+                  <span className="text-gray-900">Outstanding Balances</span>
+                  <Badge variant="warning" className="bg-red-200 text-red-800 border-red-400 hover:bg-red-200">
+                    {outstandingBalances.length}
+                  </Badge>
+                </CardTitle>
+              </div>
+              <p className="text-sm text-gray-700 mt-1">Invoices requiring payment</p>
+            </CardHeader>
+          </div>
           <CardContent className="p-2">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left py-2 px-2 font-medium text-gray-700">Invoice #</th>
-                    <th className="text-left py-2 px-2 font-medium text-gray-700">Client</th>
-                    <th className="text-left py-2 px-2 font-medium text-gray-700">Due Date</th>
-                    <th className="text-left py-2 px-2 font-medium text-gray-700">Status</th>
-                    <th className="text-right py-2 px-2 font-medium text-gray-700">Amount</th>
-                    <th className="text-right py-2 px-2 font-medium text-gray-700">Action</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Invoice #</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Client</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Invoice Date</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Due Date</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Days Overdue</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Work Order</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Amount</th>
+                    <th className="text-center py-2 px-2 font-medium text-gray-700">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {displayedOutstandingBalances.map((inv: Invoice) => (
-                    <tr
-                      key={inv.id}
-                      className="border-b hover:bg-gray-50"
-                      style={inv.status === 'overdue' ? {
-                        backgroundColor: 'var(--status-error-light)'
-                      } : {}}
-                    >
-                      <td className="py-2 px-2">
-                        <span className="font-semibold font-mono">{inv.invoiceNumber}</span>
-                      </td>
-                      <td className="py-2 px-2 text-gray-900">{inv.clientName}</td>
-                      <td className="py-2 px-2 text-gray-600">
-                        {format(new Date(inv.dueDate), 'MMM dd, yyyy')}
-                      </td>
-                      <td className="py-2 px-2">
-                        <StatusBadge 
-                          status={
-                            inv.status === 'paid' ? 'success' :
-                            inv.status === 'overdue' ? 'error' :
-                            inv.status === 'approved' ? 'success' :
-                            inv.status === 'sent' || inv.status === 'viewed' ? 'info' :
-                            'pending'
-                          }
-                          label={inv.status.charAt(0).toUpperCase() + inv.status.slice(1)}
-                        />
-                      </td>
-                      <td className="py-2 px-2 text-right font-semibold text-gray-900">
-                        {currency(inv.total).format()}
-                      </td>
-                      <td className="py-2 px-2 text-right">
-                        <Button variant="ghost" size="sm" className="h-8">
-                          Send Reminder
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                  {displayedOutstandingBalances.map((inv: Invoice) => {
+                    const daysOverdue = inv.status === 'overdue' 
+                      ? Math.floor((new Date().getTime() - new Date(inv.dueDate).getTime()) / (1000 * 60 * 60 * 24))
+                      : 0;
+                    
+                    return (
+                      <tr
+                        key={inv.id}
+                        className="border-b hover:bg-gray-50"
+                        style={inv.status === 'overdue' ? {
+                          backgroundColor: 'var(--status-error-light)'
+                        } : {}}
+                      >
+                        <td className="py-2 px-2 text-center">
+                          <span className="font-semibold font-mono">{inv.invoiceNumber}</span>
+                        </td>
+                        <td className="py-2 px-2 text-center text-gray-900">{inv.clientName}</td>
+                        <td className="py-2 px-2 text-center text-gray-600">
+                          {format(new Date(inv.issueDate), 'MMM dd, yyyy')}
+                        </td>
+                        <td className="py-2 px-2 text-center text-gray-600">
+                          {format(new Date(inv.dueDate), 'MMM dd, yyyy')}
+                        </td>
+                        <td className="py-2 px-2 text-center">
+                          {daysOverdue > 0 ? (
+                            <span className="text-red-600 font-semibold">{daysOverdue} days</span>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+                        <td className="py-2 px-2 text-center">
+                          {inv.workOrderId ? (
+                            <span className="font-mono text-gray-900">{inv.workOrderId.toUpperCase()}</span>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
+                        </td>
+                        <td className="py-2 px-2 text-center font-semibold text-gray-900">
+                          {currency(inv.total).format()}
+                        </td>
+                        <td className="py-2 px-2 text-center">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="h-8 px-3 bg-blue-600 hover:bg-blue-700 text-white border-blue-600"
+                          >
+                            Send Reminder
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

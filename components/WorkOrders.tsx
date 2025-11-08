@@ -23,11 +23,7 @@ import {
   AlertCircle,
   Plus,
   Filter,
-  Mail,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight
+  Mail
 } from 'lucide-react';
 import { workOrders as initialWorkOrders, type WorkOrder } from '../data';
 import { ColumnDef } from '@tanstack/react-table';

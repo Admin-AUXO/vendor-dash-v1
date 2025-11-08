@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Wrench, Clock, Tag, User, Calendar, Building2, ChevronDown, ChevronUp, FileText } from 'lucide-react';
+import { MapPin, Wrench, Clock, Tag, User, Calendar, Building2, ChevronDown, ChevronUp, FileText, Edit, Plus, Paperclip } from 'lucide-react';
 import { PriorityBadge } from './PriorityBadge';
 import { StatusBadge } from './StatusBadge';
 import { Button } from '../ui/button';
@@ -82,26 +82,30 @@ export function InboxWorkOrderCard({
 
           {/* Content Section - Takes more space */}
           <div className="flex-1 min-w-0 space-y-3">
-            {/* Header Row - ID and Badges */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="font-bold text-base text-gray-900 font-mono">
-                {workOrder.workOrderId}
-              </h3>
-              <PriorityBadge priority={workOrder.priority} size="sm" />
-              <StatusBadge status={statusType} label={statusLabel} size="sm" />
-              <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-md capitalize font-medium">
-                {workOrder.serviceCategory}
-              </span>
+            {/* Header Row - ID, Description (vertically centered), and Badges (left-aligned) */}
+            <div className="flex items-center gap-3 flex-wrap">
+              {/* Work Order ID and Description - vertically centered */}
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <h3 className="font-bold text-base text-gray-900 font-mono flex-shrink-0">
+                  {workOrder.workOrderId}
+                </h3>
+                <p className="text-sm text-gray-800 font-semibold truncate">
+                  {workOrder.serviceDescription}
+                </p>
+              </div>
+              {/* Badges - left-aligned next to description */}
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <PriorityBadge priority={workOrder.priority} size="sm" />
+                <StatusBadge status={statusType} label={statusLabel} size="sm" />
+                <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-md capitalize font-medium">
+                  {workOrder.serviceCategory}
+                </span>
+              </div>
             </div>
 
-            {/* Service Description */}
-            <p className="text-sm text-gray-800 font-semibold">
-              {workOrder.serviceDescription}
-            </p>
-
-            {/* Details Grid - More information in a better layout */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-2">
-              {/* Location */}
+            {/* Details Grid - 2 rows x 3 columns for 6 data fields */}
+            <div className="grid grid-cols-3 gap-x-4 gap-y-2">
+              {/* Row 1, Column 1: Location */}
               <div className="flex items-center gap-1.5 text-xs text-gray-600">
                 <MapPin className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
                 <span className="truncate" title={workOrder.propertyAddress}>
@@ -109,7 +113,7 @@ export function InboxWorkOrderCard({
                 </span>
               </div>
 
-              {/* Client */}
+              {/* Row 1, Column 2: Client */}
               <div className="flex items-center gap-1.5 text-xs text-gray-600">
                 <Building2 className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
                 <span className="truncate" title={workOrder.clientName}>
@@ -117,21 +121,7 @@ export function InboxWorkOrderCard({
                 </span>
               </div>
 
-              {/* Requested Date */}
-              <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                <Clock className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
-                <span className="truncate">Requested {getTimeElapsed(new Date(workOrder.requestDate))}</span>
-              </div>
-
-              {/* Due Date */}
-              <div className="flex items-center gap-1.5 text-xs text-gray-600">
-                <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
-                <span className={cn('truncate', isOverdue && 'text-red-600 font-semibold')}>
-                  Due: {dueDate}
-                </span>
-              </div>
-
-              {/* Cost */}
+              {/* Row 1, Column 3: Amount */}
               <div className="flex items-center gap-1.5 text-xs text-gray-600">
                 <Tag className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
                 <span className="font-semibold text-gray-700 truncate">
@@ -139,13 +129,32 @@ export function InboxWorkOrderCard({
                 </span>
               </div>
 
-              {/* Assigned Technician */}
-              {workOrder.assignedTechnician && (
+              {/* Row 2, Column 1: Assigned Technician */}
+              {workOrder.assignedTechnician ? (
                 <div className="flex items-center gap-1.5 text-xs text-gray-600">
                   <User className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
                   <span className="truncate">{workOrder.assignedTechnician}</span>
                 </div>
+              ) : (
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <User className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" />
+                  <span className="truncate">Unassigned</span>
+                </div>
               )}
+
+              {/* Row 2, Column 2: Requested Date */}
+              <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                <Clock className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                <span className="truncate">Requested {getTimeElapsed(new Date(workOrder.requestDate))}</span>
+              </div>
+
+              {/* Row 2, Column 3: Due Date */}
+              <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                <span className={cn('truncate', isOverdue && 'text-red-600 font-semibold')}>
+                  Due: {dueDate}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -183,9 +192,13 @@ export function InboxWorkOrderCard({
                 size="sm"
                 className={cn(
                   'w-full',
-                  actionVariant === 'default' && 'bg-blue-600 hover:bg-blue-700 text-white',
-                  actionVariant === 'destructive' && 'bg-red-600 hover:bg-red-700 text-white',
-                  actionVariant === 'outline' && 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                  actionLabel.toLowerCase().includes('archive')
+                    ? 'bg-gray-500 hover:bg-gray-600 text-white border-gray-600'
+                    : actionVariant === 'default' 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : actionVariant === 'destructive'
+                        ? 'bg-red-600 hover:bg-red-700 text-white'
+                        : 'border-gray-300 hover:bg-gray-50 text-gray-700'
                 )}
               >
                 {actionLabel}
@@ -198,123 +211,117 @@ export function InboxWorkOrderCard({
       {/* Expandable Details Section */}
       {isExpanded && (
         <div className="border-t border-gray-200 bg-gray-50 transition-all duration-300 ease-in-out">
-          <div className="p-4">
-            {/* Compact Multi-Column Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5">
+            {/* Improved Multi-Column Layout with Better Balance */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Column 1: Client Information */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1.5 border-b border-gray-300">
-                  <Building2 className="w-3.5 h-3.5 text-yellow-600" />
-                  <h4 className="text-xs font-semibold text-gray-900 uppercase">Client</h4>
+              <div className="space-y-3.5">
+                <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                  <Building2 className="w-4 h-4 text-yellow-600" />
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Client</h4>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Name</div>
-                    <div className="text-sm text-gray-900 font-medium">{workOrder.clientName}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Name</div>
+                    <div className="text-sm text-gray-900 font-semibold">{workOrder.clientName}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Client ID</div>
+                    <div className="text-sm text-gray-900 font-mono font-semibold">{workOrder.clientId?.toUpperCase() || workOrder.clientId}</div>
                   </div>
                   {workOrder.clientContact && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Contact</div>
-                      <div className="text-sm text-gray-900">{workOrder.clientContact}</div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Contact</div>
+                      <div className="text-sm text-gray-900 font-semibold">{workOrder.clientContact}</div>
                     </div>
                   )}
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Phone</div>
-                    <a href={`tel:${workOrder.clientPhone}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline font-medium">
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Phone</div>
+                    <a href={`tel:${workOrder.clientPhone}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline font-semibold">
                       {workOrder.clientPhone}
                     </a>
                   </div>
                   {workOrder.clientEmail && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Email</div>
-                      <a href={`mailto:${workOrder.clientEmail}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline truncate block">
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Email</div>
+                      <a href={`mailto:${workOrder.clientEmail}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline truncate block font-semibold">
                         {workOrder.clientEmail}
                       </a>
                     </div>
                   )}
-                  <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Client ID</div>
-                    <div className="text-sm text-gray-900 font-mono">{workOrder.clientId}</div>
-                  </div>
                 </div>
               </div>
 
               {/* Column 2: Property & Service Details */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1.5 border-b border-gray-300">
-                  <MapPin className="w-3.5 h-3.5 text-yellow-600" />
-                  <h4 className="text-xs font-semibold text-gray-900 uppercase">Property & Service</h4>
+              <div className="space-y-3.5">
+                <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                  <MapPin className="w-4 h-4 text-yellow-600" />
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Property & Service</h4>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Address</div>
-                    <div className="text-sm text-gray-900 leading-snug">{workOrder.propertyAddress}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Address</div>
+                    <div className="text-sm text-gray-900 font-semibold leading-snug">{workOrder.propertyAddress}</div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Type</div>
-                    <div className="text-sm text-gray-900 capitalize">{workOrder.propertyType.replace('-', ' ')}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Type</div>
+                    <div className="text-sm text-gray-900 font-semibold capitalize">{workOrder.propertyType.replace('-', ' ')}</div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Category</div>
-                    <div className="text-sm text-gray-900 capitalize font-medium">{workOrder.serviceCategory}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Category</div>
+                    <div className="text-sm text-gray-900 capitalize font-semibold">{workOrder.serviceCategory}</div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Description</div>
-                    <div className="text-sm text-gray-900 leading-snug">{workOrder.serviceDescription}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Description</div>
+                    <div className="text-sm text-gray-900 font-semibold leading-snug">{workOrder.serviceDescription}</div>
                   </div>
                 </div>
               </div>
 
               {/* Column 3: Timeline & Assignment */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1.5 border-b border-gray-300">
-                  <Clock className="w-3.5 h-3.5 text-yellow-600" />
-                  <h4 className="text-xs font-semibold text-gray-900 uppercase">Timeline</h4>
+              <div className="space-y-3.5">
+                <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                  <Clock className="w-4 h-4 text-yellow-600" />
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Timeline</h4>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Requested</div>
-                    <div className="text-sm text-gray-900 font-medium">{format(new Date(workOrder.requestDate), 'MMM dd, yyyy')}</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Requested</div>
+                    <div className="text-sm text-gray-900 font-semibold">{format(new Date(workOrder.requestDate), 'MMM dd, yyyy')}</div>
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Due</div>
-                    <div className={cn("text-sm font-medium", isOverdue ? "text-red-600" : "text-gray-900")}>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Due</div>
+                    <div className={cn("text-sm font-semibold", isOverdue ? "text-red-600" : "text-gray-900")}>
                       {format(new Date(workOrder.dueDate), 'MMM dd, yyyy')}
-                      {isOverdue && <span className="ml-1 text-xs">(Overdue)</span>}
+                      {isOverdue && <span className="ml-1.5 text-xs font-normal">(Overdue)</span>}
                     </div>
                   </div>
                   {workOrder.completedDate && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Completed</div>
-                      <div className="text-sm text-gray-900 font-medium">{format(new Date(workOrder.completedDate), 'MMM dd, yyyy')}</div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Completed</div>
+                      <div className="text-sm text-gray-900 font-semibold">{format(new Date(workOrder.completedDate), 'MMM dd, yyyy')}</div>
                     </div>
                   )}
                   {workOrder.assignedTechnician && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Technician</div>
-                      <div className="text-sm text-gray-900 font-medium">{workOrder.assignedTechnician}</div>
-                    </div>
-                  )}
-                  {workOrder.assignedTeam && (
-                    <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Team</div>
-                      <div className="text-sm text-gray-900 font-medium">{workOrder.assignedTeam}</div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Technician</div>
+                      <div className="text-sm text-gray-900 font-semibold">{workOrder.assignedTechnician}</div>
                     </div>
                   )}
                   {workOrder.estimatedHours && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Est. Hours</div>
-                      <div className="text-sm text-gray-900 font-medium">{workOrder.estimatedHours}h</div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Est. Hours</div>
+                      <div className="text-sm text-gray-900 font-semibold">{workOrder.estimatedHours}h</div>
                     </div>
                   )}
                   {workOrder.actualHours && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Actual Hours</div>
-                      <div className="text-sm text-gray-900 font-medium">
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Actual Hours</div>
+                      <div className="text-sm text-gray-900 font-semibold">
                         {workOrder.actualHours}h
                         {workOrder.estimatedHours && (
                           <span className={cn(
-                            "ml-1 text-xs",
+                            "ml-1.5 text-xs font-normal",
                             workOrder.actualHours > workOrder.estimatedHours ? 'text-red-600' : 
                             workOrder.actualHours < workOrder.estimatedHours ? 'text-green-600' : 'text-gray-500'
                           )}>
@@ -324,30 +331,36 @@ export function InboxWorkOrderCard({
                       </div>
                     </div>
                   )}
+                  {workOrder.assignedTeam && (
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Team</div>
+                      <div className="text-sm text-gray-900 font-semibold">{workOrder.assignedTeam}</div>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Column 4: Cost & Status */}
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 pb-1.5 border-b border-gray-300">
-                  <Tag className="w-3.5 h-3.5 text-yellow-600" />
-                  <h4 className="text-xs font-semibold text-gray-900 uppercase">Cost & Status</h4>
+              <div className="space-y-3.5">
+                <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                  <Tag className="w-4 h-4 text-yellow-600" />
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Cost & Status</h4>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Est. Cost</div>
-                    <div className="text-base text-gray-900 font-semibold">
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Est. Cost</div>
+                    <div className="text-sm text-gray-900 font-semibold">
                       ${(workOrder.estimatedCost || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
                   </div>
                   {workOrder.actualCost && (
                     <div>
-                      <div className="text-xs text-gray-500 mb-0.5">Actual Cost</div>
-                      <div className="text-base text-gray-900 font-semibold">
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Actual Cost</div>
+                      <div className="text-sm text-gray-900 font-semibold">
                         ${workOrder.actualCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         {workOrder.estimatedCost && (
                           <span className={cn(
-                            "ml-1 text-xs font-normal",
+                            "ml-1.5 text-xs font-normal",
                             workOrder.actualCost > workOrder.estimatedCost ? 'text-red-600' : 
                             workOrder.actualCost < workOrder.estimatedCost ? 'text-green-600' : 'text-gray-500'
                           )}>
@@ -358,77 +371,113 @@ export function InboxWorkOrderCard({
                     </div>
                   )}
                   {workOrder.estimatedCost && workOrder.actualCost && (
-                    <div className="pt-1 border-t border-gray-200">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-gray-700">Variance</span>
-                        <span className={cn(
-                          "text-xs font-semibold",
+                    <div className="pt-2 border-t border-gray-200">
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Variance</div>
+                        <div className={cn(
+                          "text-sm font-semibold",
                           workOrder.actualCost > workOrder.estimatedCost ? 'text-red-600' : 
                           workOrder.actualCost < workOrder.estimatedCost ? 'text-green-600' : 'text-gray-600'
                         )}>
                           {workOrder.actualCost > workOrder.estimatedCost ? '+' : ''}
                           ${Math.abs(workOrder.actualCost - workOrder.estimatedCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           {' '}({((Math.abs(workOrder.actualCost - workOrder.estimatedCost) / workOrder.estimatedCost) * 100).toFixed(1)}%)
-                        </span>
+                        </div>
                       </div>
                     </div>
                   )}
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Priority</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Priority</div>
                     <PriorityBadge priority={workOrder.priority} size="sm" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Status</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Status</div>
                     <StatusBadge status={statusType} label={statusLabel} size="sm" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-0.5">Work Order ID</div>
+                    <div className="text-xs text-gray-500 mb-1 font-medium">Work Order ID</div>
                     <div className="text-sm text-gray-900 font-mono font-semibold">{workOrder.workOrderId}</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Notes & Attachments - Full Width */}
-            {(workOrder.notes || (workOrder.attachments && workOrder.attachments.length > 0)) && (
-              <div className="mt-4 pt-4 border-t border-gray-300">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Notes */}
-                  {workOrder.notes && (
-                    <div>
-                      <div className="flex items-center gap-2 pb-1.5 mb-2">
-                        <FileText className="w-3.5 h-3.5 text-yellow-600" />
-                        <h4 className="text-xs font-semibold text-gray-900 uppercase">Notes</h4>
-                      </div>
-                      <div className="p-3 bg-white border border-gray-200 rounded-md">
-                        <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{workOrder.notes}</p>
-                      </div>
+            {/* Notes & Attachments - Full Width with Action Buttons */}
+            <div className="mt-6 pt-6 border-t-2 border-gray-300">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Notes with Edit Button */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b-2 border-gray-300">
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-yellow-600" />
+                      <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Notes</h4>
+                    </div>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('Edit Notes:', workOrder.id);
+                      }}
+                      variant="outline"
+                      size="sm"
+                      className="h-8 px-3 text-xs font-medium border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700"
+                    >
+                      <Edit className="w-3.5 h-3.5 mr-1.5" />
+                      Edit Notes
+                    </Button>
+                  </div>
+                  {workOrder.notes ? (
+                    <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                      <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{workOrder.notes}</p>
+                    </div>
+                  ) : (
+                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                      <p className="text-sm text-gray-500 italic">No notes available</p>
                     </div>
                   )}
+                </div>
 
-                  {/* Attachments */}
-                  {workOrder.attachments && workOrder.attachments.length > 0 && (
-                    <div>
-                      <div className="flex items-center gap-2 pb-1.5 mb-2">
-                        <FileText className="w-3.5 h-3.5 text-yellow-600" />
-                        <h4 className="text-xs font-semibold text-gray-900 uppercase">Attachments ({workOrder.attachments.length})</h4>
-                      </div>
-                      <div className="space-y-2">
-                        {workOrder.attachments.map((attachment) => (
-                          <div key={attachment.id} className="p-2 bg-white border border-gray-200 rounded-md flex items-center gap-2">
-                            <FileText className="w-4 h-4 text-yellow-600 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm text-gray-900 font-medium truncate">{attachment.name}</div>
-                              <div className="text-xs text-gray-500">{format(new Date(attachment.uploadedAt), 'MMM dd, yyyy')}</div>
-                            </div>
+                {/* Attachments with Add Button */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b-2 border-gray-300">
+                    <div className="flex items-center gap-2">
+                      <Paperclip className="w-4 h-4 text-yellow-600" />
+                      <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
+                        Attachments {workOrder.attachments && workOrder.attachments.length > 0 && `(${workOrder.attachments.length})`}
+                      </h4>
+                    </div>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('Add Attachment:', workOrder.id);
+                      }}
+                      variant="outline"
+                      size="sm"
+                      className="h-8 px-3 text-xs font-medium border-yellow-300 hover:bg-yellow-50 hover:border-yellow-400 text-yellow-700"
+                    >
+                      <Plus className="w-3.5 h-3.5 mr-1.5" />
+                      Add Attachment
+                    </Button>
+                  </div>
+                  {workOrder.attachments && workOrder.attachments.length > 0 ? (
+                    <div className="space-y-2">
+                      {workOrder.attachments.map((attachment) => (
+                        <div key={attachment.id} className="p-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3">
+                          <FileText className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm text-gray-900 font-semibold truncate">{attachment.name}</div>
+                            <div className="text-xs text-gray-500 mt-0.5">{format(new Date(attachment.uploadedAt), 'MMM dd, yyyy')}</div>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                      <p className="text-sm text-gray-500 italic">No attachments</p>
                     </div>
                   )}
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
