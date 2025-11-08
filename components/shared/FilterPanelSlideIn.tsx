@@ -99,13 +99,26 @@ export function FilterPanelSlideIn({
       {/* Backdrop - covers entire viewport including header */}
       <div
         className="fixed inset-0 bg-black/50 z-[9998] transition-opacity"
-        onClick={onClose}
+        onClick={(e) => {
+          // Don't close if clicking on popover/calendar elements
+          const target = e.target as HTMLElement;
+          if (
+            target.closest('[data-filter-panel]') ||
+            target.closest('[data-radix-popper-content-wrapper]') ||
+            target.closest('[role="dialog"]') ||
+            target.closest('[data-radix-portal]')
+          ) {
+            return;
+          }
+          onClose();
+        }}
         aria-hidden="true"
         style={{ top: 0, left: 0, right: 0, bottom: 0 }}
       />
       
       {/* Slide-in Panel - full viewport height, starts at very left of screen */}
       <div
+        data-filter-panel
         className={cn(
           'fixed w-[380px] bg-white shadow-2xl z-[9999] transition-transform duration-300 ease-in-out',
           'flex flex-col',
@@ -116,6 +129,10 @@ export function FilterPanelSlideIn({
           top: 0,
           left: 0, // Start at very left of screen
           maxHeight: '100vh',
+        }}
+        onClick={(e) => {
+          // Prevent clicks inside the panel from closing it
+          e.stopPropagation();
         }}
       >
         {/* Header */}
@@ -196,9 +213,15 @@ export function FilterPanelSlideIn({
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-semibold">Date Filters</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent 
+                  className="space-y-3"
+                  onClick={(e) => {
+                    // Prevent clicks on date pickers from propagating to backdrop
+                    e.stopPropagation();
+                  }}
+                >
                   {onIssueDateRangeChange && (
-                    <div>
+                    <div onClick={(e) => e.stopPropagation()}>
                       <label className="text-xs font-medium text-gray-700 mb-1 block">
                         Issue Date
                       </label>
@@ -210,7 +233,7 @@ export function FilterPanelSlideIn({
                     </div>
                   )}
                   {onDueDateRangeChange && (
-                    <div>
+                    <div onClick={(e) => e.stopPropagation()}>
                       <label className="text-xs font-medium text-gray-700 mb-1 block">
                         Due Date
                       </label>
@@ -222,7 +245,7 @@ export function FilterPanelSlideIn({
                     </div>
                   )}
                   {onPaymentDateRangeChange && (
-                    <div>
+                    <div onClick={(e) => e.stopPropagation()}>
                       <label className="text-xs font-medium text-gray-700 mb-1 block">
                         Payment Date
                       </label>

@@ -76,7 +76,20 @@ export function DateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent 
+          className="w-auto p-0 !z-[10000]" 
+          align="start"
+          style={{ zIndex: 10000 }}
+          onPointerDownOutside={(e) => {
+            // Prevent closing when clicking outside if we're inside a modal/overlay
+            // This prevents the backdrop from closing the filter panel
+            const target = e.target as HTMLElement;
+            // Don't close if clicking within the filter panel area
+            if (target.closest('[data-filter-panel]')) {
+              e.preventDefault();
+            }
+          }}
+        >
           <CalendarComponent
             initialFocus
             mode="range"

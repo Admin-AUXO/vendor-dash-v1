@@ -23,15 +23,17 @@ import {
   Clock, 
   CheckCircle, 
   AlertCircle,
-  Plus,
   Filter,
   Mail,
-  Eye
+  Eye,
+  UserCheck,
+  MessageSquare
 } from 'lucide-react';
 import { workOrders as initialWorkOrders, type WorkOrder } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import currency from 'currency.js';
+import { DateRange } from 'react-day-picker';
 
 export function WorkOrders() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -39,7 +41,13 @@ export function WorkOrders() {
     status: [],
     priority: [],
     serviceCategory: [],
+    propertyType: [],
+    client: [],
+    assignedTechnician: [],
   });
+  const [requestDateRange, setRequestDateRange] = useState<DateRange | undefined>();
+  const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>();
+  const [costRange, setCostRange] = useState<{ min: number | null; max: number | null }>({ min: null, max: null });
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [tableInstance, setTableInstance] = useState<any>(null);
   const [activeInboxTab, setActiveInboxTab] = useState('awaiting-response');
@@ -57,6 +65,65 @@ export function WorkOrders() {
   const handleTableReady = useCallback((table: any) => {
     setTableInstance(table);
   }, []);
+
+  // Get unique values for filter options with counts
+  const filterOptions = useMemo(() => {
+    const clients = Array.from(new Set(workOrders.map(wo => wo.clientName))).sort();
+    const technicians = Array.from(new Set(workOrders.map(wo => wo.assignedTechnician).filter((tech): tech is string => Boolean(tech)))).sort();
+    
+    // Calculate counts for each filter option
+    const statusCounts = workOrders.reduce((acc, wo) => {
+      acc[wo.status] = (acc[wo.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const priorityCounts = workOrders.reduce((acc, wo) => {
+      acc[wo.priority] = (acc[wo.priority] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const categoryCounts = workOrders.reduce((acc, wo) => {
+      acc[wo.serviceCategory] = (acc[wo.serviceCategory] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const propertyTypeCounts = workOrders.reduce((acc, wo) => {
+      acc[wo.propertyType] = (acc[wo.propertyType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const clientCounts = workOrders.reduce((acc, wo) => {
+      acc[wo.clientName] = (acc[wo.clientName] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const technicianCounts = workOrders.reduce((acc, wo) => {
+      if (wo.assignedTechnician) {
+        acc[wo.assignedTechnician] = (acc[wo.assignedTechnician] || 0) + 1;
+      }
+      return acc;
+    }, {} as Record<string, number>);
+    
+    return {
+      clients,
+      technicians,
+      statusCounts,
+      priorityCounts,
+      categoryCounts,
+      propertyTypeCounts,
+      clientCounts,
+      technicianCounts,
+    };
+  }, [workOrders]);
+
+  // Get min and max costs for range filter
+  const costStats = useMemo(() => {
+    const costs = workOrders.map(wo => wo.estimatedCost);
+    return {
+      min: Math.min(...costs),
+      max: Math.max(...costs),
+    };
+  }, [workOrders]);
 
   // Filter data
   const filteredData = useMemo(() => {
@@ -84,13 +151,55 @@ export function WorkOrders() {
     if (filters.serviceCategory && Array.isArray(filters.serviceCategory) && filters.serviceCategory.length > 0) {
       data = data.filter((wo: WorkOrder) => filters.serviceCategory.includes(wo.serviceCategory));
     }
+    if (filters.propertyType && Array.isArray(filters.propertyType) && filters.propertyType.length > 0) {
+      data = data.filter((wo: WorkOrder) => filters.propertyType.includes(wo.propertyType));
+    }
+    if (filters.client && Array.isArray(filters.client) && filters.client.length > 0) {
+      data = data.filter((wo: WorkOrder) => filters.client.includes(wo.clientName));
+    }
+    if (filters.assignedTechnician && Array.isArray(filters.assignedTechnician) && filters.assignedTechnician.length > 0) {
+      data = data.filter((wo: WorkOrder) => wo.assignedTechnician && filters.assignedTechnician.includes(wo.assignedTechnician));
+    }
+
+    // Apply date range filters
+    if (requestDateRange?.from) {
+      data = data.filter((wo: WorkOrder) => {
+        const requestDate = new Date(wo.requestDate);
+        const from = requestDateRange.from!;
+        const to = requestDateRange.to || requestDateRange.from!;
+        return requestDate >= from && requestDate <= to;
+      });
+    }
+
+    if (dueDateRange?.from) {
+      data = data.filter((wo: WorkOrder) => {
+        const dueDate = new Date(wo.dueDate);
+        const from = dueDateRange.from!;
+        const to = dueDateRange.to || dueDateRange.from!;
+        return dueDate >= from && dueDate <= to;
+      });
+    }
+
+    // Apply cost range filter
+    if (costRange.min !== null || costRange.max !== null) {
+      data = data.filter((wo: WorkOrder) => {
+        const cost = wo.estimatedCost;
+        const min = costRange.min ?? -Infinity;
+        const max = costRange.max ?? Infinity;
+        return cost >= min && cost <= max;
+      });
+    }
 
     return data;
-  }, [searchQuery, filters]);
+  }, [searchQuery, filters, requestDateRange, dueDateRange, costRange]);
 
   // Calculate summary stats
   const summaryStats = useMemo(() => {
     const pending = workOrders.filter((wo: WorkOrder) => wo.status === 'pending' || wo.status === 'assigned').length;
+    const awaitingResponse = workOrders.filter((wo: WorkOrder) => wo.status === 'pending').length;
+    const myWorkOrders = workOrders.filter((wo: WorkOrder) => 
+      wo.status === 'assigned' || wo.status === 'in-progress' || (wo.assignedTechnician && wo.status !== 'completed' && wo.status !== 'cancelled')
+    ).length;
     const inProgress = workOrders.filter((wo: WorkOrder) => wo.status === 'in-progress').length;
     const completed = workOrders.filter((wo: WorkOrder) => wo.status === 'completed').length;
     const overdue = workOrders.filter((wo: WorkOrder) => {
@@ -98,8 +207,8 @@ export function WorkOrders() {
       return new Date(wo.dueDate) < new Date();
     }).length;
 
-    return { pending, inProgress, completed, overdue };
-  }, []);
+    return { pending, awaitingResponse, myWorkOrders, inProgress, completed, overdue };
+  }, [workOrders]);
 
   // Inbox categorization
   const inboxData = useMemo(() => {
@@ -295,19 +404,19 @@ export function WorkOrders() {
     },
   ], []);
 
-  // Filter configuration
-  const filterConfig: FilterGroup[] = [
+  // Filter configuration with dynamic counts
+  const filterConfig: FilterGroup[] = useMemo(() => [
     {
       id: 'status',
       label: 'Status',
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'pending', label: 'Pending' },
-        { value: 'assigned', label: 'Assigned' },
-        { value: 'in-progress', label: 'In Progress' },
-        { value: 'completed', label: 'Completed' },
-        { value: 'cancelled', label: 'Cancelled' },
+        { value: 'pending', label: 'Pending', count: filterOptions.statusCounts['pending'] || 0 },
+        { value: 'assigned', label: 'Assigned', count: filterOptions.statusCounts['assigned'] || 0 },
+        { value: 'in-progress', label: 'In Progress', count: filterOptions.statusCounts['in-progress'] || 0 },
+        { value: 'completed', label: 'Completed', count: filterOptions.statusCounts['completed'] || 0 },
+        { value: 'cancelled', label: 'Cancelled', count: filterOptions.statusCounts['cancelled'] || 0 },
       ],
     },
     {
@@ -316,10 +425,10 @@ export function WorkOrders() {
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'urgent', label: 'Urgent' },
-        { value: 'high', label: 'High' },
-        { value: 'medium', label: 'Medium' },
-        { value: 'low', label: 'Low' },
+        { value: 'urgent', label: 'Urgent', count: filterOptions.priorityCounts['urgent'] || 0 },
+        { value: 'high', label: 'High', count: filterOptions.priorityCounts['high'] || 0 },
+        { value: 'medium', label: 'Medium', count: filterOptions.priorityCounts['medium'] || 0 },
+        { value: 'low', label: 'Low', count: filterOptions.priorityCounts['low'] || 0 },
       ],
     },
     {
@@ -328,17 +437,51 @@ export function WorkOrders() {
       type: 'checkbox',
       searchable: true,
       options: [
-        { value: 'plumbing', label: 'Plumbing' },
-        { value: 'hvac', label: 'HVAC' },
-        { value: 'electrical', label: 'Electrical' },
-        { value: 'carpentry', label: 'Carpentry' },
-        { value: 'painting', label: 'Painting' },
-        { value: 'landscaping', label: 'Landscaping' },
-        { value: 'appliance', label: 'Appliance' },
-        { value: 'general', label: 'General' },
+        { value: 'plumbing', label: 'Plumbing', count: filterOptions.categoryCounts['plumbing'] || 0 },
+        { value: 'hvac', label: 'HVAC', count: filterOptions.categoryCounts['hvac'] || 0 },
+        { value: 'electrical', label: 'Electrical', count: filterOptions.categoryCounts['electrical'] || 0 },
+        { value: 'carpentry', label: 'Carpentry', count: filterOptions.categoryCounts['carpentry'] || 0 },
+        { value: 'painting', label: 'Painting', count: filterOptions.categoryCounts['painting'] || 0 },
+        { value: 'landscaping', label: 'Landscaping', count: filterOptions.categoryCounts['landscaping'] || 0 },
+        { value: 'appliance', label: 'Appliance', count: filterOptions.categoryCounts['appliance'] || 0 },
+        { value: 'general', label: 'General', count: filterOptions.categoryCounts['general'] || 0 },
       ],
     },
-  ];
+    {
+      id: 'propertyType',
+      label: 'Property Type',
+      type: 'checkbox',
+      searchable: false,
+      options: [
+        { value: 'residential', label: 'Residential', count: filterOptions.propertyTypeCounts['residential'] || 0 },
+        { value: 'commercial', label: 'Commercial', count: filterOptions.propertyTypeCounts['commercial'] || 0 },
+        { value: 'industrial', label: 'Industrial', count: filterOptions.propertyTypeCounts['industrial'] || 0 },
+        { value: 'mixed-use', label: 'Mixed Use', count: filterOptions.propertyTypeCounts['mixed-use'] || 0 },
+      ],
+    },
+    {
+      id: 'client',
+      label: 'Client',
+      type: 'checkbox',
+      searchable: true,
+      options: filterOptions.clients.map(client => ({
+        value: client,
+        label: client,
+        count: filterOptions.clientCounts[client] || 0,
+      })),
+    },
+    {
+      id: 'assignedTechnician',
+      label: 'Assigned Technician',
+      type: 'checkbox',
+      searchable: true,
+      options: filterOptions.technicians.filter((tech): tech is string => Boolean(tech)).map(tech => ({
+        value: tech,
+        label: tech,
+        count: filterOptions.technicianCounts[tech] || 0,
+      })),
+    },
+  ], [filterOptions]);
 
   return (
     <div className="p-4 lg:p-6 xl:p-8 space-y-4 lg:space-y-6 bg-gray-50 min-h-screen">
@@ -348,12 +491,24 @@ export function WorkOrders() {
       </div>
 
       {/* Summary Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <StatCard
           title="Pending"
           value={summaryStats.pending}
           icon={Clock}
           tooltip="Work orders waiting to be assigned or started."
+        />
+        <StatCard
+          title="Awaiting Response"
+          value={summaryStats.awaitingResponse}
+          icon={MessageSquare}
+          tooltip="Work orders pending response or action from your team."
+        />
+        <StatCard
+          title="My Work Orders"
+          value={summaryStats.myWorkOrders}
+          icon={UserCheck}
+          tooltip="Work orders assigned to you or your team."
         />
         <StatCard
           title="In Progress"
@@ -584,7 +739,7 @@ export function WorkOrders() {
             <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                Work Orders
+                All Work Orders
                 <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
                   {filteredData.length}
                 </Badge>
@@ -598,15 +753,23 @@ export function WorkOrders() {
                 >
                   <Filter className="w-4 h-4" />
                   Filters
-                  {Object.values(filters).some(v => Array.isArray(v) ? v.length > 0 : v) && (
+                  {(() => {
+                    let count = Object.values(filters).reduce((acc, v) => acc + (Array.isArray(v) ? v.length : v ? 1 : 0), 0);
+                    if (requestDateRange?.from) count += 1;
+                    if (dueDateRange?.from) count += 1;
+                    if (costRange?.min !== null || costRange?.max !== null) count += 1;
+                    return count;
+                  })() > 0 && (
                     <span className="ml-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
-                      {Object.values(filters).reduce((count, v) => count + (Array.isArray(v) ? v.length : v ? 1 : 0), 0)}
+                      {(() => {
+                        let count = Object.values(filters).reduce((acc, v) => acc + (Array.isArray(v) ? v.length : v ? 1 : 0), 0);
+                        if (requestDateRange?.from) count += 1;
+                        if (dueDateRange?.from) count += 1;
+                        if (costRange?.min !== null || costRange?.max !== null) count += 1;
+                        return count;
+                      })()}
                     </span>
                   )}
-                </Button>
-                <Button size="sm">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Work Order
                 </Button>
                 <ExportButton
                   data={filteredData}
@@ -651,7 +814,7 @@ export function WorkOrders() {
       <div className="lg:hidden mt-4">
         <Card>
           <CardHeader>
-            <CardTitle>Work Orders ({filteredData.length})</CardTitle>
+            <CardTitle>All Work Orders ({filteredData.length})</CardTitle>
           </CardHeader>
           <CardContent>
             {filteredData.length > 0 ? (
@@ -692,6 +855,13 @@ export function WorkOrders() {
         searchPlaceholder="Search work orders by ID, address, client name..."
         isOpen={isFilterPanelOpen}
         onClose={() => setIsFilterPanelOpen(false)}
+        issueDateRange={requestDateRange}
+        onIssueDateRangeChange={setRequestDateRange}
+        dueDateRange={dueDateRange}
+        onDueDateRangeChange={setDueDateRange}
+        amountRange={costRange}
+        onAmountRangeChange={setCostRange}
+        amountStats={costStats}
       />
     </div>
   );

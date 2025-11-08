@@ -15,7 +15,7 @@ import { generateActivities } from './generators';
 import { generateNotifications } from './generators';
 import { generateVendor } from './generators';
 import { generateDashboardMetrics } from './generators';
-import { generateTimeSeriesData, generateChartData } from './generators';
+import { generateTimeSeriesData, generateKnowledgeBaseArticles } from './generators';
 
 // Generate all data
 const workOrders = generateWorkOrders(50);
@@ -45,6 +45,9 @@ export {
   metrics,
 };
 
+// Generate knowledge base articles
+export const knowledgeBaseArticles = generateKnowledgeBaseArticles(20);
+
 // Export generators for on-demand generation
 export * from './generators';
 
@@ -70,9 +73,30 @@ export const getTicketsByStatus = (status: string) =>
 // Chart data generators
 export const weeklyRevenueData = generateTimeSeriesData(7);
 export const monthlyRevenueData = generateTimeSeriesData(30);
-export const serviceDistributionData = generateChartData(
-  ['Plumbing', 'HVAC', 'Electrical', 'Carpentry', 'Painting', 'Landscaping', 'Appliance', 'General'],
-  10,
-  35
-);
+
+// Calculate service distribution from actual work orders
+export const serviceDistributionData = (() => {
+  const categoryMap: Record<string, number> = {
+    'Plumbing': 0,
+    'HVAC': 0,
+    'Electrical': 0,
+    'Carpentry': 0,
+    'Painting': 0,
+    'Landscaping': 0,
+    'Appliance': 0,
+    'General': 0,
+  };
+
+  workOrders.forEach(wo => {
+    const categoryName = wo.serviceCategory.charAt(0).toUpperCase() + wo.serviceCategory.slice(1);
+    if (categoryMap.hasOwnProperty(categoryName)) {
+      categoryMap[categoryName]++;
+    }
+  });
+
+  return Object.entries(categoryMap).map(([label, value]) => ({
+    label,
+    value,
+  }));
+})();
 

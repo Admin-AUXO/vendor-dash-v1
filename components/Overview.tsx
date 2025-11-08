@@ -20,13 +20,27 @@ import {
   metrics, 
   workOrders, 
   activities, 
-  weeklyRevenueData, 
-  serviceDistributionData,
+  payments,
   type WorkOrder,
   type Activity
 } from '../data';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { format } from 'date-fns';
+import { 
+  PieChart, 
+  Pie, 
+  Cell, 
+  AreaChart, 
+  Area, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  Legend,
+  ReferenceLine
+} from 'recharts';
+import { format, subMonths, startOfMonth, endOfMonth, eachMonthOfInterval } from 'date-fns';
 
 // Utility to get CSS variable value
 const getCSSVariable = (variable: string, fallback: string): string => {
@@ -38,8 +52,15 @@ const getCSSVariable = (variable: string, fallback: string): string => {
 export function Overview() {
   const { navigate } = useNavigation();
   
-  // Get primary color from CSS variables
+  // Get theme colors from CSS variables - Yellow/Gold shades and Grey shades only
   const primaryColor = useMemo(() => getCSSVariable('--primary', '#f7d604'), []);
+  const gold300 = useMemo(() => getCSSVariable('--gold-300', '#fcd34d'), []);
+  const gold600 = useMemo(() => getCSSVariable('--gold-600', '#b39902'), []);
+  const gold700 = useMemo(() => getCSSVariable('--gold-700', '#8a7602'), []);
+  const gray400 = useMemo(() => getCSSVariable('--gray-400', '#9ca3af'), []);
+  const gray500 = useMemo(() => getCSSVariable('--gray-500', '#6b7280'), []);
+  const gray600 = useMemo(() => getCSSVariable('--gray-600', '#4b5563'), []);
+  const gray700 = useMemo(() => getCSSVariable('--gray-700', '#374151'), []);
 
   // Pagination state for urgent work orders
   const [urgentWorkOrdersPage, setUrgentWorkOrdersPage] = useState(0);
@@ -107,24 +128,138 @@ export function Overview() {
 
   const hasMoreTimelineItems = timelineItemsToShow < allTimelineItems.length;
 
-  // Format revenue data for chart with average
-  const revenueChartData = useMemo(() => {
-    const data = weeklyRevenueData.map((item: { date: string; value: number }) => ({
-      date: format(new Date(item.date), 'MMM dd'),
-      revenue: item.value,
-    }));
-    const avg = data.reduce((sum, item) => sum + item.revenue, 0) / data.length;
-    return { data, avg };
+  // Chart 1: Work Orders by Status (Pie Chart)
+  const workOrdersByStatusData = useMemo(() => {
+    const statusCounts: Record<string, number> = {
+      'Pending': 0,
+      'Assigned': 0,
+      'In Progress': 0,
+      'Completed': 0,
+      'Cancelled': 0,
+    };
+
+    workOrders.forEach((wo: WorkOrder) => {
+      const statusMap: Record<string, string> = {
+        'pending': 'Pending',
+        'assigned': 'Assigned',
+        'in-progress': 'In Progress',
+        'completed': 'Completed',
+        'cancelled': 'Cancelled',
+      };
+      const statusLabel = statusMap[wo.status] || 'Pending';
+      statusCounts[statusLabel]++;
+    });
+
+    return Object.entries(statusCounts)
+      .map(([name, value]) => ({ name, value }))
+      .filter(item => item.value > 0);
   }, []);
 
-  // Format service distribution for bar chart
-  const serviceChartData = useMemo(() => {
-    return serviceDistributionData
-      .map((item: { label: string; value: number }) => ({
-        name: item.label,
-        value: item.value,
+  // Status colors using yellow/gold and grey shades
+  const statusColors = useMemo(() => {
+    return {
+      'Pending': gray500,        // Medium grey
+      'Assigned': gold300,       // Light yellow
+      'In Progress': primaryColor, // Primary yellow
+      'Completed': gray700,      // Dark grey
+      'Cancelled': gray400,      // Light grey
+    };
+  }, [gray500, gold300, primaryColor, gray700, gray400]);
+
+  // Chart 2: Monthly Revenue Trend (Area Chart) - Last 6 months
+  const monthlyRevenueChartData = useMemo(() => {
+    const now = new Date();
+    const sixMonthsAgo = subMonths(now, 5);
+    const months = eachMonthOfInterval({
+      start: startOfMonth(sixMonthsAgo),
+      end: endOfMonth(now),
+    });
+
+    const data = months.map(month => {
+      const monthStart = startOfMonth(month);
+      const monthEnd = endOfMonth(month);
+      
+      const monthRevenue = payments
+        .filter(p => {
+          const paymentDate = new Date(p.paymentDate);
+          return p.status === 'completed' &&
+                 paymentDate >= monthStart &&
+                 paymentDate <= monthEnd;
+        })
+        .reduce((sum, p) => sum + p.amount, 0);
+
+      return {
+        month: format(month, 'MMM yyyy'),
+        revenue: monthRevenue,
+      };
+    });
+
+    // Calculate average revenue
+    const avgRevenue = data.reduce((sum, item) => sum + item.revenue, 0) / data.length;
+
+    return { data, avgRevenue };
+  }, []);
+
+  // Chart 3: Work Orders by Priority (Bar Chart)
+  const workOrdersByPriorityData = useMemo(() => {
+    const priorityCounts: Record<string, number> = {
+      'Urgent': 0,
+      'High': 0,
+      'Medium': 0,
+      'Low': 0,
+    };
+
+    workOrders.forEach((wo: WorkOrder) => {
+      const priorityLabel = wo.priority.charAt(0).toUpperCase() + wo.priority.slice(1);
+      if (priorityCounts.hasOwnProperty(priorityLabel)) {
+        priorityCounts[priorityLabel]++;
+      }
+    });
+
+    return Object.entries(priorityCounts)
+      .map(([name, value]) => ({ 
+        name, 
+        value,
+        color: name === 'Urgent' ? gold700 :  // Darkest yellow for urgent
+               name === 'High' ? gold600 :     // Dark yellow for high
+               name === 'Medium' ? primaryColor : // Primary yellow for medium
+               gray600                         // Dark grey for low
       }))
-      .sort((a, b) => b.value - a.value);
+      .sort((a, b) => {
+        const order = { 'Urgent': 0, 'High': 1, 'Medium': 2, 'Low': 3 };
+        return (order[a.name as keyof typeof order] ?? 99) - (order[b.name as keyof typeof order] ?? 99);
+      });
+  }, [gold700, gold600, primaryColor, gray600]);
+
+  // Calculate revenue percentage change from last month
+  const revenueChange = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+    const currentMonthEarnings = payments
+      .filter(p => {
+        const paymentDate = new Date(p.paymentDate);
+        return p.status === 'completed' && 
+               paymentDate.getMonth() === currentMonth &&
+               paymentDate.getFullYear() === currentYear;
+      })
+      .reduce((sum, p) => sum + p.amount, 0);
+
+    const lastMonthEarnings = payments
+      .filter(p => {
+        const paymentDate = new Date(p.paymentDate);
+        return p.status === 'completed' && 
+               paymentDate.getMonth() === lastMonth &&
+               paymentDate.getFullYear() === lastMonthYear;
+      })
+      .reduce((sum, p) => sum + p.amount, 0);
+
+    if (lastMonthEarnings === 0) return null;
+    const change = ((currentMonthEarnings - lastMonthEarnings) / lastMonthEarnings) * 100;
+    return Math.round(change);
   }, []);
 
   return (
@@ -147,8 +282,10 @@ export function Overview() {
         <StatCard
           title="Monthly Revenue"
           value={`$${metrics.monthlyEarnings.toLocaleString()}`}
-          change="+12% from last month"
-          trend="up"
+          change={revenueChange !== null 
+            ? `${revenueChange >= 0 ? '+' : ''}${revenueChange}% from last month`
+            : 'No previous data'}
+          trend={revenueChange !== null ? (revenueChange >= 0 ? "up" : "down") : "neutral"}
           icon={Tag}
           tooltip="Total revenue this month from completed work orders and paid invoices."
         />
@@ -163,7 +300,7 @@ export function Overview() {
         <StatCard
           title="Completion Rate"
           value={`${metrics.completionRate}%`}
-          change="On-time: 92%"
+          change={`On-time: ${metrics.onTimeCompletionRate}%`}
           trend="up"
           icon={TrendingUp}
           tooltip="Percentage of work orders completed successfully, including on-time completions."
@@ -171,28 +308,83 @@ export function Overview() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Weekly Revenue Chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Chart 1: Work Orders by Status (Pie Chart) */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg">Work Orders by Status</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie
+                  data={workOrdersByStatusData}
+                  cx="35%"
+                  cy="50%"
+                  labelLine={true}
+                  outerRadius={70}
+                  fill={gray500}
+                  dataKey="value"
+                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                >
+                  {workOrdersByStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={statusColors[entry.name as keyof typeof statusColors] || primaryColor} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value: number, name: string) => [`${value} work orders`, name]}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                  labelFormatter={(label) => `Status: ${label}`}
+                />
+                <Legend 
+                  verticalAlign="middle" 
+                  align="right"
+                  layout="vertical"
+                  formatter={(value) => {
+                    const dataEntry = workOrdersByStatusData.find(d => d.name === value);
+                    return `${value} (${dataEntry?.value || 0})`;
+                  }}
+                  wrapperStyle={{ 
+                    fontSize: '12px', 
+                    color: gray700,
+                    paddingLeft: '20px',
+                    lineHeight: '24px'
+                  }}
+                  iconType="circle"
+                  iconSize={10}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Chart 2: Monthly Revenue Trend (Area Chart) */}
         <Card>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Weekly Revenue</CardTitle>
+              <CardTitle className="text-lg">Monthly Revenue Trend</CardTitle>
               <div className="text-sm text-gray-600">
-                Avg: <span className="font-semibold text-gray-900">${Math.round(revenueChartData.avg).toLocaleString()}</span>
+                Avg: <span className="font-semibold text-gray-900">${Math.round(monthlyRevenueChartData.avgRevenue).toLocaleString()}</span>
               </div>
             </div>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={240}>
-              <LineChart data={revenueChartData.data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+              <AreaChart data={monthlyRevenueChartData.data} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
+                <defs>
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={primaryColor} stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor={primaryColor} stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis 
-                  dataKey="date" 
-                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                  dataKey="month" 
+                  tick={{ fontSize: 11, fill: '#6b7280' }}
                   tickMargin={8}
                 />
                 <YAxis 
-                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                  tick={{ fontSize: 11, fill: '#6b7280' }}
                   tickMargin={8}
                   tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
                 />
@@ -202,56 +394,73 @@ export function Overview() {
                   cursor={{ stroke: primaryColor, strokeWidth: 2, strokeDasharray: '5 5' }}
                 />
                 <ReferenceLine 
-                  y={revenueChartData.avg} 
-                  stroke="#9ca3af" 
+                  y={monthlyRevenueChartData.avgRevenue} 
+                  stroke={gray600} 
+                  strokeWidth={2}
                   strokeDasharray="5 5" 
-                  label={{ value: 'Avg', position: 'right', fill: '#6b7280', fontSize: 12 }}
+                  label={{ 
+                    value: 'Avg', 
+                    position: 'right', 
+                    fill: gray700, 
+                    fontSize: 12,
+                    fontWeight: 600,
+                    offset: 5
+                  }}
                 />
-                <Line 
+                <Area 
                   type="monotone" 
                   dataKey="revenue" 
                   stroke={primaryColor}
                   strokeWidth={2.5}
-                  dot={{ fill: primaryColor, r: 4 }}
-                  activeDot={{ r: 7, fill: primaryColor, stroke: '#fff', strokeWidth: 2 }}
-                  name="Revenue"
+                  fill="url(#colorRevenue)"
+                  dot={{ fill: primaryColor, r: 3, strokeWidth: 2, stroke: 'white' }}
+                  activeDot={{ r: 5, fill: primaryColor, stroke: 'white', strokeWidth: 2 }}
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        {/* Service Distribution Chart */}
+        {/* Chart 3: Work Orders by Priority (Bar Chart) */}
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">Service Distribution</CardTitle>
+            <CardTitle className="text-lg">Work Orders by Priority</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={serviceChartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+              <BarChart data={workOrdersByPriorityData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                 <XAxis 
                   dataKey="name" 
-                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                  tick={{ fontSize: 12, fill: '#6b7280', fontWeight: 500 }}
                   tickMargin={8}
-                  angle={-45}
-                  textAnchor="end"
-                  height={60}
                 />
                 <YAxis 
                   tick={{ fontSize: 12, fill: '#6b7280' }}
                   tickMargin={8}
+                  hide
                 />
                 <Tooltip 
-                  formatter={(value: number) => [value, 'Count']}
+                  formatter={(value: number) => [`${value} work orders`, 'Count']}
                   contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
                   cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+                  labelFormatter={(label) => `Priority: ${label}`}
                 />
                 <Bar 
                   dataKey="value" 
-                  fill={primaryColor}
                   radius={[4, 4, 0, 0]}
-                />
+                  label={{ 
+                    position: 'top', 
+                    fill: gray700, 
+                    fontSize: 12,
+                    fontWeight: 600,
+                    formatter: (value: number) => value > 0 ? value : ''
+                  }}
+                >
+                  {workOrdersByPriorityData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

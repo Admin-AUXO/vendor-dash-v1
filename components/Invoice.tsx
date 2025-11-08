@@ -18,18 +18,26 @@ import {
   Tag, 
   Clock, 
   AlertCircle,
-  Plus,
   Edit,
   Download,
   Send,
   Eye,
-  Filter
+  Filter,
+  Building2,
+  MapPin,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
+  DollarSign,
+  Plus,
+  Mail
 } from 'lucide-react';
 import { invoices, workOrders, type Invoice } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import currency from 'currency.js';
 import { DateRange } from 'react-day-picker';
+import { cn } from './ui/utils';
 
 
 export function Invoice() {
@@ -58,10 +66,26 @@ export function Invoice() {
     return lookup;
   }, []);
 
-  // Get unique client names for filter
-  const clientNames = useMemo(() => {
-    const unique = Array.from(new Set(invoices.map(inv => inv.clientName)));
-    return unique.sort();
+  // Get unique client names for filter with counts
+  const filterOptions = useMemo(() => {
+    const clients = Array.from(new Set(invoices.map(inv => inv.clientName))).sort();
+    
+    // Calculate counts for each filter option
+    const statusCounts = invoices.reduce((acc, inv) => {
+      acc[inv.status] = (acc[inv.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const clientCounts = invoices.reduce((acc, inv) => {
+      acc[inv.clientName] = (acc[inv.clientName] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    return {
+      clients,
+      statusCounts,
+      clientCounts,
+    };
   }, []);
 
   // Get min and max amounts for range filter
@@ -165,6 +189,292 @@ export function Invoice() {
     } else if (statusType === 'overdue') {
       setFilters({ ...filters, status: ['overdue'] });
     }
+  };
+
+  // Separate invoices into pre-submission and post-submission
+  const preSubmissionInvoices = useMemo(() => {
+    return invoices.filter((inv: Invoice) => inv.status === 'draft');
+  }, []);
+
+  // Post-submission: only sent/viewed (follow-up emails), excluding overdue (moved to Payments page)
+  const postSubmissionInvoices = useMemo(() => {
+    return invoices.filter((inv: Invoice) => 
+      ['sent', 'viewed'].includes(inv.status)
+    );
+  }, []);
+
+  // Invoice Card Component
+  const InvoiceCard = ({ invoice, onViewDetails, onAction, actionLabel, actionVariant = 'default' }: {
+    invoice: Invoice;
+    onViewDetails?: () => void;
+    onAction?: () => void;
+    actionLabel?: string;
+    actionVariant?: 'default' | 'destructive' | 'outline';
+  }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const workOrderDisplayId = invoice.workOrderId ? workOrderLookup.get(invoice.workOrderId) : null;
+    
+    const statusType = 
+      invoice.status === 'paid' ? 'success' :
+      invoice.status === 'overdue' ? 'error' :
+      invoice.status === 'disputed' ? 'error' :
+      invoice.status === 'approved' ? 'success' :
+      invoice.status === 'viewed' ? 'info' :
+      invoice.status === 'sent' ? 'info' :
+      'pending';
+
+    const statusLabel = invoice.status
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    const issueDate = format(new Date(invoice.issueDate), 'MMM dd, yyyy');
+    const dueDate = format(new Date(invoice.dueDate), 'MMM dd, yyyy');
+    const isOverdue = new Date(invoice.dueDate) < new Date() && invoice.status !== 'paid';
+
+    return (
+      <div className={cn(
+        'group relative bg-white border border-gray-200 rounded-lg',
+        'hover:shadow-md hover:border-gray-300 transition-all duration-200',
+        'overflow-hidden'
+      )}>
+        <div className="p-4">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center shadow-sm">
+              <FileText className="w-6 h-6 text-yellow-700" />
+            </div>
+
+            <div className="flex-1 min-w-0 space-y-3">
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <h3 className="font-bold text-base text-gray-900 font-mono flex-shrink-0">
+                    {invoice.invoiceNumber}
+                  </h3>
+                  <p className="text-sm text-gray-800 font-semibold truncate">
+                    {invoice.clientName}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <StatusBadge status={statusType} label={statusLabel} size="sm" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-x-4 gap-y-2">
+                <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                  <Building2 className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <span className="truncate" title={invoice.clientName}>
+                    {invoice.clientName}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                  <MapPin className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <span className="truncate" title={invoice.propertyAddress}>
+                    {invoice.propertyAddress.split(',')[0]}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                  <DollarSign className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <span className="font-semibold text-gray-700 truncate">
+                    {currency(invoice.total).format()}
+                  </span>
+                </div>
+                {workOrderDisplayId && (
+                  <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                    <FileText className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                    <span className="font-mono truncate">{workOrderDisplayId}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                  <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <span className="truncate">Issued: {issueDate}</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-600">
+                  <Calendar className="w-3.5 h-3.5 text-yellow-600 flex-shrink-0" />
+                  <span className={cn('truncate', isOverdue && 'text-red-600 font-semibold')}>
+                    Due: {dueDate}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-shrink-0 flex flex-col gap-2 items-end justify-start min-w-[140px]">
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(!isExpanded);
+                  if (!isExpanded && onViewDetails) {
+                    onViewDetails();
+                  }
+                }}
+                variant="outline"
+                size="sm"
+                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium border-yellow-600 shadow-sm w-full"
+              >
+                <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
+                {isExpanded ? (
+                  <ChevronUp className="w-4 h-4 ml-1" />
+                ) : (
+                  <ChevronDown className="w-4 h-4 ml-1" />
+                )}
+              </Button>
+
+              {onAction && actionLabel && (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAction?.();
+                  }}
+                  variant={actionVariant}
+                  size="sm"
+                  className={cn(
+                    'w-full',
+                    actionVariant === 'default' 
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : actionVariant === 'destructive'
+                        ? 'bg-red-600 hover:bg-red-700 text-white'
+                        : 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                  )}
+                >
+                  {actionLabel}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {isExpanded && (
+          <div className="border-t border-gray-200 bg-gray-50 transition-all duration-300 ease-in-out">
+            <div className="p-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                    <Building2 className="w-4 h-4 text-yellow-600" />
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Client</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Name</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.clientName}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Address</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.clientAddress}</div>
+                    </div>
+                    {invoice.clientEmail && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Email</div>
+                        <a href={`mailto:${invoice.clientEmail}`} className="text-sm text-blue-600 hover:text-blue-700 hover:underline truncate block font-semibold">
+                          {invoice.clientEmail}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                    <FileText className="w-4 h-4 text-yellow-600" />
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Invoice Details</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Invoice Number</div>
+                      <div className="text-sm text-gray-900 font-mono font-semibold">{invoice.invoiceNumber}</div>
+                    </div>
+                    {workOrderDisplayId && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Work Order</div>
+                        <div className="text-sm text-gray-900 font-mono font-semibold">{workOrderDisplayId}</div>
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Property Address</div>
+                      <div className="text-sm text-gray-900 font-semibold">{invoice.propertyAddress}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                    <Calendar className="w-4 h-4 text-yellow-600" />
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Dates</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Issue Date</div>
+                      <div className="text-sm text-gray-900 font-semibold">{issueDate}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Due Date</div>
+                      <div className={cn('text-sm font-semibold', isOverdue ? 'text-red-600' : 'text-gray-900')}>
+                        {dueDate}
+                      </div>
+                    </div>
+                    {invoice.paidDate && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Paid Date</div>
+                        <div className="text-sm text-gray-900 font-semibold">{format(new Date(invoice.paidDate), 'MMM dd, yyyy')}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  <div className="flex items-center gap-2 pb-2 border-b-2 border-gray-300">
+                    <DollarSign className="w-4 h-4 text-yellow-600" />
+                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Amount</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Subtotal</div>
+                      <div className="text-sm text-gray-900 font-semibold">{currency(invoice.subtotal).format()}</div>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Tax</div>
+                      <div className="text-sm text-gray-900 font-semibold">{currency(invoice.taxAmount).format()}</div>
+                    </div>
+                    {invoice.discount && (
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1 font-medium">Discount</div>
+                        <div className="text-sm text-gray-900 font-semibold">{currency(invoice.discount).format()}</div>
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-xs text-gray-500 mb-1 font-medium">Total</div>
+                      <div className="text-sm text-gray-900 font-bold text-lg">{currency(invoice.total).format()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {invoice.lineItems && invoice.lineItems.length > 0 && (
+                <div className="mt-6 pt-6 border-t border-gray-300">
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-3">Line Items</h4>
+                  <div className="space-y-2">
+                    {invoice.lineItems.map((item) => (
+                      <div key={item.id} className="flex justify-between items-center text-sm py-2 border-b border-gray-200">
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900">{item.description}</div>
+                          <div className="text-xs text-gray-500">Qty: {item.quantity} × {currency(item.unitPrice).format()}</div>
+                        </div>
+                        <div className="font-semibold text-gray-900">{currency(item.total).format()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {invoice.notes && (
+                <div className="mt-6 pt-6 border-t border-gray-300">
+                  <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-2">Notes</h4>
+                  <p className="text-sm text-gray-700">{invoice.notes}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
   };
 
 
@@ -324,22 +634,22 @@ export function Invoice() {
     },
   ], [workOrderLookup]);
 
-  // Filter configuration
-  const filterConfig: FilterGroup[] = [
+  // Filter configuration with dynamic counts
+  const filterConfig: FilterGroup[] = useMemo(() => [
     {
       id: 'status',
       label: 'Status',
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'draft', label: 'Draft' },
-        { value: 'sent', label: 'Sent' },
-        { value: 'viewed', label: 'Viewed' },
-        { value: 'approved', label: 'Approved' },
-        { value: 'paid', label: 'Paid' },
-        { value: 'overdue', label: 'Overdue' },
-        { value: 'disputed', label: 'Disputed' },
-        { value: 'cancelled', label: 'Cancelled' },
+        { value: 'draft', label: 'Draft', count: filterOptions.statusCounts['draft'] || 0 },
+        { value: 'sent', label: 'Sent', count: filterOptions.statusCounts['sent'] || 0 },
+        { value: 'viewed', label: 'Viewed', count: filterOptions.statusCounts['viewed'] || 0 },
+        { value: 'approved', label: 'Approved', count: filterOptions.statusCounts['approved'] || 0 },
+        { value: 'paid', label: 'Paid', count: filterOptions.statusCounts['paid'] || 0 },
+        { value: 'overdue', label: 'Overdue', count: filterOptions.statusCounts['overdue'] || 0 },
+        { value: 'disputed', label: 'Disputed', count: filterOptions.statusCounts['disputed'] || 0 },
+        { value: 'cancelled', label: 'Cancelled', count: filterOptions.statusCounts['cancelled'] || 0 },
       ],
     },
     {
@@ -347,9 +657,13 @@ export function Invoice() {
       label: 'Client',
       type: 'checkbox',
       searchable: true,
-      options: clientNames.map(name => ({ value: name, label: name })),
+      options: filterOptions.clients.map(name => ({
+        value: name,
+        label: name,
+        count: filterOptions.clientCounts[name] || 0,
+      })),
     },
-  ];
+  ], [filterOptions]);
 
   // Count active filters for badge
   const activeFilterCount = useMemo(() => {
@@ -462,6 +776,84 @@ export function Invoice() {
         </div>
       </div>
 
+      {/* Pre-Submission and Post-Submission Invoices */}
+      <div className="space-y-6">
+        {/* Pre-Submission Invoices Section */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-yellow-600" />
+              <h2 className="text-2xl font-semibold text-gray-900">Pre-Submission Invoices</h2>
+              <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+                {preSubmissionInvoices.length}
+              </Badge>
+            </div>
+            <Button size="sm" className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-medium">
+              <Plus className="w-4 h-4 mr-2" />
+              Create Draft
+            </Button>
+          </div>
+          <Card>
+            <CardContent className="pt-4">
+              {preSubmissionInvoices.length > 0 ? (
+                <div className="space-y-3">
+                  {preSubmissionInvoices.map((invoice: Invoice) => (
+                    <InvoiceCard
+                      key={invoice.id}
+                      invoice={invoice}
+                      onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
+                      onAction={() => console.log('Send invoice:', invoice.invoiceNumber)}
+                      actionLabel="Send Invoice"
+                      actionVariant="default"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="No pre-submission invoices"
+                  description="Draft invoices will appear here"
+                  variant="empty"
+                />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Post-Submission Invoices Section */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Mail className="w-5 h-5 text-yellow-600" />
+            <h2 className="text-2xl font-semibold text-gray-900">Post-Submission Invoices</h2>
+            <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
+              {postSubmissionInvoices.length}
+            </Badge>
+          </div>
+          <Card>
+            <CardContent className="pt-4">
+              {postSubmissionInvoices.length > 0 ? (
+                <div className="space-y-3">
+                  {postSubmissionInvoices.map((invoice: Invoice) => (
+                    <InvoiceCard
+                      key={invoice.id}
+                      invoice={invoice}
+                      onViewDetails={() => console.log('View invoice:', invoice.invoiceNumber)}
+                      onAction={() => console.log('Follow up:', invoice.invoiceNumber)}
+                      actionLabel="Follow Up"
+                      actionVariant="default"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState
+                  title="No post-submission invoices"
+                  description="Invoices requiring follow-up will appear here"
+                  variant="empty"
+                />
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
       {/* Filter System - Mobile */}
       <div className="lg:hidden">
@@ -498,7 +890,7 @@ export function Invoice() {
             <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                Invoices
+                All Invoices
                 <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
                   {filteredData.length}
                 </Badge>
@@ -517,10 +909,6 @@ export function Invoice() {
                       {activeFilterCount}
                     </span>
                   )}
-                </Button>
-                <Button size="sm">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Invoice
                 </Button>
                 <ExportButton
                   data={filteredData}

@@ -1,5 +1,6 @@
-import { useState, useMemo, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Tabs, TabsContent, TabsList, TabsTrigger, Badge } from './ui';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from './ui';
+import { cn } from './ui/utils';
 import { 
   StatCard, 
   FilterSystem,
@@ -7,7 +8,6 @@ import {
   DataTable,
   StatusBadge,
   EmptyState,
-  TruncatedText,
   ColumnVisibilityToggle,
   TableActions,
   type FilterGroup,
@@ -26,8 +26,69 @@ import {
 } from 'lucide-react';
 import { marketplaceProjects, bids, type MarketplaceProject, type Bid } from '../data';
 import { ColumnDef } from '@tanstack/react-table';
-import { format } from 'date-fns';
+import { format, differenceInDays } from 'date-fns';
 import currency from 'currency.js';
+
+// Slider Tabs Component
+interface SliderTabsProps {
+  tabs: { value: string; label: string; disabled?: boolean; badge?: React.ReactNode }[];
+  activeTab: string;
+  onTabChange: (value: string) => void;
+}
+
+function SliderTabs({ tabs, activeTab, onTabChange }: SliderTabsProps) {
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [sliderStyle, setSliderStyle] = useState<React.CSSProperties>({});
+
+  useEffect(() => {
+    const activeTabElement = tabRefs.current[activeTab];
+    if (activeTabElement) {
+      const { offsetLeft, offsetWidth } = activeTabElement;
+      setSliderStyle({
+        left: `${offsetLeft}px`,
+        width: `${offsetWidth}px`,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      });
+    }
+  }, [activeTab, tabs]);
+
+  return (
+    <div className="relative mb-6 w-full">
+      <div className="relative flex w-full border-b border-gray-200 bg-white rounded-t-lg">
+        {tabs.map((tab) => (
+          <button
+            key={tab.value}
+            ref={(el) => {
+              tabRefs.current[tab.value] = el;
+            }}
+            onClick={() => !tab.disabled && onTabChange(tab.value)}
+            disabled={tab.disabled}
+            className={cn(
+              'relative flex-1 px-4 py-3 text-sm font-medium transition-colors whitespace-nowrap',
+              'focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 rounded-t-lg',
+              'text-center justify-center',
+              activeTab === tab.value
+                ? 'text-gray-900'
+                : tab.disabled
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-600 hover:text-gray-900',
+            )}
+          >
+            <span className="flex items-center justify-center gap-2">
+              {tab.label}
+              {tab.badge}
+            </span>
+          </button>
+        ))}
+        {/* Slider Indicator */}
+        <div
+          className="absolute bottom-0 h-0.5 bg-yellow-500 rounded-full"
+          style={sliderStyle}
+        />
+      </div>
+    </div>
+  );
+}
 
 export function Marketplace() {
   const [activeTab, setActiveTab] = useState('projects');
@@ -35,6 +96,7 @@ export function Marketplace() {
   const [filters, setFilters] = useState<Record<string, string | string[]>>({
     status: [],
     serviceCategory: [],
+    propertyType: [],
     endingSoon: '',
   });
   const [budgetRange, setBudgetRange] = useState<{ min: number | null; max: number | null }>({ min: null, max: null });
@@ -82,6 +144,9 @@ export function Marketplace() {
     if (filters.serviceCategory && Array.isArray(filters.serviceCategory) && filters.serviceCategory.length > 0) {
       data = data.filter((proj: MarketplaceProject) => filters.serviceCategory.includes(proj.serviceCategory));
     }
+    if (filters.propertyType && Array.isArray(filters.propertyType) && filters.propertyType.length > 0) {
+      data = data.filter((proj: MarketplaceProject) => filters.propertyType.includes(proj.propertyType));
+    }
     if (filters.endingSoon && filters.endingSoon === 'true') {
       const now = new Date();
       const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
@@ -101,6 +166,18 @@ export function Marketplace() {
 
     return data;
   }, [searchQuery, filters, budgetRange]);
+
+  // Get project details for bids
+  // Note: bid.projectId contains the internal id (e.g., "proj-1"), not the display projectId
+  const getProjectDetails = useCallback((projectInternalId: string) => {
+    return marketplaceProjects.find((p: MarketplaceProject) => p.id === projectInternalId);
+  }, []);
+
+  // Calculate competitor count (number of bids - 1 for own bid)
+  const getCompetitorCount = useCallback((projectId: string) => {
+    const project = getProjectDetails(projectId);
+    return project ? Math.max(0, project.numberOfBids - 1) : 0;
+  }, [getProjectDetails]);
 
   // Filter bids
   const filteredBids = useMemo(() => {
@@ -128,7 +205,7 @@ export function Marketplace() {
     }
 
     return data;
-  }, [bidSearchQuery, bidFilters]);
+  }, [bidSearchQuery, bidFilters, getProjectDetails]);
 
   // Calculate marketplace stats
   const marketplaceStats = useMemo(() => {
@@ -158,7 +235,14 @@ export function Marketplace() {
       header: 'Project ID',
       meta: { essential: true },
       cell: ({ row }) => (
-        <span className="font-semibold text-sm font-mono">{row.original.projectId}</span>
+        <div>
+          <span className="font-semibold text-sm font-mono">{row.original.projectId}</span>
+          {row.original.location && (
+            <p className="text-xs text-gray-500 mt-0.5">
+              {row.original.location.city}, {row.original.location.state}
+            </p>
+          )}
+        </div>
       ),
     },
     {
@@ -185,18 +269,34 @@ export function Marketplace() {
       accessorKey: 'deadline',
       header: 'Deadline',
       meta: { headerAlign: 'center', cellAlign: 'center', essential: false },
-      cell: ({ row }) => (
-        <span className="text-sm text-gray-900">
-          {format(new Date(row.original.deadline), 'MMM dd, yyyy')}
-        </span>
-      ),
+      cell: ({ row }) => {
+        const deadline = new Date(row.original.deadline);
+        const now = new Date();
+        const daysUntil = differenceInDays(deadline, now);
+        const isUrgent = daysUntil <= 3 && daysUntil >= 0;
+        return (
+          <div className="text-center">
+            <span className={cn("text-sm", isUrgent ? "text-red-600 font-medium" : "text-gray-900")}>
+              {format(deadline, 'MMM dd, yyyy')}
+            </span>
+            {daysUntil >= 0 && (
+              <p className={cn("text-xs mt-0.5", isUrgent ? "text-red-600" : "text-gray-500")}>
+                {daysUntil === 0 ? 'Today' : daysUntil === 1 ? '1 day left' : `${daysUntil} days left`}
+              </p>
+            )}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'numberOfBids',
       header: 'Bids',
       meta: { headerAlign: 'center', essential: false },
       cell: ({ row }) => (
-        <span className="text-sm text-gray-900">{row.original.numberOfBids}</span>
+        <div className="flex items-center justify-center gap-1">
+          <Users className="w-4 h-4 text-gray-500" />
+          <span className="text-sm text-gray-900">{row.original.numberOfBids}</span>
+        </div>
       ),
     },
     {
@@ -260,17 +360,6 @@ export function Marketplace() {
     },
   ], []);
 
-  // Get project details for bids
-  const getProjectDetails = (projectId: string) => {
-    return marketplaceProjects.find((p: MarketplaceProject) => p.projectId === projectId);
-  };
-
-  // Calculate competitor count (number of bids - 1 for own bid)
-  const getCompetitorCount = (projectId: string) => {
-    const project = getProjectDetails(projectId);
-    return project ? Math.max(0, project.numberOfBids - 1) : 0;
-  };
-
   // Bid columns
   const bidColumns: ColumnDef<Bid>[] = useMemo(() => [
     {
@@ -284,20 +373,23 @@ export function Marketplace() {
     {
       accessorKey: 'projectId',
       header: 'Project',
-      meta: { headerAlign: 'center', essential: true },
+      meta: { essential: true },
       cell: ({ row }) => {
         const project = getProjectDetails(row.original.projectId);
         return (
-          <div className="text-center">
-            <span className="text-sm text-gray-900 font-mono uppercase">{row.original.projectId}</span>
+          <div>
+            <div className="text-sm text-gray-900">
+              <span className="font-mono uppercase">{project?.projectId || row.original.projectId}</span>
+              {project && (
+                <span className="ml-2">{project.propertyAddress}</span>
+              )}
+            </div>
             {project && (
               <>
-                <TruncatedText 
-                  text={project.propertyAddress} 
-                  maxLength={40}
-                  className="text-xs text-gray-500 mt-1"
-                />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-0.5 capitalize">
+                  {project.serviceCategory}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
                   Deadline: {format(new Date(project.deadline), 'MMM dd, yyyy')}
                 </p>
               </>
@@ -342,10 +434,28 @@ export function Marketplace() {
       accessorKey: 'submittedDate',
       header: 'Submitted',
       meta: { headerAlign: 'center', cellAlign: 'center', essential: false },
+      cell: ({ row }) => {
+        const submittedDate = new Date(row.original.submittedDate);
+        const now = new Date();
+        const daysSince = differenceInDays(now, submittedDate);
+        return (
+          <div className="text-center">
+            <span className="text-sm text-gray-900">
+              {format(submittedDate, 'MMM dd, yyyy')}
+            </span>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {daysSince === 0 ? 'Today' : daysSince === 1 ? '1 day ago' : `${daysSince} days ago`}
+            </p>
+          </div>
+        );
+      },
+    },
+    {
+      accessorKey: 'paymentTerms',
+      header: 'Payment Terms',
+      meta: { headerAlign: 'center', essential: false },
       cell: ({ row }) => (
-        <span className="text-sm text-gray-900">
-          {format(new Date(row.original.submittedDate), 'MMM dd, yyyy')}
-        </span>
+        <span className="text-sm text-gray-900">{row.original.paymentTerms || '—'}</span>
       ),
     },
     {
@@ -407,21 +517,53 @@ export function Marketplace() {
         return <TableActions primaryAction={primaryAction} />;
       },
     },
-  ], []);
+  ], [getProjectDetails, getCompetitorCount]);
 
-  // Filter configuration for projects
-  const filterConfig: FilterGroup[] = [
+  // Get filter options with counts for projects
+  const projectFilterOptions = useMemo(() => {
+    const statusCounts = marketplaceProjects.reduce((acc, proj) => {
+      acc[proj.status] = (acc[proj.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const categoryCounts = marketplaceProjects.reduce((acc, proj) => {
+      acc[proj.serviceCategory] = (acc[proj.serviceCategory] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const propertyTypeCounts = marketplaceProjects.reduce((acc, proj) => {
+      acc[proj.propertyType] = (acc[proj.propertyType] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    const now = new Date();
+    const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+    const endingSoonCount = marketplaceProjects.filter((proj: MarketplaceProject) => {
+      const deadline = new Date(proj.deadline);
+      return deadline <= threeDaysFromNow && deadline >= now && proj.status === 'open';
+    }).length;
+    
+    return {
+      statusCounts,
+      categoryCounts,
+      propertyTypeCounts,
+      endingSoonCount,
+    };
+  }, []);
+
+  // Filter configuration for projects with dynamic counts
+  const filterConfig: FilterGroup[] = useMemo(() => [
     {
       id: 'status',
       label: 'Status',
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'open', label: 'Open' },
-        { value: 'in-review', label: 'In Progress' },
-        { value: 'awarded', label: 'Completed' },
-        { value: 'closed', label: 'Closed' },
-        { value: 'cancelled', label: 'Cancelled' },
+        { value: 'open', label: 'Open', count: projectFilterOptions.statusCounts['open'] || 0 },
+        { value: 'in-review', label: 'In Progress', count: projectFilterOptions.statusCounts['in-review'] || 0 },
+        { value: 'awarded', label: 'Completed', count: projectFilterOptions.statusCounts['awarded'] || 0 },
+        { value: 'closed', label: 'Closed', count: projectFilterOptions.statusCounts['closed'] || 0 },
+        { value: 'cancelled', label: 'Cancelled', count: projectFilterOptions.statusCounts['cancelled'] || 0 },
       ],
     },
     {
@@ -430,14 +572,26 @@ export function Marketplace() {
       type: 'checkbox',
       searchable: true,
       options: [
-        { value: 'plumbing', label: 'Plumbing' },
-        { value: 'hvac', label: 'HVAC' },
-        { value: 'electrical', label: 'Electrical' },
-        { value: 'carpentry', label: 'Carpentry' },
-        { value: 'painting', label: 'Painting' },
-        { value: 'landscaping', label: 'Landscaping' },
-        { value: 'appliance', label: 'Appliance' },
-        { value: 'general', label: 'General' },
+        { value: 'plumbing', label: 'Plumbing', count: projectFilterOptions.categoryCounts['plumbing'] || 0 },
+        { value: 'hvac', label: 'HVAC', count: projectFilterOptions.categoryCounts['hvac'] || 0 },
+        { value: 'electrical', label: 'Electrical', count: projectFilterOptions.categoryCounts['electrical'] || 0 },
+        { value: 'carpentry', label: 'Carpentry', count: projectFilterOptions.categoryCounts['carpentry'] || 0 },
+        { value: 'painting', label: 'Painting', count: projectFilterOptions.categoryCounts['painting'] || 0 },
+        { value: 'landscaping', label: 'Landscaping', count: projectFilterOptions.categoryCounts['landscaping'] || 0 },
+        { value: 'appliance', label: 'Appliance', count: projectFilterOptions.categoryCounts['appliance'] || 0 },
+        { value: 'general', label: 'General', count: projectFilterOptions.categoryCounts['general'] || 0 },
+      ],
+    },
+    {
+      id: 'propertyType',
+      label: 'Property Type',
+      type: 'checkbox',
+      searchable: false,
+      options: [
+        { value: 'residential', label: 'Residential', count: projectFilterOptions.propertyTypeCounts['residential'] || 0 },
+        { value: 'commercial', label: 'Commercial', count: projectFilterOptions.propertyTypeCounts['commercial'] || 0 },
+        { value: 'industrial', label: 'Industrial', count: projectFilterOptions.propertyTypeCounts['industrial'] || 0 },
+        { value: 'mixed-use', label: 'Mixed Use', count: projectFilterOptions.propertyTypeCounts['mixed-use'] || 0 },
       ],
     },
     {
@@ -446,27 +600,37 @@ export function Marketplace() {
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'true', label: 'Ending in 3 days' },
+        { value: 'true', label: 'Ending in 3 days', count: projectFilterOptions.endingSoonCount },
       ],
     },
-  ];
+  ], [projectFilterOptions]);
 
-  // Filter configuration for bids
-  const bidFilterConfig: FilterGroup[] = [
+  // Get filter options with counts for bids
+  const bidFilterOptions = useMemo(() => {
+    const statusCounts = bids.reduce((acc, bid) => {
+      acc[bid.status] = (acc[bid.status] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    return { statusCounts };
+  }, []);
+
+  // Filter configuration for bids with dynamic counts
+  const bidFilterConfig: FilterGroup[] = useMemo(() => [
     {
       id: 'status',
       label: 'Status',
       type: 'checkbox',
       searchable: false,
       options: [
-        { value: 'pending', label: 'Pending' },
-        { value: 'under-review', label: 'Under Review' },
-        { value: 'accepted', label: 'Accepted' },
-        { value: 'rejected', label: 'Rejected' },
-        { value: 'withdrawn', label: 'Withdrawn' },
+        { value: 'pending', label: 'Pending', count: bidFilterOptions.statusCounts['pending'] || 0 },
+        { value: 'under-review', label: 'Under Review', count: bidFilterOptions.statusCounts['under-review'] || 0 },
+        { value: 'accepted', label: 'Accepted', count: bidFilterOptions.statusCounts['accepted'] || 0 },
+        { value: 'rejected', label: 'Rejected', count: bidFilterOptions.statusCounts['rejected'] || 0 },
+        { value: 'withdrawn', label: 'Withdrawn', count: bidFilterOptions.statusCounts['withdrawn'] || 0 },
       ],
     },
-  ];
+  ], [bidFilterOptions]);
 
   // Get budget range stats for display
   const budgetStats = useMemo(() => {
@@ -538,19 +702,28 @@ export function Marketplace() {
         />
       </div>
 
-      {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="projects">
-            Available Projects ({marketplaceStats.availableProjects})
-          </TabsTrigger>
-          <TabsTrigger value="bids">
-            My Bids ({marketplaceStats.myBids})
-          </TabsTrigger>
-        </TabsList>
+      {/* Slider Tabs */}
+      <SliderTabs
+        tabs={[
+          {
+            value: 'projects',
+            label: 'Available Projects',
+            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-700">{marketplaceStats.availableProjects}</Badge>
+          },
+          {
+            value: 'bids',
+            label: 'My Bids',
+            badge: <Badge variant="secondary" className="ml-1 bg-gray-100 text-gray-700">{marketplaceStats.myBids}</Badge>
+          },
+        ]}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
+      <div className="space-y-4">
         {/* Available Projects Tab */}
-        <TabsContent value="projects" className="space-y-4">
+        {activeTab === 'projects' && (
+          <div className="space-y-4">
           {/* Filter System - Mobile */}
           <div className="lg:hidden">
             <FilterSystem
@@ -659,10 +832,12 @@ export function Marketplace() {
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
+          </div>
+        )}
 
         {/* My Bids Tab */}
-        <TabsContent value="bids" className="space-y-4">
+        {activeTab === 'bids' && (
+          <div className="space-y-4">
           {/* Filter System - Mobile */}
           <div className="lg:hidden">
             <FilterSystem
@@ -785,8 +960,9 @@ export function Marketplace() {
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
-      </Tabs>
+          </div>
+        )}
+      </div>
 
       {/* Slide-in Filter Panel for Projects */}
       {activeTab === 'projects' && (

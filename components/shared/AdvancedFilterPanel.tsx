@@ -47,7 +47,10 @@ export function AdvancedFilterPanel({
   variant = 'sidebar',
   hideHeader = false,
 }: AdvancedFilterPanelProps) {
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+  // Auto-expand first filter group for better UX
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
+    new Set(filters.length > 0 ? [filters[0].id] : [])
+  );
   const [filterSearchQueries, setFilterSearchQueries] = useState<Record<string, string>>({});
 
   const toggleGroup = (groupId: string) => {
@@ -60,6 +63,18 @@ export function AdvancedFilterPanel({
       }
       return next;
     });
+  };
+  
+  // Expand all groups with active filters
+  const expandActiveGroups = () => {
+    const activeGroupIds = new Set<string>();
+    filters.forEach((filter) => {
+      const value = filterValues[filter.id];
+      if (Array.isArray(value) ? value.length > 0 : value) {
+        activeGroupIds.add(filter.id);
+      }
+    });
+    setExpandedGroups(activeGroupIds);
   };
 
   const handleCheckboxChange = (groupId: string, optionValue: string, checked: boolean) => {
@@ -158,11 +173,23 @@ export function AdvancedFilterPanel({
 
           {/* Result Count */}
           {resultCount !== undefined && totalCount !== undefined && (
-            <div className="text-sm text-gray-600">
-              <span className="font-medium">{resultCount}</span>
-              {' '}of{' '}
-              <span className="font-medium">{totalCount}</span>
-              {' '}results
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-gray-600">
+                <span className="font-semibold text-gray-900">{resultCount}</span>
+                {' '}of{' '}
+                <span className="font-medium text-gray-700">{totalCount}</span>
+                {' '}results
+              </div>
+              {hasActiveFilters && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={expandActiveGroups}
+                  className="h-7 text-xs text-primary hover:text-primary-hover"
+                >
+                  Expand Active
+                </Button>
+              )}
             </div>
           )}
         </div>
@@ -180,14 +207,27 @@ export function AdvancedFilterPanel({
               <div key={filter.id} className="space-y-2">
                 <button
                   onClick={() => toggleGroup(filter.id)}
-                  className="w-full flex items-center justify-between text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
+                  className={cn(
+                    "w-full flex items-center justify-between text-sm font-medium transition-all duration-200 rounded-md px-2 py-2",
+                    "hover:bg-gray-50",
+                    isExpanded && "bg-gray-50",
+                    activeCount > 0 && "text-primary font-semibold"
+                  )}
                 >
                   <div className="flex items-center gap-2">
                     <span>{filter.label}</span>
                     {activeCount > 0 && (
-                      <Badge variant="secondary" className="h-5 px-1.5 text-xs">
+                      <Badge 
+                        variant="secondary" 
+                        className="h-5 px-1.5 text-xs bg-primary/10 text-primary border-primary/20"
+                      >
                         {activeCount}
                       </Badge>
+                    )}
+                    {filteredOptions.length > 0 && activeCount === 0 && (
+                      <span className="text-xs text-gray-400 font-normal">
+                        ({filteredOptions.length})
+                      </span>
                     )}
                   </div>
                   {isExpanded ? (
@@ -198,7 +238,7 @@ export function AdvancedFilterPanel({
                 </button>
 
                 {isExpanded && (
-                  <div className="space-y-3 pl-2 border-l-2 border-gray-100">
+                  <div className="space-y-3 pl-3 border-l-2 border-primary/20 bg-gray-50/50 rounded-r-md p-3">
                     {/* Search within filter options */}
                     {filter.searchable && filteredOptions.length > 5 && (
                       <div className="relative">
@@ -213,7 +253,7 @@ export function AdvancedFilterPanel({
                               [filter.id]: e.target.value,
                             }))
                           }
-                          className="pl-8 pr-8 h-8 text-sm"
+                          className="pl-8 pr-8 h-8 text-sm bg-white border-gray-200 focus:border-primary"
                         />
                         {filterSearchQueries[filter.id] && (
                           <button
@@ -235,33 +275,62 @@ export function AdvancedFilterPanel({
 
                     {/* Filter Options */}
                     {filter.type === 'checkbox' ? (
-                      <div className="space-y-2 max-h-64 overflow-y-auto">
+                      <div className="space-y-1 max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                         {filteredOptions.length > 0 ? (
                           filteredOptions.map((option) => {
                             const checked = (filterValues[filter.id] as string[])?.includes(option.value) || false;
                             return (
                               <label
                                 key={option.value}
-                                className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors group"
+                                className={cn(
+                                  "flex items-center gap-2 cursor-pointer p-2 rounded-md transition-all duration-150 group",
+                                  "hover:bg-white hover:shadow-sm",
+                                  checked && "bg-primary/5 border border-primary/20"
+                                )}
                               >
                                 <Checkbox
                                   checked={checked}
                                   onCheckedChange={(checked) =>
                                     handleCheckboxChange(filter.id, option.value, checked as boolean)
                                   }
+                                  className={checked ? "border-primary data-[state=checked]:bg-primary" : ""}
                                 />
-                                <span className="text-sm text-gray-700 flex-1">{option.label}</span>
+                                <span className={cn(
+                                  "text-sm flex-1",
+                                  checked ? "text-gray-900 font-medium" : "text-gray-700"
+                                )}>
+                                  {option.label}
+                                </span>
                                 {option.count !== undefined && (
-                                  <span className="text-xs text-gray-500 group-hover:text-gray-700">
-                                    ({option.count})
+                                  <span className={cn(
+                                    "text-xs px-1.5 py-0.5 rounded",
+                                    checked 
+                                      ? "bg-primary/10 text-primary font-medium" 
+                                      : "text-gray-500 group-hover:text-gray-700"
+                                  )}>
+                                    {option.count}
                                   </span>
                                 )}
                               </label>
                             );
                           })
                         ) : (
-                          <div className="text-sm text-gray-500 py-2 text-center">
+                          <div className="text-sm text-gray-500 py-4 text-center bg-gray-50 rounded-md">
                             No options found
+                            {filterSearchQueries[filter.id] && (
+                              <button
+                                onClick={() =>
+                                  setFilterSearchQueries((prev) => {
+                                    const next = { ...prev };
+                                    delete next[filter.id];
+                                    return next;
+                                  })
+                                }
+                                className="ml-2 text-primary hover:underline"
+                              >
+                                Clear search
+                              </button>
+                            )}
                           </div>
                         )}
                       </div>
@@ -286,15 +355,17 @@ export function AdvancedFilterPanel({
                         variant="ghost"
                         size="sm"
                         onClick={() => clearFilter(filter.id)}
-                        className="h-7 text-xs text-gray-600 hover:text-gray-900"
+                        className="h-7 text-xs text-gray-600 hover:text-gray-900 hover:bg-white w-full justify-start"
                       >
-                        <X className="w-3 h-3 mr-1" />
+                        <X className="w-3 h-3 mr-1.5" />
                         Clear {filter.label}
                       </Button>
                     )}
                   </div>
                 )}
-                <Separator className="mt-4" />
+                {filter.id !== filters[filters.length - 1]?.id && (
+                  <Separator className="mt-3" />
+                )}
               </div>
             );
           })}
