@@ -13,7 +13,7 @@ import {
 } from './shared';
 import { 
   FileText, 
-  DollarSign, 
+  Tag, 
   Clock, 
   AlertCircle,
   Plus,
@@ -389,7 +389,7 @@ export function Invoice() {
             title="Paid Amount"
             value={currency(summaryStats.paidAmount).format()}
             change={`${summaryStats.paid} paid`}
-            icon={DollarSign}
+            icon={Tag}
           />
         </div>
         <div 

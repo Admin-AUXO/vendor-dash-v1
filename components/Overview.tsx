@@ -8,7 +8,7 @@ import {
 } from './shared';
 import { 
   ClipboardList, 
-  DollarSign, 
+  Tag, 
   FileText, 
   TrendingUp,
   AlertTriangle,
@@ -105,7 +105,7 @@ export function Overview() {
           value={`$${metrics.monthlyEarnings.toLocaleString()}`}
           change="+12% from last month"
           trend="up"
-          icon={DollarSign}
+          icon={Tag}
         />
         <StatCard
           title="Outstanding Invoices"
@@ -212,30 +212,33 @@ export function Overview() {
       </div>
 
       {/* Urgent Work Orders and Activity Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Urgent Work Orders */}
         <Card>
-          <CardHeader className="pb-2">
+          <div className="bg-yellow-100 border-b border-yellow-300 rounded-t-xl">
+            <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <AlertTriangle className="w-4 h-4" style={{ color: 'var(--warning)' }} />
-              Urgent Work Orders
-              <Badge variant="warning" className="bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100">
-                {totalUrgentWorkOrders}
-              </Badge>
+                  <AlertTriangle className="w-5 h-5 text-yellow-700" />
+                  <span className="text-gray-900">Urgent Work Orders</span>
+                  <Badge variant="warning" className="bg-yellow-200 text-yellow-800 border-yellow-400 hover:bg-yellow-200">
+                    {totalUrgentWorkOrders}
+                  </Badge>
             </CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('work-orders')}
-                className="text-sm text-gray-600 hover:text-gray-900"
+                  className="text-sm text-gray-700 hover:text-gray-900 hover:bg-yellow-200"
               >
                 <span>View All</span>
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
+              <p className="text-sm text-gray-700 mt-1">Immediate attention required</p>
           </CardHeader>
-          <CardContent className="pt-3">
+          </div>
+          <CardContent className="pt-4">
             {urgentWorkOrders.length > 0 ? (
                 <div className="space-y-3">
                   {urgentWorkOrders.map((wo: WorkOrder) => (

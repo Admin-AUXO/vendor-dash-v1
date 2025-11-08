@@ -12,7 +12,7 @@ import {
   type FilterGroup,
 } from './shared';
 import { 
-  DollarSign, 
+  Tag, 
   CreditCard,
   TrendingUp,
   AlertCircle,
@@ -317,7 +317,7 @@ export function Payments() {
         <StatCard
           title="Total Received"
           value={currency(financialSummary.totalReceived).format()}
-          icon={DollarSign}
+          icon={Tag}
         />
         <StatCard
           title="Pending Payments"
