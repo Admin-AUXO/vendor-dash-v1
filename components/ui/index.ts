@@ -4,68 +4,14 @@
  * Centralized export for all UI primitive components
  */
 
-export { Badge, badgeVariants } from './badge';
-export type { BadgeProps } from './badge';
+// Display components
+export { Badge, badgeVariants } from './display/badge';
+export type { BadgeProps } from './display/badge';
 
-export { Button, buttonVariants } from './button';
-export type { ButtonProps } from './button';
+export { Button, buttonVariants } from './display/button';
+export type { ButtonProps } from './display/button';
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from './card';
-
-export { Checkbox } from './checkbox';
-
-export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogClose,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-} from './dialog';
-
-export { Input } from './input';
-export type { InputProps } from './input';
-
-export { Label } from './label';
-
-export {
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-} from './select';
-
-export { Separator } from './separator';
-
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
-
-export { Textarea } from './textarea';
-export type { TextareaProps } from './textarea';
-
-export { Calendar } from './calendar';
-
-export {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from './popover';
+export { Calendar } from './display/calendar';
 
 export {
   DropdownMenu,
@@ -83,20 +29,71 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
-} from './dropdown-menu';
+} from './display/dropdown-menu';
 
-export { RadioGroup, RadioGroupItem } from './radio-group';
+export { Progress } from './display/progress';
 
-export { Switch } from './switch';
+export { Avatar, AvatarImage, AvatarFallback } from './display/avatar';
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip';
+// Form components
+export { Checkbox } from './form/checkbox';
 
-export { Progress } from './progress';
+export { Input } from './form/input';
+export type { InputProps } from './form/input';
 
-export { Avatar, AvatarImage, AvatarFallback } from './avatar';
+export { Label } from './form/label';
 
-export { ScrollArea, ScrollBar } from './scroll-area';
+export { RadioGroup, RadioGroupItem } from './form/radio-group';
 
+export {
+  Select,
+  SelectGroup,
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectLabel,
+  SelectItem,
+  SelectSeparator,
+  SelectScrollUpButton,
+  SelectScrollDownButton,
+} from './form/select';
+
+export { Switch } from './form/switch';
+
+export { Textarea } from './form/textarea';
+export type { TextareaProps } from './form/textarea';
+
+// Layout components
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from './layout/card';
+
+export { ScrollArea, ScrollBar } from './layout/scroll-area';
+
+export { Separator } from './layout/separator';
+
+// Navigation components
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from './navigation/accordion';
+
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from './navigation/collapsible';
+
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './navigation/tabs';
+
+// Overlay components
 export {
   AlertDialog,
   AlertDialogPortal,
@@ -109,33 +106,29 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-} from './alert-dialog';
+} from './overlay/alert-dialog';
 
 export {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from './accordion';
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from './overlay/dialog';
 
 export {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from './collapsible';
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from './overlay/popover';
 
-export {
-  Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-  DrawerDescription,
-} from './sheet';
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './overlay/tooltip';
 
+// Utils
 export { cn } from './utils';
 

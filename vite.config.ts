@@ -21,16 +21,6 @@ export default defineConfig(({ mode }) => ({
             return undefined;
           }
           
-          // Split PDF libraries (heavy, rarely used)
-          if (id.includes('@react-pdf') || id.includes('react-pdf')) {
-            return 'vendor-pdf';
-          }
-          
-          // Split Tiptap editor (heavy, rarely used)
-          if (id.includes('@tiptap')) {
-            return 'vendor-editor';
-          }
-          
           // Split Recharts (charting library) into a separate chunk
           if (id.includes('recharts')) {
             return 'vendor-charts';
@@ -42,13 +32,9 @@ export default defineConfig(({ mode }) => ({
           }
           
           // Split Excel/CSV libraries (only used for exports, dynamically imported)
-          // Note: xlsx is dynamically imported, but Vite may still bundle it
-          // if it's imported anywhere statically. We'll keep it separate.
           if (id.includes('xlsx') || id.includes('papaparse')) {
             return 'vendor-export';
           }
-          
-          // Note: Faker has been removed - data is now pre-generated as JSON files
           
           // Split date-fns (used frequently but can be separate)
           if (id.includes('date-fns')) {
@@ -63,18 +49,9 @@ export default defineConfig(({ mode }) => ({
           // Split other UI libraries into a separate chunk
           if (
             id.includes('lucide-react') ||
-            id.includes('cmdk') ||
-            id.includes('vaul') ||
-            id.includes('sonner') ||
-            id.includes('embla-carousel-react') ||
             id.includes('react-day-picker') ||
-            id.includes('react-datepicker') ||
             id.includes('react-date-range') ||
-            id.includes('react-resizable-panels') ||
             id.includes('react-hook-form') ||
-            id.includes('react-dropzone') ||
-            id.includes('react-vertical-timeline-component') ||
-            id.includes('input-otp') ||
             id.includes('class-variance-authority') ||
             id.includes('clsx') ||
             id.includes('tailwind-merge') ||

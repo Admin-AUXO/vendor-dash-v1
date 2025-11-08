@@ -103,8 +103,8 @@ export default {
         },
         ring: 'var(--ring)',
         popover: {
-          DEFAULT: 'var(--background)',
-          foreground: 'var(--foreground)',
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
         },
         // Gold/Yellow Palette
         gold: {

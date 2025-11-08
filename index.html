@@ -40,107 +40,27 @@
         position: relative;
       }
       
-      /* Animated background particles */
-      .loading-particles {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      
-      .particle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(247, 214, 4, 0.1);
-        animation: float 6s ease-in-out infinite;
-      }
-      
-      @keyframes float {
-        0%, 100% {
-          transform: translateY(0) translateX(0) scale(1);
-          opacity: 0.3;
-        }
-        33% {
-          transform: translateY(-20px) translateX(10px) scale(1.1);
-          opacity: 0.5;
-        }
-        66% {
-          transform: translateY(10px) translateX(-10px) scale(0.9);
-          opacity: 0.4;
-        }
-      }
-      
-      /* Icon container with pulsing rings */
-      .loading-icon-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 96px;
-        height: 96px;
-      }
-      
-      .loading-icon-ring {
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: rgba(247, 214, 4, 0.2);
-        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-      }
-      
-      .loading-icon-ring-2 {
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: rgba(247, 214, 4, 0.1);
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      
-      .loading-icon {
-        position: relative;
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, rgba(247, 214, 4, 0.2), rgba(247, 214, 4, 0.1));
-        backdrop-filter: blur(4px);
-        border: 2px solid rgba(247, 214, 4, 0.3);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .loading-icon svg {
-        width: 48px;
-        height: 48px;
-        color: #f7d604;
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      
-      @keyframes ping {
-        75%, 100% {
-          transform: scale(2);
-          opacity: 0;
-        }
-      }
-      
-      @keyframes pulse {
-        0%, 100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.5;
-        }
-      }
-      
-      /* Spinner */
+      /* Single spinning loader */
       .loading-spinner {
-        width: 32px;
-        height: 32px;
-        border: 3px solid rgba(247, 214, 4, 0.2);
+        width: 64px;
+        height: 64px;
+        position: relative;
+        margin: 0 auto;
+      }
+      
+      .loading-spinner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 4px solid rgba(247, 214, 4, 0.2);
+        border-radius: 50%;
+      }
+      
+      .loading-spinner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 4px solid transparent;
         border-top-color: #f7d604;
         border-radius: 50%;
         animation: spin 1s linear infinite;
@@ -176,147 +96,18 @@
         }
       }
       
-      /* Progress bar */
-      .loading-progress-container {
-        width: 256px;
-        max-width: 80vw;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .loading-progress-bar {
-        height: 10px;
-        background: rgba(229, 231, 235, 0.6);
-        border-radius: 9999px;
-        overflow: hidden;
-        border: 1px solid rgba(229, 231, 235, 0.5);
-        position: relative;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-      }
-      
-      .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(to right, #f7d604, rgba(247, 214, 4, 0.9), rgba(247, 214, 4, 0.8));
-        border-radius: 9999px;
-        transition: width 0.5s ease-out;
-        width: 0%;
-        box-shadow: 0 1px 3px rgba(247, 214, 4, 0.3);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      /* Shimmer effect on progress bar */
-      .loading-progress-fill::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.5),
-          transparent
-        );
-        animation: shimmer 2s infinite;
-      }
-      
-      @keyframes shimmer {
-        0% {
-          left: -100%;
-        }
-        100% {
-          left: 100%;
-        }
-      }
-      
-      .loading-progress-text {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #6b7280;
-      }
-      
-      .loading-progress-text span:last-child {
-        font-weight: 600;
-        color: #374151;
-      }
-      
-      /* Loading dots */
-      .loading-dots {
-        display: flex;
-        gap: 0.5rem;
-      }
-      
-      .loading-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #f7d604;
-        animation: bounce 1s ease-in-out infinite;
-      }
-      
-      .loading-dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      
-      .loading-dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-      
-      @keyframes bounce {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
     </style>
   </head>
   <body>
     <!-- Initial Loading Screen - Shows immediately before React loads -->
     <div id="initial-loading-screen">
-      <div class="loading-particles" id="particles-container"></div>
       <div class="loading-container">
-        <!-- Icon with pulsing rings -->
-        <div class="loading-icon-container">
-          <div class="loading-icon-ring"></div>
-          <div class="loading-icon-ring-2"></div>
-          <div class="loading-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </div>
-        </div>
-        
-        <!-- Spinner -->
+        <!-- Single spinning loader -->
         <div class="loading-spinner"></div>
         
         <!-- Message -->
         <div class="loading-message">
           Preparing your dashboard...
-        </div>
-        
-        <!-- Progress bar -->
-        <div class="loading-progress-container">
-          <div class="loading-progress-bar">
-            <div class="loading-progress-fill"></div>
-          </div>
-          <div class="loading-progress-text">
-            <span>Loading</span>
-            <span id="progress-percent">0%</span>
-          </div>
-        </div>
-        
-        <!-- Loading dots -->
-        <div class="loading-dots">
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
         </div>
       </div>
     </div>
@@ -325,43 +116,7 @@
     
     <!-- Script to hide initial loading screen when React is ready -->
     <script>
-      // Create floating particles
-      (function() {
-        const container = document.getElementById('particles-container');
-        if (container) {
-          for (let i = 0; i < 20; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            const size = Math.random() * 60 + 20;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 3 + 's';
-            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            container.appendChild(particle);
-          }
-        }
-        
-        // Simulate progress
-        let progress = 0;
-        const progressFill = document.querySelector('.loading-progress-fill');
-        const progressPercent = document.getElementById('progress-percent');
-        
-        const progressInterval = setInterval(function() {
-          progress += Math.random() * 8 + 2;
-          if (progress >= 90) {
-            progress = 90;
-            clearInterval(progressInterval);
-          }
-          if (progressFill) {
-            progressFill.style.width = progress + '%';
-          }
-          if (progressPercent) {
-            progressPercent.textContent = Math.round(progress) + '%';
-          }
-        }, 200);
-      })();
+      // No JavaScript needed for simple CSS animation
       
       // Function to hide initial loading screen
       function hideInitialLoadingScreen() {
