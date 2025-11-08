@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, type FileRejection } from 'react-dropzone';
 import { Upload, X, File, Image as ImageIcon } from 'lucide-react';
 import { cn } from '../../ui/utils';
 
@@ -88,9 +88,9 @@ export function FileUpload({
         <div className="bg-red-50 border border-red-200 rounded-lg p-3">
           <p className="text-sm font-medium text-red-800 mb-1">Some files were rejected:</p>
           <ul className="text-xs text-red-700 space-y-1">
-            {fileRejections.map(({ file, errors }) => (
-              <li key={file.name}>
-                {file.name}: {errors.map((e) => e.message).join(', ')}
+            {fileRejections.map((rejection: FileRejection) => (
+              <li key={rejection.file.name}>
+                {rejection.file.name}: {rejection.errors.map((error) => error.message).join(', ')}
               </li>
             ))}
           </ul>
