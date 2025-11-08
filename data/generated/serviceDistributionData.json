@@ -1,0 +1,34 @@
+[
+  {
+    "label": "Plumbing",
+    "value": 13
+  },
+  {
+    "label": "HVAC",
+    "value": 0
+  },
+  {
+    "label": "Electrical",
+    "value": 13
+  },
+  {
+    "label": "Carpentry",
+    "value": 12
+  },
+  {
+    "label": "Painting",
+    "value": 12
+  },
+  {
+    "label": "Landscaping",
+    "value": 13
+  },
+  {
+    "label": "Appliance",
+    "value": 12
+  },
+  {
+    "label": "General",
+    "value": 12
+  }
+]

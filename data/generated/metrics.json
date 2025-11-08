@@ -1,0 +1,19 @@
+{
+  "activeWorkOrders": 33,
+  "pendingWorkOrders": 14,
+  "inProgressWorkOrders": 18,
+  "completedWorkOrders": 40,
+  "totalEarnings": 31215,
+  "monthlyEarnings": 16010,
+  "outstandingInvoices": 27081,
+  "overdueInvoices": 16,
+  "pendingPayments": 3,
+  "activeBids": 19,
+  "wonBids": 11,
+  "lostBids": 9,
+  "openTickets": 8,
+  "responseTime": 441.9,
+  "completionRate": 40,
+  "onTimeCompletionRate": 100,
+  "averageRating": 5
+}

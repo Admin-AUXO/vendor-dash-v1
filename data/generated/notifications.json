@@ -1,0 +1,121 @@
+[
+  {
+    "id": "notif-system-1",
+    "type": "info",
+    "priority": "low",
+    "title": "System Update",
+    "message": "Dashboard performance improvements",
+    "timestamp": "2025-11-07T03:21:10.877Z",
+    "read": true
+  },
+  {
+    "id": "notif-overdue-inv-1",
+    "type": "warning",
+    "priority": "medium",
+    "title": "Overdue Invoice",
+    "message": "Invoice INV-0001 is 5 days overdue. Please follow up with Bins, Bashirian and Klein",
+    "timestamp": "2025-11-03T04:17:45.544Z",
+    "read": false,
+    "actionUrl": "/invoices/inv-1",
+    "relatedId": "inv-1"
+  },
+  {
+    "id": "notif-urgent-wo-51",
+    "type": "error",
+    "priority": "high",
+    "title": "Urgent Work Order",
+    "message": "Urgent work order WO-0051 requires immediate attention",
+    "timestamp": "2025-11-02T13:31:40.429Z",
+    "read": false,
+    "actionUrl": "/work-orders/wo-51",
+    "relatedId": "wo-51"
+  },
+  {
+    "id": "notif-urgent-wo-52",
+    "type": "error",
+    "priority": "high",
+    "title": "Urgent Work Order",
+    "message": "Urgent work order WO-0052 requires immediate attention",
+    "timestamp": "2025-10-26T14:30:22.285Z",
+    "read": false,
+    "actionUrl": "/work-orders/wo-52",
+    "relatedId": "wo-52"
+  },
+  {
+    "id": "notif-overdue-inv-4",
+    "type": "warning",
+    "priority": "medium",
+    "title": "Overdue Invoice",
+    "message": "Invoice INV-0004 is 30 days overdue. Please follow up with Lueilwitz, Predovic and Vandervort",
+    "timestamp": "2025-10-09T01:09:30.518Z",
+    "read": true,
+    "actionUrl": "/invoices/inv-4",
+    "relatedId": "inv-4"
+  },
+  {
+    "id": "notif-overdue-inv-2",
+    "type": "warning",
+    "priority": "high",
+    "title": "Overdue Invoice",
+    "message": "Invoice INV-0002 is 32 days overdue. Please follow up with Heller Inc",
+    "timestamp": "2025-10-07T02:48:13.131Z",
+    "read": true,
+    "actionUrl": "/invoices/inv-2",
+    "relatedId": "inv-2"
+  },
+  {
+    "id": "notif-overdue-inv-6",
+    "type": "warning",
+    "priority": "high",
+    "title": "Overdue Invoice",
+    "message": "Invoice INV-0006 is 63 days overdue. Please follow up with Mosciski Inc",
+    "timestamp": "2025-09-05T12:55:40.371Z",
+    "read": false,
+    "actionUrl": "/invoices/inv-6",
+    "relatedId": "inv-6"
+  },
+  {
+    "id": "notif-urgent-wo-2",
+    "type": "error",
+    "priority": "high",
+    "title": "Urgent Work Order",
+    "message": "Urgent work order WO-0002 requires immediate attention",
+    "timestamp": "2025-08-18T01:49:18.568Z",
+    "read": false,
+    "actionUrl": "/work-orders/wo-2",
+    "relatedId": "wo-2"
+  },
+  {
+    "id": "notif-urgent-wo-47",
+    "type": "error",
+    "priority": "high",
+    "title": "Urgent Work Order",
+    "message": "Urgent work order WO-0047 requires immediate attention",
+    "timestamp": "2025-08-16T19:03:25.688Z",
+    "read": false,
+    "actionUrl": "/work-orders/wo-47",
+    "relatedId": "wo-47"
+  },
+  {
+    "id": "notif-overdue-inv-3",
+    "type": "warning",
+    "priority": "high",
+    "title": "Overdue Invoice",
+    "message": "Invoice INV-0003 is 122 days overdue. Please follow up with Emmerich - Moen",
+    "timestamp": "2025-07-09T02:10:52.024Z",
+    "read": true,
+    "actionUrl": "/invoices/inv-3",
+    "relatedId": "inv-3"
+  },
+  {
+    "id": "notif-urgent-wo-1",
+    "type": "error",
+    "priority": "high",
+    "title": "Urgent Work Order",
+    "message": "Urgent work order WO-0001 requires immediate attention",
+    "timestamp": "2025-06-28T03:13:45.722Z",
+    "read": false,
+    "actionUrl": "/work-orders/wo-1",
+    "relatedId": "wo-1"
+  }
+]

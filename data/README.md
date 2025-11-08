@@ -6,11 +6,35 @@ This directory contains all dummy data and data generation utilities for the ven
 
 ```
 data/
-├── types.ts          # TypeScript type definitions
-├── generators.ts     # Data generation functions
-├── index.ts         # Main data export and helpers
-└── README.md        # This file
+├── types.ts              # TypeScript type definitions
+├── generators.ts         # Data generation functions (used by generation script)
+├── index.ts             # Main data export - loads from pre-generated JSON files
+├── generated/           # Pre-generated JSON data files
+│   ├── workOrders.json
+│   ├── invoices.json
+│   ├── payments.json
+│   └── ... (other data files)
+└── README.md            # This file
 ```
+
+## Data Generation
+
+Data is pre-generated as JSON files to avoid bundling faker.js (2.4MB) in production. 
+
+### Generating New Data
+
+To regenerate all data files:
+
+```bash
+npm run generate-data
+```
+
+This will:
+1. Use the generators in `generators.ts` (which require faker.js)
+2. Generate sufficient data for all dashboard features
+3. Save all data as JSON files in `data/generated/`
+
+**Note:** Faker.js is now a dev dependency, so it's only needed during data generation, not in production builds.
 
 ## Usage
 
@@ -38,15 +62,28 @@ function MyComponent() {
 }
 ```
 
-### Generate Custom Data
+### Regenerating Data
 
-```tsx
-import { generateWorkOrders, generateInvoices } from '@/data';
+If you need to regenerate the data (e.g., to add more records or update the data structure):
 
-// Generate custom amount of data
-const customWorkOrders = generateWorkOrders(100);
-const customInvoices = generateInvoices(customWorkOrders, 80);
-```
+1. Run the generation script:
+   ```bash
+   npm run generate-data
+   ```
+
+2. The script will generate new JSON files in `data/generated/` with the following counts:
+   - Work Orders: 100
+   - Invoices: 50
+   - Payments: 40
+   - Marketplace Projects: 40
+   - Bids: 50
+   - Support Tickets: 30
+   - Clients: 20
+   - Activities: 150
+   - Notifications: 30
+   - Knowledge Base Articles: 30
+
+3. To change the data amounts, edit `scripts/generate-data.ts` and modify the count constants.
 
 ### Use Helper Functions
 

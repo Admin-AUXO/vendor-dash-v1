@@ -1,0 +1,985 @@
+[
+  {
+    "id": "proj-1",
+    "projectId": "PROJ-0001",
+    "propertyAddress": "967 Geovanni Park, Suite 755",
+    "propertyType": "commercial",
+    "serviceCategory": "painting",
+    "projectDescription": "Interior painting project",
+    "budgetMin": 6380,
+    "budgetMax": 11975,
+    "postedDate": "2025-10-29T12:19:59.565Z",
+    "deadline": "2025-11-23T12:19:59.565Z",
+    "startDate": "2025-12-06T12:19:59.565Z",
+    "clientId": "client-f43db8ff-f1ad-4aa6-99a1-d2bade3769af",
+    "clientName": "Grady, Bergnaum and Reichert",
+    "isConfidential": false,
+    "status": "awarded",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 14,
+    "location": {
+      "city": "Wellington",
+      "state": "ME",
+      "zipCode": "92165-0291"
+    }
+  },
+  {
+    "id": "proj-2",
+    "projectId": "PROJ-0002",
+    "propertyAddress": "685 Dark Lane Apt. 848",
+    "propertyType": "residential",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Complete landscape design and installation",
+    "budgetMin": 5306,
+    "budgetMax": 9626,
+    "postedDate": "2025-09-30T22:39:22.640Z",
+    "deadline": "2025-10-13T22:39:22.640Z",
+    "isConfidential": true,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "References required"
+    ],
+    "projectTimeline": "3-6 months",
+    "numberOfBids": 13,
+    "location": {
+      "city": "West Salvatore",
+      "state": "ND",
+      "zipCode": "04823"
+    }
+  },
+  {
+    "id": "proj-3",
+    "projectId": "PROJ-0003",
+    "propertyAddress": "29703 Yundt Divide, Building P",
+    "propertyType": "industrial",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Lawn installation and maintenance",
+    "budgetMin": 9947,
+    "budgetMax": 12858,
+    "postedDate": "2025-10-08T10:43:30.704Z",
+    "deadline": "2025-10-28T10:43:30.704Z",
+    "startDate": "2025-11-13T10:43:30.704Z",
+    "clientId": "client-bf1f22e8-7e0f-4993-8037-f554044c452e",
+    "clientName": "Herzog - Beier",
+    "isConfidential": false,
+    "status": "awarded",
+    "requiredQualifications": [
+      "Licensed contractor",
+      "OSHA certified"
+    ],
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 2,
+    "location": {
+      "city": "Kemmerview",
+      "state": "SC",
+      "zipCode": "64458"
+    }
+  },
+  {
+    "id": "proj-4",
+    "projectId": "PROJ-0004",
+    "propertyAddress": "8921 Jaeden Bypass, Suite 155",
+    "propertyType": "commercial",
+    "serviceCategory": "electrical",
+    "projectDescription": "Smart home electrical installation",
+    "budgetMin": 11245,
+    "budgetMax": 18499,
+    "postedDate": "2025-11-05T05:22:09.725Z",
+    "deadline": "2025-11-25T05:22:09.725Z",
+    "clientId": "client-3a4fee7f-6cb5-4c59-817b-7c21058c18bc",
+    "clientName": "Morissette and Sons",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "OSHA certified",
+      "References required",
+      "5+ years experience"
+    ],
+    "projectTimeline": "6+ months",
+    "numberOfBids": 8,
+    "location": {
+      "city": "West Josiannestad",
+      "state": "IA",
+      "zipCode": "54168-7700"
+    }
+  },
+  {
+    "id": "proj-5",
+    "projectId": "PROJ-0005",
+    "propertyAddress": "2840 N Cedar Street, Building W",
+    "propertyType": "industrial",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Complete landscape design and installation",
+    "budgetMin": 8114,
+    "budgetMax": 8346,
+    "postedDate": "2025-11-05T04:59:37.264Z",
+    "deadline": "2025-11-14T04:59:37.264Z",
+    "clientId": "client-c6b91cb3-a1bc-47cc-ab93-500667f2c79b",
+    "clientName": "Boyer, Kulas and O'Conner",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 3,
+    "location": {
+      "city": "New Grantport",
+      "state": "WI",
+      "zipCode": "13592"
+    }
+  },
+  {
+    "id": "proj-6",
+    "projectId": "PROJ-0006",
+    "propertyAddress": "15617 Reva Rest Apt. 878",
+    "propertyType": "residential",
+    "serviceCategory": "painting",
+    "projectDescription": "Interior painting project",
+    "budgetMin": 4611,
+    "budgetMax": 5685,
+    "postedDate": "2025-09-19T01:28:28.950Z",
+    "deadline": "2025-09-28T01:28:28.950Z",
+    "clientId": "client-eeb34471-44be-400f-8400-0be4dea78d2a",
+    "clientName": "Greenfelder Inc",
+    "isConfidential": false,
+    "status": "cancelled",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 9,
+    "location": {
+      "city": "Deerfield Beach",
+      "state": "MA",
+      "zipCode": "98886"
+    }
+  },
+  {
+    "id": "proj-7",
+    "projectId": "PROJ-0007",
+    "propertyAddress": "11626 Thompson Road, Building F",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom kitchen cabinet installation",
+    "budgetMin": 11465,
+    "budgetMax": 21087,
+    "postedDate": "2025-10-08T19:50:40.919Z",
+    "deadline": "2025-10-26T19:50:40.919Z",
+    "clientId": "client-144f1dfc-ecb5-4978-8143-091433fb91c3",
+    "clientName": "Huels, Lind and Bayer",
+    "isConfidential": false,
+    "status": "cancelled",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 2,
+    "location": {
+      "city": "Broken Arrow",
+      "state": "WY",
+      "zipCode": "03612"
+    }
+  },
+  {
+    "id": "proj-8",
+    "projectId": "PROJ-0008",
+    "propertyAddress": "779 Kareem Motorway, Building J",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Window and door replacement",
+    "budgetMin": 13421,
+    "budgetMax": 31413,
+    "postedDate": "2025-10-12T02:03:51.136Z",
+    "deadline": "2025-11-02T02:03:51.136Z",
+    "clientId": "client-609c63ad-45cf-4ec0-b5d7-fadb96cf1c67",
+    "clientName": "Kerluke Inc",
+    "isConfidential": false,
+    "status": "closed",
+    "requiredQualifications": [
+      "OSHA certified"
+    ],
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 4,
+    "location": {
+      "city": "South Mohammadchester",
+      "state": "RI",
+      "zipCode": "28590-8734"
+    }
+  },
+  {
+    "id": "proj-9",
+    "projectId": "PROJ-0009",
+    "propertyAddress": "3733 Field Close Suite 144",
+    "propertyType": "residential",
+    "serviceCategory": "painting",
+    "projectDescription": "Multi-unit painting project",
+    "budgetMin": 6437,
+    "budgetMax": 15114,
+    "postedDate": "2025-10-10T22:11:30.252Z",
+    "deadline": "2025-10-19T22:11:30.252Z",
+    "clientId": "client-a4f39198-f1cb-42d2-91f3-a4ba8c7f2c27",
+    "clientName": "Konopelski Group",
+    "isConfidential": false,
+    "status": "in-review",
+    "requiredQualifications": [
+      "5+ years experience",
+      "Bonded and insured",
+      "Licensed contractor"
+    ],
+    "projectTimeline": "ASAP",
+    "numberOfBids": 6,
+    "location": {
+      "city": "Hesselboro",
+      "state": "AR",
+      "zipCode": "89600-3118"
+    }
+  },
+  {
+    "id": "proj-10",
+    "projectId": "PROJ-0010",
+    "propertyAddress": "6502 Johnson Port, Building C",
+    "propertyType": "industrial",
+    "serviceCategory": "painting",
+    "projectDescription": "Commercial building paint job",
+    "budgetMin": 7325,
+    "budgetMax": 10625,
+    "postedDate": "2025-09-19T07:44:28.293Z",
+    "deadline": "2025-10-18T07:44:28.293Z",
+    "startDate": "2025-10-31T07:44:28.293Z",
+    "clientId": "client-36aa0489-f316-41a2-a054-d19996513139",
+    "clientName": "Weber - Mosciski",
+    "isConfidential": false,
+    "status": "awarded",
+    "requiredQualifications": [
+      "5+ years experience",
+      "OSHA certified",
+      "Licensed contractor"
+    ],
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 7,
+    "location": {
+      "city": "Winston-Salem",
+      "state": "GA",
+      "zipCode": "21053-0338"
+    }
+  },
+  {
+    "id": "proj-11",
+    "projectId": "PROJ-0011",
+    "propertyAddress": "14581 Pat Lane, Building D",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "Commercial HVAC maintenance contract",
+    "budgetMin": 14135,
+    "budgetMax": 26481,
+    "postedDate": "2025-10-19T09:32:47.796Z",
+    "deadline": "2025-11-01T09:32:47.796Z",
+    "isConfidential": true,
+    "status": "cancelled",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 3,
+    "location": {
+      "city": "West Dorothyberg",
+      "state": "OR",
+      "zipCode": "85139-8438"
+    }
+  },
+  {
+    "id": "proj-12",
+    "projectId": "PROJ-0012",
+    "propertyAddress": "51951 Martin Luther King Drive Apt. 710",
+    "propertyType": "residential",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Window and door replacement",
+    "budgetMin": 11437,
+    "budgetMax": 23908,
+    "postedDate": "2025-10-18T11:27:44.575Z",
+    "deadline": "2025-11-12T11:27:44.575Z",
+    "isConfidential": true,
+    "status": "open",
+    "requiredQualifications": [
+      "References required",
+      "5+ years experience"
+    ],
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 8,
+    "location": {
+      "city": "Bergnaumfurt",
+      "state": "SD",
+      "zipCode": "10889"
+    }
+  },
+  {
+    "id": "proj-13",
+    "projectId": "PROJ-0013",
+    "propertyAddress": "5819 Connelly Track, Building Q",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "Install central air conditioning",
+    "budgetMin": 8302,
+    "budgetMax": 11986,
+    "postedDate": "2025-11-05T09:05:24.899Z",
+    "deadline": "2025-12-02T09:05:24.899Z",
+    "clientId": "client-00f5aff6-5e1a-4471-b6ac-7fb95b680147",
+    "clientName": "Quitzon, Okuneva and Lubowitz",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "ASAP",
+    "numberOfBids": 3,
+    "location": {
+      "city": "Delmertown",
+      "state": "NE",
+      "zipCode": "78578"
+    }
+  },
+  {
+    "id": "proj-14",
+    "projectId": "PROJ-0014",
+    "propertyAddress": "9536 Market Street, Building S",
+    "propertyType": "industrial",
+    "serviceCategory": "plumbing",
+    "projectDescription": "Emergency plumbing repairs needed",
+    "budgetMin": 6140,
+    "budgetMax": 14810,
+    "postedDate": "2025-09-15T15:47:18.686Z",
+    "deadline": "2025-09-27T15:47:18.686Z",
+    "clientId": "client-89cf8bc8-5856-4f69-8aa1-27ba9206000c",
+    "clientName": "Hauck and Sons",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 19,
+    "location": {
+      "city": "Novato",
+      "state": "GA",
+      "zipCode": "59301"
+    }
+  },
+  {
+    "id": "proj-15",
+    "projectId": "PROJ-0015",
+    "propertyAddress": "89753 N 8th Street, Building F",
+    "propertyType": "industrial",
+    "serviceCategory": "painting",
+    "projectDescription": "Commercial building paint job",
+    "budgetMin": 5420,
+    "budgetMax": 10126,
+    "postedDate": "2025-09-19T11:27:43.817Z",
+    "deadline": "2025-10-01T11:27:43.817Z",
+    "clientId": "client-d70fbaa6-b0f9-4980-bf84-2985e271dcc3",
+    "clientName": "Wolf Inc",
+    "isConfidential": false,
+    "status": "cancelled",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 20,
+    "location": {
+      "city": "New Fausto",
+      "state": "NH",
+      "zipCode": "24113-5269"
+    }
+  },
+  {
+    "id": "proj-16",
+    "projectId": "PROJ-0016",
+    "propertyAddress": "364 Pine Grove, Suite 842",
+    "propertyType": "commercial",
+    "serviceCategory": "hvac",
+    "projectDescription": "HVAC system replacement project",
+    "budgetMin": 13976,
+    "budgetMax": 20215,
+    "postedDate": "2025-10-23T17:44:00.672Z",
+    "deadline": "2025-11-17T17:44:00.672Z",
+    "clientId": "client-5a98a6f3-7e34-4b7f-a5eb-c15a97973350",
+    "clientName": "Wilkinson, Harvey and Feil",
+    "isConfidential": false,
+    "status": "in-review",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 9,
+    "location": {
+      "city": "Lindside",
+      "state": "OR",
+      "zipCode": "45156"
+    }
+  },
+  {
+    "id": "proj-17",
+    "projectId": "PROJ-0017",
+    "propertyAddress": "2709 Abbott River Apt. 467",
+    "propertyType": "residential",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Lawn installation and maintenance",
+    "budgetMin": 5892,
+    "budgetMax": 10296,
+    "postedDate": "2025-10-28T14:14:58.435Z",
+    "deadline": "2025-11-26T14:14:58.435Z",
+    "clientId": "client-772a30de-2641-4142-a028-bdc61aa1ce53",
+    "clientName": "Lesch LLC",
+    "isConfidential": false,
+    "status": "in-review",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 18,
+    "location": {
+      "city": "Joshuahbury",
+      "state": "LA",
+      "zipCode": "96272-5869"
+    }
+  },
+  {
+    "id": "proj-18",
+    "projectId": "PROJ-0018",
+    "propertyAddress": "6364 Nadia Course Suite 300",
+    "propertyType": "residential",
+    "serviceCategory": "plumbing",
+    "projectDescription": "Emergency plumbing repairs needed",
+    "budgetMin": 4313,
+    "budgetMax": 8467,
+    "postedDate": "2025-09-12T15:48:11.302Z",
+    "deadline": "2025-09-21T15:48:11.302Z",
+    "clientId": "client-0ffabc5b-0f39-4ad4-9046-0456492a157a",
+    "clientName": "Gislason Inc",
+    "isConfidential": false,
+    "status": "open",
+    "requiredQualifications": [
+      "Licensed contractor",
+      "5+ years experience",
+      "OSHA certified"
+    ],
+    "projectTimeline": "ASAP",
+    "numberOfBids": 15,
+    "location": {
+      "city": "Cathedral City",
+      "state": "CA",
+      "zipCode": "18956-8870"
+    }
+  },
+  {
+    "id": "proj-19",
+    "projectId": "PROJ-0019",
+    "propertyAddress": "1858 W Center Street, Suite 553",
+    "propertyType": "commercial",
+    "serviceCategory": "hvac",
+    "projectDescription": "Install central air conditioning",
+    "budgetMin": 12518,
+    "budgetMax": 16560,
+    "postedDate": "2025-09-27T08:27:40.446Z",
+    "deadline": "2025-10-13T08:27:40.446Z",
+    "clientId": "client-17ad3fec-e34a-4d63-b831-94d49621c742",
+    "clientName": "Mraz and Sons",
+    "isConfidential": false,
+    "status": "in-review",
+    "requiredQualifications": [
+      "5+ years experience"
+    ],
+    "projectTimeline": "ASAP",
+    "numberOfBids": 12,
+    "location": {
+      "city": "Fort Terencefort",
+      "state": "CA",
+      "zipCode": "92135-3347"
+    }
+  },
+  {
+    "id": "proj-20",
+    "projectId": "PROJ-0020",
+    "propertyAddress": "5597 McCullough Alley, Building O",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "Commercial HVAC maintenance contract",
+    "budgetMin": 11224,
+    "budgetMax": 18074,
+    "postedDate": "2025-10-24T12:58:24.671Z",
+    "deadline": "2025-11-16T12:58:24.671Z",
+    "clientId": "client-c6a5cdcf-b5be-495d-8afe-29d6d3dfaf75",
+    "clientName": "Hickle, Mraz and Stokes",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "ASAP",
+    "numberOfBids": 10,
+    "location": {
+      "city": "Lake Ameliafort",
+      "state": "WV",
+      "zipCode": "46330-2358"
+    }
+  },
+  {
+    "id": "proj-21",
+    "projectId": "PROJ-0021",
+    "propertyAddress": "198 Betty Corner, Suite 834",
+    "propertyType": "commercial",
+    "serviceCategory": "electrical",
+    "projectDescription": "Electrical panel upgrade",
+    "budgetMin": 10217,
+    "budgetMax": 12337,
+    "postedDate": "2025-09-29T01:09:10.720Z",
+    "deadline": "2025-10-13T01:09:10.720Z",
+    "startDate": "2025-10-22T01:09:10.720Z",
+    "isConfidential": true,
+    "status": "awarded",
+    "projectTimeline": "ASAP",
+    "numberOfBids": 13,
+    "location": {
+      "city": "North Roel",
+      "state": "HI",
+      "zipCode": "07832"
+    }
+  },
+  {
+    "id": "proj-22",
+    "projectId": "PROJ-0022",
+    "propertyAddress": "710 1st Avenue, Suite 109",
+    "propertyType": "commercial",
+    "serviceCategory": "electrical",
+    "projectDescription": "Electrical panel upgrade",
+    "budgetMin": 11221,
+    "budgetMax": 19698,
+    "postedDate": "2025-11-08T04:40:02.730Z",
+    "deadline": "2025-12-05T04:40:02.730Z",
+    "startDate": "2025-12-08T04:40:02.730Z",
+    "clientId": "client-9150d429-6a65-4580-8b1d-226a0f5d30a3",
+    "clientName": "Hand Inc",
+    "isConfidential": false,
+    "status": "awarded",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 1,
+    "location": {
+      "city": "Fort Nigel",
+      "state": "AR",
+      "zipCode": "67968"
+    }
+  },
+  {
+    "id": "proj-23",
+    "projectId": "PROJ-0023",
+    "propertyAddress": "339 Edison Mission, Building I",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "HVAC system replacement project",
+    "budgetMin": 9748,
+    "budgetMax": 17923,
+    "postedDate": "2025-10-12T16:48:08.503Z",
+    "deadline": "2025-11-03T16:48:08.503Z",
+    "clientId": "client-f59d32fc-7bf2-4cc9-beb2-ee8a084ba3b7",
+    "clientName": "Conroy - Fay",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "Licensed contractor"
+    ],
+    "projectTimeline": "6+ months",
+    "numberOfBids": 11,
+    "location": {
+      "city": "Port Dallas",
+      "state": "HI",
+      "zipCode": "82198"
+    }
+  },
+  {
+    "id": "proj-24",
+    "projectId": "PROJ-0024",
+    "propertyAddress": "13431 Jaylan Mountain, Suite 415",
+    "propertyType": "commercial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom built-in shelving",
+    "budgetMin": 8667,
+    "budgetMax": 9619,
+    "postedDate": "2025-09-11T10:13:46.882Z",
+    "deadline": "2025-09-20T10:13:46.882Z",
+    "clientId": "client-19e5f7aa-65c8-4633-924a-c5961c95dcbd",
+    "clientName": "Spinka, Dach and O'Keefe",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "References required",
+      "5+ years experience",
+      "Bonded and insured"
+    ],
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 17,
+    "location": {
+      "city": "South Brianneland",
+      "state": "RI",
+      "zipCode": "42142-7239"
+    }
+  },
+  {
+    "id": "proj-25",
+    "projectId": "PROJ-0025",
+    "propertyAddress": "586 Wilhelmine Ville, Building J",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom kitchen cabinet installation",
+    "budgetMin": 9854,
+    "budgetMax": 20746,
+    "postedDate": "2025-10-04T03:04:50.813Z",
+    "deadline": "2025-11-03T03:04:50.813Z",
+    "clientId": "client-22b103ad-77ee-472a-be1c-9b6d3fd6e9c2",
+    "clientName": "Douglas - Huels",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "Bonded and insured",
+      "References required"
+    ],
+    "projectTimeline": "6+ months",
+    "numberOfBids": 20,
+    "location": {
+      "city": "Cormierstad",
+      "state": "KS",
+      "zipCode": "67468"
+    }
+  },
+  {
+    "id": "proj-26",
+    "projectId": "PROJ-0026",
+    "propertyAddress": "292 Nicolas Wall, Building G",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom kitchen cabinet installation",
+    "budgetMin": 7201,
+    "budgetMax": 8207,
+    "postedDate": "2025-09-13T15:58:30.107Z",
+    "deadline": "2025-10-05T15:58:30.107Z",
+    "clientId": "client-e861c357-f5ac-48f8-a684-eda4e6d4dce9",
+    "clientName": "Kiehn - Ortiz",
+    "isConfidential": false,
+    "status": "in-review",
+    "projectTimeline": "3-6 months",
+    "numberOfBids": 10,
+    "location": {
+      "city": "Arlington",
+      "state": "DE",
+      "zipCode": "43008"
+    }
+  },
+  {
+    "id": "proj-27",
+    "projectId": "PROJ-0027",
+    "propertyAddress": "4821 Moss Lane, Building E",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom woodworking project",
+    "budgetMin": 9325,
+    "budgetMax": 21268,
+    "postedDate": "2025-09-14T00:29:11.380Z",
+    "deadline": "2025-09-30T00:29:11.380Z",
+    "isConfidential": true,
+    "status": "closed",
+    "projectTimeline": "6+ months",
+    "numberOfBids": 4,
+    "location": {
+      "city": "Elyseview",
+      "state": "ID",
+      "zipCode": "27688"
+    }
+  },
+  {
+    "id": "proj-28",
+    "projectId": "PROJ-0028",
+    "propertyAddress": "727 Christophe Station, Suite 715",
+    "propertyType": "commercial",
+    "serviceCategory": "plumbing",
+    "projectDescription": "Emergency plumbing repairs needed",
+    "budgetMin": 4454,
+    "budgetMax": 9418,
+    "postedDate": "2025-10-31T07:44:24.135Z",
+    "deadline": "2025-11-21T07:44:24.135Z",
+    "clientId": "client-11e98189-89a3-4f04-8358-3d80dc1d8cb5",
+    "clientName": "Gorczany, Paucek and Wyman",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 1,
+    "location": {
+      "city": "Lillyside",
+      "state": "IL",
+      "zipCode": "88815-6897"
+    }
+  },
+  {
+    "id": "proj-29",
+    "projectId": "PROJ-0029",
+    "propertyAddress": "7882 Turner Grove, Building F",
+    "propertyType": "industrial",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom woodworking project",
+    "budgetMin": 8617,
+    "budgetMax": 18786,
+    "postedDate": "2025-09-23T05:22:42.850Z",
+    "deadline": "2025-10-16T05:22:42.850Z",
+    "clientId": "client-42c3af5e-2b44-4471-ad41-926cd7892f45",
+    "clientName": "Denesik, Weimann and Cremin",
+    "isConfidential": false,
+    "status": "in-review",
+    "requiredQualifications": [
+      "Licensed contractor"
+    ],
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 4,
+    "location": {
+      "city": "Hilariostad",
+      "state": "NM",
+      "zipCode": "41041"
+    }
+  },
+  {
+    "id": "proj-30",
+    "projectId": "PROJ-0030",
+    "propertyAddress": "189 N Harrison Street, Suite 896",
+    "propertyType": "commercial",
+    "serviceCategory": "painting",
+    "projectDescription": "Commercial building paint job",
+    "budgetMin": 4871,
+    "budgetMax": 8423,
+    "postedDate": "2025-10-16T13:43:15.074Z",
+    "deadline": "2025-11-08T13:43:15.074Z",
+    "clientId": "client-27311eb1-4508-4fc9-ad9e-b506f8085d3d",
+    "clientName": "Collier - Herman",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "Licensed contractor",
+      "5+ years experience"
+    ],
+    "projectTimeline": "6+ months",
+    "numberOfBids": 18,
+    "location": {
+      "city": "Valentinaberg",
+      "state": "DE",
+      "zipCode": "99951"
+    }
+  },
+  {
+    "id": "proj-31",
+    "projectId": "PROJ-0031",
+    "propertyAddress": "89113 Strosin Hill, Building F",
+    "propertyType": "industrial",
+    "serviceCategory": "painting",
+    "projectDescription": "Multi-unit painting project",
+    "budgetMin": 7017,
+    "budgetMax": 9301,
+    "postedDate": "2025-09-19T17:21:31.172Z",
+    "deadline": "2025-10-13T17:21:31.172Z",
+    "isConfidential": true,
+    "status": "in-review",
+    "requiredQualifications": [
+      "Licensed contractor",
+      "5+ years experience",
+      "References required"
+    ],
+    "projectTimeline": "ASAP",
+    "numberOfBids": 11,
+    "location": {
+      "city": "Harveyboro",
+      "state": "SD",
+      "zipCode": "83386"
+    }
+  },
+  {
+    "id": "proj-32",
+    "projectId": "PROJ-0032",
+    "propertyAddress": "40537 Donny Avenue, Building C",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "Install central air conditioning",
+    "budgetMin": 11421,
+    "budgetMax": 19666,
+    "postedDate": "2025-09-27T03:42:19.292Z",
+    "deadline": "2025-10-27T03:42:19.292Z",
+    "clientId": "client-5a13a999-ae7b-478e-a7e6-0268f1940996",
+    "clientName": "Towne - Koch",
+    "isConfidential": false,
+    "status": "open",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 14,
+    "location": {
+      "city": "Effertzland",
+      "state": "MS",
+      "zipCode": "64726-2794"
+    }
+  },
+  {
+    "id": "proj-33",
+    "projectId": "PROJ-0033",
+    "propertyAddress": "963 Trever Rapid Suite 602",
+    "propertyType": "residential",
+    "serviceCategory": "carpentry",
+    "projectDescription": "Custom built-in shelving",
+    "budgetMin": 8382,
+    "budgetMax": 8780,
+    "postedDate": "2025-10-29T07:38:42.726Z",
+    "deadline": "2025-11-09T07:38:42.726Z",
+    "clientId": "client-a03e45ec-2909-4de8-a326-17ff84145279",
+    "clientName": "Altenwerth Inc",
+    "isConfidential": false,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "References required",
+      "Licensed contractor",
+      "5+ years experience"
+    ],
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 13,
+    "location": {
+      "city": "Sengerhaven",
+      "state": "MA",
+      "zipCode": "85799-8644"
+    }
+  },
+  {
+    "id": "proj-34",
+    "projectId": "PROJ-0034",
+    "propertyAddress": "5104 The Orchard, Building K",
+    "propertyType": "industrial",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Seasonal landscaping project",
+    "budgetMin": 6966,
+    "budgetMax": 13657,
+    "postedDate": "2025-10-14T19:47:58.710Z",
+    "deadline": "2025-10-21T19:47:58.710Z",
+    "startDate": "2025-11-10T19:47:58.710Z",
+    "clientId": "client-cfa5f2f7-813e-47d5-aa3b-8bfaf8479b87",
+    "clientName": "Paucek LLC",
+    "isConfidential": false,
+    "status": "awarded",
+    "requiredQualifications": [
+      "5+ years experience",
+      "OSHA certified",
+      "References required"
+    ],
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 13,
+    "location": {
+      "city": "Brownsville",
+      "state": "AL",
+      "zipCode": "15426-8659"
+    }
+  },
+  {
+    "id": "proj-35",
+    "projectId": "PROJ-0035",
+    "propertyAddress": "788 Giuseppe Brook, Building U",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "HVAC system replacement project",
+    "budgetMin": 9379,
+    "budgetMax": 13228,
+    "postedDate": "2025-11-01T11:01:41.597Z",
+    "deadline": "2025-11-25T11:01:41.597Z",
+    "isConfidential": true,
+    "status": "cancelled",
+    "requiredQualifications": [
+      "References required",
+      "Licensed contractor"
+    ],
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 6,
+    "location": {
+      "city": "Baltimore",
+      "state": "CO",
+      "zipCode": "53894"
+    }
+  },
+  {
+    "id": "proj-36",
+    "projectId": "PROJ-0036",
+    "propertyAddress": "10869 S 5th Street, Building K",
+    "propertyType": "industrial",
+    "serviceCategory": "plumbing",
+    "projectDescription": "Emergency plumbing repairs needed",
+    "budgetMin": 6606,
+    "budgetMax": 9715,
+    "postedDate": "2025-10-27T09:29:36.382Z",
+    "deadline": "2025-11-09T09:29:36.382Z",
+    "clientId": "client-57d6a342-3ac5-4017-b0ca-307b0d4d3329",
+    "clientName": "Littel, Kiehn and Leuschke",
+    "isConfidential": false,
+    "status": "closed",
+    "projectTimeline": "1-2 months",
+    "numberOfBids": 3,
+    "location": {
+      "city": "Port Rosalindworth",
+      "state": "LA",
+      "zipCode": "42009-7757"
+    }
+  },
+  {
+    "id": "proj-37",
+    "projectId": "PROJ-0037",
+    "propertyAddress": "6820 Kayla Ways Apt. 606",
+    "propertyType": "residential",
+    "serviceCategory": "electrical",
+    "projectDescription": "Complete electrical rewiring",
+    "budgetMin": 11864,
+    "budgetMax": 28644,
+    "postedDate": "2025-10-17T04:42:47.129Z",
+    "deadline": "2025-11-01T04:42:47.129Z",
+    "isConfidential": true,
+    "status": "in-review",
+    "projectTimeline": "2-4 weeks",
+    "numberOfBids": 8,
+    "location": {
+      "city": "North Lauderdale",
+      "state": "VA",
+      "zipCode": "69873"
+    }
+  },
+  {
+    "id": "proj-38",
+    "projectId": "PROJ-0038",
+    "propertyAddress": "27788 Clotilde Points, Building H",
+    "propertyType": "industrial",
+    "serviceCategory": "landscaping",
+    "projectDescription": "Lawn installation and maintenance",
+    "budgetMin": 7632,
+    "budgetMax": 8059,
+    "postedDate": "2025-10-20T07:18:37.315Z",
+    "deadline": "2025-11-02T07:18:37.315Z",
+    "clientId": "client-de1d8d5e-1fe6-4052-9297-f1c22be790f7",
+    "clientName": "Johnston, Weissnat and Weimann",
+    "isConfidential": false,
+    "status": "in-review",
+    "projectTimeline": "ASAP",
+    "numberOfBids": 20,
+    "location": {
+      "city": "Anchorage",
+      "state": "MO",
+      "zipCode": "74836-4690"
+    }
+  },
+  {
+    "id": "proj-39",
+    "projectId": "PROJ-0039",
+    "propertyAddress": "1342 N 2nd Street, Building R",
+    "propertyType": "industrial",
+    "serviceCategory": "hvac",
+    "projectDescription": "HVAC system replacement project",
+    "budgetMin": 14001,
+    "budgetMax": 27019,
+    "postedDate": "2025-09-21T10:16:38.531Z",
+    "deadline": "2025-10-18T10:16:38.531Z",
+    "clientId": "client-8b0b92fa-085c-45ef-a9c7-5c54b7bdef9a",
+    "clientName": "Luettgen - Mitchell",
+    "isConfidential": false,
+    "status": "in-review",
+    "projectTimeline": "6+ months",
+    "numberOfBids": 14,
+    "location": {
+      "city": "Lake Baronfield",
+      "state": "MD",
+      "zipCode": "67581"
+    }
+  },
+  {
+    "id": "proj-40",
+    "projectId": "PROJ-0040",
+    "propertyAddress": "121 Roslyn Wall Suite 201",
+    "propertyType": "residential",
+    "serviceCategory": "electrical",
+    "projectDescription": "Commercial electrical work",
+    "budgetMin": 9676,
+    "budgetMax": 18910,
+    "postedDate": "2025-09-18T04:02:20.819Z",
+    "deadline": "2025-09-25T04:02:20.819Z",
+    "isConfidential": true,
+    "status": "closed",
+    "projectTimeline": "3-6 months",
+    "numberOfBids": 17,
+    "location": {
+      "city": "Wisokystad",
+      "state": "WY",
+      "zipCode": "27050-8205"
+    }
+  }
+]

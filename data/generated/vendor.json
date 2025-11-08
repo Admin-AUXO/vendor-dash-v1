@@ -1,0 +1,27 @@
+{
+  "id": "vendor-1",
+  "companyName": "Hansen Inc",
+  "contactName": "Florence Schaden",
+  "email": "Reta.Keebler-Barrows91@gmail.com",
+  "phone": "921.615.9958 x657",
+  "address": "9169 Labadie Views Suite 612",
+  "city": "Antoniettafort",
+  "state": "WY",
+  "zipCode": "13544-3573",
+  "serviceCategories": [
+    "landscaping",
+    "appliance",
+    "plumbing",
+    "hvac",
+    "painting",
+    "carpentry"
+  ],
+  "rating": 4.5,
+  "totalProjects": 272,
+  "completedProjects": 192,
+  "activeWorkOrders": 8,
+  "totalEarnings": 721627,
+  "membershipType": "pro",
+  "status": "active",
+  "createdAt": "2024-03-22T19:09:44.909Z"
+}

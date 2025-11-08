@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Loader2, Sparkles, Zap, TrendingUp, Database, Layers, BarChart3 } from 'lucide-react';
 import { cn } from '../ui/utils';
 

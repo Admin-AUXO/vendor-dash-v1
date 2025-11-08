@@ -10,14 +10,6 @@ const __dirname = dirname(__filename)
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
   base: '/vendor-dash-v1/',
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './'),
-      // Note: Faker is still needed because data is generated at import time.
-      // For production, consider pre-generating data as JSON and moving faker to devDependencies.
-      // This would eliminate the 2.4MB faker bundle from production.
-    },
-  },
   build: {
     rollupOptions: {
       output: {
@@ -54,12 +46,7 @@ export default defineConfig(({ mode }) => ({
             return 'vendor-export';
           }
           
-          // Split Faker (data generation - keep separate for potential tree-shaking)
-          // Note: Faker is large (2.4MB). For production, consider pre-generating data
-          // and moving faker to devDependencies
-          if (id.includes('@faker-js') || id.includes('/faker') || id.includes('\\faker')) {
-            return 'vendor-faker';
-          }
+          // Note: Faker has been removed - data is now pre-generated as JSON files
           
           // Split date-fns (used frequently but can be separate)
           if (id.includes('date-fns')) {
@@ -106,11 +93,16 @@ export default defineConfig(({ mode }) => ({
     },
     chunkSizeWarningLimit: 600,
   },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './'),
+    },
+    // Ensure React is deduped to prevent multiple instances
+    dedupe: ['react', 'react-dom'],
+  },
   optimizeDeps: {
-    // Exclude faker from dependency optimization
-    // Note: Faker will still be bundled because data generation happens at import time
-    // To fully exclude it, pre-generate data as JSON files and move faker to devDependencies
-    exclude: ['@faker-js/faker'],
+    // Ensure React is properly resolved and optimized
+    include: ['react', 'react-dom'],
   },
 }))
 

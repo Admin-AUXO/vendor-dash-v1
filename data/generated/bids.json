@@ -1,0 +1,939 @@
+[
+  {
+    "id": "bid-1",
+    "bidId": "BID-0001",
+    "projectId": "proj-22",
+    "vendorId": "vendor-1",
+    "proposedCost": 21373,
+    "costBreakdown": {
+      "materials": 10259,
+      "labor": 9404,
+      "other": 1710
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-25T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "status": "rejected",
+    "submittedDate": "2025-11-08T06:10:09.985Z",
+    "reviewedDate": "2025-11-08T07:29:26.751Z",
+    "clientResponse": "Thank you for your bid, but we have selected another vendor.",
+    "winningBidAmount": 24106
+  },
+  {
+    "id": "bid-2",
+    "bidId": "BID-0002",
+    "projectId": "proj-1",
+    "vendorId": "vendor-1",
+    "proposedCost": 12856,
+    "costBreakdown": {
+      "materials": 4628,
+      "labor": 6685,
+      "other": 1543
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-17T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "notes": "Tantillus ea id claustrum animus bonus molestias ex deorsum abbas.",
+    "status": "accepted",
+    "submittedDate": "2025-11-05T12:23:03.045Z",
+    "reviewedDate": "2025-11-07T05:53:25.454Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-3",
+    "bidId": "BID-0003",
+    "projectId": "proj-21",
+    "vendorId": "vendor-1",
+    "proposedCost": 8944,
+    "costBreakdown": {
+      "materials": 3309,
+      "labor": 4293,
+      "other": 1342
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-23T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "notes": "Abutor defleo beatae vetus vespillo vilis textus abbas argumentum copia.",
+    "status": "accepted",
+    "submittedDate": "2025-10-15T19:46:05.915Z",
+    "reviewedDate": "2025-10-16T07:17:41.506Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-4",
+    "bidId": "BID-0004",
+    "projectId": "proj-31",
+    "vendorId": "vendor-1",
+    "proposedCost": 9757,
+    "costBreakdown": {
+      "materials": 3805,
+      "labor": 4683,
+      "other": 1268
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-28T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "status": "pending",
+    "submittedDate": "2025-10-02T18:12:09.886Z"
+  },
+  {
+    "id": "bid-5",
+    "bidId": "BID-0005",
+    "projectId": "proj-21",
+    "vendorId": "vendor-1",
+    "proposedCost": 11809,
+    "costBreakdown": {
+      "materials": 5078,
+      "labor": 4842,
+      "other": 1889
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-12-03T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "accepted",
+    "submittedDate": "2025-10-09T12:30:32.418Z",
+    "reviewedDate": "2025-11-02T21:54:27.021Z",
+    "clientResponse": "We are pleased to inform you that your bid has been selected."
+  },
+  {
+    "id": "bid-6",
+    "bidId": "BID-0006",
+    "projectId": "proj-14",
+    "vendorId": "vendor-1",
+    "proposedCost": 14266,
+    "costBreakdown": {
+      "materials": 5849,
+      "labor": 7561,
+      "other": 856
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-21T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "notes": "Ulciscor uberrime aspernatur decimus adamo appositus urbanus volva defetiscor conatus.",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-09T23:34:41.269Z"
+  },
+  {
+    "id": "bid-7",
+    "bidId": "BID-0007",
+    "projectId": "proj-38",
+    "vendorId": "vendor-1",
+    "proposedCost": 8002,
+    "costBreakdown": {
+      "materials": 3041,
+      "labor": 4081,
+      "other": 880
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-22T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Solum deleo triduana.",
+    "status": "under-review",
+    "submittedDate": "2025-11-01T04:02:35.441Z",
+    "reviewedDate": "2025-11-02T12:15:45.127Z"
+  },
+  {
+    "id": "bid-8",
+    "bidId": "BID-0008",
+    "projectId": "proj-12",
+    "vendorId": "vendor-1",
+    "proposedCost": 22576,
+    "costBreakdown": {
+      "materials": 10385,
+      "labor": 10611,
+      "other": 1580
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-12T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Cruciamentum derideo calcar clarus optio carpo theatrum autem.",
+    "status": "pending",
+    "submittedDate": "2025-10-25T03:53:11.729Z"
+  },
+  {
+    "id": "bid-9",
+    "bidId": "BID-0009",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 7338,
+    "costBreakdown": {
+      "materials": 2935,
+      "labor": 3375,
+      "other": 1027
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-14T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Angulus corporis stipes.",
+    "status": "accepted",
+    "submittedDate": "2025-11-06T13:07:20.542Z",
+    "reviewedDate": "2025-11-08T05:28:34.044Z",
+    "clientResponse": "We are pleased to inform you that your bid has been selected."
+  },
+  {
+    "id": "bid-10",
+    "bidId": "BID-0010",
+    "projectId": "proj-20",
+    "vendorId": "vendor-1",
+    "proposedCost": 9404,
+    "costBreakdown": {
+      "materials": 3950,
+      "labor": 5078,
+      "other": 376
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-25T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Cado sumo theatrum thorax versus attollo cui derelinquo subnecto absum.",
+    "status": "accepted",
+    "submittedDate": "2025-10-28T06:09:41.314Z",
+    "reviewedDate": "2025-11-01T08:25:50.239Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-11",
+    "bidId": "BID-0011",
+    "projectId": "proj-10",
+    "vendorId": "vendor-1",
+    "proposedCost": 8149,
+    "costBreakdown": {
+      "materials": 2852,
+      "labor": 3260,
+      "other": 2037
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-13T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Adstringo defessus coadunatio centum ultra combibo cenaculum alius eveniet teneo.",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-20T00:49:48.472Z"
+  },
+  {
+    "id": "bid-12",
+    "bidId": "BID-0012",
+    "projectId": "proj-34",
+    "vendorId": "vendor-1",
+    "proposedCost": 14346,
+    "costBreakdown": {
+      "materials": 5021,
+      "labor": 6886,
+      "other": 2439
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-28T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "status": "pending",
+    "submittedDate": "2025-11-07T12:03:29.218Z"
+  },
+  {
+    "id": "bid-13",
+    "bidId": "BID-0013",
+    "projectId": "proj-31",
+    "vendorId": "vendor-1",
+    "proposedCost": 6474,
+    "costBreakdown": {
+      "materials": 2719,
+      "labor": 2978,
+      "other": 777
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-14T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Degero audax temporibus una.",
+    "status": "under-review",
+    "submittedDate": "2025-09-28T09:02:30.085Z",
+    "reviewedDate": "2025-10-01T17:50:30.402Z"
+  },
+  {
+    "id": "bid-14",
+    "bidId": "BID-0014",
+    "projectId": "proj-17",
+    "vendorId": "vendor-1",
+    "proposedCost": 8512,
+    "costBreakdown": {
+      "materials": 3660,
+      "labor": 3745,
+      "other": 1107
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-14T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "status": "pending",
+    "submittedDate": "2025-11-08T04:24:34.569Z"
+  },
+  {
+    "id": "bid-15",
+    "bidId": "BID-0015",
+    "projectId": "proj-31",
+    "vendorId": "vendor-1",
+    "proposedCost": 9191,
+    "costBreakdown": {
+      "materials": 3493,
+      "labor": 3860,
+      "other": 1838
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-13T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "notes": "Videlicet ullam venustas alienus ait vapulus minima.",
+    "status": "pending",
+    "submittedDate": "2025-09-27T04:19:48.929Z"
+  },
+  {
+    "id": "bid-16",
+    "bidId": "BID-0016",
+    "projectId": "proj-19",
+    "vendorId": "vendor-1",
+    "proposedCost": 17014,
+    "costBreakdown": {
+      "materials": 6976,
+      "labor": 9358,
+      "other": 681
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-13T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "status": "accepted",
+    "submittedDate": "2025-10-21T16:35:41.850Z",
+    "reviewedDate": "2025-10-24T18:58:58.109Z",
+    "clientResponse": "We are pleased to inform you that your bid has been selected."
+  },
+  {
+    "id": "bid-17",
+    "bidId": "BID-0017",
+    "projectId": "proj-19",
+    "vendorId": "vendor-1",
+    "proposedCost": 14394,
+    "costBreakdown": {
+      "materials": 5326,
+      "labor": 6333,
+      "other": 2735
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-24T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Crur aestivus uxor vulgivagus abundans confido calculus dolorum.",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-01T05:16:29.096Z"
+  },
+  {
+    "id": "bid-18",
+    "bidId": "BID-0018",
+    "projectId": "proj-13",
+    "vendorId": "vendor-1",
+    "proposedCost": 11285,
+    "costBreakdown": {
+      "materials": 4063,
+      "labor": 5417,
+      "other": 1806
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-23T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Tibi sodalitas cometes villa contigo.",
+    "status": "rejected",
+    "submittedDate": "2025-11-07T05:50:14.725Z",
+    "reviewedDate": "2025-11-08T04:32:41.625Z",
+    "clientResponse": "Unfortunately, your bid was not selected for this project.",
+    "winningBidAmount": 10605
+  },
+  {
+    "id": "bid-19",
+    "bidId": "BID-0019",
+    "projectId": "proj-22",
+    "vendorId": "vendor-1",
+    "proposedCost": 17437,
+    "costBreakdown": {
+      "materials": 6626,
+      "labor": 6975,
+      "other": 3836
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-14T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Defleo textor una addo tabula aegrus.",
+    "status": "rejected",
+    "submittedDate": "2025-11-08T08:38:36.905Z",
+    "reviewedDate": "2025-11-08T10:46:03.347Z",
+    "clientResponse": "Thank you for your bid, but we have selected another vendor.",
+    "winningBidAmount": 14489
+  },
+  {
+    "id": "bid-20",
+    "bidId": "BID-0020",
+    "projectId": "proj-34",
+    "vendorId": "vendor-1",
+    "proposedCost": 13210,
+    "costBreakdown": {
+      "materials": 6077,
+      "labor": 6077,
+      "other": 1057
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-10T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "status": "pending",
+    "submittedDate": "2025-10-17T21:44:00.633Z"
+  },
+  {
+    "id": "bid-21",
+    "bidId": "BID-0021",
+    "projectId": "proj-10",
+    "vendorId": "vendor-1",
+    "proposedCost": 11430,
+    "costBreakdown": {
+      "materials": 4915,
+      "labor": 5944,
+      "other": 572
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-22T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Tibi capillus ventus clementia utor barba accedo tredecim.",
+    "status": "under-review",
+    "submittedDate": "2025-10-04T22:41:01.993Z",
+    "reviewedDate": "2025-11-03T19:57:21.658Z"
+  },
+  {
+    "id": "bid-22",
+    "bidId": "BID-0022",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 9089,
+    "costBreakdown": {
+      "materials": 4090,
+      "labor": 3908,
+      "other": 1091
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-24T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "status": "rejected",
+    "submittedDate": "2025-11-07T07:44:50.064Z",
+    "reviewedDate": "2025-11-08T11:24:08.735Z",
+    "clientResponse": "We appreciate your proposal, but we decided to go with a different approach.",
+    "winningBidAmount": 8565
+  },
+  {
+    "id": "bid-23",
+    "bidId": "BID-0023",
+    "projectId": "proj-18",
+    "vendorId": "vendor-1",
+    "proposedCost": 5549,
+    "costBreakdown": {
+      "materials": 2275,
+      "labor": 2608,
+      "other": 666
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-28T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Velit verus accommodo advenio termes adopto odio corrumpo.",
+    "status": "accepted",
+    "submittedDate": "2025-10-16T13:54:17.832Z",
+    "reviewedDate": "2025-10-17T02:58:50.227Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-24",
+    "bidId": "BID-0024",
+    "projectId": "proj-19",
+    "vendorId": "vendor-1",
+    "proposedCost": 11423,
+    "costBreakdown": {
+      "materials": 5483,
+      "labor": 5712,
+      "other": 228
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-17T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "pending",
+    "submittedDate": "2025-10-13T00:49:56.813Z"
+  },
+  {
+    "id": "bid-25",
+    "bidId": "BID-0025",
+    "projectId": "proj-3",
+    "vendorId": "vendor-1",
+    "proposedCost": 10816,
+    "costBreakdown": {
+      "materials": 4759,
+      "labor": 5408,
+      "other": 649
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-08T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "notes": "Callide suspendo ustilo.",
+    "status": "accepted",
+    "submittedDate": "2025-10-19T12:04:00.490Z",
+    "reviewedDate": "2025-11-06T11:05:45.630Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-26",
+    "bidId": "BID-0026",
+    "projectId": "proj-3",
+    "vendorId": "vendor-1",
+    "proposedCost": 10214,
+    "costBreakdown": {
+      "materials": 4903,
+      "labor": 5413,
+      "other": -102
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-18T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-24T03:13:45.858Z"
+  },
+  {
+    "id": "bid-27",
+    "bidId": "BID-0027",
+    "projectId": "proj-39",
+    "vendorId": "vendor-1",
+    "proposedCost": 15652,
+    "costBreakdown": {
+      "materials": 7669,
+      "labor": 7200,
+      "other": 783
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-21T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "status": "under-review",
+    "submittedDate": "2025-10-20T12:10:50.762Z",
+    "reviewedDate": "2025-10-23T01:34:19.722Z"
+  },
+  {
+    "id": "bid-28",
+    "bidId": "BID-0028",
+    "projectId": "proj-39",
+    "vendorId": "vendor-1",
+    "proposedCost": 21725,
+    "costBreakdown": {
+      "materials": 9342,
+      "labor": 9342,
+      "other": 3042
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-18T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "notes": "Deprimo curtus defleo curto ex depopulo torqueo.",
+    "status": "under-review",
+    "submittedDate": "2025-11-02T11:12:58.348Z",
+    "reviewedDate": "2025-11-06T08:18:26.786Z"
+  },
+  {
+    "id": "bid-29",
+    "bidId": "BID-0029",
+    "projectId": "proj-13",
+    "vendorId": "vendor-1",
+    "proposedCost": 9466,
+    "costBreakdown": {
+      "materials": 3881,
+      "labor": 5112,
+      "other": 473
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-07T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "accepted",
+    "submittedDate": "2025-11-05T12:33:16.780Z",
+    "reviewedDate": "2025-11-07T08:55:00.136Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-30",
+    "bidId": "BID-0030",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 8563,
+    "costBreakdown": {
+      "materials": 3425,
+      "labor": 4453,
+      "other": 685
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-29T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Audax contabesco ipsa depereo.",
+    "status": "rejected",
+    "submittedDate": "2025-11-06T05:53:40.456Z",
+    "reviewedDate": "2025-11-07T20:12:49.511Z",
+    "clientResponse": "Thank you for your bid, but we have selected another vendor.",
+    "winningBidAmount": 7224
+  },
+  {
+    "id": "bid-31",
+    "bidId": "BID-0031",
+    "projectId": "proj-3",
+    "vendorId": "vendor-1",
+    "proposedCost": 11581,
+    "costBreakdown": {
+      "materials": 4632,
+      "labor": 4980,
+      "other": 1969
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-17T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Ulterius torqueo constans decet voluptatibus ver volutabrum.",
+    "status": "under-review",
+    "submittedDate": "2025-10-16T15:14:55.030Z",
+    "reviewedDate": "2025-10-23T08:30:21.399Z"
+  },
+  {
+    "id": "bid-32",
+    "bidId": "BID-0032",
+    "projectId": "proj-14",
+    "vendorId": "vendor-1",
+    "proposedCost": 6079,
+    "costBreakdown": {
+      "materials": 3040,
+      "labor": 3343,
+      "other": -304
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-12-04T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Cupiditas defendo credo cuius corona atrox campana cattus.",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-10T21:38:45.901Z"
+  },
+  {
+    "id": "bid-33",
+    "bidId": "BID-0033",
+    "projectId": "proj-38",
+    "vendorId": "vendor-1",
+    "proposedCost": 7092,
+    "costBreakdown": {
+      "materials": 2766,
+      "labor": 3617,
+      "other": 709
+    },
+    "estimatedTimeline": "3-6 months",
+    "startDateAvailability": "2025-11-23T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Unde cogito dolore collum.",
+    "status": "withdrawn",
+    "submittedDate": "2025-11-04T02:58:42.794Z"
+  },
+  {
+    "id": "bid-34",
+    "bidId": "BID-0034",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 4727,
+    "costBreakdown": {
+      "materials": 1702,
+      "labor": 2600,
+      "other": 425
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-12-02T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "status": "rejected",
+    "submittedDate": "2025-11-01T23:30:30.364Z",
+    "reviewedDate": "2025-11-04T06:48:51.963Z",
+    "clientResponse": "Thank you for your bid, but we have selected another vendor.",
+    "winningBidAmount": 5470
+  },
+  {
+    "id": "bid-35",
+    "bidId": "BID-0035",
+    "projectId": "proj-9",
+    "vendorId": "vendor-1",
+    "proposedCost": 7396,
+    "costBreakdown": {
+      "materials": 3550,
+      "labor": 3106,
+      "other": 740
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-21T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-29T15:05:11.284Z"
+  },
+  {
+    "id": "bid-36",
+    "bidId": "BID-0036",
+    "projectId": "proj-34",
+    "vendorId": "vendor-1",
+    "proposedCost": 5990,
+    "costBreakdown": {
+      "materials": 2576,
+      "labor": 2755,
+      "other": 659
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-05T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "status": "rejected",
+    "submittedDate": "2025-10-25T19:37:30.116Z",
+    "reviewedDate": "2025-11-05T18:40:35.340Z",
+    "clientResponse": "We appreciate your proposal, but we decided to go with a different approach.",
+    "winningBidAmount": 4966
+  },
+  {
+    "id": "bid-37",
+    "bidId": "BID-0037",
+    "projectId": "proj-31",
+    "vendorId": "vendor-1",
+    "proposedCost": 9315,
+    "costBreakdown": {
+      "materials": 4471,
+      "labor": 4658,
+      "other": 186
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-11-14T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "status": "under-review",
+    "submittedDate": "2025-10-14T01:08:30.203Z",
+    "reviewedDate": "2025-10-19T03:26:07.667Z"
+  },
+  {
+    "id": "bid-38",
+    "bidId": "BID-0038",
+    "projectId": "proj-13",
+    "vendorId": "vendor-1",
+    "proposedCost": 7486,
+    "costBreakdown": {
+      "materials": 3668,
+      "labor": 4042,
+      "other": -225
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-12T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "notes": "Stella canonicus conventus solus decimus.",
+    "status": "pending",
+    "submittedDate": "2025-11-08T06:31:04.831Z"
+  },
+  {
+    "id": "bid-39",
+    "bidId": "BID-0039",
+    "projectId": "proj-12",
+    "vendorId": "vendor-1",
+    "proposedCost": 25139,
+    "costBreakdown": {
+      "materials": 11061,
+      "labor": 11815,
+      "other": 2263
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-12-01T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Barba dapifer usitas curriculum sollicito.",
+    "status": "under-review",
+    "submittedDate": "2025-10-18T22:32:54.041Z",
+    "reviewedDate": "2025-10-19T16:03:05.684Z"
+  },
+  {
+    "id": "bid-40",
+    "bidId": "BID-0040",
+    "projectId": "proj-19",
+    "vendorId": "vendor-1",
+    "proposedCost": 15467,
+    "costBreakdown": {
+      "materials": 5877,
+      "labor": 8507,
+      "other": 1083
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-15T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Averto ascit acquiro ipsa aegrus teres sollers cras ducimus.",
+    "status": "pending",
+    "submittedDate": "2025-10-25T11:18:19.432Z"
+  },
+  {
+    "id": "bid-41",
+    "bidId": "BID-0041",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 6207,
+    "costBreakdown": {
+      "materials": 3041,
+      "labor": 3290,
+      "other": -124
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-18T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-31T12:51:23.518Z"
+  },
+  {
+    "id": "bid-42",
+    "bidId": "BID-0042",
+    "projectId": "proj-28",
+    "vendorId": "vendor-1",
+    "proposedCost": 7436,
+    "costBreakdown": {
+      "materials": 3569,
+      "labor": 3867,
+      "other": 0
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-10T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Curto eveniet denego ceno sortitus adhuc vinculum votum canto.",
+    "status": "withdrawn",
+    "submittedDate": "2025-11-04T18:10:55.128Z"
+  },
+  {
+    "id": "bid-43",
+    "bidId": "BID-0043",
+    "projectId": "proj-39",
+    "vendorId": "vendor-1",
+    "proposedCost": 24346,
+    "costBreakdown": {
+      "materials": 10712,
+      "labor": 9982,
+      "other": 3652
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-26T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "status": "accepted",
+    "submittedDate": "2025-09-23T18:20:35.564Z",
+    "reviewedDate": "2025-10-16T22:50:35.995Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-44",
+    "bidId": "BID-0044",
+    "projectId": "proj-12",
+    "vendorId": "vendor-1",
+    "proposedCost": 13186,
+    "costBreakdown": {
+      "materials": 4879,
+      "labor": 5274,
+      "other": 3033
+    },
+    "estimatedTimeline": "1-2 weeks",
+    "startDateAvailability": "2025-11-17T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "notes": "Defluo capitulus umbra totam articulus.",
+    "status": "pending",
+    "submittedDate": "2025-10-28T07:00:37.210Z"
+  },
+  {
+    "id": "bid-45",
+    "bidId": "BID-0045",
+    "projectId": "proj-22",
+    "vendorId": "vendor-1",
+    "proposedCost": 17278,
+    "costBreakdown": {
+      "materials": 7948,
+      "labor": 7775,
+      "other": 1555
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-21T11:24:37.616Z",
+    "paymentTerms": "Net 30 after completion",
+    "notes": "Cauda perferendis admiratio contra cotidie totus contigo.",
+    "status": "rejected",
+    "submittedDate": "2025-11-08T05:16:22.110Z",
+    "reviewedDate": "2025-11-08T06:32:21.815Z",
+    "clientResponse": "Unfortunately, your bid was not selected for this project.",
+    "winningBidAmount": 14143
+  },
+  {
+    "id": "bid-46",
+    "bidId": "BID-0046",
+    "projectId": "proj-21",
+    "vendorId": "vendor-1",
+    "proposedCost": 9718,
+    "costBreakdown": {
+      "materials": 3693,
+      "labor": 4470,
+      "other": 1555
+    },
+    "estimatedTimeline": "2-4 weeks",
+    "startDateAvailability": "2025-11-21T11:24:37.616Z",
+    "paymentTerms": "30% upfront, 70% on completion",
+    "status": "withdrawn",
+    "submittedDate": "2025-10-07T11:50:28.772Z"
+  },
+  {
+    "id": "bid-47",
+    "bidId": "BID-0047",
+    "projectId": "proj-10",
+    "vendorId": "vendor-1",
+    "proposedCost": 8745,
+    "costBreakdown": {
+      "materials": 4023,
+      "labor": 3848,
+      "other": 875
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-05T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Cervus cattus deporto desparatus thermae.",
+    "status": "pending",
+    "submittedDate": "2025-09-24T14:09:11.802Z"
+  },
+  {
+    "id": "bid-48",
+    "bidId": "BID-0048",
+    "projectId": "proj-34",
+    "vendorId": "vendor-1",
+    "proposedCost": 6530,
+    "costBreakdown": {
+      "materials": 2873,
+      "labor": 2808,
+      "other": 849
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-07T11:24:37.616Z",
+    "paymentTerms": "25% upfront, 75% on completion",
+    "notes": "Comparo triduana autem argentum defessus supra.",
+    "status": "rejected",
+    "submittedDate": "2025-10-19T09:31:37.017Z",
+    "reviewedDate": "2025-10-28T10:29:21.152Z",
+    "clientResponse": "We appreciate your proposal, but we decided to go with a different approach.",
+    "winningBidAmount": 5801
+  },
+  {
+    "id": "bid-49",
+    "bidId": "BID-0049",
+    "projectId": "proj-13",
+    "vendorId": "vendor-1",
+    "proposedCost": 11338,
+    "costBreakdown": {
+      "materials": 5215,
+      "labor": 6123,
+      "other": 0
+    },
+    "estimatedTimeline": "2-3 months",
+    "startDateAvailability": "2025-12-02T11:24:37.616Z",
+    "paymentTerms": "Due on completion",
+    "status": "accepted",
+    "submittedDate": "2025-11-06T23:33:09.099Z",
+    "reviewedDate": "2025-11-07T02:10:09.985Z",
+    "clientResponse": "Congratulations! Your bid has been accepted."
+  },
+  {
+    "id": "bid-50",
+    "bidId": "BID-0050",
+    "projectId": "proj-1",
+    "vendorId": "vendor-1",
+    "proposedCost": 8153,
+    "costBreakdown": {
+      "materials": 3995,
+      "labor": 3995,
+      "other": 163
+    },
+    "estimatedTimeline": "1-2 months",
+    "startDateAvailability": "2025-11-18T11:24:37.616Z",
+    "paymentTerms": "50% upfront, 50% on completion",
+    "notes": "Summopere aggero asper stabilis cernuus labore delectus capio libero.",
+    "status": "withdrawn",
+    "submittedDate": "2025-11-03T01:56:06.378Z"
+  }
+]

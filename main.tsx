@@ -6,20 +6,32 @@ import './styles/globals.css'
 // Signal that React is ready to render
 const rootElement = document.getElementById('root')
 if (rootElement) {
-  // Add a data attribute to signal React is initializing
-  rootElement.setAttribute('data-react-ready', 'false')
-  
-  ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-  )
-  
-  // Signal that React has mounted
-  requestAnimationFrame(() => {
-    rootElement.setAttribute('data-react-ready', 'true')
-    // Dispatch custom event for initial loading screen to listen to
-    window.dispatchEvent(new CustomEvent('react-ready'))
-  })
+  try {
+    // Add a data attribute to signal React is initializing
+    rootElement.setAttribute('data-react-ready', 'false')
+    
+    const root = ReactDOM.createRoot(rootElement)
+    
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+    
+    // Signal that React has mounted
+    // Use setTimeout to ensure React has fully initialized
+    setTimeout(() => {
+      rootElement.setAttribute('data-react-ready', 'true')
+      // Dispatch custom event for initial loading screen to listen to
+      window.dispatchEvent(new CustomEvent('react-ready'))
+    }, 0)
+  } catch (error) {
+    console.error('Error initializing React:', error)
+    // Fallback: show error or remove loading screen
+    const initialScreen = document.getElementById('initial-loading-screen')
+    if (initialScreen) {
+      initialScreen.remove()
+    }
+  }
 }
 

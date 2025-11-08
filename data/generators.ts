@@ -590,8 +590,9 @@ export function generateInvoices(workOrders: WorkOrder[], count: number = 40): I
 
     const subtotal = lineItems.reduce((sum, item) => sum + (item.unitPrice * item.quantity), 0);
     const taxAmount = lineItems.reduce((sum, item) => sum + (item.total - (item.unitPrice * item.quantity)), 0);
-    const discount = faker.datatype.boolean({ probability: 0.2 }) 
-      ? faker.number.int({ min: 50, max: Math.round(subtotal * 0.1) })
+    const maxDiscount = Math.round(subtotal * 0.1);
+    const discount = faker.datatype.boolean({ probability: 0.2 }) && maxDiscount >= 50
+      ? faker.number.int({ min: 50, max: maxDiscount })
       : undefined;
     const total = Math.round(subtotal + taxAmount - (discount || 0));
 
